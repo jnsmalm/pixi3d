@@ -1,0 +1,31 @@
+{
+  "name": "pixi3d",
+  "version": "0.1.0",
+  "description": "Render in 3D using PixiJS",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack --env.production",
+    "install": "tsc",
+    "start": "webpack --env --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jnsmalm/pixi3d.git"
+  },
+  "author": "Jens Malmborg <jnsmalm@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jnsmalm/pixi3d/issues"
+  },
+  "homepage": "https://github.com/jnsmalm/pixi3d#readme",
+  "dependencies": {
+    "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "ts-loader": "^6.2.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
+  }
+}
