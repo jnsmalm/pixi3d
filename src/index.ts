@@ -1,3 +1,1 @@
-export function hello() {
-  console.log("hello from pixi3d")
-}
+import "./gltf/loader"
