@@ -1,8 +1,7 @@
-import { Mesh3D, BaseMesh } from "./mesh"
+import { Mesh3D } from "./mesh"
 import { glTFParser } from "./gltf/parser"
-import { GeometryFactory, BasicGeometryFactory } from "./geometry"
-import { BasicShader } from "./shaders/basic"
 import { Container3D } from "./container"
+import { Shader } from "./shader"
 
 export class Model3D extends Container3D {
   constructor(public meshes: Mesh3D[]) {
@@ -12,30 +11,20 @@ export class Model3D extends Container3D {
     }
   }
 
-  static baseMeshCache: { [source: string]: BaseMesh[] } = {}
-  static geometryFactory: GeometryFactory = new BasicGeometryFactory()
-  static shader: PIXI.Shader = new BasicShader()
+  static geometry: { [source: string]: PIXI.Geometry[] } = {}
 
-  static from(source: string, shader?: PIXI.Shader, geometryFactory?: GeometryFactory) {
-    if (!geometryFactory) {
-      geometryFactory = Model3D.geometryFactory
-    }
-    if (!shader) {
-      shader = Model3D.shader
-    }
-    if (!Model3D.baseMeshCache[source]) {
-      Model3D.baseMeshCache[source] = []
+  static from(source: string, shader: Shader) {
+    let geometry = Model3D.geometry[source]
+    if (!geometry) {
+      geometry = Model3D.geometry[source] = []
       let parser = glTFParser.from(source)
       for (let data of parser.getMeshData()) {
-        Model3D.baseMeshCache[source].push({
-          geometry: geometryFactory.create(data),
-          shader: shader
-        })
+        geometry.push(shader.createGeometry(data))
       }
     }
     let meshes: Mesh3D[] = []
-    for (let baseMesh of Model3D.baseMeshCache[source]) {
-      meshes.push(new Mesh3D(baseMesh))
+    for (let geometry of Model3D.geometry[source]) {
+      meshes.push(new Mesh3D(geometry, shader))
     }
     return new Model3D(meshes)
   }

@@ -1,10 +1,5 @@
 import { Container3D } from "./container"
 
-export interface BaseMesh {
-  shader: PIXI.Shader
-  geometry: PIXI.Geometry
-}
-
 export interface MeshData {
   indices: ArrayBuffer,
   positions: ArrayBuffer,
@@ -14,22 +9,9 @@ export interface MeshData {
 export class Mesh3D extends Container3D {
   mesh: PIXI.Mesh
 
-  constructor(private _baseMesh: BaseMesh) {
+  constructor(geometry: PIXI.Geometry, shader: PIXI.Shader) {
     super()
-    this.mesh = this.addChild(new PIXI.Mesh(_baseMesh.geometry, _baseMesh.shader))
-  }
-
-  get baseMesh() {
-    return this._baseMesh
-  }
-
-  set baseMesh(value: BaseMesh) {
-    if (this._baseMesh === value) {
-      return
-    }
-    this._baseMesh = value
-    this.mesh.geometry = value.geometry
-    this.mesh.shader = value.shader
+    this.mesh = this.addChild(new PIXI.Mesh(geometry, shader))
   }
 
   render(renderer: any) {
