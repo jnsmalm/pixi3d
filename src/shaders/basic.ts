@@ -7,8 +7,9 @@ export class BasicShader extends PIXI.Shader {
 const vert = `
   precision mediump float;
   attribute vec3 position;
+  uniform mat4 model;
   void main() {
-    gl_Position = vec4(position, 1.0);
+    gl_Position = model * vec4(position, 1.0);
   }
 `
 

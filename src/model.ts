@@ -2,8 +2,9 @@ import { Mesh3D, BaseMesh } from "./mesh"
 import { glTFParser } from "./gltf/parser"
 import { GeometryFactory, BasicGeometryFactory } from "./geometry"
 import { BasicShader } from "./shaders/basic"
+import { Container3D } from "./container"
 
-export class Model3D extends PIXI.Container {
+export class Model3D extends Container3D {
   constructor(public meshes: Mesh3D[]) {
     super()
     for (let mesh of meshes) {

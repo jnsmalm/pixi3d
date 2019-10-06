@@ -1,3 +1,5 @@
+import { Container3D } from "./container"
+
 export interface BaseMesh {
   shader: PIXI.Shader
   geometry: PIXI.Geometry
@@ -9,7 +11,7 @@ export interface MeshData {
   normals: ArrayBuffer
 }
 
-export class Mesh3D extends PIXI.Container {
+export class Mesh3D extends Container3D {
   mesh: PIXI.Mesh
 
   constructor(private _baseMesh: BaseMesh) {
@@ -28,5 +30,10 @@ export class Mesh3D extends PIXI.Container {
     this._baseMesh = value
     this.mesh.geometry = value.geometry
     this.mesh.shader = value.shader
+  }
+
+  render(renderer: any) {
+    this.mesh.shader.uniforms.model = this.worldTransform
+    super.render(renderer)
   }
 }

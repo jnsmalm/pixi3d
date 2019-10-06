@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/jnsmalm/pixi3d#readme",
   "dependencies": {
+    "@types/gl-matrix": "^2.4.5",
+    "gl-matrix": "^3.1.0",
     "typescript": "^3.6.3"
   },
   "devDependencies": {

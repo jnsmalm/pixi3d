@@ -22,6 +22,7 @@ declare namespace PIXI {
     addIndex(indices: ArrayBuffer): void
   }
   class Shader {
+    uniforms: any
     constructor(program: Program)
   }
   class Program {
@@ -33,6 +34,25 @@ declare namespace PIXI {
     constructor(geometry: PIXI.Geometry, shader: PIXI.Shader)
   }
   class Container {
+    parent?: Container
     addChild(child: any): any
+    render(renderer: any): void
+    updateTransform(): void
+  }
+  class Transform {
+    _localID: number
+    _worldID: number
+    _currentLocalID: number
+    _parentID: number
+    onChange: () => void
+  }
+  class ObservablePoint {
+    _x: number
+    _y: number
+    x: number
+    y: number
+    cb: () => void
+    scope: any
+    constructor(cb: () => void, scope: any, x: number, y: number)
   }
 }
