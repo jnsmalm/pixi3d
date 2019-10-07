@@ -1,8 +1,10 @@
+import { mat4 } from "gl-matrix"
 import { MeshData } from "../mesh"
 import { Shader } from "../shader"
 
 export class BasicShader extends PIXI.Shader implements Shader {
   color = [1, 1, 1]
+  worldTransform = mat4.create()
 
   constructor() {
     super(PIXI.Program.from(vert, frag))
@@ -10,6 +12,7 @@ export class BasicShader extends PIXI.Shader implements Shader {
 
   update() {
     this.uniforms.color = this.color
+    this.uniforms.world = this.worldTransform
   }
 
   createGeometry(data: MeshData) {
@@ -23,9 +26,9 @@ export class BasicShader extends PIXI.Shader implements Shader {
 const vert = `
   precision mediump float;
   attribute vec3 position;
-  uniform mat4 model;
+  uniform mat4 world;
   void main() {
-    gl_Position = model * vec4(position, 1.0);
+    gl_Position = world * vec4(position, 1.0);
   }
 `
 
