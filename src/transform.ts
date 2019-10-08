@@ -1,14 +1,17 @@
 import { vec3, mat4, quat } from "gl-matrix"
 import { ObservablePoint3D } from "./point"
 
-const position = vec3.create()
-const scale = vec3.create()
-const rotation = quat.create()
-
 export class Transform3D extends PIXI.Transform {
   position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
   scale = new ObservablePoint3D(this.onChange, this, 1, 1, 1)
   rotation = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
+
+  localRotation = quat.create()
+  localScale = vec3.create()
+  localPosition = vec3.create()
+  localForward = vec3.create()
+  localUp = vec3.create()
+  localDirection = vec3.create()
 
   /**
    * The world transformation matrix.
@@ -24,10 +27,15 @@ export class Transform3D extends PIXI.Transform {
     if (this._localID === this._currentLocalID) {
       return
     }
-    quat.fromEuler(rotation, this.rotation.x, this.rotation.y, this.rotation.z)
-    vec3.set(scale, this.scale.x, this.scale.y, this.scale.z)
-    vec3.set(position, this.position.x, this.position.y, this.position.z)
-    mat4.fromRotationTranslationScale(this.localTransform, rotation, position, scale)
+    quat.fromEuler(this.localRotation, this.rotation.x, this.rotation.y, this.rotation.z)
+    vec3.set(this.localScale, this.scale.x, this.scale.y, this.scale.z)
+    vec3.set(this.localPosition, this.position.x, this.position.y, this.position.z)
+    mat4.fromRotationTranslationScale(this.localTransform, 
+      this.localRotation, this.localPosition, this.localScale)
+
+    vec3.set(this.localForward, this.localTransform[8], this.localTransform[9], this.localTransform[10])
+    vec3.set(this.localUp, this.localTransform[4], this.localTransform[5], this.localTransform[6])
+    vec3.add(this.localDirection, this.localPosition, this.localForward)
 
     this._parentID = -1
     this._currentLocalID = this._localID

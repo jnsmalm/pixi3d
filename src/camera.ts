@@ -1,26 +1,8 @@
-import { vec3, mat4 } from "gl-matrix"
+import { mat4 } from "gl-matrix"
 import { Transform3D } from "./transform"
 
-class CameraTransform3D extends Transform3D {
-  localPosition = vec3.create()
-  localForward = vec3.create()
-  localUp = vec3.create()
-  localDirection = vec3.create()
-
-  updateLocalTransform() {
-    if (this._localID === this._currentLocalID) {
-      return
-    }
-    super.updateLocalTransform()
-    vec3.set(this.localPosition, this.position.x, this.position.y, this.position.z)
-    vec3.set(this.localForward, this.localTransform[8], this.localTransform[9], this.localTransform[10])
-    vec3.set(this.localUp, this.localTransform[4], this.localTransform[5], this.localTransform[6])
-    vec3.add(this.localDirection, this.localPosition, this.localForward)
-  }
-}
-
 export class Camera3D {
-  transform = new CameraTransform3D()
+  transform = new Transform3D()
 
   private _projection = mat4.create()
   private _view = mat4.create()
