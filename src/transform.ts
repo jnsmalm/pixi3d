@@ -1,9 +1,9 @@
 import { vec3, mat4, quat } from "gl-matrix"
 import { ObservablePoint3D } from "./point"
 
-const rotation = quat.create()
-const scale = vec3.create()
 const position = vec3.create()
+const scale = vec3.create()
+const rotation = quat.create()
 
 export class Transform3D extends PIXI.Transform {
   position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
@@ -13,12 +13,12 @@ export class Transform3D extends PIXI.Transform {
   /**
    * The world transformation matrix.
    */
-  worldTransform: mat4 = mat4.create()
+  worldTransform = mat4.create()
 
   /**
    * The local transformation matrix.
    */
-  localTransform: mat4 = mat4.create()
+  localTransform = mat4.create()
 
   updateLocalTransform() {
     if (this._localID === this._currentLocalID) {
@@ -28,6 +28,7 @@ export class Transform3D extends PIXI.Transform {
     vec3.set(scale, this.scale.x, this.scale.y, this.scale.z)
     vec3.set(position, this.position.x, this.position.y, this.position.z)
     mat4.fromRotationTranslationScale(this.localTransform, rotation, position, scale)
+
     this._parentID = -1
     this._currentLocalID = this._localID
   }

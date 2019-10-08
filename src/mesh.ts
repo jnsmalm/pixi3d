@@ -16,7 +16,7 @@ export class Mesh3D extends Container3D {
   }
 
   render(renderer: any) {
-    this.shader.worldTransform = this.worldTransform
+    this.shader.transform = this.transform
     super.render(renderer)
   }
 }
