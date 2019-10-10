@@ -1,0 +1,164 @@
+{
+  "asset": {
+    "generator": "Modov11.2",
+    "version": "2.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1,
+        2
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Mesh",
+      "mesh": 0
+    },
+    {
+      "name": "Camera",
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9961947202682495,
+        -0.08715574443340302,
+        0.0,
+        0.0,
+        0.08715574443340302,
+        0.9961947202682495,
+        0.0,
+        0.0,
+        0.75,
+        4.0,
+        1.0
+      ],
+      "camera": 0
+    },
+    {
+      "name": "Texture Group"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "indices": 1,
+          "mode": 4,
+          "material": 1,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 2,
+            "TEXCOORD_0": 3
+          }
+        }
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 912,
+      "uri": "cube.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 288
+    },
+    {
+      "buffer": 0,
+      "byteLength": 144,
+      "byteOffset": 288
+    },
+    {
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 432
+    },
+    {
+      "buffer": 0,
+      "byteLength": 192,
+      "byteOffset": 720
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 24,
+      "min": [
+        -0.33500000834465029,
+        -0.33500000834465029,
+        -0.33500000834465029
+      ],
+      "max": [
+        0.33500000834465029,
+        0.33500000834465029,
+        0.33500000834465029
+      ]
+    },
+    {
+      "bufferView": 1,
+      "type": "SCALAR",
+      "componentType": 5125,
+      "count": 36
+    },
+    {
+      "bufferView": 2,
+      "type": "VEC3",
+      "componentType": 5126,
+      "count": 24
+    },
+    {
+      "bufferView": 3,
+      "type": "VEC2",
+      "componentType": 5126,
+      "count": 24
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "metallicFactor": 0.5,
+        "roughnessFactor": 0.5
+      }
+    },
+    {
+      "name": "m_gltf_basic",
+      "emissiveFactor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "alphaMode": "OPAQUE",
+      "doubleSided": false,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.9822505116462708,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallicFactor": 1.0,
+        "roughnessFactor": 0.10000000149011612
+      }
+    }
+  ],
+  "cameras": [
+    {
+      "name": "Camera",
+      "type": "perspective",
+      "perspective": {
+        "znear": 0.01,
+        "yfov": 0.8726
+      }
+    }
+  ]
+}
