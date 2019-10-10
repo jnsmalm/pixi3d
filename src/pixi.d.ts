@@ -31,7 +31,7 @@ declare namespace PIXI {
   class Mesh {
     geometry: PIXI.Geometry
     shader: PIXI.Shader
-    constructor(geometry: PIXI.Geometry, shader: PIXI.Shader)
+    constructor(geometry: PIXI.Geometry, shader: PIXI.Shader, state?: State)
   }
   class Container {
     parent?: Container
@@ -54,5 +54,10 @@ declare namespace PIXI {
     cb: () => void
     scope: any
     constructor(cb: () => void, scope: any, x: number, y: number)
+  }
+  class State {
+    depthTest: boolean
+    clockwiseFrontFace: boolean
+    culling: boolean
   }
 }

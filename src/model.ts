@@ -2,6 +2,7 @@ import { Mesh3D } from "./mesh"
 import { glTFParser } from "./gltf/parser"
 import { Container3D } from "./container"
 import { Shader } from "./shader"
+import { BasicShader } from "./shaders/basic"
 
 export class Model3D extends Container3D {
   constructor(public meshes: Mesh3D[]) {
@@ -13,7 +14,7 @@ export class Model3D extends Container3D {
 
   static geometry: { [source: string]: PIXI.Geometry[] } = {}
 
-  static from(source: string, shader: Shader) {
+  static from(source: string, shader: Shader = new BasicShader()) {
     let geometry = Model3D.geometry[source]
     if (!geometry) {
       geometry = Model3D.geometry[source] = []

@@ -10,12 +10,4 @@ export class Container3D extends PIXI.Container {
   set z(value: number) {
     this.transform.position.z = value
   }
-
-  get localTransform() {
-    return this.transform.localTransform
-  }
-
-  get worldTransform() {
-    return this.transform.worldTransform
-  }
 }
