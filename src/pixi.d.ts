@@ -60,4 +60,7 @@ declare namespace PIXI {
     clockwiseFrontFace: boolean
     culling: boolean
   }
+  class Texture {
+    //
+  }
 }

@@ -4,7 +4,8 @@ import { Container3D } from "./container"
 export interface MeshData {
   indices: ArrayBuffer,
   positions: ArrayBuffer,
-  normals: ArrayBuffer
+  normals: ArrayBuffer,
+  texCoords: ArrayBuffer
 }
 
 const state = new PIXI.State()

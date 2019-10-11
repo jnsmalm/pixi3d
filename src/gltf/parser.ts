@@ -9,9 +9,9 @@ class ArrayBufferFactory {
   }
 
   create(attribute: number): ArrayBuffer {
-    let bufferView = this.descriptor.bufferViews[attribute]
     let accessor = this.descriptor.accessors[attribute]
-    let offset = bufferView.byteOffset || 0
+    let bufferView = this.descriptor.bufferViews[accessor.bufferView || 0]
+    let offset = accessor.byteOffset || 0 + bufferView.byteOffset || 0
     let size = accessor.count * TYPE_SIZES[accessor.type]
     let buffer = this.buffers[bufferView.buffer]
 
@@ -29,7 +29,8 @@ class ArrayBufferFactory {
       case 5123:
         return new Uint16Array(buffer, offset, size)
     }
-    return new Float32Array(0)
+    throw new Error(`PIXI3D: Failed to crete buffer with "
+      ${accessor.componentType}" as component type.`)
   }
 }
 
@@ -58,7 +59,8 @@ export class glTFParser {
       result.push({
         indices: this.getIndices(mesh),
         positions: this.getPositions(mesh),
-        normals: this.getNormals(mesh)
+        normals: this.getNormals(mesh),
+        texCoords: this.getTexCoords(mesh)
       })
     }
     return result
@@ -74,5 +76,9 @@ export class glTFParser {
 
   private getNormals(mesh: any) {
     return this.factory.create(mesh.primitives[0].attributes["NORMAL"])
+  }
+
+  private getTexCoords(mesh: any) {
+    return this.factory.create(mesh.primitives[0].attributes["TEXCOORD_0"])
   }
 }
