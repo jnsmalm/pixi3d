@@ -1,4 +1,6 @@
 import { glTFLoader } from "./loader"
+import { MeshData } from "../mesh"
+import { Transform3D } from "../transform"
 
 const TYPE_SIZES: { [name: string]: number } = {
   SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
@@ -50,20 +52,45 @@ export class glTFParser {
   }
 
   getMeshData() {
-    let result = []
+    let result: MeshData[] = []
     for (let node of this.descriptor.nodes) {
       if (node.mesh === undefined) {
         continue
       }
       let mesh = this.descriptor.meshes[node.mesh]
-      result.push({
+      let data: MeshData = {
+        transform: this.getTransform(node),
         indices: this.getIndices(mesh),
         positions: this.getPositions(mesh),
         normals: this.getNormals(mesh),
         texCoords: this.getTexCoords(mesh)
-      })
+      }
+      result.push(data)
     }
     return result
+  }
+
+  private getTransform(node: any) {
+    let transform = new Transform3D()
+    if (node.matrix) {
+      transform.setFromMatrix(node.matrix)
+    }
+    if (node.translation) {
+      transform.position.set(
+        node.translation[0], node.translation[1], node.translation[2]
+      )
+    }
+    if (node.scale) {
+      transform.scale.set(
+        node.scale[0], node.scale[1], node.scale[2]
+      )
+    }
+    if (node.rotation) {
+      transform.rotation.set(
+        node.rotation[0], node.rotation[1], node.rotation[2], node.rotation[3]
+      )
+    }
+    return transform
   }
 
   private getPositions(mesh: any) {

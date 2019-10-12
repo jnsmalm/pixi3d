@@ -3,30 +3,39 @@ import { glTFParser } from "./gltf/parser"
 import { Container3D } from "./container"
 import { Shader } from "./shader"
 import { BasicShader } from "./shaders/basic"
+import { Transform3D } from "./transform"
+
+interface BaseMesh {
+  transform: Transform3D
+  geometry: PIXI.Geometry
+}
 
 export class Model3D extends Container3D {
-  constructor(public meshes: Mesh3D[]) {
+  constructor(public nodes: Container3D[]) {
     super()
-    for (let mesh of meshes) {
-      this.addChild(mesh)
+    for (let node of nodes) {
+      this.addChild(node)
     }
   }
 
-  static geometry: { [source: string]: PIXI.Geometry[] } = {}
+  static baseMesh: { [source: string]: BaseMesh[] } = {}
 
   static from(source: string, shader: Shader = new BasicShader()) {
-    let geometry = Model3D.geometry[source]
-    if (!geometry) {
-      geometry = Model3D.geometry[source] = []
+    let baseMesh = Model3D.baseMesh[source]
+    if (!baseMesh) {
+      baseMesh = Model3D.baseMesh[source] = []
       let parser = glTFParser.from(source)
       for (let data of parser.getMeshData()) {
-        geometry.push(shader.createGeometry(data))
+        baseMesh.push({
+          geometry: shader.createGeometry(data),
+          transform: data.transform
+        })
       }
     }
-    let meshes: Mesh3D[] = []
-    for (let geometry of Model3D.geometry[source]) {
-      meshes.push(new Mesh3D(geometry, shader))
+    let nodes: Container3D[] = []
+    for (let base of Model3D.baseMesh[source]) {
+      nodes.push(new Mesh3D(base.geometry, shader, base.transform))
     }
-    return new Model3D(meshes)
+    return new Model3D(nodes)
   }
 }
