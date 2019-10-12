@@ -28,7 +28,7 @@ export class Transform3D extends PIXI.Transform {
     if (this._localID === this._currentLocalID) {
       return
     }
-    quat.set(this.localRotation, 
+    quat.set(this.localRotation,
       this.rotation.x, this.rotation.y, this.rotation.z, this.rotation.w)
     vec3.set(this.localScale, this.scale.x, this.scale.y, this.scale.z)
     vec3.set(this.localPosition, this.position.x, this.position.y, this.position.z)
@@ -41,6 +41,12 @@ export class Transform3D extends PIXI.Transform {
 
     this._parentID = -1
     this._currentLocalID = this._localID
+  }
+
+  setFromTransform(transform: Transform3D) {
+    this.position.copyFrom(transform.position)
+    this.scale.copyFrom(transform.scale)
+    this.rotation.copyFrom(transform.rotation)
   }
 
   setFromMatrix(matrix: ArrayLike<number>) {

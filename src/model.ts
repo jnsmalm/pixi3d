@@ -33,8 +33,10 @@ export class Model3D extends Container3D {
       }
     }
     let nodes: Container3D[] = []
-    for (let base of Model3D.baseMesh[source]) {
-      nodes.push(new Mesh3D(base.geometry, shader, base.transform))
+    for (let baseMesh of Model3D.baseMesh[source]) {
+      let mesh = new Mesh3D(baseMesh.geometry, shader)
+      mesh.transform.setFromTransform(baseMesh.transform)
+      nodes.push(mesh)
     }
     return new Model3D(nodes)
   }
