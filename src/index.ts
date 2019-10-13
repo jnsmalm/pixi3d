@@ -1,7 +1,7 @@
 export { glTFLoader } from "./gltf/loader"
 export { glTFParser } from "./gltf/parser"
 export { ObservablePoint3D } from "./point"
-export { ObservableQuanternion } from "./quanternion"
+export { ObservableQuaternion } from "./quaternion"
 export { Transform3D } from "./transform"
 export { Container3D } from "./container"
 export { Camera3D } from "./camera"

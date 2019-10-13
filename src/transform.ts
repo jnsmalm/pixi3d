@@ -1,11 +1,11 @@
 import { vec3, mat4, quat } from "gl-matrix"
-import { ObservableQuanternion } from "./quanternion"
+import { ObservableQuaternion } from "./quaternion"
 import { ObservablePoint3D } from "./point"
 
 export class Transform3D extends PIXI.Transform {
   position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
   scale = new ObservablePoint3D(this.onChange, this, 1, 1, 1)
-  rotation = new ObservableQuanternion(this.onChange, this, 0, 0, 0, 1)
+  rotation = new ObservableQuaternion(this.onChange, this, 0, 0, 0, 1)
 
   localRotation = quat.create()
   localScale = vec3.create()

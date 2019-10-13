@@ -3,7 +3,7 @@ import { quat } from "gl-matrix"
 
 const rotation = quat.create()
 
-export class ObservableQuanternion extends ObservablePoint3D {
+export class ObservableQuaternion extends ObservablePoint3D {
   _w: number
 
   constructor(cb: () => void, scope: any, x = 0, y = 0, z = 0, w = 1) {
@@ -34,11 +34,11 @@ export class ObservableQuanternion extends ObservablePoint3D {
   }
 
   clone(cb: (() => void) | null = null, scope: any) {
-    return new ObservableQuanternion(
+    return new ObservableQuaternion(
       cb || this.cb, scope || this.scope, this._x, this._y, this._z, this._w)
   }
 
-  copyFrom(p: ObservableQuanternion) {
+  copyFrom(p: ObservableQuaternion) {
     if (this._x !== p.x || this._y !== p.y || this._z !== p.z || this._w !== p.w) {
       this._x = p.x
       this._y = p.y
@@ -49,12 +49,12 @@ export class ObservableQuanternion extends ObservablePoint3D {
     return this
   }
 
-  copyTo(p: ObservableQuanternion) {
+  copyTo(p: ObservableQuaternion) {
     p.set(this._x, this._y, this._z, this._w)
     return p
   }
 
-  equals(p: ObservableQuanternion) {
+  equals(p: ObservableQuaternion) {
     return (p.x === this._x) && (p.y === this._y) && (p.z === this._z) && (p.w === this._w)
   }
 
