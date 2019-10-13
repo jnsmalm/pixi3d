@@ -1,6 +1,7 @@
 import { glTFLoader } from "./loader"
-import { MeshData } from "../mesh"
 import { Transform3D } from "../transform"
+import { Animation, AnimationInterpolation } from "../animation"
+import { ModelData, MeshData, NodeData } from "../data"
 
 const TYPE_SIZES: { [name: string]: number } = {
   SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
@@ -51,21 +52,53 @@ export class glTFParser {
     return new glTFParser(resource.descriptor, resource.buffers)
   }
 
-  getMeshData() {
-    let result: MeshData[] = []
+  getModelData() {
+    let result: ModelData = {
+      nodes: [],
+      animations: this.getAnimations()
+    }
     for (let node of this.descriptor.nodes) {
       if (node.mesh === undefined) {
+        result.nodes.push({
+          transform: this.getTransform(node),
+        })
         continue
       }
       let mesh = this.descriptor.meshes[node.mesh]
       let data: MeshData = {
-        transform: this.getTransform(node),
         indices: this.getIndices(mesh),
         positions: this.getPositions(mesh),
         normals: this.getNormals(mesh),
         texCoords: this.getTexCoords(mesh)
       }
-      result.push(data)
+      let modelNode: NodeData = {
+        mesh: data,
+        transform: this.getTransform(node),
+      }
+      result.nodes.push(modelNode)
+    }
+    return result
+  }
+
+  private getAnimations() {
+    if (!this.descriptor.animations) {
+      return []
+    }
+    let result: Animation[] = []
+    for (let animation of this.descriptor.animations) {
+      for (let channel of animation.channels) {
+        let sampler = animation.samplers[channel.sampler]
+        if (sampler.interpolation === AnimationInterpolation.cubicspline) {
+          // Cubic spline interpolation is not yet supported, just skip this 
+          // animation for now.
+          continue
+        }
+        result.push(new Animation(animation.name, 
+          channel.target.node, channel.target.path, sampler.interpolation,
+          this.factory.create(sampler.input) as Float32Array,
+          this.factory.create(sampler.output) as Float32Array
+        ))
+      }
     }
     return result
   }
@@ -98,14 +131,22 @@ export class glTFParser {
   }
 
   private getIndices(mesh: any) {
-    return this.factory.create(mesh.primitives[0].indices)
+    if (mesh.primitives[0].indices !== undefined) {
+      return this.factory.create(mesh.primitives[0].indices)
+    }
   }
 
   private getNormals(mesh: any) {
-    return this.factory.create(mesh.primitives[0].attributes["NORMAL"])
+    let attribute = mesh.primitives[0].attributes["NORMAL"]
+    if (attribute !== undefined) {
+      return this.factory.create(attribute)
+    }
   }
 
   private getTexCoords(mesh: any) {
-    return this.factory.create(mesh.primitives[0].attributes["TEXCOORD_0"])
+    let attribute = mesh.primitives[0].attributes["TEXCOORD_0"]
+    if (attribute !== undefined) {
+      return this.factory.create(attribute)
+    }
   }
 }

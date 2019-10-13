@@ -1,43 +1,58 @@
-import { Mesh3D } from "./mesh"
 import { glTFParser } from "./gltf/parser"
+import { Mesh3D } from "./mesh"
 import { Container3D } from "./container"
 import { Shader } from "./shader"
 import { BasicShader } from "./shaders/basic"
-import { Transform3D } from "./transform"
-
-interface BaseMesh {
-  transform: Transform3D
-  geometry: PIXI.Geometry
-}
+import { Animation, AnimationType, TranslationAnimator, ScaleAnimator, RotationAnimator } from "./animation"
 
 export class Model3D extends Container3D {
-  constructor(public nodes: Container3D[]) {
+  animations: Animation[] = []
+
+  constructor(public nodes: Container3D[], animations?: Animation[]) {
     super()
     for (let node of nodes) {
       this.addChild(node)
     }
+    if (animations) {
+      this.animations.push(...animations)
+    }
   }
 
-  static baseMesh: { [source: string]: BaseMesh[] } = {}
-
   static from(source: string, shader: Shader = new BasicShader()) {
-    let baseMesh = Model3D.baseMesh[source]
-    if (!baseMesh) {
-      baseMesh = Model3D.baseMesh[source] = []
-      let parser = glTFParser.from(source)
-      for (let data of parser.getMeshData()) {
-        baseMesh.push({
-          geometry: shader.createGeometry(data),
-          transform: data.transform
-        })
+    let data = glTFParser.from(source).getModelData()
+    let nodes: Container3D[] = []
+
+    for (let node of data.nodes) {
+      let container = new Container3D()
+      container.transform.setFromTransform(node.transform)
+      if (node.mesh) {
+        container.addChild(new Mesh3D(shader.createGeometry(node.mesh), shader))
+      }
+      nodes.push(container)
+    }
+    return new Model3D(nodes, data.animations)
+  }
+
+  createAnimator(animation: Animation | string) {
+    if (typeof animation === "string") {
+      this.animations.forEach((value) => {
+        if (value.name === animation) {
+          animation = value
+        }
+      })
+      if (typeof animation === "string") {
+        throw new Error(`PIXI3D: Animation "${animation}" does not exist.`)
       }
     }
-    let nodes: Container3D[] = []
-    for (let baseMesh of Model3D.baseMesh[source]) {
-      let mesh = new Mesh3D(baseMesh.geometry, shader)
-      mesh.transform.setFromTransform(baseMesh.transform)
-      nodes.push(mesh)
+    let transform = this.nodes[animation.node].transform
+    switch (animation.type) {
+      case AnimationType.translation:
+        return new TranslationAnimator(transform, animation)
+      case AnimationType.scale:
+        return new ScaleAnimator(transform, animation)
+      case AnimationType.rotation:
+        return new RotationAnimator(transform, animation)
     }
-    return new Model3D(nodes)
+    throw new Error(`PIXI3D: Unknown animation type "${animation.type}".`)
   }
 }

@@ -2,7 +2,7 @@ import { mat3 } from "gl-matrix"
 import { Matrix } from "../matrix"
 import { Transform3D } from "../transform"
 import { Camera3D } from "../camera"
-import { MeshData } from "../mesh"
+import { MeshData } from "../data"
 import { Shader } from "../shader"
 import { DirectionalLight } from "../light"
 
@@ -35,9 +35,15 @@ export class BasicShader extends PIXI.Shader implements Shader {
   createGeometry(data: MeshData) {
     let geometry = new PIXI.Geometry()
     geometry.addAttribute("position", data.positions, 3)
-    geometry.addAttribute("normal", data.normals, 3)
-    geometry.addAttribute("texCoords", data.texCoords, 2)
-    geometry.addIndex(new Uint16Array(data.indices))
+    if (data.normals) {
+      geometry.addAttribute("normal", data.normals, 3)
+    }
+    if (data.texCoords) {
+      geometry.addAttribute("texCoords", data.texCoords, 2)
+    }
+    if (data.indices) {
+      geometry.addIndex(new Uint16Array(data.indices))
+    }
     return geometry
   }
 }

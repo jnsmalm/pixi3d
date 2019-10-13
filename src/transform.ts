@@ -1,6 +1,6 @@
 import { vec3, mat4, quat } from "gl-matrix"
-import { ObservablePoint3D } from "./point"
 import { ObservableQuanternion } from "./quanternion"
+import { ObservablePoint3D } from "./point"
 
 export class Transform3D extends PIXI.Transform {
   position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)

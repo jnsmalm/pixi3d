@@ -1,14 +1,5 @@
 import { Shader } from "./shader"
 import { Container3D } from "./container"
-import { Transform3D } from "./transform"
-
-export interface MeshData {
-  transform: Transform3D,
-  indices: ArrayBuffer,
-  positions: ArrayBuffer,
-  normals: ArrayBuffer,
-  texCoords: ArrayBuffer
-}
 
 const state = new PIXI.State()
 state.culling = true
