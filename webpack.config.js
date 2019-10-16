@@ -20,6 +20,16 @@ module.exports = env => {
           test: /\.tsx?$/,
           use: "ts-loader",
           exclude: /node_modules/
+        },
+        {
+          test: /\.vert$/,
+          use: "raw-loader",
+          exclude: /node_modules/
+        },
+        {
+          test: /\.frag$/,
+          use: "raw-loader",
+          exclude: /node_modules/
         }
       ]
     },

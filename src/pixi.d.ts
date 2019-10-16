@@ -23,9 +23,10 @@ declare namespace PIXI {
   }
   class Shader {
     uniforms: any
-    constructor(program: Program)
+    constructor(program: Program, uniforms?: {})
   }
   class Program {
+    constructor(vert: string, frag: string)
     static from(vert: string, frag: string): Program
   }
   class Mesh {

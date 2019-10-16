@@ -2,8 +2,8 @@ import { glTFParser } from "./gltf/parser"
 import { Mesh3D } from "./mesh"
 import { Container3D } from "./container"
 import { Shader } from "./shader"
-import { BasicShader } from "./shaders/basic"
 import { Animation, AnimationType, TranslationAnimator, ScaleAnimator, RotationAnimator } from "./animation"
+import { BasicShader } from "./shaders/basic"
 
 export class Model3D extends Container3D {
   animations: Animation[] = []
@@ -18,7 +18,7 @@ export class Model3D extends Container3D {
     }
   }
 
-  static from(source: string, shader: Shader = new BasicShader()) {
+  static from(source: string, shader: Shader) {
     let data = glTFParser.from(source).getModelData()
     let nodes: Container3D[] = []
 
@@ -26,6 +26,9 @@ export class Model3D extends Container3D {
       let container = new Container3D()
       container.transform.setFromTransform(node.transform)
       if (node.mesh) {
+        if (!shader) {
+          shader = BasicShader.from(node.mesh)
+        }
         container.addChild(new Mesh3D(shader.createGeometry(node.mesh), shader))
       }
       nodes.push(container)
