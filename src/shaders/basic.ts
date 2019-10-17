@@ -5,6 +5,7 @@ import { Shader, ShaderFactory } from "../shader"
 import { Transform3D } from "../transform"
 import { Matrix } from "../matrix"
 import { MetallicRoughnessMaterial } from "../material"
+import { LightingEnvironment } from "../light"
 
 export class BasicShaderFactory implements ShaderFactory {
   createShader(data: MeshData): Shader {
@@ -12,7 +13,7 @@ export class BasicShaderFactory implements ShaderFactory {
       return new BasicNormalShader()
     }
     if (data.normals && data.texCoords) {
-      return new BasicTextureShader()
+      return new BasicNormalTextureShader()
     }
     if (!data.normals && data.texCoords) {
       return new BasicTextureShader()
@@ -22,8 +23,23 @@ export class BasicShaderFactory implements ShaderFactory {
 }
 
 abstract class BasicShader extends PIXI.Shader implements Shader {
+  private _transposedInversedWorld = mat3.create()
+
   material: MetallicRoughnessMaterial | undefined
   transform: Transform3D | undefined
+
+  updateLighting() {
+    if (this.transform) {
+      this.uniforms.transposedInversedWorld = Matrix.transposedInversedWorld(
+        this.transform.worldTransform, this._transposedInversedWorld)
+    }
+    let directionalLight = LightingEnvironment.main.directionalLight
+    if (!directionalLight) {
+      return
+    }
+    directionalLight.transform.updateLocalTransform()
+    this.uniforms.directionalLight = directionalLight.transform.localPosition
+  }
 
   update() {
     if (this.transform) {
@@ -33,6 +49,12 @@ abstract class BasicShader extends PIXI.Shader implements Shader {
       this.uniforms.baseColor = this.material.baseColor
     }
     this.uniforms.viewProjection = Camera3D.main.viewProjection
+  }
+
+  updateTextures() {
+    if (this.material && this.material.baseColorTexture) {
+      this.uniforms.baseColorTexture = this.material.baseColorTexture
+    }
   }
 
   createGeometry(data: MeshData) {
@@ -54,19 +76,12 @@ export class BasicPositionShader extends BasicShader {
 }
 
 export class BasicNormalShader extends BasicShader {
-  private _transposedInversedWorld = mat3.create()
-
   constructor() {
     super(new NormalProgram())
   }
 
   update() {
-    if (this.transform) {
-      this.uniforms.transposedInversedWorld = Matrix.transposedInversedWorld(
-        this.transform.worldTransform, this._transposedInversedWorld)
-    }
-    // this.directionalLight.transform.updateLocalTransform()
-    // this.uniforms.lightPosition = this.directionalLight.transform.localPosition
+    this.updateLighting()
     super.update()
   }
 
@@ -85,14 +100,35 @@ export class BasicTextureShader extends BasicShader {
   }
 
   update() {
-    if (this.material && this.material.baseColorTexture) {
-      this.uniforms.baseColorTexture = this.material.baseColorTexture
-    }
+    this.updateTextures()
     super.update()
   }
 
   createGeometry(data: MeshData) {
     let geometry = super.createGeometry(data)
+    if (data.texCoords) {
+      geometry.addAttribute("texCoord", data.texCoords, 2)
+    }
+    return geometry
+  }
+}
+
+export class BasicNormalTextureShader extends BasicShader {
+  constructor() {
+    super(new NormalTextureProgram())
+  }
+
+  update() {
+    this.updateTextures()
+    this.updateLighting()
+    super.update()
+  }
+
+  createGeometry(data: MeshData) {
+    let geometry = super.createGeometry(data)
+    if (data.normals) {
+      geometry.addAttribute("normal", data.normals, 3)
+    }
     if (data.texCoords) {
       geometry.addAttribute("texCoord", data.texCoords, 2)
     }

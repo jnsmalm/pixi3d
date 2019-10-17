@@ -11,3 +11,13 @@ export class DirectionalLight {
     return this.transform.position
   }
 }
+
+export class LightingEnvironment {
+  directionalLight: DirectionalLight | undefined
+
+  static main = new LightingEnvironment()
+
+  constructor() {
+    this.directionalLight = new DirectionalLight()
+  }
+}

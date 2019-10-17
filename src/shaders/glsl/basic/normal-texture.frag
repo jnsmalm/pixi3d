@@ -4,10 +4,10 @@ varying vec3 v_normal;
 varying vec2 v_texCoord;
 
 uniform sampler2D baseColorTexture;
-uniform vec3 lightPosition;
+uniform vec3 directionalLight;
 
 void main() {
-  float dot = max(0.0, dot(v_normal, normalize(lightPosition)));
+  float dot = max(0.0, dot(v_normal, normalize(directionalLight)));
   vec4 color = texture2D(baseColorTexture, v_texCoord);
 
   gl_FragColor = vec4(color.rgb * dot, color.a);
