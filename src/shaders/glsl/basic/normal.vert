@@ -10,6 +10,6 @@ uniform mat3 transposedInversedWorld;
 uniform mat4 viewProjection;
 
 void main() {
-  v_normal = transposedInversedWorld * normal;
+  v_normal = normalize(transposedInversedWorld * normal);
   gl_Position = viewProjection * world * vec4(position, 1.0);
 }

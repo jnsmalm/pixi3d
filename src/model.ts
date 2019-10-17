@@ -29,7 +29,8 @@ export class Model3D extends Container3D {
         if (!shader) {
           shader = BasicShader.from(node.mesh)
         }
-        container.addChild(new Mesh3D(shader.createGeometry(node.mesh), shader))
+        container.addChild(new Mesh3D(
+          shader.createGeometry(node.mesh), shader, node.mesh.material))
       }
       nodes.push(container)
     }

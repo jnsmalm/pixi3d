@@ -2,6 +2,7 @@ import { glTFLoader } from "./loader"
 import { Transform3D } from "../transform"
 import { Animation, AnimationInterpolation } from "../animation"
 import { ModelData, MeshData, NodeData } from "../data"
+import { MetallicRoughnessMaterial } from "../material"
 
 const TYPE_SIZES: { [name: string]: number } = {
   SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
@@ -40,7 +41,7 @@ class ArrayBufferFactory {
 export class glTFParser {
   private factory: ArrayBufferFactory
 
-  constructor(private descriptor: any, buffers: ArrayBuffer[]) {
+  constructor(private descriptor: any, buffers: ArrayBuffer[], private textures: PIXI.Texture[]) {
     this.factory = new ArrayBufferFactory(descriptor, buffers)
   }
 
@@ -49,13 +50,13 @@ export class glTFParser {
     if (!resource) {
       throw Error(`PIXI3D: Could not find "${source}", was the file loaded?`)
     }
-    return new glTFParser(resource.descriptor, resource.buffers)
+    return new glTFParser(resource.descriptor, resource.buffers, resource.textures)
   }
 
   getModelData() {
     let result: ModelData = {
-      nodes: [],
-      animations: this.getAnimations()
+      animations: this.getAnimations(),
+      nodes: []
     }
     for (let node of this.descriptor.nodes) {
       if (node.mesh === undefined) {
@@ -69,7 +70,8 @@ export class glTFParser {
         indices: this.getIndices(mesh),
         positions: this.getPositions(mesh),
         normals: this.getNormals(mesh),
-        texCoords: this.getTexCoords(mesh)
+        texCoords: this.getTexCoords(mesh),
+        material: this.getMaterial(mesh)
       }
       let modelNode: NodeData = {
         mesh: data,
@@ -93,7 +95,7 @@ export class glTFParser {
           // animation for now.
           continue
         }
-        result.push(new Animation(animation.name, 
+        result.push(new Animation(animation.name,
           channel.target.node, channel.target.path, sampler.interpolation,
           this.factory.create(sampler.input) as Float32Array,
           this.factory.create(sampler.output) as Float32Array
@@ -148,5 +150,31 @@ export class glTFParser {
     if (attribute !== undefined) {
       return this.factory.create(attribute)
     }
+  }
+
+  private getMaterial(mesh: any) {
+    let result = new MetallicRoughnessMaterial()
+    if (mesh.primitives[0].material === undefined) {
+      return result
+    }
+    let pbrMetallicRoughness = this.descriptor.materials[mesh.primitives[0].material].pbrMetallicRoughness
+    if (!pbrMetallicRoughness) {
+      return result
+    }
+    if (pbrMetallicRoughness.baseColorFactor) {
+      result.baseColor = pbrMetallicRoughness.baseColorFactor
+    }
+    if (pbrMetallicRoughness.metallicFactor !== undefined) {
+      result.metallic = pbrMetallicRoughness.metallicFactor
+    }
+    if (pbrMetallicRoughness.roughnessFactor !== undefined) {
+      result.roughness = pbrMetallicRoughness.roughnessFactor
+    }
+    if (pbrMetallicRoughness.baseColorTexture) {
+      let texture = pbrMetallicRoughness.baseColorTexture.index
+      result.baseColorTexture = this.textures[texture]
+      result.baseColorTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
+    }
+    return result
   }
 }

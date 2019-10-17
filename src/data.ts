@@ -1,9 +1,10 @@
 import { Transform3D } from "./transform"
 import { Animation } from "./animation"
+import { MetallicRoughnessMaterial } from "./material"
 
 export interface ModelData {
-  nodes: NodeData[]
   animations: Animation[]
+  nodes: NodeData[]
 }
 
 export interface NodeData {
@@ -16,4 +17,5 @@ export interface MeshData {
   positions: ArrayBuffer,
   normals?: ArrayBuffer,
   texCoords?: ArrayBuffer
+  material: MetallicRoughnessMaterial
 }

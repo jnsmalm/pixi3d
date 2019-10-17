@@ -5,10 +5,12 @@ import { Shader } from "../shader"
 import { Transform3D } from "../transform"
 import { Matrix } from "../matrix"
 import { DirectionalLight } from "../light"
+import { MetallicRoughnessMaterial } from "../material"
 
 export class BasicShader extends PIXI.Shader implements Shader {
   private _transposedInversedWorld = mat3.create()
 
+  material: MetallicRoughnessMaterial | undefined
   camera: Camera3D | undefined
   transform: Transform3D | undefined
   directionalLight = new DirectionalLight()
@@ -49,12 +51,15 @@ export class BasicShader extends PIXI.Shader implements Shader {
       }
       this.uniforms.world = this.transform.worldTransform
     }
-    if (this.hasTextureFeature) {
-      this.uniforms.texture = this.texture
-    }
     if (this.hasNormalFeature) {
       this.directionalLight.transform.updateLocalTransform()
       this.uniforms.lightPosition = this.directionalLight.transform.localPosition
+    }
+    if (this.material) {
+      this.uniforms.baseColor = this.material.baseColor
+      if (this.hasTextureFeature) {
+        this.uniforms.baseColorTexture = this.material.baseColorTexture
+      }
     }
   }
 

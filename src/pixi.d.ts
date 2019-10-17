@@ -9,13 +9,16 @@ declare namespace PIXI {
     static registerPlugin(plugin: ILoaderPlugin): void
   }
   class LoaderResource {
+    type: number
     url: string
     extension: string
     name: string
     metadata: any
     data: any
+    texture?: PIXI.Texture
     static setExtensionXhrType(extname: string, xhrType: string): void
     static get XHR_RESPONSE_TYPE(): { BUFFER: string, JSON: string }
+    static get TYPE(): { IMAGE: number }
   }
   class Geometry {
     addAttribute(name: string, data: ArrayBuffer, size: number): void
@@ -61,7 +64,11 @@ declare namespace PIXI {
     clockwiseFrontFace: boolean
     culling: boolean
   }
-  class Texture {
-    //
+  class BaseTexture {
+    wrapMode: WRAP_MODES
   }
+  class Texture {
+    baseTexture: BaseTexture
+  }
+  enum WRAP_MODES { REPEAT }
 }
