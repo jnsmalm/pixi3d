@@ -2,6 +2,13 @@ import { Shader } from "./shader"
 import { MetallicRoughnessMaterial } from "./material"
 import { Container3D } from "./container"
 
+export interface MeshData {
+  indices?: ArrayBuffer,
+  positions: ArrayBuffer,
+  normals?: ArrayBuffer,
+  texCoords?: ArrayBuffer
+}
+
 const state = new PIXI.State()
 state.culling = true
 state.depthTest = true

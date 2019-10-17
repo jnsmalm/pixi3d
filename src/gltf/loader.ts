@@ -27,15 +27,17 @@ PIXI.Loader.registerPlugin({
         metadata: { name: resource.name, buffer: i }
       })
     }
-    for (let i = 0; i < resource.data.textures.length; i++) {
-      let source = resource.data.textures[i].source
-      let image: { uri: string } = resource.data.images[source];
-      (this as PIXI.Loader).add({
-        name: image.uri,
-        url: resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + image.uri,
-        parentResource: resource,
-        metadata: { name: resource.name, texture: i }
-      })
+    if (resource.data.textures) {
+      for (let i = 0; i < resource.data.textures.length; i++) {
+        let source = resource.data.textures[i].source
+        let image: { uri: string } = resource.data.images[source];
+        (this as PIXI.Loader).add({
+          name: image.uri,
+          url: resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + image.uri,
+          parentResource: resource,
+          metadata: { name: resource.name, texture: i }
+        })
+      }
     }
     next()
   },

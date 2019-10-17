@@ -1,7 +1,9 @@
 import { Transform3D } from "./transform"
 
 export class Container3D extends PIXI.Container {
-  transform = new Transform3D()
+  constructor(public transform = new Transform3D()) {
+    super()
+  }
 
   get z() {
     return this.transform.position.z

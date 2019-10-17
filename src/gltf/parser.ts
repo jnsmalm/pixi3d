@@ -1,8 +1,12 @@
 import { glTFLoader } from "./loader"
 import { Transform3D } from "../transform"
 import { Animation, AnimationInterpolation } from "../animation"
-import { ModelData, MeshData, NodeData } from "../data"
 import { MetallicRoughnessMaterial } from "../material"
+import { Model3D } from "../model"
+import { Container3D } from "../container"
+import { Shader, ShaderFactory } from "../shader"
+import { MeshData, Mesh3D } from "../mesh"
+import { BasicShaderFactory } from "../shaders/basic"
 
 const TYPE_SIZES: { [name: string]: number } = {
   SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
@@ -33,55 +37,62 @@ class ArrayBufferFactory {
       case 5123:
         return new Uint16Array(buffer, offset, size)
     }
-    throw new Error(`PIXI3D: Failed to crete buffer with "
-      ${accessor.componentType}" as component type.`)
+    throw new Error(`PIXI3D: Failed to create buffer with "${accessor.componentType}" as component type.`)
   }
 }
 
 export class glTFParser {
   private factory: ArrayBufferFactory
 
-  constructor(private descriptor: any, buffers: ArrayBuffer[], private textures: PIXI.Texture[]) {
+  constructor(private descriptor: any, buffers: ArrayBuffer[], private textures: PIXI.Texture[], private shader?: Shader, private shaderFactory?: ShaderFactory) {
     this.factory = new ArrayBufferFactory(descriptor, buffers)
   }
 
-  static from(source: string) {
+  createModel() {
+    let nodes: Container3D[] = []
+    for (let node of this.descriptor.nodes) {
+      let container = new Container3D(this.getTransform(node))
+      nodes.push(container)
+      if (node.mesh === undefined) {
+        continue
+      }
+      let mesh = this.createMesh(this.descriptor.meshes[node.mesh])
+      container.addChild(mesh)
+    }
+    return new Model3D(nodes)
+  }
+
+  createMeshData(mesh: any): MeshData {
+    return {
+      indices: this.getIndices(mesh),
+      positions: this.getPositions(mesh),
+      normals: this.getNormals(mesh),
+      texCoords: this.getTexCoords(mesh)
+    }
+  }
+
+  createMesh(mesh: any) {
+    let data = this.createMeshData(mesh)
+    if (!this.shader) {
+      if (!this.shaderFactory) {
+        this.shaderFactory = new BasicShaderFactory()
+      }
+      this.shader = this.shaderFactory.createShader(data)
+    }
+    return new Mesh3D(
+      this.shader.createGeometry(data), this.shader, this.getMaterial(mesh))
+  }
+
+  static from(source: string, shader?: Shader, shaderFactory?: ShaderFactory) {
     let resource = glTFLoader.resources[source]
     if (!resource) {
       throw Error(`PIXI3D: Could not find "${source}", was the file loaded?`)
     }
-    return new glTFParser(resource.descriptor, resource.buffers, resource.textures)
+    return new glTFParser(
+      resource.descriptor, resource.buffers, resource.textures, shader, shaderFactory)
   }
 
-  getModelData() {
-    let result: ModelData = {
-      animations: this.getAnimations(),
-      nodes: []
-    }
-    for (let node of this.descriptor.nodes) {
-      if (node.mesh === undefined) {
-        result.nodes.push({
-          transform: this.getTransform(node),
-        })
-        continue
-      }
-      let mesh = this.descriptor.meshes[node.mesh]
-      let data: MeshData = {
-        indices: this.getIndices(mesh),
-        positions: this.getPositions(mesh),
-        normals: this.getNormals(mesh),
-        texCoords: this.getTexCoords(mesh),
-        material: this.getMaterial(mesh)
-      }
-      let modelNode: NodeData = {
-        mesh: data,
-        transform: this.getTransform(node),
-      }
-      result.nodes.push(modelNode)
-    }
-    return result
-  }
-
+  
   private getAnimations() {
     if (!this.descriptor.animations) {
       return []
