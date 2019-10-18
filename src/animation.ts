@@ -1,60 +1,38 @@
 import { quat, vec3 } from "gl-matrix"
 import { Transform3D } from "./transform"
 
-export enum AnimationType {
-  rotation = "rotation",
-  translation = "translation",
-  scale = "scale"
-}
-
 export enum AnimationInterpolation {
   linear = "LINEAR",
   step = "STEP",
   cubicspline = "CUBICSPLINE"
 }
 
-export class Animation {
-  constructor(public name = "", public node: number, public type: AnimationType, public interpolation: AnimationInterpolation, public input: Float32Array, public output: Float32Array) {
+export abstract class Animation {
+  protected _position = 0
+
+  constructor(public transform: Transform3D, public interpolation: AnimationInterpolation, public input: Float32Array, public output: Float32Array) {
+  }
+
+  get position() {
+    return this._position
+  }
+
+  set position(value: number) {
+    this._position = value
+    if (this._position > this.seconds) {
+      this._position = this._position % this.seconds
+    }
+    this.animate(this._position)
   }
 
   get seconds() {
     return this.input[this.input.length - 1]
   }
 
-  getRotationAtKeyFrame(keyFrame: number) {
-    let index = keyFrame * 4
-    return quat.fromValues(
-      this.output[index], this.output[index + 1], this.output[index + 2], this.output[index + 3]
-    )
-  }
+  animate(position: number) { }
 
-  getTranslationAtKeyFrame(keyFrame: number) {
-    let index = keyFrame * 3
-    return vec3.fromValues(
-      this.output[index], this.output[index + 1], this.output[index + 2]
-    )
-  }
-
-  getRotationAtPosition(position: number) {
-    let keyFrame = this.getKeyFrame(position)
-    if (this.interpolation === AnimationInterpolation.step) {
-      return this.getRotationAtKeyFrame(keyFrame)
-    }
-    return quat.slerp(quat.create(),
-      this.getRotationAtKeyFrame(keyFrame),
-      this.getRotationAtKeyFrame(keyFrame + 1),
-      this.getKeyFramePosition(position))
-  }
-
-  getTranslationAtPosition(position: number) {
-    let keyFrame = this.getKeyFrame(position)
-    if (this.interpolation === AnimationInterpolation.step) {
-      return this.getTranslationAtKeyFrame(keyFrame)
-    }
-    return vec3.lerp(vec3.create(),
-      this.getTranslationAtKeyFrame(keyFrame),
-      this.getTranslationAtKeyFrame(keyFrame + 1),
-      this.getKeyFramePosition(position))
+  update(delta: number) {
+    this.position += delta
   }
 
   getKeyFrame(position: number) {
@@ -78,66 +56,95 @@ export class Animation {
   }
 }
 
-export abstract class Animator {
-  protected _position = 0
-
-  constructor(public animation: Animation) {
-  }
-
-  get position() {
-    return this._position
-  }
-
-  set position(value: number) {
-    this._position = value
-    if (this._position > this.animation.seconds) {
-      this._position = this._position % this.animation.seconds
-    }
-    this.animate(this._position)
-  }
-
-  animate(position: number) { }
-
-  update(delta: number) {
-    this.position += delta
-  }
-}
-
-export class TranslationAnimator extends Animator {
-  constructor(public transform: Transform3D, animation: Animation) {
-    super(animation)
+export class RotationAnimation extends Animation {
+  constructor(transform: Transform3D, interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
+    super(transform, interpolation, input, output)
   }
 
   animate(position: number) {
-    let translation = this.animation.getTranslationAtPosition(position)
+    let rotation = this.getRotationAtPosition(position)
+    this.transform.rotation.set(
+      rotation[0], rotation[1], rotation[2], rotation[3]
+    )
+  }
+
+  getRotationAtPosition(position: number) {
+    let keyFrame = this.getKeyFrame(position)
+    if (this.interpolation === AnimationInterpolation.step) {
+      return this.getRotationAtKeyFrame(keyFrame)
+    }
+    return quat.slerp(quat.create(),
+      this.getRotationAtKeyFrame(keyFrame),
+      this.getRotationAtKeyFrame(keyFrame + 1),
+      this.getKeyFramePosition(position))
+  }
+
+  getRotationAtKeyFrame(keyFrame: number) {
+    let index = keyFrame * 4
+    return quat.fromValues(
+      this.output[index], this.output[index + 1], this.output[index + 2], this.output[index + 3]
+    )
+  }
+}
+
+export class TranslationAnimation extends Animation {
+  constructor(transform: Transform3D, interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
+    super(transform, interpolation, input, output)
+  }
+
+  animate(position: number) {
+    let translation = this.getTranslationAtPosition(position)
     this.transform.position.set(
       translation[0], translation[1], translation[2]
     )
   }
+
+  getTranslationAtKeyFrame(keyFrame: number) {
+    let index = keyFrame * 3
+    return vec3.fromValues(
+      this.output[index], this.output[index + 1], this.output[index + 2]
+    )
+  }
+
+  getTranslationAtPosition(position: number) {
+    let keyFrame = this.getKeyFrame(position)
+    if (this.interpolation === AnimationInterpolation.step) {
+      return this.getTranslationAtKeyFrame(keyFrame)
+    }
+    return vec3.lerp(vec3.create(),
+      this.getTranslationAtKeyFrame(keyFrame),
+      this.getTranslationAtKeyFrame(keyFrame + 1),
+      this.getKeyFramePosition(position))
+  }
 }
 
-export class ScaleAnimator extends Animator {
-  constructor(public transform: Transform3D, animation: Animation) {
-    super(animation)
+export class ScaleAnimation extends Animation {
+  constructor(transform: Transform3D, interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
+    super(transform, interpolation, input, output)
   }
 
   animate(position: number) {
-    let scale = this.animation.getTranslationAtPosition(position)
+    let translation = this.getScaleAtPosition(position)
     this.transform.scale.set(
-      scale[0], scale[1], scale[2]
+      translation[0], translation[1], translation[2]
     )
   }
-}
 
-export class RotationAnimator extends Animator {
-  constructor(public transform: Transform3D, animation: Animation) {
-    super(animation)
+  getScaleAtKeyFrame(keyFrame: number) {
+    let index = keyFrame * 3
+    return vec3.fromValues(
+      this.output[index], this.output[index + 1], this.output[index + 2]
+    )
   }
 
-  animate(position: number) {
-    let rotation = this.animation.getRotationAtPosition(position)
-    this.transform.rotation.set(
-      rotation[0], rotation[1], rotation[2], rotation[3]
-    )
+  getScaleAtPosition(position: number) {
+    let keyFrame = this.getKeyFrame(position)
+    if (this.interpolation === AnimationInterpolation.step) {
+      return this.getScaleAtKeyFrame(keyFrame)
+    }
+    return vec3.lerp(vec3.create(),
+      this.getScaleAtKeyFrame(keyFrame),
+      this.getScaleAtKeyFrame(keyFrame + 1),
+      this.getKeyFramePosition(position))
   }
 }

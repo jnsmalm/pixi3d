@@ -1,6 +1,6 @@
 import { glTFLoader } from "./loader"
 import { Transform3D } from "../transform"
-import { Animation, AnimationInterpolation } from "../animation"
+import { Animation, AnimationInterpolation, RotationAnimation, TranslationAnimation, ScaleAnimation } from "../animation"
 import { MetallicRoughnessMaterial } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
@@ -59,7 +59,7 @@ export class glTFParser {
       let mesh = this.createMesh(this.descriptor.meshes[node.mesh])
       container.addChild(mesh)
     }
-    return new Model3D(nodes)
+    return new Model3D(nodes, this.getAnimations(nodes))
   }
 
   createMeshData(mesh: any): MeshData {
@@ -92,8 +92,8 @@ export class glTFParser {
       resource.descriptor, resource.buffers, resource.textures, shader, shaderFactory)
   }
 
-  
-  private getAnimations() {
+
+  private getAnimations(nodes: Container3D[]) {
     if (!this.descriptor.animations) {
       return []
     }
@@ -104,13 +104,22 @@ export class glTFParser {
         if (sampler.interpolation === AnimationInterpolation.cubicspline) {
           // Cubic spline interpolation is not yet supported, just skip this 
           // animation for now.
+          console.warn(`PIXI3D: Animations with "${sampler.interpolation}" interpolation is currently not supported.`)
           continue
         }
-        result.push(new Animation(animation.name,
-          channel.target.node, channel.target.path, sampler.interpolation,
-          this.factory.create(sampler.input) as Float32Array,
-          this.factory.create(sampler.output) as Float32Array
-        ))
+        let transform = nodes[channel.target.node].transform
+        let input = this.factory.create(sampler.input) as Float32Array
+        let output = this.factory.create(sampler.output) as Float32Array
+
+        if (channel.target.path === "rotation") {
+          result.push(new RotationAnimation(transform, sampler.interpolation, input, output))
+        }
+        if (channel.target.path === "translation") {
+          result.push(new TranslationAnimation(transform, sampler.interpolation, input, output))
+        }
+        if (channel.target.path === "scale") {
+          result.push(new ScaleAnimation(transform, sampler.interpolation, input, output))
+        }
       }
     }
     return result
