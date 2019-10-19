@@ -177,6 +177,12 @@ export class glTFParser {
     if (mesh.primitives[0].material === undefined) {
       return result
     }
+    let material = this.descriptor.materials[mesh.primitives[0].material]
+    if (material.normalTexture) {
+      let texture = material.normalTexture.index
+      result.normalTexture = this.textures[texture]
+      result.normalTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
+    }
     let pbrMetallicRoughness = this.descriptor.materials[mesh.primitives[0].material].pbrMetallicRoughness
     if (!pbrMetallicRoughness) {
       return result
