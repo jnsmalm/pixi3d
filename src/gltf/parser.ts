@@ -195,6 +195,11 @@ export class glTFParser {
       result.baseColorTexture = this.textures[texture]
       result.baseColorTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
     }
+    if (pbrMetallicRoughness.metallicRoughnessTexture) {
+      let texture = pbrMetallicRoughness.metallicRoughnessTexture.index
+      result.metallicRoughnessTexture = this.textures[texture]
+      result.metallicRoughnessTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
+    }
     return result
   }
 }

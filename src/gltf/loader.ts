@@ -63,7 +63,7 @@ PIXI.Loader.registerPlugin({
 
 PIXI.Loader.registerPlugin({
   use(resource, next) {
-    if (resource.type !== PIXI.LoaderResource.TYPE.IMAGE || !resource.texture) {
+    if (resource.type !== PIXI.LoaderResource.TYPE.IMAGE || !resource.texture || !resource.metadata.name) {
       return next()
     }
     glTFLoader.resources[resource.metadata.name].textures[resource.metadata.texture] = resource.texture

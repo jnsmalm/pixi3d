@@ -70,5 +70,8 @@ declare namespace PIXI {
   class Texture {
     baseTexture: BaseTexture
   }
+  class CubeTexture {
+    valid: boolean
+  }
   enum WRAP_MODES { REPEAT }
 }
