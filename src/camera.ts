@@ -14,6 +14,8 @@ export class Camera3D {
   static main = new Camera3D()
 
   constructor(public aspectRatio = 1, public fieldOfView = 45, public near = 0.1, public far = 1000) {
+    this.position.z = 5
+    this.rotation.y = 180
   }
 
   get projection() {

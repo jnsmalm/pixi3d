@@ -19,10 +19,9 @@ Render in 3D using PixiJS
 ```
 const { Camera3D, Model3D } = PIXI3D
 
-let app = new PIXI.Application()
+let app = new PIXI.Application({ width:800, height:600 })
 
-Camera3D.main.position.z = 5
-Camera3D.main.rotation.y = 180
+Camera3D.main.aspectRatio = 800 / 600
 
 app.loader.add("cube.gltf")
 app.loader.load(() => {
