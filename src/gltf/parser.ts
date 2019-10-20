@@ -6,7 +6,7 @@ import { Model3D } from "../model"
 import { Container3D } from "../container"
 import { Shader, ShaderFactory } from "../shader"
 import { MeshData, Mesh3D } from "../mesh"
-import { BasicShaderFactory } from "../shaders/basic"
+import { StandardShaderFactory } from "../shaders/standard"
 
 const TYPE_SIZES: { [name: string]: number } = {
   SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
@@ -75,7 +75,7 @@ export class glTFParser {
     let data = this.createMeshData(mesh)
     if (!this.shader) {
       if (!this.shaderFactory) {
-        this.shaderFactory = new BasicShaderFactory()
+        this.shaderFactory = new StandardShaderFactory()
       }
       this.shader = this.shaderFactory.createShader(data)
     }

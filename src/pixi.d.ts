@@ -68,6 +68,7 @@ declare namespace PIXI {
     wrapMode: WRAP_MODES
   }
   class Texture {
+    static EMPTY: Texture
     baseTexture: BaseTexture
   }
   class CubeTexture {
