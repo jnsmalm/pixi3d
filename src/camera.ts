@@ -13,9 +13,53 @@ export class Camera3D {
 
   static main = new Camera3D()
 
-  constructor(public aspectRatio = 1, public fieldOfView = 45, public near = 0.1, public far = 1000) {
+  constructor(private _aspectRatio = 1, private _fieldOfView = 45, private _near = 0.1, private _far = 1000) {
     this.position.z = 5
     this.rotation.y = 180
+  }
+
+  get aspectRatio() {
+    return this._aspectRatio
+  }
+
+  set aspectRatio(value: number) {
+    if (this._aspectRatio !== value) {
+      this._aspectRatio = value
+      this._viewProjectionID = this._projectionID = -1
+    }
+  }
+
+  get fieldOfView() {
+    return this._fieldOfView
+  }
+
+  set fieldOfView(value: number) {
+    if (this._fieldOfView !== value) {
+      this._fieldOfView = value
+      this._viewProjectionID = this._projectionID = -1
+    }
+  }
+
+  get near() {
+    return this._near
+  }
+
+  set near(value: number) {
+    if (this._near !== value) {
+      this._near = value
+      this._viewProjectionID = this._projectionID = -1
+    }
+  }
+
+  get far() {
+    return this._far
+  }
+
+  set far(value: number) {
+    if (this._far !== value) {
+      this._far = value
+      this._viewProjectionID = this._projectionID = -1
+    }
   }
 
   get projection() {
@@ -48,7 +92,7 @@ export class Camera3D {
   }
 
   updateProjection() {
-    mat4.perspective(this._projection, this.fieldOfView, this.aspectRatio, this.near, this.far)
+    mat4.perspective(this._projection, this._fieldOfView, this._aspectRatio, this._near, this._far)
     this._projectionID = this.transform._localID
   }
 
