@@ -54,16 +54,19 @@ export class StandardShader extends PIXI.Shader implements Shader {
   createGeometry(data: MeshData): PIXI.Geometry {
     let geometry = new PIXI.Geometry()
     if (data.positions) {
-      geometry.addAttribute("position", data.positions, 3)
+      geometry.addAttribute("position", data.positions.buffer, 3, false, 
+        PIXI.TYPES.FLOAT, data.positions.stride)
     }
     if (data.normals) {
-      geometry.addAttribute("normal", data.normals, 3)
+      geometry.addAttribute("normal", data.normals.buffer, 3, false, 
+        PIXI.TYPES.FLOAT, data.normals.stride)
     }
     if (data.texCoords) {
-      geometry.addAttribute("texCoord", data.texCoords, 2)
+      geometry.addAttribute("texCoord", data.texCoords.buffer, 2, false, 
+        PIXI.TYPES.FLOAT, data.texCoords.stride)
     }
     if (data.indices) {
-      geometry.addIndex(new Uint16Array(data.indices))
+      geometry.addIndex(new Uint16Array(data.indices.buffer))
     }
     return geometry
   }

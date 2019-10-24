@@ -21,7 +21,7 @@ declare namespace PIXI {
     static get TYPE(): { IMAGE: number }
   }
   class Geometry {
-    addAttribute(name: string, data: ArrayBuffer, size: number): void
+    addAttribute(name: string, data: ArrayBuffer, size: number, normalized?: boolean, type?: number, stride?: number, start?: number): void
     addIndex(indices: ArrayBuffer): void
   }
   class Shader {
@@ -75,4 +75,5 @@ declare namespace PIXI {
     valid: boolean
   }
   enum WRAP_MODES { REPEAT }
+  enum TYPES { FLOAT }
 }

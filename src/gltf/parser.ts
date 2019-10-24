@@ -5,7 +5,7 @@ import { MetallicRoughnessMaterial } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
 import { Shader, ShaderFactory } from "../shader"
-import { MeshData, Mesh3D } from "../mesh"
+import { MeshData, Mesh3D, AttributeData } from "../mesh"
 import { StandardShaderFactory } from "../shaders/standard"
 
 const TYPE_SIZES: { [name: string]: number } = {
@@ -16,14 +16,8 @@ class ArrayBufferFactory {
   constructor(private descriptor: any, private buffers: ArrayBuffer[]) {
   }
 
-  create(attribute: number): ArrayBuffer {
-    let accessor = this.descriptor.accessors[attribute]
-    let bufferView = this.descriptor.bufferViews[accessor.bufferView || 0]
-    let offset = accessor.byteOffset || 0 + bufferView.byteOffset || 0
-    let size = accessor.count * TYPE_SIZES[accessor.type]
-    let buffer = this.buffers[bufferView.buffer]
-
-    switch (accessor.componentType) {
+  createBuffer(componentType: number, buffer: any, offset: number, size: number): ArrayBuffer {
+    switch (componentType) {
       case 5125:
         return new Uint32Array(buffer, offset, size)
       case 5126:
@@ -37,7 +31,27 @@ class ArrayBufferFactory {
       case 5123:
         return new Uint16Array(buffer, offset, size)
     }
-    throw new Error(`PIXI3D: Failed to create buffer with "${accessor.componentType}" as component type.`)
+    throw new Error(`PIXI3D: Failed to create buffer with "${componentType}" as component type.`)
+  }
+
+  create(attribute: number): AttributeData {
+    let accessor = this.descriptor.accessors[attribute]
+    let bufferView = this.descriptor.bufferViews[accessor.bufferView || 0]
+
+    let offset = accessor.byteOffset || 0
+    if (bufferView.byteOffset !== undefined) {
+      offset += bufferView.byteOffset
+    }
+    let size = accessor.count * TYPE_SIZES[accessor.type]
+    if (bufferView.byteStride !== undefined) {
+      size *= bufferView.byteStride / 4 / TYPE_SIZES[accessor.type]
+    }
+    let buffer = this.buffers[bufferView.buffer]
+
+    return {
+      stride: bufferView.byteStride || 0,
+      buffer: this.createBuffer(accessor.componentType, buffer, offset, size)
+    }
   }
 }
 
@@ -108,8 +122,8 @@ export class glTFParser {
           continue
         }
         let transform = nodes[channel.target.node].transform
-        let input = this.factory.create(sampler.input) as Float32Array
-        let output = this.factory.create(sampler.output) as Float32Array
+        let input = this.factory.create(sampler.input).buffer as Float32Array
+        let output = this.factory.create(sampler.output).buffer as Float32Array
 
         if (channel.target.path === "rotation") {
           result.push(new RotationAnimation(transform, sampler.interpolation, input, output))
