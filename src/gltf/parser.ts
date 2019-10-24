@@ -16,7 +16,7 @@ class ArrayBufferFactory {
   constructor(private descriptor: any, private buffers: ArrayBuffer[]) {
   }
 
-  createBuffer(componentType: number, buffer: any, offset: number, size: number): ArrayBuffer {
+  private createArrayBuffer(componentType: number, buffer: any, offset: number, size: number): ArrayBuffer {
     switch (componentType) {
       case 5125:
         return new Uint32Array(buffer, offset, size)
@@ -34,7 +34,7 @@ class ArrayBufferFactory {
     throw new Error(`PIXI3D: Failed to create buffer with "${componentType}" as component type.`)
   }
 
-  create(attribute: number): AttributeData {
+  createAttributeData(attribute: number): AttributeData {
     let accessor = this.descriptor.accessors[attribute]
     let bufferView = this.descriptor.bufferViews[accessor.bufferView || 0]
 
@@ -50,7 +50,7 @@ class ArrayBufferFactory {
 
     return {
       stride: bufferView.byteStride || 0,
-      buffer: this.createBuffer(accessor.componentType, buffer, offset, size)
+      buffer: this.createArrayBuffer(accessor.componentType, buffer, offset, size)
     }
   }
 }
@@ -62,21 +62,42 @@ export class glTFParser {
     this.factory = new ArrayBufferFactory(descriptor, buffers)
   }
 
-  createModel() {
-    let nodes: Container3D[] = []
+  private createNodeContainers() {
+    let containers: Container3D[] = []
     for (let node of this.descriptor.nodes) {
       let container = new Container3D(this.getTransform(node))
-      nodes.push(container)
+      containers.push(container)
       if (node.mesh === undefined) {
         continue
       }
       let mesh = this.createMesh(this.descriptor.meshes[node.mesh])
       container.addChild(mesh)
     }
-    return new Model3D(nodes, this.getAnimations(nodes))
+    return containers
   }
 
-  createMeshData(mesh: any): MeshData {
+  private addNodeChildren(parent: Container3D, nodeIndex: number, nodeContainers: Container3D[]) {
+    parent.addChild(nodeContainers[nodeIndex])
+    if (!this.descriptor.nodes[nodeIndex].children) {
+      return
+    }
+    for (let child of this.descriptor.nodes[nodeIndex].children) {
+      this.addNodeChildren(nodeContainers[nodeIndex], child, nodeContainers)
+    }
+  }
+
+  createModel() {
+    let containers = this.createNodeContainers()
+    let scene = this.descriptor.scenes[this.descriptor.scene || 0]
+    let model = new Model3D()
+    for (let node of scene.nodes) {
+      this.addNodeChildren(model, node, containers)
+    }
+    model.animations = this.getAnimations(containers)
+    return model
+  }
+
+  private createMeshData(mesh: any): MeshData {
     return {
       indices: this.getIndices(mesh),
       positions: this.getPositions(mesh),
@@ -85,7 +106,7 @@ export class glTFParser {
     }
   }
 
-  createMesh(mesh: any) {
+  private createMesh(mesh: any) {
     let data = this.createMeshData(mesh)
     if (!this.shader) {
       if (!this.shaderFactory) {
@@ -106,7 +127,6 @@ export class glTFParser {
       resource.descriptor, resource.buffers, resource.textures, shader, shaderFactory)
   }
 
-
   private getAnimations(nodes: Container3D[]) {
     if (!this.descriptor.animations) {
       return []
@@ -122,8 +142,8 @@ export class glTFParser {
           continue
         }
         let transform = nodes[channel.target.node].transform
-        let input = this.factory.create(sampler.input).buffer as Float32Array
-        let output = this.factory.create(sampler.output).buffer as Float32Array
+        let input = this.factory.createAttributeData(sampler.input).buffer as Float32Array
+        let output = this.factory.createAttributeData(sampler.output).buffer as Float32Array
 
         if (channel.target.path === "rotation") {
           result.push(new RotationAnimation(transform, sampler.interpolation, input, output))
@@ -163,26 +183,26 @@ export class glTFParser {
   }
 
   private getPositions(mesh: any) {
-    return this.factory.create(mesh.primitives[0].attributes["POSITION"])
+    return this.factory.createAttributeData(mesh.primitives[0].attributes["POSITION"])
   }
 
   private getIndices(mesh: any) {
     if (mesh.primitives[0].indices !== undefined) {
-      return this.factory.create(mesh.primitives[0].indices)
+      return this.factory.createAttributeData(mesh.primitives[0].indices)
     }
   }
 
   private getNormals(mesh: any) {
     let attribute = mesh.primitives[0].attributes["NORMAL"]
     if (attribute !== undefined) {
-      return this.factory.create(attribute)
+      return this.factory.createAttributeData(attribute)
     }
   }
 
   private getTexCoords(mesh: any) {
     let attribute = mesh.primitives[0].attributes["TEXCOORD_0"]
     if (attribute !== undefined) {
-      return this.factory.create(attribute)
+      return this.factory.createAttributeData(attribute)
     }
   }
 
