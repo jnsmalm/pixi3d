@@ -102,6 +102,7 @@ export class glTFParser {
       indices: this.getIndices(mesh),
       positions: this.getPositions(mesh),
       normals: this.getNormals(mesh),
+      colors: this.getColors(mesh),
       texCoords: this.getTexCoords(mesh)
     }
   }
@@ -201,6 +202,13 @@ export class glTFParser {
 
   private getTexCoords(mesh: any) {
     let attribute = mesh.primitives[0].attributes["TEXCOORD_0"]
+    if (attribute !== undefined) {
+      return this.factory.createAttributeData(attribute)
+    }
+  }
+
+  private getColors(mesh: any) {
+    let attribute = mesh.primitives[0].attributes["COLOR_0"]
     if (attribute !== undefined) {
       return this.factory.createAttributeData(attribute)
     }

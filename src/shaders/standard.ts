@@ -8,24 +8,22 @@ import { LightingEnvironment } from "../light"
 import { Matrix } from "../matrix"
 
 export enum StandardShaderAttribute {
-  normal = "normal", texCoord = "texCoord"
+  normal = "normal", texCoord = "texCoord", color = "color"
 }
 
 export class StandardShaderFactory implements ShaderFactory {
   createShader(data: MeshData): Shader {
-    if (data.normals && !data.texCoords) {
-      return new StandardShader([StandardShaderAttribute.normal])
+    let attributes: StandardShaderAttribute[] = []
+    if (data.normals) {
+      attributes.push(StandardShaderAttribute.normal)
     }
-    if (data.normals && data.texCoords) {
-      return new StandardShader([
-        StandardShaderAttribute.normal,
-        StandardShaderAttribute.texCoord
-      ])
+    if (data.texCoords) {
+      attributes.push(StandardShaderAttribute.texCoord)
     }
-    if (!data.normals && data.texCoords) {
-      return new StandardShader([StandardShaderAttribute.texCoord])
+    if (data.colors) {
+      attributes.push(StandardShaderAttribute.color)
     }
-    return new StandardShader()
+    return new StandardShader(attributes)
   }
 }
 
@@ -54,16 +52,20 @@ export class StandardShader extends PIXI.Shader implements Shader {
   createGeometry(data: MeshData): PIXI.Geometry {
     let geometry = new PIXI.Geometry()
     if (data.positions) {
-      geometry.addAttribute("position", data.positions.buffer, 3, false, 
+      geometry.addAttribute("position", data.positions.buffer, 3, false,
         PIXI.TYPES.FLOAT, data.positions.stride)
     }
     if (data.normals) {
-      geometry.addAttribute("normal", data.normals.buffer, 3, false, 
+      geometry.addAttribute("normal", data.normals.buffer, 3, false,
         PIXI.TYPES.FLOAT, data.normals.stride)
     }
     if (data.texCoords) {
-      geometry.addAttribute("texCoord", data.texCoords.buffer, 2, false, 
+      geometry.addAttribute("texCoord", data.texCoords.buffer, 2, false,
         PIXI.TYPES.FLOAT, data.texCoords.stride)
+    }
+    if (data.colors) {
+      geometry.addAttribute("color", data.colors.buffer, 4, false,
+        PIXI.TYPES.FLOAT, data.colors.stride)
     }
     if (data.indices) {
       geometry.addIndex(new Uint16Array(data.indices.buffer))
@@ -80,7 +82,7 @@ export class StandardShader extends PIXI.Shader implements Shader {
 
   get baseColorTexture() {
     if (!this.material || !this.material.baseColorTexture) {
-      return PIXI.Texture.EMPTY
+      return PIXI.Texture.WHITE
     }
     return this.material.baseColorTexture
   }
@@ -103,6 +105,10 @@ class GeneratedStandardProgram extends PIXI.Program {
     if (attributes.indexOf(StandardShaderAttribute.normal) >= 0) {
       vert = vert.replace(/(NORMAL) 0/, "$1 1")
       frag = frag.replace(/(NORMAL) 0/, "$1 1")
+    }
+    if (attributes.indexOf(StandardShaderAttribute.color) >= 0) {
+      vert = vert.replace(/(COLOR) 0/, "$1 1")
+      frag = frag.replace(/(COLOR) 0/, "$1 1")
     }
     if (attributes.indexOf(StandardShaderAttribute.texCoord) >= 0) {
       vert = vert.replace(/(TEXCOORD) 0/, "$1 1")

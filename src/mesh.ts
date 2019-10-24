@@ -12,6 +12,7 @@ export interface MeshData {
   indices?: AttributeData,
   positions: AttributeData,
   normals?: AttributeData,
+  colors?: AttributeData,
   texCoords?: AttributeData,
 }
 

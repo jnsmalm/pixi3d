@@ -69,6 +69,7 @@ declare namespace PIXI {
   }
   class Texture {
     static EMPTY: Texture
+    static WHITE: Texture
     baseTexture: BaseTexture
   }
   class CubeTexture {
