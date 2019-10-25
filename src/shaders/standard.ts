@@ -8,7 +8,7 @@ import { LightingEnvironment } from "../light"
 import { Matrix } from "../matrix"
 
 export enum StandardShaderAttribute {
-  normal = "normal", texCoord = "texCoord", color = "color"
+  normal = "normal", texCoord = "texCoord", color = "color", tangent = "tangent"
 }
 
 export class StandardShaderFactory implements ShaderFactory {
@@ -22,6 +22,9 @@ export class StandardShaderFactory implements ShaderFactory {
     }
     if (data.colors) {
       attributes.push(StandardShaderAttribute.color)
+    }
+    if (data.tangents) {
+      attributes.push(StandardShaderAttribute.tangent)
     }
     return new StandardShader(attributes)
   }
@@ -66,6 +69,10 @@ export class StandardShader extends PIXI.Shader implements Shader {
     if (data.colors) {
       geometry.addAttribute("color", data.colors.buffer, 4, false,
         PIXI.TYPES.FLOAT, data.colors.stride)
+    }
+    if (data.tangents) {
+      geometry.addAttribute("tangent", data.tangents.buffer, 4, false,
+        PIXI.TYPES.FLOAT, data.tangents.stride)
     }
     if (data.indices) {
       geometry.addIndex(new Uint16Array(data.indices.buffer))
@@ -113,6 +120,10 @@ class GeneratedStandardProgram extends PIXI.Program {
     if (attributes.indexOf(StandardShaderAttribute.texCoord) >= 0) {
       vert = vert.replace(/(TEXCOORD) 0/, "$1 1")
       frag = frag.replace(/(TEXCOORD) 0/, "$1 1")
+    }
+    if (attributes.indexOf(StandardShaderAttribute.tangent) >= 0) {
+      vert = vert.replace(/(TANGENT) 0/, "$1 1")
+      frag = frag.replace(/(TANGENT) 0/, "$1 1")
     }
     super(vert, frag)
   }

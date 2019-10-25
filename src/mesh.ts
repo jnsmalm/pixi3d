@@ -2,7 +2,6 @@ import { Shader } from "./shader"
 import { MetallicRoughnessMaterial } from "./material"
 import { Container3D } from "./container"
 
-
 export interface AttributeData {
   stride: number
   buffer: ArrayBuffer
@@ -14,6 +13,7 @@ export interface MeshData {
   normals?: AttributeData,
   colors?: AttributeData,
   texCoords?: AttributeData,
+  tangents?: AttributeData
 }
 
 const state = new PIXI.State()

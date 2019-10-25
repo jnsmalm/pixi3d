@@ -3,6 +3,7 @@ precision mediump float;
 #define ATTRIBUTE_NORMAL 0
 #define ATTRIBUTE_TEXCOORD 0
 #define ATTRIBUTE_COLOR 0
+#define ATTRIBUTE_TANGENT 0
 
 #if (ATTRIBUTE_NORMAL == 1)
   varying vec3 v_normal;
@@ -12,6 +13,9 @@ precision mediump float;
 #endif
 #if (ATTRIBUTE_COLOR == 1)
   varying vec4 v_color;
+#endif
+#if (ATTRIBUTE_TANGENT == 1)
+  varying vec4 v_tangent;
 #endif
 
 uniform vec3 directionalLight;

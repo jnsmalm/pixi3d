@@ -103,7 +103,8 @@ export class glTFParser {
       positions: this.getPositions(mesh),
       normals: this.getNormals(mesh),
       colors: this.getColors(mesh),
-      texCoords: this.getTexCoords(mesh)
+      texCoords: this.getTexCoords(mesh),
+      tangents: this.getTangents(mesh)
     }
   }
 
@@ -209,6 +210,13 @@ export class glTFParser {
 
   private getColors(mesh: any) {
     let attribute = mesh.primitives[0].attributes["COLOR_0"]
+    if (attribute !== undefined) {
+      return this.factory.createAttributeData(attribute)
+    }
+  }
+
+  private getTangents(mesh: any) {
+    let attribute = mesh.primitives[0].attributes["TANGENT"]
     if (attribute !== undefined) {
       return this.factory.createAttributeData(attribute)
     }
