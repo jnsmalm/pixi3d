@@ -58,7 +58,7 @@ class ArrayBufferFactory {
 export class glTFParser {
   private factory: ArrayBufferFactory
 
-  constructor(private descriptor: any, buffers: ArrayBuffer[], private textures: PIXI.Texture[], private shader?: Shader, private shaderFactory?: ShaderFactory) {
+  constructor(private descriptor: any, buffers: ArrayBuffer[], private images: PIXI.Texture[], private shader?: Shader, private shaderFactory?: ShaderFactory) {
     this.factory = new ArrayBufferFactory(descriptor, buffers)
   }
 
@@ -126,7 +126,7 @@ export class glTFParser {
       throw Error(`PIXI3D: Could not find "${source}", was the file loaded?`)
     }
     return new glTFParser(
-      resource.descriptor, resource.buffers, resource.textures, shader, shaderFactory)
+      resource.descriptor, resource.buffers, resource.images, shader, shaderFactory)
   }
 
   private getAnimations(nodes: Container3D[]) {
@@ -229,8 +229,8 @@ export class glTFParser {
     }
     let material = this.descriptor.materials[mesh.primitives[0].material]
     if (material.normalTexture) {
-      let texture = material.normalTexture.index
-      result.normalTexture = this.textures[texture]
+      let texture = this.descriptor.textures[material.normalTexture.index]
+      result.normalTexture = this.images[texture.source]
       result.normalTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
     }
     let pbrMetallicRoughness = this.descriptor.materials[mesh.primitives[0].material].pbrMetallicRoughness
@@ -247,13 +247,13 @@ export class glTFParser {
       result.roughness = pbrMetallicRoughness.roughnessFactor
     }
     if (pbrMetallicRoughness.baseColorTexture) {
-      let texture = pbrMetallicRoughness.baseColorTexture.index
-      result.baseColorTexture = this.textures[texture]
+      let texture = this.descriptor.textures[pbrMetallicRoughness.baseColorTexture.index]
+      result.baseColorTexture = this.images[texture.source]
       result.baseColorTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
     }
     if (pbrMetallicRoughness.metallicRoughnessTexture) {
-      let texture = pbrMetallicRoughness.metallicRoughnessTexture.index
-      result.metallicRoughnessTexture = this.textures[texture]
+      let texture = this.descriptor.textures[pbrMetallicRoughness.metallicRoughnessTexture.index]
+      result.metallicRoughnessTexture = this.images[texture.source]
       result.metallicRoughnessTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
     }
     return result

@@ -3,7 +3,7 @@ export namespace glTFLoader {
     [source: string]: {
       descriptor: any,
       buffers: ArrayBuffer[],
-      textures: PIXI.Texture[]
+      images: PIXI.Texture[]
     }
   } = {}
 }
@@ -16,7 +16,7 @@ PIXI.Loader.registerPlugin({
     glTFLoader.resources[resource.name] = {
       buffers: [],
       descriptor: resource.data,
-      textures: []
+      images: []
     }
     for (let i = 0; i < resource.data.buffers.length; i++) {
       let buffer: { uri: string } = resource.data.buffers[i];
@@ -27,15 +27,14 @@ PIXI.Loader.registerPlugin({
         metadata: { name: resource.name, buffer: i }
       })
     }
-    if (resource.data.textures) {
-      for (let i = 0; i < resource.data.textures.length; i++) {
-        let source = resource.data.textures[i].source
-        let image: { uri: string } = resource.data.images[source];
+    if (resource.data.images) {
+      for (let i = 0; i < resource.data.images.length; i++) {
+        let image: { uri: string } = resource.data.images[i];
         (this as PIXI.Loader).add({
           name: image.uri,
           url: resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + image.uri,
           parentResource: resource,
-          metadata: { name: resource.name, texture: i }
+          metadata: { name: resource.name, image: i }
         })
       }
     }
@@ -66,7 +65,7 @@ PIXI.Loader.registerPlugin({
     if (resource.type !== PIXI.LoaderResource.TYPE.IMAGE || !resource.texture || !resource.metadata.name) {
       return next()
     }
-    glTFLoader.resources[resource.metadata.name].textures[resource.metadata.texture] = resource.texture
+    glTFLoader.resources[resource.metadata.name].images[resource.metadata.image] = resource.texture
     next()
   }
 })
