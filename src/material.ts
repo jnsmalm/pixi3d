@@ -4,5 +4,7 @@ export class MetallicRoughnessMaterial {
   baseColorTexture?: PIXI.Texture
   metallicRoughnessTexture?: PIXI.Texture
   normalTexture?: PIXI.Texture
+  occlusionTexture?: PIXI.Texture
+  emissiveTexture?: PIXI.Texture
   baseColor = [1, 1, 1, 1]
 }

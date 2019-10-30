@@ -1,7 +1,8 @@
 import { glTFParser } from "./gltf/parser"
 import { Container3D } from "./container"
-import { Shader, ShaderFactory } from "./shader"
+import { Shader } from "./shader"
 import { Animation } from "./animation"
+import { ShaderFactory } from "./shaders/factory"
 
 export class Model3D extends Container3D {
   animations: Animation[] = []

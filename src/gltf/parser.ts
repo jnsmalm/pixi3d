@@ -4,9 +4,9 @@ import { Animation, AnimationInterpolation, RotationAnimation, TranslationAnimat
 import { MetallicRoughnessMaterial } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
-import { Shader, ShaderFactory } from "../shader"
+import { Shader } from "../shader"
 import { MeshData, Mesh3D, AttributeData } from "../mesh"
-import { StandardShaderFactory } from "../shaders/standard"
+import { ShaderFactory, DefaultShaderFactory } from "../shaders/factory"
 
 const TYPE_SIZES: { [name: string]: number } = {
   SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
@@ -109,15 +109,17 @@ export class glTFParser {
   }
 
   private createMesh(mesh: any) {
+    let material = this.getMaterial(mesh)
     let data = this.createMeshData(mesh)
+    
     if (!this.shader) {
       if (!this.shaderFactory) {
-        this.shaderFactory = new StandardShaderFactory()
+        this.shaderFactory = new DefaultShaderFactory()
       }
-      this.shader = this.shaderFactory.createShader(data)
+      this.shader = this.shaderFactory.createShader(data, material)
     }
     return new Mesh3D(
-      this.shader.createGeometry(data), this.shader, this.getMaterial(mesh))
+      this.shader.createGeometry(data), this.shader, material)
   }
 
   static from(source: string, shader?: Shader, shaderFactory?: ShaderFactory) {
@@ -232,6 +234,16 @@ export class glTFParser {
       let texture = this.descriptor.textures[material.normalTexture.index]
       result.normalTexture = this.images[texture.source]
       result.normalTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
+    }
+    if (material.emissiveTexture) {
+      let texture = this.descriptor.textures[material.emissiveTexture.index]
+      result.emissiveTexture = this.images[texture.source]
+      result.emissiveTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
+    }
+    if (material.occlusionTexture) {
+      let texture = this.descriptor.textures[material.occlusionTexture.index]
+      result.occlusionTexture = this.images[texture.source]
+      result.occlusionTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
     }
     let pbrMetallicRoughness = this.descriptor.materials[mesh.primitives[0].material].pbrMetallicRoughness
     if (!pbrMetallicRoughness) {

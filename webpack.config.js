@@ -22,12 +22,7 @@ module.exports = env => {
           exclude: /node_modules/
         },
         {
-          test: /\.vert$/,
-          use: "raw-loader",
-          exclude: /node_modules/
-        },
-        {
-          test: /\.frag$/,
+          test: /\.(glsl|vert|frag)$/,
           use: "raw-loader",
           exclude: /node_modules/
         }

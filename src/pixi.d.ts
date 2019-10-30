@@ -37,11 +37,15 @@ declare namespace PIXI {
     shader: PIXI.Shader
     constructor(geometry: PIXI.Geometry, shader: PIXI.Shader, state?: State)
   }
-  class Container {
+  class DisplayObject {
+    transform: Transform
     parent?: Container
-    addChild(child: any): any
+    on(event: string, callback: () => void): void
     render(renderer: any): void
     updateTransform(): void
+  }
+  class Container extends DisplayObject {
+    addChild(child: any): any
   }
   class Transform {
     _localID: number
