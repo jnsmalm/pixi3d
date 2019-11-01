@@ -50,15 +50,15 @@ export class Transform3D extends PIXI.Transform {
   }
 
   setFromMatrix(matrix: ArrayLike<number>) {
-    mat4.getTranslation(this.localPosition, matrix as mat4)
+    mat4.getTranslation(this.localPosition, matrix)
     this.position.set(
       this.localPosition[0], this.localPosition[1], this.localPosition[2]
     )
-    mat4.getScaling(this.localScale, matrix as mat4)
+    mat4.getScaling(this.localScale, matrix)
     this.scale.set(
       this.localScale[0], this.localScale[1], this.localScale[2]
     )
-    mat4.getRotation(this.localRotation, matrix as mat4)
+    mat4.getRotation(this.localRotation, matrix)
     this.rotation.set(
       this.localRotation[0], this.localRotation[1], this.localRotation[2], this.localRotation[3]
     )
