@@ -58,6 +58,7 @@ export class ObservableQuaternion extends ObservablePoint3D {
     return (p.x === this._x) && (p.y === this._y) && (p.z === this._z) && (p.w === this._w)
   }
 
+  set(...xyzw: number[]): void
   set(x: number, y?: number, z?: number, w?: number) {
     const _x = x || 0
     const _y = y || ((y !== 0) ? _x : 0)

@@ -1,19 +1,25 @@
 import { mat4 } from "gl-matrix"
+import { UpdatableFloat32Array } from "./matrix"
 import { Transform3D } from "./transform"
 
-export class Camera3D {
+export class Camera3D extends PIXI.DisplayObject {
   transform = new Transform3D()
 
-  private _projection = mat4.create()
-  private _view = mat4.create()
-  private _viewProjection = mat4.create()
-  private _projectionID = -1
-  private _viewID = -1
-  private _viewProjectionID = -1
+  private _id = 0
+
+  get id() {
+    return this.transform._worldID + this._id
+  }
+
+  private _projection?: UpdatableFloat32Array
+  private _view?: UpdatableFloat32Array
+  private _viewProjection?: UpdatableFloat32Array
 
   static main = new Camera3D()
 
   constructor(private _aspectRatio = 1, private _fieldOfView = 45, private _near = 0.1, private _far = 1000) {
+    super()
+
     this.position.z = 5
     this.rotation.y = 180
   }
@@ -24,8 +30,7 @@ export class Camera3D {
 
   set aspectRatio(value: number) {
     if (this._aspectRatio !== value) {
-      this._aspectRatio = value
-      this._viewProjectionID = this._projectionID = -1
+      this._aspectRatio = value; this._id++
     }
   }
 
@@ -35,8 +40,7 @@ export class Camera3D {
 
   set fieldOfView(value: number) {
     if (this._fieldOfView !== value) {
-      this._fieldOfView = value
-      this._viewProjectionID = this._projectionID = -1
+      this._fieldOfView = value; this._id++
     }
   }
 
@@ -46,8 +50,7 @@ export class Camera3D {
 
   set near(value: number) {
     if (this._near !== value) {
-      this._near = value
-      this._viewProjectionID = this._projectionID = -1
+      this._near = value; this._id++
     }
   }
 
@@ -57,30 +60,35 @@ export class Camera3D {
 
   set far(value: number) {
     if (this._far !== value) {
-      this._far = value
-      this._viewProjectionID = this._projectionID = -1
+      this._far = value; this._id++
     }
   }
 
   get projection() {
-    if (this._projectionID !== this.transform._localID) {
-      this.updateProjection()
+    if (!this._projection) {
+      this._projection = new UpdatableFloat32Array(this, 16, data => {
+        mat4.perspective(data, this._fieldOfView, this._aspectRatio, this._near, this._far)
+      })
     }
-    return this._projection
+    return this._projection.data
   }
 
   get view() {
-    if (this._viewID !== this.transform._localID) {
-      this.updateView()
+    if (!this._view) {
+      this._view = new UpdatableFloat32Array(this, 16, data => {
+        mat4.lookAt(data, this.transform.worldTransform.position, this.transform.worldTransform.direction, this.transform.worldTransform.up)
+      })
     }
-    return this._view
+    return this._view.data
   }
 
   get viewProjection() {
-    if (this._viewProjectionID !== this.transform._localID) {
-      this.updateViewProjection()
+    if (!this._viewProjection) {
+      this._viewProjection = new UpdatableFloat32Array(this, 16, data => {
+        mat4.multiply(data, this.projection, this.view)
+      })
     }
-    return this._viewProjection
+    return this._viewProjection.data
   }
 
   get position() {
@@ -91,20 +99,7 @@ export class Camera3D {
     return this.transform.rotation
   }
 
-  updateProjection() {
-    mat4.perspective(this._projection, this._fieldOfView, this._aspectRatio, this._near, this._far)
-    this._projectionID = this.transform._localID
-  }
-
-  updateViewProjection() {
-    mat4.multiply(this._viewProjection, this.projection, this.view)
-    this._viewProjectionID = this.transform._localID
-  }
-
-  updateView() {
-    this.transform.updateLocalTransform()
-    mat4.lookAt(this._view,
-      this.transform.localPosition, this.transform.localDirection, this.transform.localUp)
-    this._viewID = this.transform._localID
+  get viewPosition() {
+    return this.transform.worldTransform.position
   }
 }

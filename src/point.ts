@@ -41,6 +41,7 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
     return (p.x === this._x) && (p.y === this._y) && (p.z === this._z)
   }
 
+  set(...xyz: number[]): void
   set(x: number, y?: number, z?: number) {
     const _x = x || 0
     const _y = y || ((y !== 0) ? _x : 0)

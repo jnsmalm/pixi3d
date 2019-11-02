@@ -23,8 +23,9 @@ export class StandardShader extends PIXI.Shader implements Shader {
 
   update() {
     if (this.transform) {
-      this.uniforms.world = this.transform.worldTransform
+      this.uniforms.world = this.transform.worldTransform.array
     }
+    this.uniforms.viewPosition = Camera3D.main.viewPosition
     this.uniforms.viewProjection = Camera3D.main.viewProjection
     this.uniforms.baseColor = this.baseColor
     this.uniforms.baseColorMap = this.baseColorMap
@@ -34,10 +35,6 @@ export class StandardShader extends PIXI.Shader implements Shader {
     this.uniforms.normalMap = this.normalMap
     this.uniforms.occlusionMap = this.occlusionMap
     this.uniforms.emissiveMap = this.emissiveMap
-
-    Camera3D.main.transform.updateLocalTransform()
-    this.uniforms.viewPosition = Camera3D.main.transform.localPosition
-
     this.uniforms.lightPositions = this.lightPositions
     this.uniforms.lightColors = this.lightColors
   }
@@ -106,6 +103,9 @@ export class StandardShader extends PIXI.Shader implements Shader {
         lightPositions.push(lighting.pointLights[i].worldPosition[j])
       }
     }
+    if (lightPositions.length === 0) {
+      lightPositions = [0, 0, 0]
+    }
     return lightPositions
   }
 
@@ -116,6 +116,9 @@ export class StandardShader extends PIXI.Shader implements Shader {
       for (let j = 0; j < 3; j++) {
         lightColors.push(lighting.pointLights[i].color[j])
       }
+    }
+    if (lightColors.length === 0) {
+      lightColors = [0, 0, 0]
     }
     return lightColors
   }
