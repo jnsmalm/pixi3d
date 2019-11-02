@@ -2,6 +2,7 @@ import { MeshData } from "../mesh"
 import { Shader } from "../shader"
 import { MetallicRoughnessMaterial } from "../material"
 import { StandardShader, StandardShaderAttribute, StandardShaderFeature } from "./standard"
+import { LightingEnvironment } from "../light"
 
 export interface ShaderFactory {
   createShader(data: MeshData, material: MetallicRoughnessMaterial): Shader
@@ -25,6 +26,9 @@ export class DefaultShaderFactory implements ShaderFactory {
     }
     if (material.emissiveTexture) {
       features.push(StandardShaderFeature.emissiveMap)
+    }
+    if (LightingEnvironment.main.irradianceTexture) {
+      features.push(StandardShaderFeature.diffuseIrradiance)
     }
     return new StandardShader(attributes, features)
   }

@@ -10,18 +10,25 @@ export enum StandardShaderAttribute {
 }
 
 export enum StandardShaderFeature {
-  normalMap = "normalMapping", emissiveMap = "emissiveMap"
+  normalMap = "normalMapping", emissiveMap = "emissiveMap", diffuseIrradiance = "diffuseIrradiance"
 }
 
 export class StandardShader extends PIXI.Shader implements Shader {
   transform: Transform3D | undefined
   material: MetallicRoughnessMaterial | undefined
 
-  constructor(attributes: StandardShaderAttribute[], features: StandardShaderFeature[]) {
+  constructor(attributes: StandardShaderAttribute[], private features: StandardShaderFeature[]) {
     super(StandardShaderProgram.build(attributes, features))
   }
 
   update() {
+    let lighting = LightingEnvironment.main
+    if (this.features.includes(StandardShaderFeature.diffuseIrradiance)) {
+      if (!lighting.irradianceTexture) {
+        throw new Error("PIXI3D: Irradiance texture has not been set.")
+      }
+      this.uniforms.irradianceMap = lighting.irradianceTexture
+    }
     if (this.transform) {
       this.uniforms.world = this.transform.worldTransform.array
     }
@@ -182,6 +189,9 @@ namespace StandardShaderProgram {
     }
     if (features.includes(StandardShaderFeature.emissiveMap)) {
       defines.push("EMISSIVE_MAP")
+    }
+    if (features.includes(StandardShaderFeature.diffuseIrradiance)) {
+      defines.push("DIFFUSE_IRRADIANCE")
     }
     return PIXI.Program.from(ProgramSource.build(vert, defines),
       ProgramSource.build(frag, defines))
