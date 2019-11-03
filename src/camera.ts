@@ -65,6 +65,9 @@ export class Camera3D extends PIXI.DisplayObject {
   }
 
   get projection() {
+    if (!this.parent) {
+      this.transform.updateLocalTransform()
+    }
     if (!this._projection) {
       this._projection = new UpdatableFloat32Array(this, 16, data => {
         mat4.perspective(data, this._fieldOfView, this._aspectRatio, this._near, this._far)
@@ -74,6 +77,9 @@ export class Camera3D extends PIXI.DisplayObject {
   }
 
   get view() {
+    if (!this.parent) {
+      this.transform.updateLocalTransform()
+    }
     if (!this._view) {
       this._view = new UpdatableFloat32Array(this, 16, data => {
         mat4.lookAt(data, this.transform.worldTransform.position, this.transform.worldTransform.direction, this.transform.worldTransform.up)
@@ -83,6 +89,9 @@ export class Camera3D extends PIXI.DisplayObject {
   }
 
   get viewProjection() {
+    if (!this.parent) {
+      this.transform.updateLocalTransform()
+    }
     if (!this._viewProjection) {
       this._viewProjection = new UpdatableFloat32Array(this, 16, data => {
         mat4.multiply(data, this.projection, this.view)
@@ -100,6 +109,9 @@ export class Camera3D extends PIXI.DisplayObject {
   }
 
   get viewPosition() {
+    if (!this.parent) {
+      this.transform.updateLocalTransform()
+    }
     return this.transform.worldTransform.position
   }
 }
