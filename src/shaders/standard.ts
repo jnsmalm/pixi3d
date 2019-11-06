@@ -1,5 +1,5 @@
 import { Shader } from "../shader"
-import { MetallicRoughnessMaterial } from "../material"
+import { MetallicRoughnessMaterial, MaterialAlphaMode } from "../material"
 import { Camera3D } from "../camera"
 import { MeshData } from "../mesh"
 import { Transform3D } from "../transform"
@@ -20,15 +20,29 @@ export enum StandardShaderAttribute {
 }
 
 export enum StandardShaderFeature {
-  normalMap = "normalMapping", emissiveMap = "emissiveMap", diffuseIrradiance = "diffuseIrradiance", morphing = "morphing"
+  normalMap = "normalMapping", 
+  emissiveMap = "emissiveMap", 
+  diffuseIrradiance = "diffuseIrradiance",
+  alphaModeOpaque = "alphaModeOpaque",
+  alphaModeBlend = "alphaModeBlend",
+  alphaModeMask = "alphaModeMask",
+  morphing = "morphing"
 }
 
 export class StandardShader extends PIXI.Shader implements Shader {
   transform: Transform3D | undefined
   material: MetallicRoughnessMaterial | undefined
   weights?: number[]
+  
+  get batchable() {
+    return true
+  }
 
-  constructor(attributes: StandardShaderAttribute[], private features: StandardShaderFeature[]) {
+  get pluginName() {
+    return "standard"
+  }
+
+  constructor(attributes: StandardShaderAttribute[] = [], private features: StandardShaderFeature[] = []) {
     super(StandardShaderProgram.build(attributes, features))
   }
 
@@ -56,6 +70,14 @@ export class StandardShader extends PIXI.Shader implements Shader {
     this.uniforms.lightPositions = this.lightPositions
     this.uniforms.lightColors = this.lightColors
     this.uniforms.morphWeights = this.morphWeights
+    this.uniforms.alphaMaskCutoff = this.alphaMaskCutoff
+  }
+
+  get alphaMaskCutoff() {
+    if (!this.material) {
+      return 0.5
+    }
+    return this.material.alphaMaskCutoff
   }
 
   get baseColor() {
@@ -260,6 +282,15 @@ namespace StandardShaderProgram {
     }
     if (features.includes(StandardShaderFeature.morphing)) {
       defines.push("USE_MORPHING")
+    }
+    if (features.includes(StandardShaderFeature.alphaModeOpaque)) {
+      defines.push("ALPHAMODE_OPAQUE")
+    }
+    if (features.includes(StandardShaderFeature.alphaModeMask)) {
+      defines.push("ALPHAMODE_MASK")
+    }
+    if (features.includes(StandardShaderFeature.alphaModeBlend)) {
+      defines.push("ALPHAMODE_BLEND")
     }
     return PIXI.Program.from(ProgramSource.build(vert, defines),
       ProgramSource.build(frag, defines))

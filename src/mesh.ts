@@ -1,5 +1,5 @@
 import { Shader } from "./shader"
-import { MetallicRoughnessMaterial } from "./material"
+import { MetallicRoughnessMaterial, MaterialAlphaMode } from "./material"
 import { Container3D } from "./container"
 
 export interface AttributeData {
@@ -31,11 +31,7 @@ export class Mesh3D extends Container3D {
   }
 
   render(renderer: any) {
-    this.shader.transform = this.transform
-    this.shader.material = this.material
-
-    this.shader.weights = this.mesh.geometry.weights
-
-    super.render(renderer)
+    renderer.batch.setObjectRenderer(renderer.plugins["standard"])
+    renderer.plugins["standard"].render(this);
   }
 }

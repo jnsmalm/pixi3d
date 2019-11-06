@@ -24,13 +24,26 @@ uniform vec3 lightPositions[4];
 uniform vec3 lightColors[4];
 
 uniform samplerCube irradianceMap;
+uniform float alphaMaskCutoff;
 
 void main() {
   vec4 baseColor = baseColor * SRGBtoLINEAR(baseColorFromMap());
+  #ifdef ALPHAMODE_BLEND
+    baseColor.rgb *= baseColor.a;
+  #endif
+  #ifdef ALPHAMODE_MASK
+    if (baseColor.a < alphaMaskCutoff) {
+      discard;
+    }
+    baseColor.a = 1.0;
+  #endif
+  #ifdef ALPHAMODE_OPAQUE
+    baseColor.a = 1.0;
+  #endif
   #ifndef HAS_NORMAL
     // When we don't have a normal, there is no need to continue with lighting 
     // calculations. Just use base color.
-    gl_FragColor = vec4(LINEARtoSRGB(baseColor.rgb), baseColor.a);
+    gl_FragColor = vec4(LINEARtoSRGB(baseColor.rgb) * baseColor.a, baseColor.a);
     return;
   #endif
 
@@ -73,5 +86,5 @@ void main() {
     color += SRGBtoLINEAR(emissiveFromMap()).rgb;
   #endif
 
-  gl_FragColor = vec4(toneMap(color), baseColor.a);
+  gl_FragColor = vec4(toneMap(color) * baseColor.a, baseColor.a);
 }

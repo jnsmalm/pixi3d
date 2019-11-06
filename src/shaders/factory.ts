@@ -1,6 +1,6 @@
 import { MeshData } from "../mesh"
 import { Shader } from "../shader"
-import { MetallicRoughnessMaterial } from "../material"
+import { MetallicRoughnessMaterial, MaterialAlphaMode } from "../material"
 import { StandardShader, StandardShaderAttribute, StandardShaderFeature } from "./standard"
 import { LightingEnvironment } from "../light"
 
@@ -45,6 +45,15 @@ export class DefaultShaderFactory implements ShaderFactory {
     }
     if (data.targets) {
       features.push(StandardShaderFeature.morphing)
+    }
+    if (material.alphaMode === MaterialAlphaMode.opaque) {
+      features.push(StandardShaderFeature.alphaModeOpaque)
+    }
+    if (material.alphaMode === MaterialAlphaMode.mask) {
+      features.push(StandardShaderFeature.alphaModeMask)
+    }
+    if (material.alphaMode === MaterialAlphaMode.blend) {
+      features.push(StandardShaderFeature.alphaModeBlend)
     }
     return new StandardShader(attributes, features)
   }

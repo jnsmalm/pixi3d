@@ -1,7 +1,7 @@
 import { glTFLoader } from "./loader"
 import { Transform3D } from "../transform"
 import { Animation, AnimationInterpolation, RotationAnimation, TranslationAnimation, ScaleAnimation, WeightsAnimation } from "../animation"
-import { MetallicRoughnessMaterial } from "../material"
+import { MetallicRoughnessMaterial, MaterialAlphaMode } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
 import { Shader } from "../shader"
@@ -113,15 +113,16 @@ export class glTFParser {
   private createMesh(mesh: any) {
     let material = this.getMaterial(mesh)
     let data = this.createMeshData(mesh)
-
-    if (!this.shader) {
-      if (!this.shaderFactory) {
-        this.shaderFactory = new DefaultShaderFactory()
+    let shader = this.shader
+    let shaderFactory = this.shaderFactory
+    
+    if (!shader) {
+      if (!shaderFactory) {
+        shaderFactory = new DefaultShaderFactory()
       }
-      this.shader = this.shaderFactory.createShader(data, material)
+      shader = shaderFactory.createShader(data, material)
     }
-    return new Mesh3D(
-      this.shader.createGeometry(data), this.shader, material)
+    return new Mesh3D(shader.createGeometry(data), shader, material)
   }
 
   static from(source: string, shader?: Shader, shaderFactory?: ShaderFactory) {
@@ -299,6 +300,24 @@ export class glTFParser {
       result.occlusionTexture = this.images[texture.source]
       result.occlusionTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
     }
+    if (material.alphaMode) {
+      switch (material.alphaMode) {
+        case "MASK": {
+          result.alphaMode = MaterialAlphaMode.mask
+          break
+        }
+        case "BLEND": {
+          result.alphaMode = MaterialAlphaMode.blend
+          break
+        }
+      }
+    }
+    if (material.alphaCutoff !== undefined) {
+      result.alphaMaskCutoff = material.alphaCutoff
+    }
+    if (material.doubleSided !== undefined) {
+      result.doubleSided = material.doubleSided
+    }
     let pbrMetallicRoughness = this.descriptor.materials[mesh.primitives[0].material].pbrMetallicRoughness
     if (!pbrMetallicRoughness) {
       return result
@@ -316,6 +335,10 @@ export class glTFParser {
       let texture = this.descriptor.textures[pbrMetallicRoughness.baseColorTexture.index]
       result.baseColorTexture = this.images[texture.source]
       result.baseColorTexture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
+
+      // Without using this we get banding on gradients, read more at
+      // https://stackoverflow.com/questions/31481029/alpha-gradients-not-smooth-in-webgl-when-using-premultiplied-alpha
+      result.baseColorTexture.baseTexture.alphaMode = PIXI.ALPHA_MODES.PREMULTIPLIED_ALPHA
     }
     if (pbrMetallicRoughness.metallicRoughnessTexture) {
       let texture = this.descriptor.textures[pbrMetallicRoughness.metallicRoughnessTexture.index]

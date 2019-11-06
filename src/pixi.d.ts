@@ -28,6 +28,7 @@ declare namespace PIXI {
   class Shader {
     uniforms: any
     constructor(program: Program, uniforms?: {})
+    update(): void
   }
   class Program {
     constructor(vert: string, frag: string)
@@ -65,6 +66,13 @@ declare namespace PIXI {
     scope: any
     constructor(cb: () => void, scope: any, x: number, y: number)
   }
+  class Renderer {
+    static registerPlugin(name: string, ctor: any): void
+  }
+  class ObjectRenderer {
+    renderer: any
+    constructor(renderer: any)
+  }
   class State {
     depthTest: boolean
     clockwiseFrontFace: boolean
@@ -72,6 +80,7 @@ declare namespace PIXI {
   }
   class BaseTexture {
     wrapMode: WRAP_MODES
+    alphaMode: ALPHA_MODES
   }
   class Texture {
     static EMPTY: Texture
@@ -83,4 +92,5 @@ declare namespace PIXI {
   }
   enum WRAP_MODES { REPEAT }
   enum TYPES { FLOAT }
+  enum ALPHA_MODES { PREMULTIPLIED_ALPHA }
 }
