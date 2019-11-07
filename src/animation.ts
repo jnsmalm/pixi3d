@@ -1,5 +1,6 @@
-import { quat, vec3 } from "gl-matrix"
+import { quat, vec2, vec3 } from "gl-matrix"
 import { Transform3D } from "./transform"
+import { Interpolate } from "./interpolate"
 
 export enum AnimationInterpolation {
   linear = "LINEAR",
@@ -10,7 +11,7 @@ export enum AnimationInterpolation {
 export abstract class Animation {
   protected _position = 0
 
-  constructor(public transform: Transform3D, public interpolation: AnimationInterpolation, public input: Float32Array, public output: Float32Array) {
+  constructor(public interpolation: AnimationInterpolation, public input: Float32Array, public output: Float32Array) {
   }
 
   get position() {
@@ -57,14 +58,30 @@ export abstract class Animation {
 }
 
 export class RotationAnimation extends Animation {
-  constructor(transform: Transform3D, interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
-    super(transform, interpolation, input, output)
+  constructor(public transform: Transform3D, interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
+    super(interpolation, input, output)
   }
 
   animate(position: number) {
-    let rotation = this.getRotationAtPosition(position)
+    if (this.interpolation !== AnimationInterpolation.cubicspline) {
+      let rotation = this.getRotationAtPosition(position)
+      this.transform.rotation.set(
+        rotation[0], rotation[1], rotation[2], rotation[3]
+      )
+      return
+    }
+
+    let keyFrame = this.getKeyFrame(position)
+    let keyDelta = this.input[keyFrame + 1] - this.input[keyFrame]
+    let keyPosition = this.getKeyFramePosition(position)
+
+    let result = Interpolate.cubicSpline(keyFrame, keyFrame + 1, this.output,
+      keyDelta, keyPosition, 4)
+
+    quat.normalize(result, result);
+
     this.transform.rotation.set(
-      rotation[0], rotation[1], rotation[2], rotation[3]
+      result[0], result[1], result[2], result[3]
     )
   }
 
@@ -88,14 +105,28 @@ export class RotationAnimation extends Animation {
 }
 
 export class TranslationAnimation extends Animation {
-  constructor(transform: Transform3D, interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
-    super(transform, interpolation, input, output)
+  constructor(public transform: Transform3D, interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
+    super(interpolation, input, output)
   }
 
   animate(position: number) {
-    let translation = this.getTranslationAtPosition(position)
+    if (this.interpolation !== AnimationInterpolation.cubicspline) {
+      let translation = this.getTranslationAtPosition(position)
+      this.transform.position.set(
+        translation[0], translation[1], translation[2]
+      )
+      return
+    }
+
+    let keyFrame = this.getKeyFrame(position)
+    let keyDelta = this.input[keyFrame + 1] - this.input[keyFrame]
+    let keyPosition = this.getKeyFramePosition(position)
+
+    let result = Interpolate.cubicSpline(keyFrame, keyFrame + 1, this.output,
+      keyDelta, keyPosition, 3)
+
     this.transform.position.set(
-      translation[0], translation[1], translation[2]
+      result[0], result[1], result[2]
     )
   }
 
@@ -119,14 +150,29 @@ export class TranslationAnimation extends Animation {
 }
 
 export class ScaleAnimation extends Animation {
-  constructor(transform: Transform3D, interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
-    super(transform, interpolation, input, output)
+  constructor(public transform: Transform3D, interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
+    super(interpolation, input, output)
   }
 
   animate(position: number) {
-    let translation = this.getScaleAtPosition(position)
+
+    if (this.interpolation !== AnimationInterpolation.cubicspline) {
+      let translation = this.getScaleAtPosition(position)
+      this.transform.scale.set(
+        translation[0], translation[1], translation[2]
+      )
+      return
+    }
+
+    let keyFrame = this.getKeyFrame(position)
+    let keyDelta = this.input[keyFrame + 1] - this.input[keyFrame]
+    let keyPosition = this.getKeyFramePosition(position)
+
+    let result = Interpolate.cubicSpline(keyFrame, keyFrame + 1, this.output,
+      keyDelta, keyPosition, 3)
+
     this.transform.scale.set(
-      translation[0], translation[1], translation[2]
+      result[0], result[1], result[2]
     )
   }
 
@@ -146,5 +192,52 @@ export class ScaleAnimation extends Animation {
       this.getScaleAtKeyFrame(keyFrame),
       this.getScaleAtKeyFrame(keyFrame + 1),
       this.getKeyFramePosition(position))
+  }
+}
+
+export class WeightsAnimation extends Animation {
+  constructor(public weights: number[], interpolation: AnimationInterpolation, input: Float32Array, output: Float32Array) {
+    super(interpolation, input, output)
+  }
+
+  animate(position: number) {
+    if (this.interpolation !== AnimationInterpolation.cubicspline) {
+      let weights = this.getWeightsAtPosition(position)
+      for (let i = 0; i < weights.length; i++) {
+        this.weights[i] = weights[i]
+      }
+      return
+    }
+
+    let keyFrame = this.getKeyFrame(position)
+    let keyDelta = this.input[keyFrame + 1] - this.input[keyFrame]
+    let keyPosition = this.getKeyFramePosition(position)
+
+    let result = Interpolate.cubicSpline(keyFrame, keyFrame + 1, this.output,
+      keyDelta, keyPosition, this.weights.length)
+
+    for (let i = 0; i < result.length; i++) {
+      this.weights[i] = result[i]
+    }
+  }
+
+  getWeightsAtKeyFrame(keyFrame: number) {
+    let index = keyFrame * this.weights.length
+    return this.output.subarray(index, index + this.weights.length)
+  }
+
+  getWeightsAtPosition(position: number) {
+    let keyFrame = this.getKeyFrame(position)
+    if (this.interpolation === AnimationInterpolation.step) {
+      return this.getWeightsAtKeyFrame(keyFrame)
+    }
+    let frame1 = this.getWeightsAtKeyFrame(keyFrame)
+    let frame2 = this.getWeightsAtKeyFrame(keyFrame + 1)
+    let framePosition = this.getKeyFramePosition(position)
+    let result = []
+    for (let i = 0; i < frame1.length; i++) {
+      result.push(frame1[i] + (frame2[i] - frame1[i]) * framePosition)
+    }
+    return result
   }
 }

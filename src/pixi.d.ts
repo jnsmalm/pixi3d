@@ -21,6 +21,7 @@ declare namespace PIXI {
     static get TYPE(): { IMAGE: number }
   }
   class Geometry {
+    weights?: number[]
     addAttribute(name: string, data: ArrayBuffer, size: number, normalized?: boolean, type?: number, stride?: number, start?: number): void
     addIndex(indices: ArrayBuffer): void
   }
@@ -45,6 +46,7 @@ declare namespace PIXI {
     updateTransform(): void
   }
   class Container extends DisplayObject {
+    children: any[]
     addChild(child: any): any
   }
   class Transform {

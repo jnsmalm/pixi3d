@@ -13,7 +13,9 @@ export interface MeshData {
   normals?: AttributeData,
   colors?: AttributeData,
   texCoords?: AttributeData,
-  tangents?: AttributeData
+  tangents?: AttributeData,
+  targets?: { positions?: AttributeData, normals?: AttributeData, tangents?: AttributeData }[]
+  weights?: number[]
 }
 
 const state = new PIXI.State()
@@ -31,6 +33,9 @@ export class Mesh3D extends Container3D {
   render(renderer: any) {
     this.shader.transform = this.transform
     this.shader.material = this.material
+
+    this.shader.weights = this.mesh.geometry.weights
+
     super.render(renderer)
   }
 }

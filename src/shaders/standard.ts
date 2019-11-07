@@ -6,16 +6,27 @@ import { Transform3D } from "../transform"
 import { LightingEnvironment } from "../light"
 
 export enum StandardShaderAttribute {
-  normal = "normal", texCoord = "texCoord", tangent = "tangent"
+  normal = "normal", 
+  texCoord = "texCoord", 
+  tangent = "tangent", 
+  targetPosition0 = "targetPosition0", 
+  targetPosition1 = "targetPosition1",
+  targetPosition2 = "targetPosition2",
+  targetPosition3 = "targetPosition3",
+  targetNormal0 = "targetNormal0",
+  targetNormal1 = "targetNormal1",
+  targetTangent0 = "targetTangent0",
+  targetTangent1 = "targetTangent1",
 }
 
 export enum StandardShaderFeature {
-  normalMap = "normalMapping", emissiveMap = "emissiveMap", diffuseIrradiance = "diffuseIrradiance"
+  normalMap = "normalMapping", emissiveMap = "emissiveMap", diffuseIrradiance = "diffuseIrradiance", morphing = "morphing"
 }
 
 export class StandardShader extends PIXI.Shader implements Shader {
   transform: Transform3D | undefined
   material: MetallicRoughnessMaterial | undefined
+  weights?: number[]
 
   constructor(attributes: StandardShaderAttribute[], private features: StandardShaderFeature[]) {
     super(StandardShaderProgram.build(attributes, features))
@@ -44,6 +55,7 @@ export class StandardShader extends PIXI.Shader implements Shader {
     this.uniforms.emissiveMap = this.emissiveMap
     this.uniforms.lightPositions = this.lightPositions
     this.uniforms.lightColors = this.lightColors
+    this.uniforms.morphWeights = this.morphWeights
   }
 
   get baseColor() {
@@ -130,8 +142,18 @@ export class StandardShader extends PIXI.Shader implements Shader {
     return lightColors
   }
 
+  get morphWeights() {
+    if (!this.weights) {
+      return [0]
+    }
+    return this.weights
+  }
+
   createGeometry(data: MeshData): PIXI.Geometry {
     let geometry = new PIXI.Geometry()
+    if (data.weights) {
+      geometry.weights = data.weights
+    }
     if (data.positions) {
       geometry.addAttribute("position", data.positions.buffer, 3, false,
         PIXI.TYPES.FLOAT, data.positions.stride)
@@ -147,6 +169,25 @@ export class StandardShader extends PIXI.Shader implements Shader {
     if (data.tangents) {
       geometry.addAttribute("tangent", data.tangents.buffer, 4, false,
         PIXI.TYPES.FLOAT, data.tangents.stride)
+    }
+    if (data.targets) {
+      for (let i = 0; i < data.targets.length; i++) {
+        let positions = data.targets[i].positions
+        if (positions) {
+          geometry.addAttribute(`targetPosition${i}`, positions.buffer, 3, false,
+            PIXI.TYPES.FLOAT, positions.stride)
+        }
+        let normals = data.targets[i].normals
+        if (normals) {
+          geometry.addAttribute(`targetNormal${i}`, normals.buffer, 3, false,
+            PIXI.TYPES.FLOAT, normals.stride)
+        }
+        let tangents = data.targets[i].tangents
+        if (tangents) {
+          geometry.addAttribute(`targetTangent${i}`, tangents.buffer, 3, false,
+            PIXI.TYPES.FLOAT, tangents.stride)
+        }
+      }
     }
     if (data.indices) {
       geometry.addIndex(new Uint16Array(data.indices.buffer))
@@ -187,11 +228,38 @@ namespace StandardShaderProgram {
       }
       defines.push("HAS_TANGENT")
     }
+    if (attributes.includes(StandardShaderAttribute.targetPosition0)) {
+      defines.push("HAS_TARGET_POSITION0")
+    }
+    if (attributes.includes(StandardShaderAttribute.targetPosition1)) {
+      defines.push("HAS_TARGET_POSITION1")
+    }
+    if (attributes.includes(StandardShaderAttribute.targetPosition2)) {
+      defines.push("HAS_TARGET_POSITION2")
+    }
+    if (attributes.includes(StandardShaderAttribute.targetPosition3)) {
+      defines.push("HAS_TARGET_POSITION3")
+    }
+    if (attributes.includes(StandardShaderAttribute.targetNormal0)) {
+      defines.push("HAS_TARGET_NORMAL0")
+    }
+    if (attributes.includes(StandardShaderAttribute.targetNormal1)) {
+      defines.push("HAS_TARGET_NORMAL1")
+    }
+    if (attributes.includes(StandardShaderAttribute.targetTangent0)) {
+      defines.push("HAS_TARGET_TANGENT0")
+    }
+    if (attributes.includes(StandardShaderAttribute.targetTangent1)) {
+      defines.push("HAS_TARGET_TANGENT1")
+    }
     if (features.includes(StandardShaderFeature.emissiveMap)) {
       defines.push("EMISSIVE_MAP")
     }
     if (features.includes(StandardShaderFeature.diffuseIrradiance)) {
       defines.push("DIFFUSE_IRRADIANCE")
+    }
+    if (features.includes(StandardShaderFeature.morphing)) {
+      defines.push("USE_MORPHING")
     }
     return PIXI.Program.from(ProgramSource.build(vert, defines),
       ProgramSource.build(frag, defines))

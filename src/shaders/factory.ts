@@ -20,6 +20,19 @@ export class DefaultShaderFactory implements ShaderFactory {
     if (data.tangents) {
       attributes.push(StandardShaderAttribute.tangent)
     }
+    if (data.targets) {
+      for (let i = 0; i < data.targets.length; i++) {
+        if (data.targets[i].positions) {
+          attributes.push(`targetPosition${i}`)
+        }
+        if (data.targets[i].normals) {
+          attributes.push(`targetNormals${i}`)
+        }
+        if (data.targets[i].tangents) {
+          attributes.push(`targetTangents${i}`)
+        }
+      }
+    }
     let features: StandardShaderFeature[] = []
     if (material.normalTexture) {
       features.push(StandardShaderFeature.normalMap)
@@ -29,6 +42,9 @@ export class DefaultShaderFactory implements ShaderFactory {
     }
     if (LightingEnvironment.main.irradianceTexture) {
       features.push(StandardShaderFeature.diffuseIrradiance)
+    }
+    if (data.targets) {
+      features.push(StandardShaderFeature.morphing)
     }
     return new StandardShader(attributes, features)
   }

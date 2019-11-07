@@ -1,6 +1,6 @@
 import { glTFLoader } from "./loader"
 import { Transform3D } from "../transform"
-import { Animation, AnimationInterpolation, RotationAnimation, TranslationAnimation, ScaleAnimation } from "../animation"
+import { Animation, AnimationInterpolation, RotationAnimation, TranslationAnimation, ScaleAnimation, WeightsAnimation } from "../animation"
 import { MetallicRoughnessMaterial } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
@@ -104,14 +104,16 @@ export class glTFParser {
       normals: this.getNormals(mesh),
       colors: this.getColors(mesh),
       texCoords: this.getTexCoords(mesh),
-      tangents: this.getTangents(mesh)
+      tangents: this.getTangents(mesh),
+      targets: this.getTargets(mesh),
+      weights: this.getWeights(mesh)
     }
   }
 
   private createMesh(mesh: any) {
     let material = this.getMaterial(mesh)
     let data = this.createMeshData(mesh)
-    
+
     if (!this.shader) {
       if (!this.shaderFactory) {
         this.shaderFactory = new DefaultShaderFactory()
@@ -139,13 +141,8 @@ export class glTFParser {
     for (let animation of this.descriptor.animations) {
       for (let channel of animation.channels) {
         let sampler = animation.samplers[channel.sampler]
-        if (sampler.interpolation === AnimationInterpolation.cubicspline) {
-          // Cubic spline interpolation is not yet supported, just skip this 
-          // animation for now.
-          console.warn(`PIXI3D: Animations with "${sampler.interpolation}" interpolation is currently not supported.`)
-          continue
-        }
         let transform = nodes[channel.target.node].transform
+        let mesh = nodes[channel.target.node].children[0].mesh
         let input = this.factory.createAttributeData(sampler.input).buffer as Float32Array
         let output = this.factory.createAttributeData(sampler.output).buffer as Float32Array
 
@@ -157,6 +154,9 @@ export class glTFParser {
         }
         if (channel.target.path === "scale") {
           result.push(new ScaleAnimation(transform, sampler.interpolation, input, output))
+        }
+        if (channel.target.path === "weights") {
+          result.push(new WeightsAnimation(mesh.geometry.weights, sampler.interpolation, input, output))
         }
       }
     }
@@ -219,6 +219,60 @@ export class glTFParser {
 
   private getTangents(mesh: any) {
     let attribute = mesh.primitives[0].attributes["TANGENT"]
+    if (attribute !== undefined) {
+      return this.factory.createAttributeData(attribute)
+    }
+  }
+
+  private getWeights(mesh: any) {
+    if (mesh.weights) {
+      return mesh.weights
+    }
+    let targets = mesh.primitives[0].targets
+    if (targets) {
+      return targets.map(() => 0)
+    }
+    return undefined
+  }
+
+  private getTargets(mesh: any) {
+    let targets = mesh.primitives[0].targets
+    if (!targets) {
+      return undefined
+    }
+    let result: {
+      positions?: AttributeData,
+      normals?: AttributeData,
+      tangents?: AttributeData
+    }[] = []
+    for (let i = 0; i < targets.length; i++) {
+      let target: {
+        positions?: AttributeData,
+        normals?: AttributeData,
+        tangents?: AttributeData
+      } = {}
+      let position = mesh.primitives[0].targets[i]["POSITION"]
+      if (position) {
+        target.positions = this.factory.createAttributeData(position)
+      }
+      let normal = mesh.primitives[0].targets[i]["NORMAL"]
+      if (normal) {
+        target.normals = this.factory.createAttributeData(normal)
+      }
+      let tangent = mesh.primitives[0].targets[i]["TANGENT"]
+      if (tangent) {
+        target.tangents = this.factory.createAttributeData(tangent)
+      }
+      result.push(target)
+    }
+    return result
+  }
+
+  private getTargetPositions0(mesh: any) {
+    if (!mesh.primitives[0].targets) {
+      return undefined
+    }
+    let attribute = mesh.primitives[0].targets[0]["POSITION"]
     if (attribute !== undefined) {
       return this.factory.createAttributeData(attribute)
     }
