@@ -42,7 +42,7 @@ export class StandardShader extends PIXI.Shader implements Shader {
     return "standard"
   }
 
-  constructor(attributes: StandardShaderAttribute[] = [], private features: StandardShaderFeature[] = []) {
+  constructor(attributes: string[] = [], private features: string[] = []) {
     super(StandardShaderProgram.build(attributes, features))
   }
 
@@ -233,7 +233,7 @@ namespace ProgramSource {
 }
 
 namespace StandardShaderProgram {
-  export function build(attributes: StandardShaderAttribute[], features: StandardShaderFeature[]) {
+  export function build(attributes: string[], features: string[]) {
     let vert: string = require("./glsl/primitives.vert").default
     let frag: string = require("./glsl/metallic-roughness.frag").default
 

@@ -1,5 +1,6 @@
 import { Mesh3D } from "./mesh"
 import { MaterialAlphaMode } from "./material"
+import { Shader } from "./shader"
 
 export class StandardRenderer extends PIXI.ObjectRenderer {
   private opaque: Mesh3D[] = []
@@ -60,9 +61,10 @@ export class StandardRenderer extends PIXI.ObjectRenderer {
   }
 
   renderMesh(obj: Mesh3D, state: PIXI.State) {
-    obj.mesh.shader.transform = obj.transform
-    obj.mesh.shader.material = obj.material
-    obj.mesh.shader.weights = obj.mesh.geometry.weights
+    let shader = (obj.mesh.shader as Shader)
+    shader.transform = obj.transform
+    shader.material = obj.material
+    shader.weights = obj.mesh.geometry.weights
 
     if (obj.mesh.shader.update) {
       obj.mesh.shader.update();

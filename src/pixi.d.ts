@@ -22,6 +22,7 @@ declare namespace PIXI {
   }
   class Geometry {
     weights?: number[]
+    instanceCount: number
     addAttribute(name: string, data: ArrayBuffer, size: number, normalized?: boolean, type?: number, stride?: number, start?: number): void
     addIndex(indices: ArrayBuffer): void
   }
@@ -35,6 +36,9 @@ declare namespace PIXI {
     static from(vert: string, frag: string): Program
   }
   class Mesh {
+    start: number
+    size: number
+    drawMode: number
     geometry: PIXI.Geometry
     shader: PIXI.Shader
     constructor(geometry: PIXI.Geometry, shader: PIXI.Shader, state?: State)

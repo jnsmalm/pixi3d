@@ -10,7 +10,7 @@ export interface ShaderFactory {
 
 export class DefaultShaderFactory implements ShaderFactory {
   createShader(data: MeshData, material: MetallicRoughnessMaterial): Shader {
-    let attributes: StandardShaderAttribute[] = []
+    let attributes: string[] = []
     if (data.normals) {
       attributes.push(StandardShaderAttribute.normal)
     }
