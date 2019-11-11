@@ -1,10 +1,20 @@
+export interface MaterialFactory {
+  createMaterial(data: any): Material
+}
+
 export enum MaterialAlphaMode {
   opaque = "opaque",
   mask = "mask",
   blend = "blend"
 }
 
-export class MetallicRoughnessMaterial {
+export class Material {
+  alphaMaskCutoff = 0.5
+  alphaMode = MaterialAlphaMode.opaque
+  doubleSided = false
+}
+
+export class MetallicRoughnessMaterial extends Material {
   roughness = 1
   metallic = 1
   baseColorTexture?: PIXI.Texture
@@ -13,7 +23,4 @@ export class MetallicRoughnessMaterial {
   occlusionTexture?: PIXI.Texture
   emissiveTexture?: PIXI.Texture
   baseColor = [1, 1, 1, 1]
-  alphaMode = MaterialAlphaMode.opaque
-  alphaMaskCutoff = 0.5
-  doubleSided = false
 }

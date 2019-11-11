@@ -1,11 +1,11 @@
+export interface glTFResource {
+  descriptor: any
+  buffers: ArrayBuffer[]
+  images: PIXI.Texture[]
+}
+
 export namespace glTFLoader {
-  export const resources: {
-    [source: string]: {
-      descriptor: any,
-      buffers: ArrayBuffer[],
-      images: PIXI.Texture[]
-    }
-  } = {}
+  export const resources: { [source: string]: glTFResource } = {}
 }
 
 PIXI.Loader.registerPlugin({

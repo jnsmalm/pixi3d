@@ -1,13 +1,25 @@
-import { glTFParser } from "./gltf/parser"
 import { Container3D } from "./container"
-import { Shader } from "./shader"
 import { Animation } from "./animation"
-import { ShaderFactory } from "./shaders/factory"
+import { glTFParser } from "./gltf/gltf-parser"
+import { MaterialFactory } from "./material"
+import { Shader } from "./shader"
+import { ShaderFactory } from "./shader-factory"
+import { glTFLoader } from "./gltf/gltf-loader"
+
+export interface ModelFromOptions {
+  materialFactory?: MaterialFactory
+  shader?: Shader
+  shaderFactory?: ShaderFactory
+}
 
 export class Model3D extends Container3D {
   animations: Animation[] = []
 
-  static from(source: string, shader?: Shader, shaderFactory?: ShaderFactory) {
-    return glTFParser.from(source, shader, shaderFactory).createModel()
+  static from(source: string, options: ModelFromOptions = {}) {
+    let resource = glTFLoader.resources[source]
+    if (!resource) {
+      throw Error(`PIXI3D: Could not find "${source}", was the file loaded?`)
+    }
+    return new glTFParser(resource, options).createModel()
   }
 }

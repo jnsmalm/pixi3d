@@ -1,9 +1,9 @@
 import { Shader } from "../shader"
 import { MetallicRoughnessMaterial, MaterialAlphaMode } from "../material"
 import { Camera3D } from "../camera"
-import { MeshData } from "../mesh"
 import { Transform3D } from "../transform"
 import { LightingEnvironment } from "../light"
+import { MeshData } from "../mesh-data"
 
 export enum StandardShaderAttribute {
   normal = "normal", 

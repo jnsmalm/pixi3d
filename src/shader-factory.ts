@@ -1,11 +1,11 @@
-import { MeshData } from "../mesh"
-import { Shader } from "../shader"
-import { MetallicRoughnessMaterial, MaterialAlphaMode } from "../material"
-import { StandardShader, StandardShaderAttribute, StandardShaderFeature } from "./standard"
-import { LightingEnvironment } from "../light"
+import { Shader } from "./shader"
+import { MetallicRoughnessMaterial, MaterialAlphaMode, Material } from "./material"
+import { StandardShader, StandardShaderAttribute, StandardShaderFeature } from "./shaders/standard-shader"
+import { LightingEnvironment } from "./light"
+import { MeshData } from "./mesh-data"
 
 export interface ShaderFactory {
-  createShader(data: MeshData, material: MetallicRoughnessMaterial): Shader
+  createShader(data: MeshData, material: Material): Shader
 }
 
 export class DefaultShaderFactory implements ShaderFactory {

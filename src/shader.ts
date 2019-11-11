@@ -1,10 +1,10 @@
 import { Transform3D } from "./transform"
-import { MeshData } from "./mesh"
-import { MetallicRoughnessMaterial } from "./material"
+import { Material } from "./material"
+import { MeshData } from "./mesh-data"
 
 export interface Shader extends PIXI.Shader {
-  material: MetallicRoughnessMaterial | undefined
-  transform: Transform3D | undefined
+  material?: Material
+  transform?: Transform3D
   weights?: number[]
   createGeometry(data: MeshData): PIXI.Geometry
 }
