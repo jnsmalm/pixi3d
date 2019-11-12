@@ -1,10 +1,10 @@
 import { Container3D } from "./container"
 import { Animation } from "./animation"
-import { glTFParser } from "./gltf/gltf-parser"
+import { glTFParser } from "./gltf/parser"
 import { MaterialFactory } from "./material"
 import { Shader } from "./shader"
 import { ShaderFactory } from "./shader-factory"
-import { glTFLoader } from "./gltf/gltf-loader"
+import { glTFLoader } from "./gltf/loader"
 
 export interface ModelFromOptions {
   materialFactory?: MaterialFactory

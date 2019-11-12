@@ -1,9 +1,10 @@
 import { quat } from "gl-matrix"
 import { Transform3D } from "../../transform"
 import { Interpolate } from "../../interpolate"
-import { glTFAnimation, glTFAnimationInterpolation } from "./gltf-animation"
+import { glTFAnimationInterpolation } from "./animation"
+import { glTFAnimationChannel } from "./animation-channel"
 
-export class glTFRotationAnimation extends glTFAnimation {
+export class glTFRotationAnimation extends glTFAnimationChannel {
   constructor(public transform: Transform3D, interpolation: glTFAnimationInterpolation, input: Float32Array, output: Float32Array) {
     super(interpolation, input, output)
   }

@@ -1,11 +1,6 @@
+import { glTFAnimationInterpolation } from "./animation"
 
-export enum glTFAnimationInterpolation {
-  linear = "LINEAR",
-  step = "STEP",
-  cubicspline = "CUBICSPLINE"
-}
-
-export abstract class glTFAnimation {
+export abstract class glTFAnimationChannel {
   protected _position = 0
 
   constructor(public interpolation: glTFAnimationInterpolation, public input: Float32Array, public output: Float32Array) {

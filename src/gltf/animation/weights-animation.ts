@@ -1,7 +1,8 @@
-import { glTFAnimation, glTFAnimationInterpolation } from "./gltf-animation"
+import { glTFAnimationInterpolation } from "./animation"
 import { Interpolate } from "../../interpolate"
+import { glTFAnimationChannel } from "./animation-channel"
 
-export class glTFWeightsAnimation extends glTFAnimation {
+export class glTFWeightsAnimation extends glTFAnimationChannel {
   constructor(public weights: number[], interpolation: glTFAnimationInterpolation, input: Float32Array, output: Float32Array) {
     super(interpolation, input, output)
   }

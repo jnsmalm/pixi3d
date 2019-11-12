@@ -1,18 +1,15 @@
-import { glTFResource } from "./gltf-loader"
+import { glTFResource } from "./loader"
 import { Transform3D } from "../transform"
-import { Animation } from "../animation"
 import { MetallicRoughnessMaterial, MaterialFactory, Material } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
 import { Shader } from "../shader"
 import { Mesh3D } from "../mesh"
 import { ShaderFactory, DefaultShaderFactory } from "../shader-factory"
-import { AttributeData, MeshData, TargetData } from "../mesh-data"
-import { glTFMaterialFactory } from "./gltf-material-factory"
-import { glTFRotationAnimation } from "./animation/gltf-rotation-animation"
-import { glTFTranslationAnimation } from "./animation/gltf-translation-animation"
-import { glTFScaleAnimation } from "./animation/gltf-scale-animation"
-import { glTFWeightsAnimation } from "./animation/gltf-weights-animation"
+import { MeshData, TargetData } from "../mesh-data"
+import { glTFMaterialFactory } from "./material-factory"
+import { glTFBufferAccessor } from "./buffer-accessor"
+import { glTFAnimationParser } from "./animation/animation-parser"
 
 export interface glTFParserOptions {
   materialFactory?: MaterialFactory,
@@ -21,14 +18,16 @@ export interface glTFParserOptions {
 }
 
 export class glTFParser {
-  private factory: ArrayBufferFactory
+  private factory: glTFBufferAccessor
+  private animationParser: glTFAnimationParser
   private descriptor: any
   private buffers: ArrayBuffer[]
 
   constructor(public resource: glTFResource, public options: glTFParserOptions = {}) {
     this.descriptor = resource.descriptor
     this.buffers = resource.buffers
-    this.factory = new ArrayBufferFactory(this.descriptor, this.buffers)
+    this.factory = new glTFBufferAccessor(this.descriptor, this.buffers)
+    this.animationParser = new glTFAnimationParser(resource)
   }
 
   createModel() {
@@ -38,7 +37,11 @@ export class glTFParser {
     for (let child of this.descriptor.scenes[scene].nodes) {
       this.addChild(model, child, nodes)
     }
-    model.animations = this.createAnimations(nodes)
+    if (this.descriptor.animations) {
+      for (let animation of this.descriptor.animations) {
+        model.animations.push(this.createAnimation(animation, nodes))
+      }
+    }
     return model
   }
 
@@ -197,80 +200,7 @@ export class glTFParser {
       this.descriptor.materials[mesh.primitives[0].material])
   }
 
-  private createAnimations(nodes: Container3D[]) {
-    if (!this.descriptor.animations) {
-      return []
-    }
-    let result: Animation[] = []
-    for (let animation of this.descriptor.animations) {
-      for (let channel of animation.channels) {
-        let sampler = animation.samplers[channel.sampler]
-        let transform = nodes[channel.target.node].transform
-        let mesh = nodes[channel.target.node].children[0].mesh
-        let input = this.factory.createAttributeData(sampler.input).buffer as Float32Array
-        let output = this.factory.createAttributeData(sampler.output).buffer as Float32Array
-
-        if (channel.target.path === "rotation") {
-          result.push(new glTFRotationAnimation(transform, sampler.interpolation, input, output))
-        }
-        if (channel.target.path === "translation") {
-          result.push(new glTFTranslationAnimation(transform, sampler.interpolation, input, output))
-        }
-        if (channel.target.path === "scale") {
-          result.push(new glTFScaleAnimation(transform, sampler.interpolation, input, output))
-        }
-        if (channel.target.path === "weights") {
-          result.push(new glTFWeightsAnimation(mesh.geometry.weights, sampler.interpolation, input, output))
-        }
-      }
-    }
-    return result
-  }
-}
-
-const TYPE_SIZES: { [name: string]: number } = {
-  SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
-}
-
-class ArrayBufferFactory {
-  constructor(private descriptor: any, private buffers: ArrayBuffer[]) {
-  }
-
-  private createArrayBuffer(componentType: number, buffer: any, offset: number, size: number): ArrayBuffer {
-    switch (componentType) {
-      case 5125:
-        return new Uint32Array(buffer, offset, size)
-      case 5126:
-        return new Float32Array(buffer, offset, size)
-      case 5120:
-        return new Int8Array(buffer, offset, size)
-      case 5121:
-        return new Uint8Array(buffer, offset, size)
-      case 5122:
-        return new Int16Array(buffer, offset, size)
-      case 5123:
-        return new Uint16Array(buffer, offset, size)
-    }
-    throw new Error(`PIXI3D: Failed to create buffer with "${componentType}" as component type.`)
-  }
-
-  createAttributeData(attribute: number): AttributeData {
-    let accessor = this.descriptor.accessors[attribute]
-    let bufferView = this.descriptor.bufferViews[accessor.bufferView || 0]
-
-    let offset = accessor.byteOffset || 0
-    if (bufferView.byteOffset !== undefined) {
-      offset += bufferView.byteOffset
-    }
-    let size = accessor.count * TYPE_SIZES[accessor.type]
-    if (bufferView.byteStride !== undefined) {
-      size *= bufferView.byteStride / 4 / TYPE_SIZES[accessor.type]
-    }
-    let buffer = this.buffers[bufferView.buffer]
-
-    return {
-      stride: bufferView.byteStride || 0,
-      buffer: this.createArrayBuffer(accessor.componentType, buffer, offset, size)
-    }
+  protected createAnimation(animation: any, nodes: Container3D[]) {
+    return this.animationParser.createAnimation(animation, nodes)
   }
 }

@@ -1,5 +1,5 @@
-import { MaterialFactory, MetallicRoughnessMaterial, MaterialAlphaMode, Material } from "../material"
-import { glTFResource } from "./gltf-loader"
+import { MaterialFactory, MetallicRoughnessMaterial, MaterialAlphaMode } from "../material"
+import { glTFResource } from "./loader"
 
 export class glTFMaterialFactory implements MaterialFactory {
   constructor(public resource: glTFResource) {

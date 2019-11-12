@@ -1,17 +1,18 @@
-import { glTFAnimation, glTFAnimationInterpolation } from "./gltf-animation"
-import { vec3 } from "gl-matrix"
 import { Transform3D } from "../../transform"
+import { glTFAnimationInterpolation } from "./animation"
+import { vec3 } from "gl-matrix"
 import { Interpolate } from "../../interpolate"
+import { glTFAnimationChannel } from "./animation-channel"
 
-export class glTFTranslationAnimation extends glTFAnimation {
+export class glTFScaleAnimation extends glTFAnimationChannel {
   constructor(public transform: Transform3D, interpolation: glTFAnimationInterpolation, input: Float32Array, output: Float32Array) {
     super(interpolation, input, output)
   }
 
   animate(position: number) {
     if (this.interpolation !== glTFAnimationInterpolation.cubicspline) {
-      let translation = this.getTranslationAtPosition(position)
-      this.transform.position.set(
+      let translation = this.getScaleAtPosition(position)
+      this.transform.scale.set(
         translation[0], translation[1], translation[2]
       )
       return
@@ -24,26 +25,26 @@ export class glTFTranslationAnimation extends glTFAnimation {
     let result = Interpolate.cubicSpline(keyFrame, keyFrame + 1, this.output,
       keyDelta, keyPosition, 3)
 
-    this.transform.position.set(
+    this.transform.scale.set(
       result[0], result[1], result[2]
     )
   }
 
-  getTranslationAtKeyFrame(keyFrame: number) {
+  getScaleAtKeyFrame(keyFrame: number) {
     let index = keyFrame * 3
     return vec3.fromValues(
       this.output[index], this.output[index + 1], this.output[index + 2]
     )
   }
 
-  getTranslationAtPosition(position: number) {
+  getScaleAtPosition(position: number) {
     let keyFrame = this.getKeyFrame(position)
     if (this.interpolation === glTFAnimationInterpolation.step) {
-      return this.getTranslationAtKeyFrame(keyFrame)
+      return this.getScaleAtKeyFrame(keyFrame)
     }
     return vec3.lerp(vec3.create(),
-      this.getTranslationAtKeyFrame(keyFrame),
-      this.getTranslationAtKeyFrame(keyFrame + 1),
+      this.getScaleAtKeyFrame(keyFrame),
+      this.getScaleAtKeyFrame(keyFrame + 1),
       this.getKeyFramePosition(position))
   }
 }
