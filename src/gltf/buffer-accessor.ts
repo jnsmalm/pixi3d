@@ -23,7 +23,7 @@ export class glTFBufferAccessor {
       case 5123:
         return new Uint16Array(buffer, offset, size)
     }
-    throw new Error(`PIXI3D: Failed to create buffer with "${componentType}" as component type.`)
+    throw new Error(`PIXI3D: Unknown component type "${componentType}".`)
   }
 
   createAttributeData(attribute: number): AttributeData {

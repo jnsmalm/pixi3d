@@ -9,7 +9,7 @@ import { ShaderFactory, DefaultShaderFactory } from "../shader-factory"
 import { MeshData, TargetData } from "../mesh-data"
 import { glTFMaterialFactory } from "./material-factory"
 import { glTFBufferAccessor } from "./buffer-accessor"
-import { glTFAnimationParser } from "./animation/animation-parser"
+import { glTFAnimationParser } from "./animation/parser"
 
 export interface glTFParserOptions {
   materialFactory?: MaterialFactory,
