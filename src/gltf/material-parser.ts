@@ -1,7 +1,11 @@
-import { MaterialFactory, MetallicRoughnessMaterial, MaterialAlphaMode } from "../material"
+import { MetallicRoughnessMaterial, MaterialAlphaMode, Material } from "../material"
 import { glTFResource } from "./loader"
 
-export class glTFMaterialFactory implements MaterialFactory {
+export interface glTFMaterialParser {
+  createMaterial(data: any): Material
+}
+
+export class glTFMetallicRoughnessMaterialParser implements glTFMaterialParser {
   constructor(public resource: glTFResource) {
   }
 
@@ -43,7 +47,7 @@ export class glTFMaterialFactory implements MaterialFactory {
     }
     if (pbr.baseColorTexture) {
       material.baseColorTexture = this.getTexture(pbr.baseColorTexture)
-      material.baseColorTexture.baseTexture.alphaMode = 
+      material.baseColorTexture.baseTexture.alphaMode =
         PIXI.ALPHA_MODES.PREMULTIPLIED_ALPHA
     }
     if (pbr.metallicFactor !== undefined) {

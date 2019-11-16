@@ -1,7 +1,3 @@
-export interface MaterialFactory {
-  createMaterial(data: any): Material
-}
-
 export enum MaterialAlphaMode {
   opaque = "opaque",
   mask = "mask",

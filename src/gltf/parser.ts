@@ -1,33 +1,32 @@
 import { glTFResource } from "./loader"
 import { Transform3D } from "../transform"
-import { MetallicRoughnessMaterial, MaterialFactory, Material } from "../material"
+import { MetallicRoughnessMaterial, Material } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
 import { Shader } from "../shader"
 import { Mesh3D } from "../mesh"
 import { ShaderFactory, DefaultShaderFactory } from "../shader-factory"
 import { MeshData, TargetData } from "../mesh-data"
-import { glTFMaterialFactory } from "./material-factory"
+import { glTFMetallicRoughnessMaterialParser, glTFMaterialParser } from "./material-parser"
 import { glTFBufferAccessor } from "./buffer-accessor"
 import { glTFAnimationParser } from "./animation/parser"
 
 export interface glTFParserOptions {
-  materialFactory?: MaterialFactory,
   shader?: Shader
   shaderFactory?: ShaderFactory
 }
 
 export class glTFParser {
-  private factory: glTFBufferAccessor
+  private bufferAccessor: glTFBufferAccessor
   private animationParser: glTFAnimationParser
+  private materialParser: glTFMaterialParser
   private descriptor: any
-  private buffers: ArrayBuffer[]
 
   constructor(public resource: glTFResource, public options: glTFParserOptions = {}) {
     this.descriptor = resource.descriptor
-    this.buffers = resource.buffers
-    this.factory = new glTFBufferAccessor(this.descriptor, this.buffers)
+    this.bufferAccessor = new glTFBufferAccessor(this.descriptor, resource.buffers)
     this.animationParser = new glTFAnimationParser(resource)
+    this.materialParser = new glTFMetallicRoughnessMaterialParser(resource)
   }
 
   createModel() {
@@ -92,7 +91,7 @@ export class glTFParser {
     return transform
   }
 
-  private createMesh(mesh: any) {
+  protected createMesh(mesh: any) {
     let material = this.createMaterial(mesh)
     let data = this.createMeshData(mesh)
     let shader = this.getShader(data, material)
@@ -123,33 +122,33 @@ export class glTFParser {
   }
 
   private getPositions(mesh: any) {
-    return this.factory.createAttributeData(mesh.primitives[0].attributes["POSITION"])
+    return this.bufferAccessor.createAttributeData(mesh.primitives[0].attributes["POSITION"])
   }
 
   private getNormals(mesh: any) {
     let attribute = mesh.primitives[0].attributes["NORMAL"]
     if (attribute !== undefined) {
-      return this.factory.createAttributeData(attribute)
+      return this.bufferAccessor.createAttributeData(attribute)
     }
   }
 
   private getTangents(mesh: any) {
     let attribute = mesh.primitives[0].attributes["TANGENT"]
     if (attribute !== undefined) {
-      return this.factory.createAttributeData(attribute)
+      return this.bufferAccessor.createAttributeData(attribute)
     }
   }
 
   private getIndices(mesh: any) {
     if (mesh.primitives[0].indices !== undefined) {
-      return this.factory.createAttributeData(mesh.primitives[0].indices)
+      return this.bufferAccessor.createAttributeData(mesh.primitives[0].indices)
     }
   }
 
   private getTexCoords(mesh: any) {
     let attribute = mesh.primitives[0].attributes["TEXCOORD_0"]
     if (attribute !== undefined) {
-      return this.factory.createAttributeData(attribute)
+      return this.bufferAccessor.createAttributeData(attribute)
     }
   }
 
@@ -184,19 +183,15 @@ export class glTFParser {
   private getTargetAttribute(target: any, name: string) {
     let attribute = target[name]
     if (attribute) {
-      return this.factory.createAttributeData(attribute)
+      return this.bufferAccessor.createAttributeData(attribute)
     }
   }
 
-  private createMaterial(mesh: any) {
+  protected createMaterial(mesh: any) {
     if (mesh.primitives[0].material === undefined) {
       return new MetallicRoughnessMaterial()
     }
-    let materialFactory = this.options.materialFactory
-    if (!materialFactory) {
-      materialFactory = new glTFMaterialFactory(this.resource)
-    }
-    return materialFactory.createMaterial(
+    return this.materialParser.createMaterial(
       this.descriptor.materials[mesh.primitives[0].material])
   }
 

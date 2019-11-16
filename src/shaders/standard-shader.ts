@@ -96,14 +96,14 @@ export class StandardShader extends PIXI.Shader implements Shader {
 
   get metallic() {
     if (!this.material || this.material.metallic === undefined) {
-      return 1;
+      return 1
     }
     return this.material.metallic
   }
 
   get roughness() {
     if (!this.material || this.material.roughness === undefined) {
-      return 1;
+      return 1
     }
     return this.material.roughness
   }
