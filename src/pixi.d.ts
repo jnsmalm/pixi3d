@@ -21,8 +21,6 @@ declare namespace PIXI {
     static get TYPE(): { IMAGE: number }
   }
   class Geometry {
-    weights?: number[]
-    instanceCount: number
     addAttribute(name: string, data: ArrayBuffer, size: number, normalized?: boolean, type?: number, stride?: number, start?: number): void
     addIndex(indices: ArrayBuffer): void
   }
@@ -97,4 +95,5 @@ declare namespace PIXI {
   enum WRAP_MODES { REPEAT }
   enum TYPES { FLOAT }
   enum ALPHA_MODES { PREMULTIPLIED_ALPHA }
+  enum DRAW_MODES { TRIANGLES }
 }

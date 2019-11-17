@@ -1,31 +1,20 @@
 import { Mesh3D } from "./mesh"
 import { MaterialAlphaMode } from "./material"
-import { Shader } from "./shader"
 
-export class StandardRenderer extends PIXI.ObjectRenderer {
+function createState(culling: boolean, clockwiseFrontFace: boolean) {
+  return Object.assign(new PIXI.State(), { culling, clockwiseFrontFace, depthTest: true })
+}
+
+const cullBackfaceState = createState(true, false)
+const cullFrontFaceState = createState(true, true)
+const doubleSidedState = createState(false, false)
+
+export class Mesh3DRenderer extends PIXI.ObjectRenderer {
   private opaque: Mesh3D[] = []
   private alpha: Mesh3D[] = []
 
-  private cullBackfaceState: PIXI.State
-  private cullFrontFaceState: PIXI.State
-  private doubleSidedState: PIXI.State
-
   constructor(renderer: any) {
     super(renderer)
-
-    this.cullBackfaceState = new PIXI.State()
-    this.cullBackfaceState.culling = true
-    this.cullBackfaceState.clockwiseFrontFace = false
-    this.cullBackfaceState.depthTest = true
-
-    this.cullFrontFaceState = new PIXI.State()
-    this.cullFrontFaceState.culling = true
-    this.cullFrontFaceState.clockwiseFrontFace = true
-    this.cullFrontFaceState.depthTest = true
-
-    this.doubleSidedState = new PIXI.State()
-    this.doubleSidedState.culling = false
-    this.doubleSidedState.depthTest = true
   }
 
   start() {
@@ -36,52 +25,51 @@ export class StandardRenderer extends PIXI.ObjectRenderer {
   flush() {
     for (let obj of this.opaque) {
       if (obj.material.doubleSided) {
-        this.renderMesh(obj, this.doubleSidedState)
-      } else{
-        this.renderMesh(obj, this.cullBackfaceState)
+        this.renderMesh(obj, doubleSidedState)
+      } else {
+        this.renderMesh(obj, cullBackfaceState)
       }
     }
     this.opaque = []
     for (let obj of this.alpha) {
       if (obj.material.doubleSided) {
-        this.renderMesh(obj, this.doubleSidedState)
+        this.renderMesh(obj, doubleSidedState)
       }
     }
     for (let obj of this.alpha) {
       if (!obj.material.doubleSided) {
-        this.renderMesh(obj, this.cullFrontFaceState)
+        this.renderMesh(obj, cullFrontFaceState)
       }
     }
     for (let obj of this.alpha) {
       if (!obj.material.doubleSided) {
-        this.renderMesh(obj, this.cullBackfaceState)
+        this.renderMesh(obj, cullBackfaceState)
       }
     }
     this.alpha = []
   }
 
-  renderMesh(obj: Mesh3D, state: PIXI.State) {
-    let shader = (obj.mesh.shader as Shader)
-    shader.transform = obj.transform
-    shader.material = obj.material
-    shader.weights = obj.mesh.geometry.weights
+  renderMesh(mesh: Mesh3D, state: PIXI.State) {
+    mesh.shader.material = mesh.material
+    mesh.shader.weights = mesh.weights
+    mesh.shader.transform = mesh.transform
 
-    if (obj.mesh.shader.update) {
-      obj.mesh.shader.update();
+    if (mesh.shader.update) {
+      mesh.shader.update()
     }
-    this.renderer.shader.bind(obj.shader);
-    this.renderer.state.set(state);
-    this.renderer.geometry.bind(obj.mesh.geometry, obj.shader);
-    this.renderer.geometry.draw(obj.mesh.drawMode, obj.mesh.size, obj.mesh.start, obj.mesh.geometry.instanceCount);
+    this.renderer.shader.bind(mesh.shader)
+    this.renderer.state.set(state)
+    this.renderer.geometry.bind(mesh.geometry, mesh.shader)
+    this.renderer.geometry.draw(PIXI.DRAW_MODES.TRIANGLES)
   }
 
-  render(object: Mesh3D) {
-    if (object.material.alphaMode === MaterialAlphaMode.blend) {
-      this.alpha.push(object)
+  render(mesh: Mesh3D) {
+    if (mesh.material.alphaMode === MaterialAlphaMode.blend) {
+      this.alpha.push(mesh)
     } else {
-      this.opaque.push(object)
+      this.opaque.push(mesh)
     }
   }
 }
 
-PIXI.Renderer.registerPlugin("standard", StandardRenderer)
+PIXI.Renderer.registerPlugin("mesh3d", Mesh3DRenderer)

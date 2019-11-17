@@ -2,14 +2,14 @@ import { Shader } from "./shader"
 import { MetallicRoughnessMaterial, MaterialAlphaMode, Material } from "./material"
 import { StandardShader, StandardShaderAttribute, StandardShaderFeature } from "./shaders/standard-shader"
 import { LightingEnvironment } from "./light"
-import { MeshData } from "./mesh-data"
+import { MeshGeometryData } from "./mesh"
 
 export interface ShaderFactory {
-  createShader(data: MeshData, material: Material): Shader
+  createShader(data: MeshGeometryData, material: Material): Shader
 }
 
 export class DefaultShaderFactory implements ShaderFactory {
-  createShader(data: MeshData, material: MetallicRoughnessMaterial): Shader {
+  createShader(data: MeshGeometryData, material: MetallicRoughnessMaterial): Shader {
     let attributes: string[] = []
     if (data.normals) {
       attributes.push(StandardShaderAttribute.normal)
@@ -20,15 +20,15 @@ export class DefaultShaderFactory implements ShaderFactory {
     if (data.tangents) {
       attributes.push(StandardShaderAttribute.tangent)
     }
-    if (data.targets) {
-      for (let i = 0; i < data.targets.length; i++) {
-        if (data.targets[i].positions) {
+    if (data.morphTargets) {
+      for (let i = 0; i < data.morphTargets.length; i++) {
+        if (data.morphTargets[i].positions) {
           attributes.push(`targetPosition${i}`)
         }
-        if (data.targets[i].normals) {
+        if (data.morphTargets[i].normals) {
           attributes.push(`targetNormals${i}`)
         }
-        if (data.targets[i].tangents) {
+        if (data.morphTargets[i].tangents) {
           attributes.push(`targetTangents${i}`)
         }
       }
@@ -43,7 +43,7 @@ export class DefaultShaderFactory implements ShaderFactory {
     if (LightingEnvironment.main.irradianceTexture) {
       features.push(StandardShaderFeature.diffuseIrradiance)
     }
-    if (data.targets) {
+    if (data.morphTargets) {
       features.push(StandardShaderFeature.morphing)
     }
     if (material.alphaMode === MaterialAlphaMode.opaque) {

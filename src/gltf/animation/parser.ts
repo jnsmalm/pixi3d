@@ -44,7 +44,7 @@ export class glTFAnimationParser {
         this.createInterpolation(sampler.interpolation, input, output, 3))
     }
     if (path === "weights") {
-      let weights = target.children[0].mesh.geometry.weights
+      let weights = target.children[0].weights
       return new glTFWeightsAnimation(weights, input,
         this.createInterpolation(sampler.interpolation, input, output, weights.length))
     }

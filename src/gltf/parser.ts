@@ -4,9 +4,8 @@ import { MetallicRoughnessMaterial, Material } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
 import { Shader } from "../shader"
-import { Mesh3D } from "../mesh"
+import { Mesh3D, MeshGeometryData, MeshMorphTarget } from "../mesh"
 import { ShaderFactory, DefaultShaderFactory } from "../shader-factory"
-import { MeshData, TargetData } from "../mesh-data"
 import { glTFMetallicRoughnessMaterialParser, glTFMaterialParser } from "./material-parser"
 import { glTFBufferAccessor } from "./buffer-accessor"
 import { glTFAnimationParser } from "./animation/parser"
@@ -95,10 +94,10 @@ export class glTFParser {
     let material = this.createMaterial(mesh)
     let data = this.createMeshData(mesh)
     let shader = this.getShader(data, material)
-    return new Mesh3D(mesh.name, shader.createGeometry(data), shader, material)
+    return new Mesh3D(mesh.name, data, shader, material)
   }
 
-  private getShader(data: MeshData, material: Material) {
+  private getShader(data: MeshGeometryData, material: Material) {
     if (this.options.shader) {
       return this.options.shader
     }
@@ -109,12 +108,12 @@ export class glTFParser {
     return shaderFactory.createShader(data, material)
   }
 
-  private createMeshData(mesh: any): MeshData {
+  private createMeshData(mesh: any): MeshGeometryData {
     return {
       indices: this.getIndices(mesh),
       positions: this.getPositions(mesh),
       normals: this.getNormals(mesh),
-      targets: this.getTargets(mesh),
+      morphTargets: this.getMorphTargets(mesh),
       weights: this.getWeights(mesh),
       texCoords: this.getTexCoords(mesh),
       tangents: this.getTangents(mesh),
@@ -163,14 +162,14 @@ export class glTFParser {
     return undefined
   }
 
-  private getTargets(mesh: any) {
+  private getMorphTargets(mesh: any) {
     let targets = mesh.primitives[0].targets
     if (!targets) {
       return undefined
     }
-    let result: TargetData[] = []
+    let result: MeshMorphTarget[] = []
     for (let i = 0; i < targets.length; i++) {
-      let target: TargetData = {
+      let target: MeshMorphTarget = {
         positions: this.getTargetAttribute(mesh.primitives[0].targets[i], "POSITION"),
         normals: this.getTargetAttribute(mesh.primitives[0].targets[i], "NORMAL"),
         tangents: this.getTargetAttribute(mesh.primitives[0].targets[i], "TANGENT")

@@ -1,4 +1,4 @@
-import { AttributeData } from "../mesh-data"
+import { MeshAttribute } from "../mesh"
 
 const TYPE_SIZES: { [name: string]: number } = {
   SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
@@ -26,7 +26,7 @@ export class glTFBufferAccessor {
     throw new Error(`PIXI3D: Unknown component type "${componentType}".`)
   }
 
-  createAttributeData(attribute: number): AttributeData {
+  createAttributeData(attribute: number): MeshAttribute {
     let accessor = this.descriptor.accessors[attribute]
     let bufferView = this.descriptor.bufferViews[accessor.bufferView || 0]
 

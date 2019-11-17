@@ -1,9 +1,9 @@
 import { Shader } from "../shader"
-import { MetallicRoughnessMaterial, MaterialAlphaMode } from "../material"
+import { MetallicRoughnessMaterial } from "../material"
 import { Camera3D } from "../camera"
 import { Transform3D } from "../transform"
 import { LightingEnvironment } from "../light"
-import { MeshData } from "../mesh-data"
+import { MeshGeometryData } from "../mesh"
 
 export enum StandardShaderAttribute {
   normal = "normal", 
@@ -171,11 +171,8 @@ export class StandardShader extends PIXI.Shader implements Shader {
     return this.weights
   }
 
-  createGeometry(data: MeshData): PIXI.Geometry {
+  createGeometry(data: MeshGeometryData): PIXI.Geometry {
     let geometry = new PIXI.Geometry()
-    if (data.weights) {
-      geometry.weights = data.weights
-    }
     if (data.positions) {
       geometry.addAttribute("position", data.positions.buffer, 3, false,
         PIXI.TYPES.FLOAT, data.positions.stride)
@@ -192,19 +189,19 @@ export class StandardShader extends PIXI.Shader implements Shader {
       geometry.addAttribute("tangent", data.tangents.buffer, 4, false,
         PIXI.TYPES.FLOAT, data.tangents.stride)
     }
-    if (data.targets) {
-      for (let i = 0; i < data.targets.length; i++) {
-        let positions = data.targets[i].positions
+    if (data.morphTargets) {
+      for (let i = 0; i < data.morphTargets.length; i++) {
+        let positions = data.morphTargets[i].positions
         if (positions) {
           geometry.addAttribute(`targetPosition${i}`, positions.buffer, 3, false,
             PIXI.TYPES.FLOAT, positions.stride)
         }
-        let normals = data.targets[i].normals
+        let normals = data.morphTargets[i].normals
         if (normals) {
           geometry.addAttribute(`targetNormal${i}`, normals.buffer, 3, false,
             PIXI.TYPES.FLOAT, normals.stride)
         }
-        let tangents = data.targets[i].tangents
+        let tangents = data.morphTargets[i].tangents
         if (tangents) {
           geometry.addAttribute(`targetTangent${i}`, tangents.buffer, 3, false,
             PIXI.TYPES.FLOAT, tangents.stride)
