@@ -9,8 +9,8 @@ state.depthTest = true
 export class Mesh3D extends Container3D {
   mesh: PIXI.Mesh
 
-  constructor(geometry: PIXI.Geometry, public shader: Shader, public material: Material = new MetallicRoughnessMaterial()) {
-    super()
+  constructor(name: string, geometry: PIXI.Geometry, public shader: Shader, public material: Material = new MetallicRoughnessMaterial()) {
+    super(name)
     this.mesh = this.addChild(new PIXI.Mesh(geometry, shader, state))
   }
 

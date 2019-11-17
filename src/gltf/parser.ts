@@ -57,7 +57,7 @@ export class glTFParser {
   private createNodes() {
     let nodes: Container3D[] = []
     for (let node of this.descriptor.nodes) {
-      let container = new Container3D(this.createTransform(node))
+      let container = new Container3D(node.name, this.createTransform(node))
       nodes.push(container)
       if (node.mesh === undefined) {
         continue
@@ -95,7 +95,7 @@ export class glTFParser {
     let material = this.createMaterial(mesh)
     let data = this.createMeshData(mesh)
     let shader = this.getShader(data, material)
-    return new Mesh3D(shader.createGeometry(data), shader, material)
+    return new Mesh3D(mesh.name, shader.createGeometry(data), shader, material)
   }
 
   private getShader(data: MeshData, material: Material) {

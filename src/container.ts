@@ -1,7 +1,7 @@
 import { Transform3D } from "./transform"
 
 export class Container3D extends PIXI.Container {
-  constructor(public transform = new Transform3D()) {
+  constructor(public name?: string, public transform = new Transform3D()) {
     super()
   }
 
