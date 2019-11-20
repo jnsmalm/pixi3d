@@ -25,16 +25,19 @@ export interface MeshGeometryData {
 
 export class Mesh3D extends Container3D {
   geometry: PIXI.Geometry
-  weights?: number[]
   pluginName = "mesh3d"
+  material: Material
 
-  constructor(name: string | undefined, geometry: PIXI.Geometry | MeshGeometryData, public shader: Shader, public material: Material = new MetallicRoughnessMaterial()) {
+  constructor(name: string | undefined, geometry: PIXI.Geometry | MeshGeometryData, public shader: Shader, material?: Material, public weights?: number[]) {
     super(name)
+    this.material = material || new Material()
+    if (shader.createMaterial) {
+      this.material = shader.createMaterial(this.material)
+    }
     if (geometry instanceof PIXI.Geometry) {
       this.geometry = geometry
     } else {
       this.geometry = shader.createGeometry(geometry)
-      this.weights = geometry.weights
     }
   }
 

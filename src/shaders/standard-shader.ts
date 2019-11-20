@@ -1,15 +1,15 @@
 import { Shader } from "../shader"
-import { MetallicRoughnessMaterial } from "../material"
 import { Camera3D } from "../camera"
 import { Transform3D } from "../transform"
 import { LightingEnvironment } from "../light"
-import { MeshGeometryData } from "../mesh"
+import { MeshGeometryData, Mesh3D } from "../mesh"
+import { MetallicRoughnessMaterial, Material } from "../material"
 
 export enum StandardShaderAttribute {
-  normal = "normal", 
-  texCoord = "texCoord", 
-  tangent = "tangent", 
-  targetPosition0 = "targetPosition0", 
+  normal = "normal",
+  texCoord = "texCoord",
+  tangent = "tangent",
+  targetPosition0 = "targetPosition0",
   targetPosition1 = "targetPosition1",
   targetPosition2 = "targetPosition2",
   targetPosition3 = "targetPosition3",
@@ -20,8 +20,8 @@ export enum StandardShaderAttribute {
 }
 
 export enum StandardShaderFeature {
-  normalMap = "normalMapping", 
-  emissiveMap = "emissiveMap", 
+  normalMap = "normalMapping",
+  emissiveMap = "emissiveMap",
   diffuseIrradiance = "diffuseIrradiance",
   alphaModeOpaque = "alphaModeOpaque",
   alphaModeBlend = "alphaModeBlend",
@@ -30,23 +30,19 @@ export enum StandardShaderFeature {
 }
 
 export class StandardShader extends PIXI.Shader implements Shader {
-  transform: Transform3D | undefined
-  material: MetallicRoughnessMaterial | undefined
-  weights?: number[]
-  
-  get batchable() {
-    return true
-  }
-
-  get pluginName() {
-    return "standard"
-  }
+  private transform: Transform3D | undefined
+  private material: MetallicRoughnessMaterial | undefined
+  private weights?: number[]
 
   constructor(attributes: string[] = [], private features: string[] = []) {
     super(StandardShaderProgram.build(attributes, features))
   }
 
-  update() {
+  updateUniforms(mesh: Mesh3D) {
+    this.material = mesh.material as MetallicRoughnessMaterial
+    this.weights = mesh.weights
+    this.transform = mesh.transform
+
     let lighting = LightingEnvironment.main
     if (this.features.includes(StandardShaderFeature.diffuseIrradiance)) {
       if (!lighting.irradianceTexture) {
@@ -169,6 +165,10 @@ export class StandardShader extends PIXI.Shader implements Shader {
       return [0]
     }
     return this.weights
+  }
+
+  createMaterial(material: Material) {
+    return material
   }
 
   createGeometry(data: MeshGeometryData): PIXI.Geometry {

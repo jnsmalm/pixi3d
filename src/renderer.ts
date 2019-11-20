@@ -50,13 +50,8 @@ export class Mesh3DRenderer extends PIXI.ObjectRenderer {
   }
 
   renderMesh(mesh: Mesh3D, state: PIXI.State) {
-    mesh.shader.material = mesh.material
-    mesh.shader.weights = mesh.weights
-    mesh.shader.transform = mesh.transform
-
-    if (mesh.shader.update) {
-      mesh.shader.update()
-    }
+    mesh.shader.updateUniforms(mesh)
+    
     this.renderer.shader.bind(mesh.shader)
     this.renderer.state.set(state)
     this.renderer.geometry.bind(mesh.geometry, mesh.shader)

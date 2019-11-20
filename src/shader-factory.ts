@@ -5,11 +5,11 @@ import { LightingEnvironment } from "./light"
 import { MeshGeometryData } from "./mesh"
 
 export interface ShaderFactory {
-  createShader(data: MeshGeometryData, material: Material): Shader
+  createShader(data: MeshGeometryData, material?: Material): Shader
 }
 
 export class DefaultShaderFactory implements ShaderFactory {
-  createShader(data: MeshGeometryData, material: MetallicRoughnessMaterial): Shader {
+  createShader(data: MeshGeometryData, material?: MetallicRoughnessMaterial): Shader {
     let attributes: string[] = []
     if (data.normals) {
       attributes.push(StandardShaderAttribute.normal)
@@ -34,17 +34,20 @@ export class DefaultShaderFactory implements ShaderFactory {
       }
     }
     let features: StandardShaderFeature[] = []
+    if (data.morphTargets) {
+      features.push(StandardShaderFeature.morphing)
+    }
+    if (LightingEnvironment.main.irradianceTexture) {
+      features.push(StandardShaderFeature.diffuseIrradiance)
+    }
+    if (!material) {
+      return new StandardShader(attributes, features)
+    }
     if (material.normalTexture) {
       features.push(StandardShaderFeature.normalMap)
     }
     if (material.emissiveTexture) {
       features.push(StandardShaderFeature.emissiveMap)
-    }
-    if (LightingEnvironment.main.irradianceTexture) {
-      features.push(StandardShaderFeature.diffuseIrradiance)
-    }
-    if (data.morphTargets) {
-      features.push(StandardShaderFeature.morphing)
     }
     if (material.alphaMode === MaterialAlphaMode.opaque) {
       features.push(StandardShaderFeature.alphaModeOpaque)

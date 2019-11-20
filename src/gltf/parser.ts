@@ -1,6 +1,6 @@
 import { glTFResource } from "./loader"
 import { Transform3D } from "../transform"
-import { MetallicRoughnessMaterial, Material } from "../material"
+import { Material, MetallicRoughnessMaterial } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
 import { Shader } from "../shader"
@@ -93,14 +93,14 @@ export class glTFParser {
   protected createMesh(mesh: any) {
     let material = this.createMaterial(mesh)
     let data = this.createMeshData(mesh)
-    let shader = this.getShader(data, material)
-    return new Mesh3D(mesh.name, data, shader, material)
+    let shader = this.options.shader
+    if (!shader) {
+      shader = this.createShader(data, material)
+    }
+    return new Mesh3D(mesh.name, data, shader, material, data.weights)
   }
 
-  private getShader(data: MeshGeometryData, material: Material) {
-    if (this.options.shader) {
-      return this.options.shader
-    }
+  private createShader(data: MeshGeometryData, material: Material) {
     let shaderFactory = this.options.shaderFactory
     if (!shaderFactory) {
       shaderFactory = new DefaultShaderFactory()

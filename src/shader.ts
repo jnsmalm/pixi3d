@@ -1,10 +1,8 @@
-import { Transform3D } from "./transform"
 import { Material } from "./material"
-import { MeshGeometryData } from "./mesh"
+import { MeshGeometryData, Mesh3D } from "./mesh"
 
 export interface Shader extends PIXI.Shader {
-  material?: Material
-  transform?: Transform3D
-  weights?: number[]
+  updateUniforms(mesh: Mesh3D): void
   createGeometry(data: MeshGeometryData): PIXI.Geometry
+  createMaterial?(material?: Material): Material
 }

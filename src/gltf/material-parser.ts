@@ -1,8 +1,8 @@
-import { MetallicRoughnessMaterial, MaterialAlphaMode, Material } from "../material"
+import { MaterialAlphaMode, MetallicRoughnessMaterial } from "../material"
 import { glTFResource } from "./loader"
 
 export interface glTFMaterialParser {
-  createMaterial(data: any): Material
+  createMaterial(data: any): MetallicRoughnessMaterial
 }
 
 export class glTFMetallicRoughnessMaterialParser implements glTFMaterialParser {
