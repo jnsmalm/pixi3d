@@ -22,14 +22,31 @@ export class Model3D extends Container3D {
     return new glTFParser(resource, options).createModel()
   }
 
-  getChildByName(name: string, node = this): Container3D | Mesh3D | undefined {
-    for (let child of node.children) {
+  getMeshByName(name: string, container = this): Mesh3D | undefined {
+    for (let child of container.children) {
+      if (child.name === name && child instanceof Mesh3D) {
+        return child
+      }
+    }
+    for (let child of container.children) {
+      let result = this.getMeshByName(name, child)
+      if (result) {
+        return result
+      }
+    }
+  }
+
+  getChildByName(name: string, container = this): Container3D | undefined {
+    for (let child of container.children) {
       if (child.name === name) {
         return child
       }
     }
-    for (let child of node.children) {
-      return this.getChildByName(name, child)
+    for (let child of container.children) {
+      let result = this.getChildByName(name, child)
+      if (result) {
+        return result
+      }
     }
   }
 }
