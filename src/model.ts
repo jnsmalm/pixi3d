@@ -22,6 +22,14 @@ export class Model3D extends Container3D {
     return new glTFParser(resource, options).createModel()
   }
 
+  getAnimationByName(name: string): Animation | undefined {
+    for (let animation of this.animations) {
+      if (animation.name === name) {
+        return animation
+      }
+    }
+  }
+
   getMeshByName(name: string, container = this): Mesh3D | undefined {
     for (let child of container.children) {
       if (child.name === name && child instanceof Mesh3D) {
