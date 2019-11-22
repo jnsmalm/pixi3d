@@ -40,12 +40,6 @@ export abstract class MeshShader extends PIXI.Shader implements Shader {
           PIXI.TYPES.FLOAT, data.normals.stride)
       }
     }
-    if (this.attributes.includes(MeshShaderAttribute.normal)) {
-      if (data.normals) {
-        geometry.addAttribute("normal", data.normals.buffer, 3, false,
-          PIXI.TYPES.FLOAT, data.normals.stride)
-      }
-    }
     if (this.attributes.includes(MeshShaderAttribute.tangent)) {
       if (data.tangents) {
         geometry.addAttribute("tangent", data.tangents.buffer, 4, false,
