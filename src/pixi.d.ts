@@ -5,7 +5,7 @@ declare namespace PIXI {
     add?: () => void
   }
   class Loader {
-    add: (options: { name: string, url: string, parentResource: LoaderResource, metadata: any }) => void
+    add: (options: { name?: string, url: string, parentResource: LoaderResource, metadata?: any }) => void
     static registerPlugin(plugin: ILoaderPlugin): void
   }
   class LoaderResource {
@@ -15,10 +15,10 @@ declare namespace PIXI {
     name: string
     metadata: any
     data: any
-    texture?: PIXI.Texture
+    texture?: Texture | BaseTexture
     static setExtensionXhrType(extname: string, xhrType: string): void
     static get XHR_RESPONSE_TYPE(): { BUFFER: string, JSON: string }
-    static get TYPE(): { IMAGE: number }
+    static get TYPE(): { IMAGE: number, JSON: number }
   }
   class Geometry {
     addAttribute(name: string, data: ArrayBuffer, size: number, normalized?: boolean, type?: number, stride?: number, start?: number): void
@@ -83,17 +83,35 @@ declare namespace PIXI {
   class BaseTexture {
     wrapMode: WRAP_MODES
     alphaMode: ALPHA_MODES
+    resource: any
+    target: number
+    type: number
+    format: number
+    static from(resource: any): BaseTexture
   }
   class Texture {
     static EMPTY: Texture
     static WHITE: Texture
+    static from(resource: any): Texture
     baseTexture: BaseTexture
   }
   class CubeTexture {
     valid: boolean
+    constructor(resource: any)
+    static from(resources: any[]): CubeTexture
+    static from(faces: string[]): CubeTexture
   }
   enum WRAP_MODES { REPEAT }
   enum TYPES { FLOAT }
   enum ALPHA_MODES { PREMULTIPLIED_ALPHA }
   enum DRAW_MODES { TRIANGLES }
+
+  namespace resources {
+    let INSTALLED: any[]
+    class ImageResource {
+      constructor(source: any, options?: any)
+      upload(renderer: any, baseTexture: any, glTexture: any, source: any): boolean
+    }
+    class CubeResource extends ImageResource { }
+  }
 }

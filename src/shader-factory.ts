@@ -37,8 +37,8 @@ export class DefaultShaderFactory implements ShaderFactory {
     if (data.morphTargets) {
       features.push(StandardShaderFeature.morphing)
     }
-    if (LightingEnvironment.main.irradianceTexture) {
-      features.push(StandardShaderFeature.diffuseIrradiance)
+    if (LightingEnvironment.main.irradianceTexture && LightingEnvironment.main.radianceTexture && LightingEnvironment.main.brdfLUT) {
+      features.push(StandardShaderFeature.ibl)
     }
     if (!material) {
       return new StandardShader(attributes, features)

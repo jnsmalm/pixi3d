@@ -22,7 +22,7 @@ export enum StandardShaderAttribute {
 export enum StandardShaderFeature {
   normalMap = "normalMapping",
   emissiveMap = "emissiveMap",
-  diffuseIrradiance = "diffuseIrradiance",
+  ibl = "ibl",
   alphaModeOpaque = "alphaModeOpaque",
   alphaModeBlend = "alphaModeBlend",
   alphaModeMask = "alphaModeMask",
@@ -44,11 +44,17 @@ export class StandardShader extends PIXI.Shader implements Shader {
     this.transform = mesh.transform
 
     let lighting = LightingEnvironment.main
-    if (this.features.includes(StandardShaderFeature.diffuseIrradiance)) {
+    if (this.features.includes(StandardShaderFeature.ibl)) {
       if (!lighting.irradianceTexture) {
         throw new Error("PIXI3D: Irradiance texture has not been set.")
       }
       this.uniforms.irradianceMap = lighting.irradianceTexture
+      if (!lighting.radianceTexture) {
+        throw new Error("PIXI3D: Radiance texture has not been set.")
+      }
+      this.uniforms.radianceMap = lighting.radianceTexture
+      this.uniforms.brdfLUT = lighting.brdfLUT
+      this.uniforms.radianceLevels = lighting.radianceTexture.resource.levels
     }
     if (this.transform) {
       this.uniforms.world = this.transform.worldTransform.array
@@ -274,8 +280,8 @@ namespace StandardShaderProgram {
     if (features.includes(StandardShaderFeature.emissiveMap)) {
       defines.push("EMISSIVE_MAP")
     }
-    if (features.includes(StandardShaderFeature.diffuseIrradiance)) {
-      defines.push("DIFFUSE_IRRADIANCE")
+    if (features.includes(StandardShaderFeature.ibl)) {
+      defines.push("USE_IBL")
     }
     if (features.includes(StandardShaderFeature.morphing)) {
       defines.push("USE_MORPHING")

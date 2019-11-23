@@ -4,6 +4,7 @@ precision mediump float;
 
 #import <lighting.glsl>
 #import <tonemapping.glsl>
+#import <ibl.glsl>
 #import <textures.glsl>
 
 varying vec3 v_position;
@@ -23,7 +24,6 @@ uniform float roughness;
 uniform vec3 lightPositions[4];
 uniform vec3 lightColors[4];
 
-uniform samplerCube irradianceMap;
 uniform float alphaMaskCutoff;
 
 void main() {
@@ -74,13 +74,8 @@ void main() {
     color += lightReflectance(v_position, lightPositions[i], lightColors[i], 
       normal, viewDirection, roughness, metallic, f0, baseColor.rgb);
   }
-  #ifdef DIFFUSE_IRRADIANCE
-    vec3 kS = fresnelSchlickRoughness(max(dot(normal, viewDirection), 0.0), f0, roughness); 
-    vec3 kD = 1.0 - kS;
-    vec3 irradiance = textureCube(irradianceMap, normal).rgb;
-    vec3 diffuse = irradiance * baseColor.rgb;
-    vec3 ambient = (kD * diffuse) * occlusion;
-    color += ambient;
+  #ifdef USE_IBL
+    color += ibl(viewDirection, normal, f0, metallic, roughness, occlusion, baseColor.rgb);
   #endif
   #ifdef EMISSIVE_MAP
     color += SRGBtoLINEAR(emissiveFromMap()).rgb;

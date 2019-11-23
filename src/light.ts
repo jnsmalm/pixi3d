@@ -25,6 +25,8 @@ class PointLight extends PIXI.DisplayObject {
 export class LightingEnvironment {
   pointLights: PointLight[] = []
   irradianceTexture: PIXI.CubeTexture | undefined
+  radianceTexture: PIXI.CubeTexture | undefined
+  brdfLUT: PIXI.Texture | undefined
 
   static main = new LightingEnvironment()
 
