@@ -28,6 +28,10 @@ export class LightingEnvironment {
   radianceTexture: PIXI.CubeTexture | undefined
   brdfLUT: PIXI.Texture | undefined
 
+  constructor() {
+    this.brdfLUT = PIXI.Texture.from(require("./resources/brdf.png").default)
+  }
+
   static main = new LightingEnvironment()
 
   createPointLight(x = 0, y = 0, z = 0, color = [1, 1, 1]) {

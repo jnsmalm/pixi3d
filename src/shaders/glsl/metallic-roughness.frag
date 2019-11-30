@@ -59,9 +59,9 @@ void main() {
   #endif
   #endif
 
-  float metallic = metallic * metallicFromMap();
-  float roughness = roughness * roughnessFromMap();
-  float occlusion = occlusionFromMap();
+  float metallic = metallic * SRGBtoLINEAR(metallicFromMap());
+  float roughness = roughness * SRGBtoLINEAR(roughnessFromMap());
+  float occlusion = SRGBtoLINEAR(occlusionFromMap());
 
   vec3 viewDirection = normalize(viewPosition - v_position);
 

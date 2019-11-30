@@ -25,7 +25,16 @@ module.exports = env => {
           test: /\.(glsl|vert|frag)$/,
           use: "raw-loader",
           exclude: /node_modules/
-        }
+        },
+        {
+          test: /\.(png|jpg)$/i,
+          use: {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          }
+        },
       ]
     },
     resolve: {

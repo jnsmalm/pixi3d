@@ -28,14 +28,11 @@ PIXI.Loader.registerPlugin({
       })
     }
     if (resource.data.images) {
+
       for (let i = 0; i < resource.data.images.length; i++) {
-        let image: { uri: string } = resource.data.images[i];
-        (this as PIXI.Loader).add({
-          name: image.uri,
-          url: resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + image.uri,
-          parentResource: resource,
-          metadata: { name: resource.name, image: i }
-        })
+        let image: { uri: string } = resource.data.images[i]
+        let url = resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + image.uri
+        glTFLoader.resources[resource.name].images.push(PIXI.Texture.from(url))
       }
     }
     next()
@@ -57,15 +54,5 @@ PIXI.Loader.registerPlugin({
   add() {
     PIXI.LoaderResource.setExtensionXhrType(
       "bin", PIXI.LoaderResource.XHR_RESPONSE_TYPE.BUFFER)
-  }
-})
-
-PIXI.Loader.registerPlugin({
-  use(resource, next) {
-    if (resource.type !== PIXI.LoaderResource.TYPE.IMAGE || !resource.texture || !resource.metadata.name) {
-      return next()
-    }
-    glTFLoader.resources[resource.metadata.name].images[resource.metadata.image] = resource.texture
-    next()
   }
 })

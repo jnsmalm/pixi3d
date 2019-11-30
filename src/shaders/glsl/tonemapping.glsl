@@ -5,6 +5,10 @@ vec4 SRGBtoLINEAR(vec4 srgbIn) {
     return vec4(pow(srgbIn.xyz, vec3(GAMMA)), srgbIn.w);
 }
 
+float SRGBtoLINEAR(float srgbIn) {
+    return pow(srgbIn, GAMMA);
+}
+
 vec3 LINEARtoSRGB(vec3 color) {
     return pow(color, vec3(INV_GAMMA));
 }

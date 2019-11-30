@@ -96,6 +96,7 @@ declare namespace PIXI {
     baseTexture: BaseTexture
   }
   class CubeTexture {
+    resource: any
     valid: boolean
     constructor(resource: any)
     static from(resources: any[]): CubeTexture
