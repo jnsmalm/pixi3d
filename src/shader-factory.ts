@@ -1,7 +1,7 @@
 import { Shader } from "./shader"
 import { MetallicRoughnessMaterial, MaterialAlphaMode, Material } from "./material"
 import { StandardShader, StandardShaderAttribute, StandardShaderFeature } from "./shaders/standard-shader"
-import { LightingEnvironment } from "./light"
+import { LightingEnvironment } from "./lighting/lighting-environment"
 import { MeshGeometryData } from "./mesh"
 
 export interface ShaderFactory {
@@ -37,7 +37,7 @@ export class DefaultShaderFactory implements ShaderFactory {
     if (data.morphTargets) {
       features.push(StandardShaderFeature.morphing)
     }
-    if (LightingEnvironment.main.irradianceTexture && LightingEnvironment.main.radianceTexture && LightingEnvironment.main.brdfLUT) {
+    if (LightingEnvironment.main.ibl) {
       features.push(StandardShaderFeature.ibl)
     }
     if (!material) {

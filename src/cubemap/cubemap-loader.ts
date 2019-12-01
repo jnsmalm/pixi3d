@@ -2,9 +2,11 @@ import { CubeMipMapTexture } from "./cube-mipmap"
 
 export interface CubeMapResource { source: string, mipmap?: string[] }
 
+const EXTENSION = "cubemap"
+
 export const CubeMapLoader = {
   use: (resource: any, next: () => void) => {
-    if (resource.extension !== "cubemap") {
+    if (resource.extension !== EXTENSION) {
       return next()
     }
     resource.texture = new CubeMipMapTexture(resource.data)
@@ -12,7 +14,7 @@ export const CubeMapLoader = {
   },
   add: () => {
     PIXI.LoaderResource.setExtensionXhrType(
-      "cubemap", PIXI.LoaderResource.XHR_RESPONSE_TYPE.JSON)
+      EXTENSION, PIXI.LoaderResource.XHR_RESPONSE_TYPE.JSON)
   }
 }
 

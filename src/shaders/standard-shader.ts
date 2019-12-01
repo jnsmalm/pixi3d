@@ -1,7 +1,7 @@
 import { Shader } from "../shader"
 import { Camera3D } from "../camera"
 import { Transform3D } from "../transform"
-import { LightingEnvironment } from "../light"
+import { LightingEnvironment } from "../lighting/lighting-environment"
 import { MeshGeometryData, Mesh3D } from "../mesh"
 import { MetallicRoughnessMaterial, Material } from "../material"
 
@@ -45,16 +45,13 @@ export class StandardShader extends PIXI.Shader implements Shader {
 
     let lighting = LightingEnvironment.main
     if (this.features.includes(StandardShaderFeature.ibl)) {
-      if (!lighting.irradianceTexture) {
-        throw new Error("PIXI3D: Irradiance texture has not been set.")
+      if (!lighting.ibl) {
+        throw new Error("PIXI3D: Image based lighting has not been set.")
       }
-      this.uniforms.irradianceMap = lighting.irradianceTexture
-      if (!lighting.radianceTexture) {
-        throw new Error("PIXI3D: Radiance texture has not been set.")
-      }
-      this.uniforms.radianceMap = lighting.radianceTexture
-      this.uniforms.brdfLUT = lighting.brdfLUT
-      this.uniforms.radianceLevels = lighting.radianceTexture.resource.levels
+      this.uniforms.irradianceMap = lighting.ibl.diffuse
+      this.uniforms.radianceMap = lighting.ibl.specular
+      this.uniforms.brdfLUT = lighting.ibl.brdf
+      this.uniforms.radianceLevels = lighting.ibl.specular.levels
     }
     if (this.transform) {
       this.uniforms.world = this.transform.worldTransform.array
@@ -141,9 +138,9 @@ export class StandardShader extends PIXI.Shader implements Shader {
   get lightPositions() {
     let lighting = LightingEnvironment.main
     let lightPositions = []
-    for (let i = 0; i < lighting.pointLights.length; i++) {
+    for (let i = 0; i < lighting.lights.length; i++) {
       for (let j = 0; j < 3; j++) {
-        lightPositions.push(lighting.pointLights[i].worldPosition[j])
+        lightPositions.push(lighting.lights[i].worldPosition[j])
       }
     }
     if (lightPositions.length === 0) {
@@ -155,9 +152,9 @@ export class StandardShader extends PIXI.Shader implements Shader {
   get lightColors() {
     let lighting = LightingEnvironment.main
     let lightColors = []
-    for (let i = 0; i < lighting.pointLights.length; i++) {
+    for (let i = 0; i < lighting.lights.length; i++) {
       for (let j = 0; j < 3; j++) {
-        lightColors.push(lighting.pointLights[i].color[j])
+        lightColors.push(lighting.lights[i].color[j])
       }
     }
     if (lightColors.length === 0) {
