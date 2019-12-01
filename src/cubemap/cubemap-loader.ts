@@ -15,3 +15,7 @@ export const CubeMapLoader = {
       "cubemap", PIXI.LoaderResource.XHR_RESPONSE_TYPE.JSON)
   }
 }
+
+if (PIXI) {
+  PIXI.Loader.registerPlugin(CubeMapLoader)
+}

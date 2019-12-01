@@ -21,3 +21,7 @@ export const EnvironmentLoader = {
       EXTENSION, PIXI.LoaderResource.XHR_RESPONSE_TYPE.JSON)
   }
 }
+
+if (PIXI) {
+  PIXI.Loader.registerPlugin(EnvironmentLoader)
+}
