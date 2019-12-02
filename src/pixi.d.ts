@@ -5,7 +5,7 @@ declare namespace PIXI {
     add?: () => void
   }
   class Loader {
-    add: (options: { name?: string, url: string, parentResource: LoaderResource, metadata?: any }) => void
+    add: (options: { name?: string, url: string, parentResource?: LoaderResource, metadata?: any, onComplete?: () => void }) => void
     static registerPlugin(plugin: ILoaderPlugin): void
   }
   class LoaderResource {

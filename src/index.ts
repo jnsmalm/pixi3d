@@ -1,4 +1,5 @@
 export { glTFLoader } from "./gltf/loader"
+export { glTFBufferLoader } from "./gltf/buffer-loader"
 export { ObservablePoint3D } from "./point"
 export { ObservableQuaternion } from "./quaternion"
 export { Transform3D } from "./transform"

@@ -1,58 +1,26 @@
-export interface glTFResource {
-  descriptor: any
-  buffers: ArrayBuffer[]
-  images: PIXI.Texture[]
-}
+import { glTFResource } from "./gltf-resource"
 
-export namespace glTFLoader {
-  export const resources: { [source: string]: glTFResource } = {}
-}
+const EXTENSION = "gltf"
 
-PIXI.Loader.registerPlugin({
-  use(resource, next) {
-    if (resource.extension !== "gltf") {
+const resources: { [source: string]: glTFResource } = {}
+
+export const glTFLoader = {
+  resources: resources,
+  use: function (resource: any, next: () => void) {
+    if (resource.extension !== EXTENSION) {
       return next()
     }
-    glTFLoader.resources[resource.name] = {
-      buffers: [],
-      descriptor: resource.data,
-      images: []
-    }
-    for (let i = 0; i < resource.data.buffers.length; i++) {
-      let buffer: { uri: string } = resource.data.buffers[i];
-      (this as PIXI.Loader).add({
-        name: buffer.uri,
-        url: resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + buffer.uri,
-        parentResource: resource,
-        metadata: { name: resource.name, buffer: i }
-      })
-    }
-    if (resource.data.images) {
+    glTFLoader.resources[resource.name] = resource.gltf =
+      glTFResource.fromExternalResources(resource.data, this, resource)
 
-      for (let i = 0; i < resource.data.images.length; i++) {
-        let image: { uri: string } = resource.data.images[i]
-        let url = resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + image.uri
-        glTFLoader.resources[resource.name].images.push(PIXI.Texture.from(url))
-      }
-    }
     next()
   },
-  add() {
+  add: function () {
     PIXI.LoaderResource.setExtensionXhrType(
-      "gltf", PIXI.LoaderResource.XHR_RESPONSE_TYPE.JSON)
+      EXTENSION, PIXI.LoaderResource.XHR_RESPONSE_TYPE.JSON)
   }
-})
+}
 
-PIXI.Loader.registerPlugin({
-  use(resource, next) {
-    if (resource.extension !== "bin") {
-      return next()
-    }
-    glTFLoader.resources[resource.metadata.name].buffers[resource.metadata.buffer] = resource.data
-    next()
-  },
-  add() {
-    PIXI.LoaderResource.setExtensionXhrType(
-      "bin", PIXI.LoaderResource.XHR_RESPONSE_TYPE.BUFFER)
-  }
-})
+if (PIXI) {
+  PIXI.Loader.registerPlugin(glTFLoader)
+}

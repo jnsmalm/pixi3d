@@ -1,8 +1,8 @@
-import { glTFResource } from "../loader"
 import { Container3D } from "../../container"
 import { glTFBufferAccessor } from "../buffer-accessor"
 import { glTFAnimation, glTFRotationAnimation, glTFTranslationAnimation, glTFScaleAnimation, glTFWeightsAnimation } from "./animation"
 import { glTFStepInterpolation, glTFSphericalLinearInterpolation, glTFCubicSplineInterpolation, glTFLinearInterpolation } from "./interpolation"
+import { glTFResource } from "../gltf-resource"
 
 export class glTFAnimationParser {
   protected bufferAccessor: glTFBufferAccessor

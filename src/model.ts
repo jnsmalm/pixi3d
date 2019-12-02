@@ -5,6 +5,7 @@ import { Shader } from "./shader"
 import { ShaderFactory } from "./shader-factory"
 import { glTFLoader } from "./gltf/loader"
 import { Mesh3D } from "./mesh"
+import { glTFResource } from "./gltf/gltf-resource"
 
 export interface ModelFromOptions {
   shader?: Shader
@@ -14,10 +15,15 @@ export interface ModelFromOptions {
 export class Model3D extends Container3D {
   animations: Animation[] = []
 
-  static from(source: string, options: ModelFromOptions = {}) {
-    let resource = glTFLoader.resources[source]
-    if (!resource) {
-      throw Error(`PIXI3D: Could not find "${source}", was the file loaded?`)
+  static from(source: glTFResource | string, options: ModelFromOptions = {}) {
+    let resource: glTFResource
+    if (typeof source === "string") {
+      resource = glTFLoader.resources[source]
+      if (!resource) {
+        throw Error(`PIXI3D: Could not find "${source}", was the file loaded?`)
+      }
+    } else {
+      resource = source
     }
     return new glTFParser(resource, options).createModel()
   }

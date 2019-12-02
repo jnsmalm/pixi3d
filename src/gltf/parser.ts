@@ -1,4 +1,3 @@
-import { glTFResource } from "./loader"
 import { Transform3D } from "../transform"
 import { Material, MetallicRoughnessMaterial } from "../material"
 import { Model3D } from "../model"
@@ -9,6 +8,7 @@ import { ShaderFactory, DefaultShaderFactory } from "../shader-factory"
 import { glTFMetallicRoughnessMaterialParser, glTFMaterialParser } from "./material-parser"
 import { glTFBufferAccessor } from "./buffer-accessor"
 import { glTFAnimationParser } from "./animation/parser"
+import { glTFResource } from "./gltf-resource"
 
 export interface glTFParserOptions {
   shader?: Shader
