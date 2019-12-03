@@ -5,6 +5,10 @@ export class Container3D extends PIXI.Container {
     super()
   }
 
+  get scale() {
+    return this.transform.scale
+  }
+
   get z() {
     return this.transform.position.z
   }
