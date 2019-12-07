@@ -17,7 +17,7 @@ declare namespace PIXI {
     data: any
     texture?: Texture | BaseTexture
     static setExtensionXhrType(extname: string, xhrType: string): void
-    static get XHR_RESPONSE_TYPE(): { BUFFER: string, JSON: string }
+    static get XHR_RESPONSE_TYPE(): { BUFFER: string, JSON: string, TEXT: string }
     static get TYPE(): { IMAGE: number, JSON: number }
   }
   class Geometry {

@@ -8,6 +8,10 @@ export namespace Matrix {
   export function transposeInverse(input: any, output: any) {
     return mat4.transpose(output, mat4.invert(matrix, input))
   }
+
+  export function invert(input: any, output: any) {
+    return mat4.invert(output, input)
+  }
 }
 
 export class UpdatableFloat32Array {
