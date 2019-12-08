@@ -42,6 +42,7 @@ export class Mesh3D extends Container3D {
   }
 
   render(renderer: any) {
+    super.render(renderer)
     let meshRenderer = renderer.plugins[this.pluginName]
     if (!meshRenderer) {
       throw new Error(`PIXI3D: Renderer with name "${this.pluginName}" does not exist.`)
