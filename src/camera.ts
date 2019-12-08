@@ -1,7 +1,7 @@
 import { mat4 } from "gl-matrix"
 import { UpdatableFloat32Array } from "./matrix"
 import { Transform3D } from "./transform"
-import { ScreenSpace } from "./space"
+import { ScreenSpace, WorldSpace } from "./space"
 
 export class Camera3D extends PIXI.DisplayObject {
   transform = new Transform3D()
@@ -28,6 +28,10 @@ export class Camera3D extends PIXI.DisplayObject {
   screenToWorld(x: number, y: number, z: number, screenSize: { width: number, height: number }) {
     return ScreenSpace.toWorld(x, y, z,
       screenSize.width, screenSize.height, this.viewProjection)
+  }
+
+  worldToScreen(x: number, y: number, z: number, viewSize: { width: number, height: number }) {
+    return WorldSpace.toScreen(x, y, z, this.view, this.projection, viewSize.width, viewSize.height)
   }
 
   get aspectRatio() {
