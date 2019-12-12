@@ -1,18 +1,17 @@
 import { Transform3D } from "../transform"
-import { Material, MetallicRoughnessMaterial } from "../material"
+import { MaterialFactory } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
-import { Shader } from "../shader"
 import { Mesh3D, MeshGeometryData, MeshMorphTarget } from "../mesh"
-import { ShaderFactory, DefaultShaderFactory } from "../shader-factory"
-import { glTFMetallicRoughnessMaterialParser, glTFMaterialParser } from "./material-parser"
+import { glTFMaterialParser } from "./material-parser"
 import { glTFBufferAccessor } from "./buffer-accessor"
 import { glTFAnimationParser } from "./animation/parser"
 import { glTFResource } from "./gltf-resource"
+import { glTFMaterial } from "./gltf-material"
+import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
 
 export interface glTFParserOptions {
-  shader?: Shader
-  shaderFactory?: ShaderFactory
+  materialFactory?: MaterialFactory
 }
 
 export class glTFParser {
@@ -25,7 +24,7 @@ export class glTFParser {
     this.descriptor = resource.descriptor
     this.bufferAccessor = new glTFBufferAccessor(this.descriptor, resource.buffers)
     this.animationParser = new glTFAnimationParser(resource)
-    this.materialParser = new glTFMetallicRoughnessMaterialParser(resource)
+    this.materialParser = new glTFMaterialParser(resource)
   }
 
   createModel() {
@@ -91,21 +90,14 @@ export class glTFParser {
   }
 
   protected createMesh(mesh: any) {
-    let material = this.createMaterial(mesh)
+    let source = this.parseMaterial(mesh)
     let data = this.createMeshData(mesh)
-    let shader = this.options.shader
-    if (!shader) {
-      shader = this.createShader(data, material)
+    let materialFactory = this.options.materialFactory
+    if (!materialFactory) {
+      materialFactory = PhysicallyBasedMaterial
     }
-    return new Mesh3D(mesh.name, data, shader, material, data.weights)
-  }
-
-  private createShader(data: MeshGeometryData, material: Material) {
-    let shaderFactory = this.options.shaderFactory
-    if (!shaderFactory) {
-      shaderFactory = new DefaultShaderFactory()
-    }
-    return shaderFactory.createShader(data, material)
+    let material = materialFactory.create(source)
+    return new Mesh3D(mesh.name, data, material, data.weights)
   }
 
   private createMeshData(mesh: any): MeshGeometryData {
@@ -186,9 +178,9 @@ export class glTFParser {
     }
   }
 
-  protected createMaterial(mesh: any) {
+  protected parseMaterial(mesh: any) {
     if (mesh.primitives[0].material === undefined) {
-      return new MetallicRoughnessMaterial()
+      return new glTFMaterial()
     }
     return this.materialParser.createMaterial(
       this.descriptor.materials[mesh.primitives[0].material])

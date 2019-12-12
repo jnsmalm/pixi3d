@@ -1,5 +1,4 @@
-import { Shader } from "./shader"
-import { MetallicRoughnessMaterial, Material } from "./material"
+import { Material } from "./material"
 import { Container3D } from "./container"
 
 export interface MeshMorphTarget {
@@ -24,21 +23,11 @@ export interface MeshGeometryData {
 }
 
 export class Mesh3D extends Container3D {
-  geometry: PIXI.Geometry
   pluginName = "mesh3d"
-  material: Material
 
-  constructor(name: string | undefined, geometry: PIXI.Geometry | MeshGeometryData, public shader: Shader, material?: Material, public weights?: number[]) {
+  constructor(name: string | undefined, public geometry: MeshGeometryData, public material: Material, public weights?: number[]) {
     super(name)
-    this.material = material || new Material()
-    if (shader.createMaterial) {
-      this.material = shader.createMaterial(this.material)
-    }
-    if (geometry instanceof PIXI.Geometry) {
-      this.geometry = geometry
-    } else {
-      this.geometry = shader.createGeometry(geometry)
-    }
+    material.bind(this)
   }
 
   render(renderer: any) {

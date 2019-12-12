@@ -50,12 +50,13 @@ export class Mesh3DRenderer extends PIXI.ObjectRenderer {
   }
 
   renderMesh(mesh: Mesh3D, state: PIXI.State) {
-    mesh.shader.updateUniforms(mesh)
+    mesh.material.render(this.renderer)
+    // mesh.shader.updateUniforms(mesh)
     
-    this.renderer.shader.bind(mesh.shader)
-    this.renderer.state.set(state)
-    this.renderer.geometry.bind(mesh.geometry, mesh.shader)
-    this.renderer.geometry.draw(PIXI.DRAW_MODES.TRIANGLES)
+    // this.renderer.shader.bind(mesh.shader)
+    // this.renderer.state.set(state)
+    // this.renderer.geometry.bind(mesh.geometry, mesh.shader)
+    // this.renderer.geometry.draw(PIXI.DRAW_MODES.TRIANGLES)
   }
 
   render(mesh: Mesh3D) {

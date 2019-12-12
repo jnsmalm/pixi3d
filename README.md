@@ -101,6 +101,84 @@ app.loader.load(() => {
 document.body.appendChild(app.view)
 ```
 
+## Cubemaps
+
+PIXI3D supports loading cubemaps from file. It expects 6 images which all share the same filename format (example below). `{{face}}` will be replaced with the following strings: "posx", "negx", "posy", "negy", "posz" and "negz". It can also contain optional mipmaps.
+
+*environment.cubemap*
+```json
+{
+  "source": "folder/environment_{{face}}_128x128.jpg",
+  "mipmap": [
+    "folder/environment_{{face}}_64x64.jpg",
+    "folder/environment_{{face}}_32x32.jpg",
+    "folder/environment_{{face}}_16x16.jpg"
+  ]
+}
+```
+
+*app.js*
+```javascript
+app.loader.add("environment.cubemap")
+app.loader.load(() => {
+  let texture = app.loader.resources["environment.cubemap"].texture
+})
+```
+
+## Image based lighting
+
+Cmft (https://github.com/dariomanesku/cmft) is a tool which can generate radiance and irradiance cubemaps to be used as diffuse and specular image based lighting.
+
+*Diffuse (irradiance)*
+```
+% cmft --input environment.hdr --filter irradiance --inputGammaDenominator 2.2  --outputNum 1 --output0 diffuse --output0params tga,bgra8,facelist
+
+bin/cmft --input input/autumn_forest_01_2k.hdr --filter irradiance --inputGammaDenominator 2.2  --outputNum 1 --output0 diffuse --output0params tga,bgra8,facelist
+
+% mogrify -format jpg *.tga
+```
+
+*Specular (radiance)*
+```
+% cmft --input environment.hdr --filter radiance --srcFaceSize 256 --dstFaceSize 256 --excludeBase true --glossScale 10 --glossBias 1 --lightingModel phongbrdf --useOpenCL true --inputGammaDenominator 2.2 --outputNum 1 --output0 specular --output0params tga,bgra8,facelist
+
+bin/cmft --input input/autumn_forest_01_2k.hdr --filter radiance --srcFaceSize 256 --dstFaceSize 256 --excludeBase true --glossScale 10 --glossBias 1 --lightingModel phongbrdf --useOpenCL true --inputGammaDenominator 2.2 --outputNum 1 --output0 specular --output0params tga,bgra8,facelist
+
+
+
+% mogrify -format jpg *.tga
+```
+
+*environment.ibl*
+```json
+{
+  "diffuse": {
+    "source": "diffuse_{{face}}.jpg"
+  },
+  "specular": {
+    "source": "specular_{{face}}_0_256x256.jpg",
+    "mipmap": [
+      "specular_{{face}}_1_128x128.jpg",
+      "specular_{{face}}_2_64x64.jpg",
+      "specular_{{face}}_3_32x32.jpg",
+      "specular_{{face}}_4_16x16.jpg",
+      "specular_{{face}}_5_8x8.jpg",
+      "specular_{{face}}_6_4x4.jpg",
+      "specular_{{face}}_7_2x2.jpg",
+      "specular_{{face}}_8_1x1.jpg",
+    ]
+  }
+}
+```
+
+*app.js*
+```javascript
+app.loader.add("environment.ibl")
+app.loader.load(() => {
+  LightingEnvironment.main.ibl = app.loader.resources["environment.ibl"].ibl
+})
+```
+
 ## Development
 
 The following command will start a local webserver in "dist" folder and watch all files for changes.

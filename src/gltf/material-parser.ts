@@ -1,16 +1,16 @@
-import { MaterialAlphaMode, MetallicRoughnessMaterial } from "../material"
 import { glTFResource } from "./gltf-resource"
+import { glTFMaterial } from "./gltf-material"
 
 export interface glTFMaterialParser {
-  createMaterial(data: any): MetallicRoughnessMaterial
+  createMaterial(data: any): glTFMaterial
 }
 
-export class glTFMetallicRoughnessMaterialParser implements glTFMaterialParser {
+export class glTFMaterialParser implements glTFMaterialParser {
   constructor(public resource: glTFResource) {
   }
 
   createMaterial(data: any) {
-    let material = new MetallicRoughnessMaterial()
+    let material = new glTFMaterial()
     if (data.occlusionTexture) {
       material.occlusionTexture = this.getTexture(data.occlusionTexture)
     }
@@ -21,16 +21,7 @@ export class glTFMetallicRoughnessMaterialParser implements glTFMaterialParser {
       material.emissiveTexture = this.getTexture(data.emissiveTexture)
     }
     if (data.alphaMode) {
-      switch (data.alphaMode) {
-        case "MASK": {
-          material.alphaMode = MaterialAlphaMode.mask
-          break
-        }
-        case "BLEND": {
-          material.alphaMode = MaterialAlphaMode.blend
-          break
-        }
-      }
+      material.alphaMode = data.alphaMode
     }
     if (data.alphaCutoff !== undefined) {
       material.alphaMaskCutoff = data.alphaCutoff
