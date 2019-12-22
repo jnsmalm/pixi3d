@@ -48,7 +48,7 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   createGeometry(data: MeshGeometryData) {
-    let geometry = super.createGeometry(data)
+    let geometry = new PIXI.Geometry()
 
     if (data.indices) {
       geometry.addIndex(data.indices.buffer)
