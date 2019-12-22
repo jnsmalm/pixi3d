@@ -15,6 +15,7 @@ export class SkyboxMaterialFactory implements MaterialFactory {
 export class SkyboxMaterial extends Material {
   constructor(public texture: PIXI.CubeTexture) {
     super([MaterialShaderAttribute.position])
+    this.state.clockwiseFrontFace = true
   }
 
   createShader() {
