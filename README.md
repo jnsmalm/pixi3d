@@ -30,7 +30,7 @@ app.loader.load(() => {
 document.body.appendChild(app.view)
 ```
 
-## Custom shader
+## Custom material
 
 *color-shader.vert*
 ```glsl
@@ -55,32 +55,28 @@ void main() {
 
 *app.js*
 ```javascript
-const { Camera3D, Model3D, MeshShader, Material } = PIXI3D
-
-class ColorShader extends MeshShader {
-  constructor() {
-    let attributes = ["position"]
-    super(PIXI.Program.from(
-      app.loader.resources["color-shader.vert"].source,
-      app.loader.resources["color-shader.frag"].source
-    ), attributes)
-  }
-
-  createMaterial() {
-    return new ColorMaterial()
-  }
-
-  updateUniforms(mesh) {
-    this.uniforms.world = mesh.transform.worldTransform.array
-    this.uniforms.viewProjection = Camera3D.main.viewProjection
-    this.uniforms.color = mesh.material.color
-  }
-}
+const { Camera3D, Model3D, Material } = PIXI3D
 
 class ColorMaterial extends Material {
   constructor() {
-    super()
-    this.color = [0.8, 0.2, 0.7]
+    super(["position"])
+  }
+
+  updateUniforms(shader) {
+    shader.uniforms.world = this.mesh.transform.worldTransform.array
+    shader.uniforms.viewProjection = Camera3D.main.viewProjection
+    shader.uniforms.color = [0.8, 0.2, 0.7]
+  }
+
+  createShader() {
+    return new PIXI.Shader(PIXI.Program.from(
+      app.loader.resources["color-shader.vert"].source,
+      app.loader.resources["color-shader.frag"].source
+    ))
+  }
+
+  static create() {
+    return new ColorMaterial()
   }
 }
 
@@ -94,7 +90,7 @@ app.loader.add("color-shader.frag")
 
 app.loader.load(() => {
   let model = app.stage.addChild(
-    Model3D.from("cube.gltf", { shader: new ColorShader() })
+    Model3D.from("cube.gltf", { materialFactory: ColorMaterial })
   )
 })
 
@@ -143,8 +139,6 @@ bin/cmft --input input/autumn_forest_01_2k.hdr --filter irradiance --inputGammaD
 % cmft --input environment.hdr --filter radiance --srcFaceSize 256 --dstFaceSize 256 --excludeBase true --glossScale 10 --glossBias 1 --lightingModel phongbrdf --useOpenCL true --inputGammaDenominator 2.2 --outputNum 1 --output0 specular --output0params tga,bgra8,facelist
 
 bin/cmft --input input/autumn_forest_01_2k.hdr --filter radiance --srcFaceSize 256 --dstFaceSize 256 --excludeBase true --glossScale 10 --glossBias 1 --lightingModel phongbrdf --useOpenCL true --inputGammaDenominator 2.2 --outputNum 1 --output0 specular --output0params tga,bgra8,facelist
-
-
 
 % mogrify -format jpg *.tga
 ```
