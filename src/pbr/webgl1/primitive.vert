@@ -1,6 +1,6 @@
 #version 100
 
-#define INSERT
+#define FEATURES
 
 #include <animation.glsl>
 

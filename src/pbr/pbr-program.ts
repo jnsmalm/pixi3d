@@ -1,35 +1,28 @@
 export namespace PhysicallyBasedProgram {
-  export function build(features: string[]) {
-    let vert: string = require("./glsl/primitive.vert").default
-    let frag: string = require("./glsl/metallic-roughness.frag").default
+  export function build(renderer: any, features: string[]) {
+    let environment = "webgl1"
+    if (renderer.context.webGLVersion === 2) {
+      environment = "webgl2"
+    }
+    let vert: string = require(`./${environment}/primitive.vert`).default
+    let frag: string = require(`./${environment}/metallic-roughness.frag`).default
 
-    return new Program(
-      PhysicallyBasedMaterialProgramSource.build(vert, features),
-      PhysicallyBasedMaterialProgramSource.build(frag, features))
-  }
-}
-
-class Program extends PIXI.Program {
-  static PIXI_EXTRACT_DATA = /PIXI_EXTRACT_DATA_OFF/
-  constructor(vertexSrc: string, fragmentSrc: string) {
-    super(vertexSrc, fragmentSrc)
-  }
-  extractData(vertexSrc: string, fragmentSrc: string) {
-    fragmentSrc = fragmentSrc.replace(Program.PIXI_EXTRACT_DATA, "PIXI_EXTRACT_DATA_ON 1")
-    super.extractData(vertexSrc, fragmentSrc)
+    return PIXI.Program.from(
+      PhysicallyBasedMaterialProgramSource.build(vert, features, environment),
+      PhysicallyBasedMaterialProgramSource.build(frag, features, environment))
   }
 }
 
 namespace PhysicallyBasedMaterialProgramSource {
-  const INSERT = /#define INSERT/
-  const IMPORT = /#include <(.+)>/gm
+  const FEATURES = /#define FEATURES/
+  const INCLUDES = /#include <(.+)>/gm
 
-  export function build(source: string, features: string[]) {
+  export function build(source: string, features: string[], environment: string) {
     let match: RegExpExecArray | null
-    while ((match = IMPORT.exec(source)) !== null) {
-      source = source.replace(match[0], require(`./glsl/${match[1]}`).default)
+    while ((match = INCLUDES.exec(source)) !== null) {
+      source = source.replace(match[0], require(`./${environment}/${match[1]}`).default)
     }
-    return source.replace(INSERT,
+    return source.replace(FEATURES,
       features.map(value => `#define ${value}`).join("\n"))
   }
 }

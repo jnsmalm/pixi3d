@@ -94,11 +94,7 @@ export class PhysicallyBasedMaterial extends Material {
     if (renderer.context.webGLVersion === 1) {
       let extensions = [
         "EXT_shader_texture_lod",
-        "OES_standard_derivatives",
-        "OES_element_index_uint",
-        "EXT_texture_filter_anisotropic",
-        "OES_texture_float",
-        "OES_texture_float_linear"
+        "OES_standard_derivatives"
       ]
       for (let ext of extensions) {
         if (!renderer.gl.getExtension(ext)) {
@@ -106,23 +102,17 @@ export class PhysicallyBasedMaterial extends Material {
         }
       }
     }
-    let features = this.createFeatures(renderer, this.mesh.geometry)
+    let features = this.createFeatures(this.mesh.geometry)
     let checksum = features.join(",")
     if (!cache[checksum]) {
-      cache[checksum] = new PIXI.Shader(PhysicallyBasedProgram.build(features))
+      cache[checksum] = new PIXI.Shader(PhysicallyBasedProgram.build(renderer, features))
     }
     return cache[checksum]
   }
 
-  createFeatures(renderer: any, geometry: MeshGeometryData) {
+  createFeatures(geometry: MeshGeometryData) {
     let features: string[] = []
 
-    if (renderer.context.webGLVersion === 1) {
-      features.push(PhysicallyBasedMaterialFeature.webGL1)
-    }
-    if (renderer.context.webGLVersion === 2) {
-      features.push(PhysicallyBasedMaterialFeature.webGL2)
-    }
     if (geometry.normals) {
       features.push(PhysicallyBasedMaterialFeature.normal)
     }

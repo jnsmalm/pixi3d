@@ -12,8 +12,7 @@
 // [4] "An Inexpensive BRDF Model for Physically based Rendering" by Christophe Schlick
 //     https://www.cs.virginia.edu/~jdl/bib/appearance/analytic%20models/schlick94b.pdf
 
-#define INSERT
-#define PIXI_EXTRACT_DATA_OFF
+#define FEATURES
 
 #ifdef USE_TEX_LOD
 #extension GL_EXT_shader_texture_lod : enable

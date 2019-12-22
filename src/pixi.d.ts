@@ -32,7 +32,6 @@ declare namespace PIXI {
   class Program {
     constructor(vert: string, frag: string)
     static from(vert: string, frag: string): Program
-    extractData(vert: string, frag: string): void
   }
   class Mesh {
     start: number

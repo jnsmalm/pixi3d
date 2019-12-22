@@ -26,7 +26,5 @@ export enum PhysicallyBasedMaterialFeature {
   alphaModeOpaque = "ALPHAMODE_OPAQUE 1",
   alphaModeMask = "ALPHAMODE_MASK 1",
   texLod = "USE_TEX_LOD 1",
-  morphing = "USE_MORPHING 1",
-  webGL1 = "WEBGL1 1",
-  webGL2 = "WEBGL2 1"
+  morphing = "USE_MORPHING 1"
 }
