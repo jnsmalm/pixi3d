@@ -1,14 +1,22 @@
-import { Material, MaterialAlphaMode } from "../material"
+import { PhysicallyBasedMaterialFeature } from "./pbr-feature"
+import { PhysicallyBasedProgram } from "./pbr-program"
+import { Material } from "../material"
 import { MeshGeometryData } from "../mesh"
 import { Camera3D } from "../camera"
 import { glTFMaterial } from "../gltf/gltf-material"
-import { PhysicallyBasedMaterialFeature } from "./pbr-feature"
-import { PhysicallyBasedProgram } from "./pbr-program"
 import { LightingEnvironment } from "../lighting/lighting-environment"
+
+export enum PhysicallyBasedMaterialAlphaMode {
+  opaque = "opaque",
+  mask = "mask",
+  blend = "blend"
+}
 
 const cache: { [name: string]: PIXI.Shader } = {}
 
 export class PhysicallyBasedMaterial extends Material {
+  private _doubleSided = false
+
   roughness = 1
   metallic = 1
   baseColorTexture?: PIXI.Texture
@@ -18,6 +26,19 @@ export class PhysicallyBasedMaterial extends Material {
   emissiveTexture?: PIXI.Texture
   baseColor = [1, 1, 1, 1]
   lighting?: LightingEnvironment
+  alphaMaskCutoff = 0.5
+  alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
+
+  get doubleSided() {
+    return this._doubleSided
+  }
+
+  set doubleSided(value: boolean) {
+    if (value) {
+      this.state.culling = false
+    }
+    this._doubleSided = value
+  }
 
   static create(source: unknown) {
     let material = new PhysicallyBasedMaterial()
@@ -29,11 +50,13 @@ export class PhysicallyBasedMaterial extends Material {
       material.metallicRoughnessTexture = source.metallicRoughnessTexture
       switch (source.alphaMode) {
         case "BLEND": {
-          material.alphaMode = MaterialAlphaMode.blend
+          material.alphaMode = PhysicallyBasedMaterialAlphaMode.blend
+          material.transparent = true
           break
         }
         case "MASK": {
-          material.alphaMode = MaterialAlphaMode.mask
+          material.alphaMode = PhysicallyBasedMaterialAlphaMode.mask
+          material.transparent = true
           break
         }
       }
@@ -41,7 +64,6 @@ export class PhysicallyBasedMaterial extends Material {
       material.normalTexture = source.normalTexture
       material.occlusionTexture = source.occlusionTexture
       material.doubleSided = source.doubleSided
-      // material.state.culling = !source.doubleSided
       material.alphaMaskCutoff = source.alphaMaskCutoff
     }
     return material
@@ -165,11 +187,11 @@ export class PhysicallyBasedMaterial extends Material {
       features.push(PhysicallyBasedMaterialFeature.occlusionMap)
     }
     switch (this.alphaMode) {
-      case MaterialAlphaMode.opaque: {
+      case PhysicallyBasedMaterialAlphaMode.opaque: {
         features.push(PhysicallyBasedMaterialFeature.alphaModeOpaque)
         break
       }
-      case MaterialAlphaMode.mask: {
+      case PhysicallyBasedMaterialAlphaMode.mask: {
         features.push(PhysicallyBasedMaterialFeature.alphaModeMask)
         break
       }
@@ -226,6 +248,25 @@ export class PhysicallyBasedMaterial extends Material {
       shader.uniforms.u_OcclusionSampler = this.occlusionTexture
       shader.uniforms.u_OcclusionStrength = 1
       shader.uniforms.u_OcclusionUVSet = 0
+    }
+  }
+
+  render(renderer: any) {
+    if (!(this.doubleSided && this.transparent)) {
+      super.render(renderer)
+    } else {
+      let { culling, clockwiseFrontFace } = this.state
+      Object.assign(this.state, {
+        culling: true, clockwiseFrontFace: true
+      })
+      super.render(renderer)
+      Object.assign(this.state, {
+        culling: true, clockwiseFrontFace: false
+      })
+      super.render(renderer)
+      Object.assign(this.state, {
+        culling: culling, clockwiseFrontFace: clockwiseFrontFace
+      })
     }
   }
 }

@@ -7,12 +7,6 @@ export enum MaterialShaderAttribute {
   tangent = "tangent"
 }
 
-export enum MaterialAlphaMode {
-  opaque = "opaque",
-  mask = "mask",
-  blend = "blend"
-}
-
 export abstract class Material {
   protected _mesh?: Mesh3D
   protected state = Object.assign(new PIXI.State(), {
@@ -28,9 +22,7 @@ export abstract class Material {
     return this._mesh
   }
 
-  alphaMaskCutoff = 0.5
-  alphaMode = MaterialAlphaMode.opaque
-  doubleSided = false
+  transparent = false
 
   constructor(public attributes: MaterialShaderAttribute[] = []) { }
 
