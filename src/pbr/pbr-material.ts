@@ -73,7 +73,9 @@ export class PhysicallyBasedMaterial extends Material {
     let geometry = new PIXI.Geometry()
 
     if (data.indices) {
-      geometry.addIndex(data.indices.buffer)
+      // PIXI seems to have problems using anything other than gl.UNSIGNED_SHORT 
+      // or gl.UNSIGNED_INT. Let's convert buffer to UNSIGNED_INT.
+      geometry.addIndex(new Uint32Array(data.indices.buffer))
     }
     geometry.addAttribute("a_Position", data.positions.buffer, 3, false,
       PIXI.TYPES.FLOAT, data.positions.stride)
@@ -209,6 +211,10 @@ export class PhysicallyBasedMaterial extends Material {
     shader.uniforms.u_RoughnessFactor = this.roughness
     shader.uniforms.u_BaseColorFactor = this.baseColor
     shader.uniforms.u_Exposure = 1
+
+    if (this.alphaMode === PhysicallyBasedMaterialAlphaMode.mask) {
+      shader.uniforms.u_AlphaCutoff = this.alphaMaskCutoff
+    }
 
     if (this.mesh.weights) {
       shader.uniforms.u_morphWeights = this.mesh.weights

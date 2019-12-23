@@ -39,7 +39,9 @@ export abstract class Material {
   createGeometry(data: MeshGeometryData): PIXI.Geometry {
     let geometry = new PIXI.Geometry()
     if (data.indices) {
-      geometry.addIndex(data.indices.buffer)
+      // PIXI seems to have problems using anything other than gl.UNSIGNED_SHORT 
+      // or gl.UNSIGNED_INT. Let's convert buffer to UNSIGNED_INT.
+      geometry.addIndex(new Uint32Array(data.indices.buffer))
     }
     if (this.attributes.includes(MaterialShaderAttribute.position)) {
       geometry.addAttribute("position", data.positions.buffer, 3, false,
