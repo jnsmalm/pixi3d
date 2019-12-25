@@ -129,16 +129,12 @@ Cmft (https://github.com/dariomanesku/cmft) is a tool which can generate radianc
 ```
 % cmft --input environment.hdr --filter irradiance --inputGammaDenominator 2.2  --outputNum 1 --output0 diffuse --output0params tga,bgra8,facelist
 
-bin/cmft --input input/autumn_forest_01_2k.hdr --filter irradiance --inputGammaDenominator 2.2  --outputNum 1 --output0 diffuse --output0params tga,bgra8,facelist
-
 % mogrify -format jpg *.tga
 ```
 
 *Specular (radiance)*
 ```
 % cmft --input environment.hdr --filter radiance --srcFaceSize 256 --dstFaceSize 256 --excludeBase true --glossScale 10 --glossBias 1 --lightingModel phongbrdf --useOpenCL true --inputGammaDenominator 2.2 --outputNum 1 --output0 specular --output0params tga,bgra8,facelist
-
-bin/cmft --input input/autumn_forest_01_2k.hdr --filter radiance --srcFaceSize 256 --dstFaceSize 256 --excludeBase true --glossScale 10 --glossBias 1 --lightingModel phongbrdf --useOpenCL true --inputGammaDenominator 2.2 --outputNum 1 --output0 specular --output0params tga,bgra8,facelist
 
 % mogrify -format jpg *.tga
 ```
