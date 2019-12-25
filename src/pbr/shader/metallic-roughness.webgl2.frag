@@ -19,8 +19,8 @@
 precision highp float;
 
 #include <tonemapping.glsl>
-#include <textures.glsl>
-#include <functions.glsl>
+#include <textures.webgl2.glsl>
+#include <functions.webgl2.glsl>
 
 // KHR_lights_punctual extension.
 // see https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_lights_punctual

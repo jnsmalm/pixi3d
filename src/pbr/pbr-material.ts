@@ -1,5 +1,5 @@
-import { PhysicallyBasedMaterialFeature } from "./pbr-feature"
-import { PhysicallyBasedProgram } from "./pbr-program"
+import { PhysicallyBasedShaderFeature } from "./pbr-feature"
+import { PhysicallyBasedShader } from "./pbr-shader"
 import { Material } from "../material"
 import { MeshGeometryData } from "../mesh"
 import { Camera3D } from "../camera"
@@ -12,7 +12,7 @@ export enum PhysicallyBasedMaterialAlphaMode {
   blend = "blend"
 }
 
-const cache: { [name: string]: PIXI.Shader } = {}
+const shaders: { [features: string]: PIXI.Shader } = {}
 
 export class PhysicallyBasedMaterial extends Material {
   private _doubleSided = false
@@ -128,73 +128,73 @@ export class PhysicallyBasedMaterial extends Material {
     }
     let features = this.createFeatures(this.mesh.geometry)
     let checksum = features.join(",")
-    if (!cache[checksum]) {
-      cache[checksum] = new PIXI.Shader(PhysicallyBasedProgram.build(renderer, features))
+    if (!shaders[checksum]) {
+      shaders[checksum] = PhysicallyBasedShader.build(renderer, features)
     }
-    return cache[checksum]
+    return shaders[checksum]
   }
 
   createFeatures(geometry: MeshGeometryData) {
     let features: string[] = []
 
     if (geometry.normals) {
-      features.push(PhysicallyBasedMaterialFeature.normal)
+      features.push(PhysicallyBasedShaderFeature.normal)
     }
     if (geometry.texCoords) {
-      features.push(PhysicallyBasedMaterialFeature.texCoord0)
+      features.push(PhysicallyBasedShaderFeature.texCoord0)
     }
     if (geometry.tangents) {
-      features.push(PhysicallyBasedMaterialFeature.tangent)
+      features.push(PhysicallyBasedShaderFeature.tangent)
     }
     if (geometry.morphTargets) {
       for (let i = 0; i < geometry.morphTargets.length; i++) {
         if (geometry.morphTargets[i].positions) {
-          features.push(PhysicallyBasedMaterialFeature.targetPosition + i)
+          features.push(PhysicallyBasedShaderFeature.targetPosition + i)
         }
         if (geometry.morphTargets[i].normals) {
-          features.push(PhysicallyBasedMaterialFeature.targetNormal + i)
+          features.push(PhysicallyBasedShaderFeature.targetNormal + i)
         }
         if (geometry.morphTargets[i].tangents) {
-          features.push(PhysicallyBasedMaterialFeature.targetTangent + i)
+          features.push(PhysicallyBasedShaderFeature.targetTangent + i)
         }
       }
       if (geometry.weights) {
-        features.push(PhysicallyBasedMaterialFeature.weightCount + " " + geometry.weights.length)
+        features.push(PhysicallyBasedShaderFeature.weightCount + " " + geometry.weights.length)
       }
-      features.push(PhysicallyBasedMaterialFeature.morphing)
+      features.push(PhysicallyBasedShaderFeature.morphing)
     }
     if (this.baseColorTexture) {
-      features.push(PhysicallyBasedMaterialFeature.baseColorMap)
+      features.push(PhysicallyBasedShaderFeature.baseColorMap)
     }
 
     // features.push(PhysicallyBasedMaterialFeature.materialUnlit)
 
-    features.push(PhysicallyBasedMaterialFeature.materialMetallicRoughness)
-    features.push(PhysicallyBasedMaterialFeature.texLod)
+    features.push(PhysicallyBasedShaderFeature.materialMetallicRoughness)
+    features.push(PhysicallyBasedShaderFeature.texLod)
 
     let lighting = this.lighting || LightingEnvironment.main
     if (lighting.ibl) {
-      features.push(PhysicallyBasedMaterialFeature.ibl)
+      features.push(PhysicallyBasedShaderFeature.ibl)
     }
     if (this.emissiveTexture) {
-      features.push(PhysicallyBasedMaterialFeature.emissiveMap)
+      features.push(PhysicallyBasedShaderFeature.emissiveMap)
     }
     if (this.normalTexture) {
-      features.push(PhysicallyBasedMaterialFeature.normalMap)
+      features.push(PhysicallyBasedShaderFeature.normalMap)
     }
     if (this.metallicRoughnessTexture) {
-      features.push(PhysicallyBasedMaterialFeature.metallicRoughnessMap)
+      features.push(PhysicallyBasedShaderFeature.metallicRoughnessMap)
     }
     if (this.occlusionTexture) {
-      features.push(PhysicallyBasedMaterialFeature.occlusionMap)
+      features.push(PhysicallyBasedShaderFeature.occlusionMap)
     }
     switch (this.alphaMode) {
       case PhysicallyBasedMaterialAlphaMode.opaque: {
-        features.push(PhysicallyBasedMaterialFeature.alphaModeOpaque)
+        features.push(PhysicallyBasedShaderFeature.alphaModeOpaque)
         break
       }
       case PhysicallyBasedMaterialAlphaMode.mask: {
-        features.push(PhysicallyBasedMaterialFeature.alphaModeMask)
+        features.push(PhysicallyBasedShaderFeature.alphaModeMask)
         break
       }
     }

@@ -1,8 +1,8 @@
 import { Camera3D } from "../camera"
 import { Material, MaterialShaderAttribute, MaterialFactory } from "../material"
 
-const vert: string = require("./glsl/skybox.vert").default
-const frag: string = require("./glsl/skybox.frag").default
+const vert: string = require("./shader/skybox.vert").default
+const frag: string = require("./shader/skybox.frag").default
 
 export class SkyboxMaterialFactory implements MaterialFactory {
   constructor(public texture: PIXI.CubeTexture) { }

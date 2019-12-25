@@ -2,7 +2,7 @@
 
 #define FEATURES
 
-#include <animation.glsl>
+#include <animation.webgl1.glsl>
 
 attribute vec4 a_Position;
 varying vec3 v_Position;

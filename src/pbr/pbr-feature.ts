@@ -1,4 +1,4 @@
-export enum PhysicallyBasedMaterialFeature {
+export enum PhysicallyBasedShaderFeature {
   normal = "HAS_NORMALS 1",
   texCoord0 = "HAS_UV_SET1 1",
   tangent = "HAS_TANGENTS 1",
