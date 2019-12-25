@@ -15,6 +15,10 @@ export abstract class Material {
   protected geometry?: PIXI.Geometry
   protected shader?: PIXI.Shader
 
+  get renderable() {
+    return true
+  }
+
   get mesh() {
     if (!this._mesh) {
       throw new Error("PIXI3D: Material needs to be bound to a mesh.")
@@ -69,6 +73,9 @@ export abstract class Material {
   }
 
   render(renderer: any) {
+    if (!this.renderable) {
+      return
+    }
     if (!this.geometry) {
       this.geometry = this.createGeometry(this.mesh.geometry)
     }

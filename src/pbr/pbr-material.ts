@@ -16,6 +16,7 @@ const shaders: { [features: string]: PIXI.Shader } = {}
 
 export class PhysicallyBasedMaterial extends Material {
   private _doubleSided = false
+  private _lighting?: LightingEnvironment
 
   roughness = 1
   metallic = 1
@@ -25,9 +26,45 @@ export class PhysicallyBasedMaterial extends Material {
   occlusionTexture?: PIXI.Texture
   emissiveTexture?: PIXI.Texture
   baseColor = [1, 1, 1, 1]
-  lighting?: LightingEnvironment
   alphaMaskCutoff = 0.5
   alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
+
+  get lighting() {
+    if (!this._lighting) {
+      return LightingEnvironment.main
+    }
+    return this._lighting
+  }
+
+  get renderable() {
+    if (this.lighting && this.lighting.ibl) {
+      if (this.lighting.ibl.brdf && !this.lighting.ibl.brdf.valid) {
+        return false
+      }
+      if (this.lighting.ibl.specular && !this.lighting.ibl.specular.valid) {
+        return false
+      }
+      if (this.lighting.ibl.diffuse && !this.lighting.ibl.diffuse.valid) {
+        return false
+      }
+    }
+    if (this.baseColorTexture && !this.baseColorTexture.valid) {
+      return false
+    }
+    if (this.metallicRoughnessTexture && !this.metallicRoughnessTexture.valid) {
+      return false
+    }
+    if (this.normalTexture && !this.normalTexture.valid) {
+      return false
+    }
+    if (this.occlusionTexture && !this.occlusionTexture.valid) {
+      return false
+    }
+    if (this.emissiveTexture && !this.emissiveTexture.valid) {
+      return false
+    }
+    return true
+  }
 
   get doubleSided() {
     return this._doubleSided
@@ -172,8 +209,7 @@ export class PhysicallyBasedMaterial extends Material {
     features.push(PhysicallyBasedShaderFeature.materialMetallicRoughness)
     features.push(PhysicallyBasedShaderFeature.texLod)
 
-    let lighting = this.lighting || LightingEnvironment.main
-    if (lighting.ibl) {
+    if (this.lighting.ibl) {
       features.push(PhysicallyBasedShaderFeature.ibl)
     }
     if (this.emissiveTexture) {
@@ -225,12 +261,11 @@ export class PhysicallyBasedMaterial extends Material {
       shader.uniforms.u_BaseColorUVSet = 0
     }
 
-    let lighting = this.lighting || LightingEnvironment.main
-    if (lighting.ibl) {
-      shader.uniforms.u_DiffuseEnvSampler = lighting.ibl.diffuse
-      shader.uniforms.u_SpecularEnvSampler = lighting.ibl.specular
-      shader.uniforms.u_brdfLUT = lighting.ibl.brdf
-      shader.uniforms.u_MipCount = lighting.ibl.specular.levels
+    if (this.lighting.ibl) {
+      shader.uniforms.u_DiffuseEnvSampler = this.lighting.ibl.diffuse
+      shader.uniforms.u_SpecularEnvSampler = this.lighting.ibl.specular
+      shader.uniforms.u_brdfLUT = this.lighting.ibl.brdf
+      shader.uniforms.u_MipCount = this.lighting.ibl.specular.levels
     }
 
     if (this.emissiveTexture) {

@@ -18,8 +18,8 @@ export class SkyboxMaterial extends Material {
     this.state.clockwiseFrontFace = true
   }
 
-  createShader() {
-    return new PIXI.Shader(PIXI.Program.from(vert, frag))
+  get renderable() {
+    return this.texture && this.texture.valid
   }
 
   updateUniforms(shader: PIXI.Shader) {
@@ -27,5 +27,9 @@ export class SkyboxMaterial extends Material {
     shader.uniforms.view = Camera3D.main.view
     shader.uniforms.projection = Camera3D.main.projection
     shader.uniforms.cubemap = this.texture
+  }
+
+  createShader() {
+    return new PIXI.Shader(PIXI.Program.from(vert, frag))
   }
 }
