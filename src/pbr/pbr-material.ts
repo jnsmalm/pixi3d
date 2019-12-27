@@ -17,6 +17,7 @@ const shaders: { [features: string]: PIXI.Shader } = {}
 export class PhysicallyBasedMaterial extends Material {
   private _doubleSided = false
   private _lighting?: LightingEnvironment
+  private _renderable = false
 
   roughness = 1
   metallic = 1
@@ -37,33 +38,23 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   get renderable() {
-    if (this.lighting && this.lighting.ibl) {
-      if (this.lighting.ibl.brdf && !this.lighting.ibl.brdf.valid) {
-        return false
-      }
-      if (this.lighting.ibl.specular && !this.lighting.ibl.specular.valid) {
-        return false
-      }
-      if (this.lighting.ibl.diffuse && !this.lighting.ibl.diffuse.valid) {
-        return false
-      }
+    if (this._renderable) {
+      return true
     }
-    if (this.baseColorTexture && !this.baseColorTexture.valid) {
+    if (this.lighting && this.lighting.ibl && !this.lighting.ibl.renderable) {
       return false
     }
-    if (this.metallicRoughnessTexture && !this.metallicRoughnessTexture.valid) {
+    let textures = [
+      this.baseColorTexture,
+      this.metallicRoughnessTexture,
+      this.normalTexture,
+      this.occlusionTexture,
+      this.emissiveTexture
+    ]
+    if (textures.some((value) => value && value.valid)) {
       return false
     }
-    if (this.normalTexture && !this.normalTexture.valid) {
-      return false
-    }
-    if (this.occlusionTexture && !this.occlusionTexture.valid) {
-      return false
-    }
-    if (this.emissiveTexture && !this.emissiveTexture.valid) {
-      return false
-    }
-    return true
+    return this._renderable = true
   }
 
   get doubleSided() {
