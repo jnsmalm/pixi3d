@@ -2,7 +2,7 @@ import { Mesh3D, MeshGeometryData } from "./mesh"
 
 export enum MaterialShaderAttribute {
   position = "position",
-  texCoord0 = "texCoord0",
+  uv1 = "uv1",
   normal = "normal",
   tangent = "tangent"
 }
@@ -31,7 +31,7 @@ export abstract class Material {
   constructor(public attributes: MaterialShaderAttribute[] = []) { }
 
   abstract createShader(renderer: any): PIXI.Shader
-  abstract updateUniforms(shader: PIXI.Shader): void
+  abstract updateUniforms?(shader: PIXI.Shader): void
 
   bind(mesh: Mesh3D) {
     if (this._mesh) {
@@ -48,24 +48,24 @@ export abstract class Material {
       geometry.addIndex(new Uint32Array(data.indices.buffer))
     }
     if (this.attributes.includes(MaterialShaderAttribute.position)) {
-      geometry.addAttribute("position", data.positions.buffer, 3, false,
+      geometry.addAttribute("a_Position", data.positions.buffer, 3, false,
         PIXI.TYPES.FLOAT, data.positions.stride)
     }
-    if (this.attributes.includes(MaterialShaderAttribute.texCoord0)) {
+    if (this.attributes.includes(MaterialShaderAttribute.uv1)) {
       if (data.texCoords) {
-        geometry.addAttribute("texCoord0", data.texCoords.buffer, 2, false,
+        geometry.addAttribute("a_UV1", data.texCoords.buffer, 2, false,
           PIXI.TYPES.FLOAT, data.texCoords.stride)
       }
     }
     if (this.attributes.includes(MaterialShaderAttribute.normal)) {
       if (data.normals) {
-        geometry.addAttribute("normal", data.normals.buffer, 3, false,
+        geometry.addAttribute("a_Normal", data.normals.buffer, 3, false,
           PIXI.TYPES.FLOAT, data.normals.stride)
       }
     }
     if (this.attributes.includes(MaterialShaderAttribute.tangent)) {
       if (data.tangents) {
-        geometry.addAttribute("tangent", data.tangents.buffer, 4, false,
+        geometry.addAttribute("a_Tangent", data.tangents.buffer, 4, false,
           PIXI.TYPES.FLOAT, data.tangents.stride)
       }
     }
@@ -82,8 +82,9 @@ export abstract class Material {
     if (!this.shader) {
       this.shader = this.createShader(renderer)
     }
-    this.updateUniforms(this.shader)
-
+    if (this.updateUniforms) {
+      this.updateUniforms(this.shader)
+    }
     renderer.shader.bind(this.shader)
     renderer.state.set(this.state)
     renderer.geometry.bind(this.geometry, this.shader)
