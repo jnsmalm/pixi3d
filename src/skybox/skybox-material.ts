@@ -23,10 +23,10 @@ export class SkyboxMaterial extends Material {
   }
 
   updateUniforms(shader: PIXI.Shader) {
-    shader.uniforms.world = this.mesh.transform.worldTransform.array
-    shader.uniforms.view = Camera3D.main.view
-    shader.uniforms.projection = Camera3D.main.projection
-    shader.uniforms.cubemap = this.texture
+    shader.uniforms.u_World = this.mesh.transform.worldTransform.array
+    shader.uniforms.u_View = Camera3D.main.view
+    shader.uniforms.u_Projection = Camera3D.main.projection
+    shader.uniforms.u_Texture = this.texture
   }
 
   createShader() {

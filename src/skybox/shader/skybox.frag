@@ -1,7 +1,7 @@
-varying vec3 v_position;
+varying vec3 v_Position;
 
-uniform samplerCube cubemap;
+uniform samplerCube u_Texture;
 
 void main() {
-  gl_FragColor = vec4(textureCube(cubemap, v_position).rgb, 1.0);
+  gl_FragColor = vec4(textureCube(u_Texture, v_Position).rgb, 1.0);
 }

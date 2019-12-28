@@ -51,7 +51,7 @@ export class PhysicallyBasedMaterial extends Material {
       this.occlusionTexture,
       this.emissiveTexture
     ]
-    if (textures.some((value) => value && value.valid)) {
+    if (textures.some((value) => value && !value.valid)) {
       return false
     }
     return this._renderable = true
