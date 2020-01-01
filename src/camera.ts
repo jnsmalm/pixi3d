@@ -25,9 +25,9 @@ export class Camera3D extends PIXI.DisplayObject {
     this.rotation.y = 180
   }
 
-  screenToWorld(x: number, y: number, z: number, screenSize: { width: number, height: number }) {
+  screenToWorld(x: number, y: number, z: number, viewSize: { width: number, height: number }) {
     return ScreenSpace.toWorld(x, y, z,
-      screenSize.width, screenSize.height, this.viewProjection)
+      viewSize.width, viewSize.height, this.viewProjection)
   }
 
   worldToScreen(x: number, y: number, z: number, viewSize: { width: number, height: number }) {

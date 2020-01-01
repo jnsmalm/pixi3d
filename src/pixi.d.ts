@@ -4,6 +4,15 @@ declare namespace PIXI {
     use?: (resource: LoaderResource, next: () => void) => void
     add?: () => void
   }
+  interface IHitArea {
+    contains(x: number, y: number): boolean
+    render?(renderer: any): void
+  }
+  class RenderTexture {
+    get width(): number
+    get height(): number
+    static create(width: number, height: number): RenderTexture
+  }
   class Loader {
     add: (options: { name?: string, url: string, parentResource?: LoaderResource, metadata?: any, onComplete?: () => void }) => void
     static registerPlugin(plugin: ILoaderPlugin): void
@@ -44,6 +53,7 @@ declare namespace PIXI {
   class DisplayObject {
     transform: Transform
     parent?: Container
+    hitArea?: IHitArea
     on(event: string, callback: () => void): void
     render(renderer: any): void
     updateTransform(): void
