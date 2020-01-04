@@ -3,6 +3,8 @@ import { UpdatableFloat32Array } from "./matrix"
 import { Transform3D } from "./transform"
 import { ScreenSpace, WorldSpace } from "./space"
 
+interface ViewSize { width: number, height: number }
+
 export class Camera3D extends PIXI.DisplayObject {
   transform = new Transform3D()
 
@@ -12,35 +14,54 @@ export class Camera3D extends PIXI.DisplayObject {
     return this.transform._worldID + this._id
   }
 
+  private _aspectTo?: ViewSize
   private _projection?: UpdatableFloat32Array
   private _view?: UpdatableFloat32Array
   private _viewProjection?: UpdatableFloat32Array
 
-  static main = new Camera3D()
+  get aspectTo() {
+    return this._aspectTo
+  }
 
-  constructor(private _aspectRatio = 1, private _fieldOfView = 45, private _near = 0.1, private _far = 1000) {
+  set aspectTo(value: ViewSize | undefined) {
+    this._aspectTo = value
+  }
+
+  static main: Camera3D
+
+  constructor(aspectTo?: ViewSize) {
     super()
+    if (!Camera3D.main) {
+      Camera3D.main = this
+    }
+    this._aspectTo = aspectTo
 
     this.position.z = 5
     this.rotation.y = 180
   }
 
-  screenToWorld(x: number, y: number, z: number, viewSize: { width: number, height: number }) {
-    return ScreenSpace.toWorld(x, y, z,
-      viewSize.width, viewSize.height, this.viewProjection)
+  screenToWorld(x: number, y: number, z: number, viewSize: ViewSize) {
+    viewSize = viewSize || this._aspectTo
+    return ScreenSpace.toWorld(x, y, z, viewSize.width, viewSize.height, this.viewProjection)
   }
 
-  worldToScreen(x: number, y: number, z: number, viewSize: { width: number, height: number }) {
+  worldToScreen(x: number, y: number, z: number, viewSize: ViewSize) {
+    viewSize = viewSize || this._aspectTo
     return WorldSpace.toScreen(x, y, z, this.view, this.projection, viewSize.width, viewSize.height)
   }
 
-  get aspectRatio() {
-    return this._aspectRatio
+  private _aspect = 1
+  private _fieldOfView = 45
+  private _near = 0.1
+  private _far = 1000
+
+  get aspect() {
+    return this._aspect
   }
 
-  set aspectRatio(value: number) {
-    if (this._aspectRatio !== value) {
-      this._aspectRatio = value; this._id++
+  set aspect(value: number) {
+    if (this._aspect !== value) {
+      this._aspect = value; this._id++
     }
   }
 
@@ -75,12 +96,18 @@ export class Camera3D extends PIXI.DisplayObject {
   }
 
   get projection() {
+    if (this._aspectTo) {
+      const aspect = this._aspectTo.width / this._aspectTo.height
+      if (aspect !== this.aspect) {
+        this.aspect = aspect
+      }
+    }
     if (!this.parent) {
       this.transform.updateLocalTransform()
     }
     if (!this._projection) {
       this._projection = new UpdatableFloat32Array(this, 16, data => {
-        mat4.perspective(data, this._fieldOfView, this._aspectRatio, this._near, this._far)
+        mat4.perspective(data, this._fieldOfView, this._aspect, this._near, this._far)
       })
     }
     return this._projection.data
@@ -124,4 +151,8 @@ export class Camera3D extends PIXI.DisplayObject {
     }
     return this.transform.worldTransform.position
   }
+}
+
+if (PIXI) {
+  PIXI.Renderer.registerPlugin("camera", Camera3D)
 }
