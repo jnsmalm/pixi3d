@@ -22,7 +22,10 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
       cb || this.cb, scope || this.scope, this._x, this._y, this._z)
   }
 
-  copyFrom(p: ObservablePoint3D) {
+  copyFrom(p: { x: number, y: number, z: number } | Float32Array) {
+    if (ArrayBuffer.isView(p)) {
+      p = { x: p[0], y: p[1], z: p[2] }
+    }
     if (this._x !== p.x || this._y !== p.y || this._z !== p.z) {
       this._x = p.x
       this._y = p.y

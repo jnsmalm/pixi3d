@@ -38,7 +38,10 @@ export class ObservableQuaternion extends ObservablePoint3D {
       cb || this.cb, scope || this.scope, this._x, this._y, this._z, this._w)
   }
 
-  copyFrom(p: ObservableQuaternion) {
+  copyFrom(p: { x: number, y: number, z: number, w: number } | Float32Array) {
+    if (ArrayBuffer.isView(p)) {
+      p = { x: p[0], y: p[1], z: p[2], w: p[3] }
+    }
     if (this._x !== p.x || this._y !== p.y || this._z !== p.z || this._w !== p.w) {
       this._x = p.x
       this._y = p.y

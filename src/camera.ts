@@ -40,13 +40,17 @@ export class Camera3D extends PIXI.DisplayObject {
     this.rotation.y = 180
   }
 
-  screenToWorld(x: number, y: number, z: number, viewSize: ViewSize) {
-    viewSize = viewSize || this._aspectTo
+  screenToWorld(x: number, y: number, z: number, viewSize = this._aspectTo) {
+    if (!viewSize) {
+      return undefined
+    }
     return ScreenSpace.toWorld(x, y, z, viewSize.width, viewSize.height, this.viewProjection)
   }
 
-  worldToScreen(x: number, y: number, z: number, viewSize: ViewSize) {
-    viewSize = viewSize || this._aspectTo
+  worldToScreen(x: number, y: number, z: number, viewSize = this._aspectTo) {
+    if (!viewSize) {
+      return undefined
+    }
     return WorldSpace.toScreen(x, y, z, this.view, this.projection, viewSize.width, viewSize.height)
   }
 
@@ -97,10 +101,7 @@ export class Camera3D extends PIXI.DisplayObject {
 
   get projection() {
     if (this._aspectTo) {
-      const aspect = this._aspectTo.width / this._aspectTo.height
-      if (aspect !== this.aspect) {
-        this.aspect = aspect
-      }
+      this.aspect = this._aspectTo.width / this._aspectTo.height
     }
     if (!this.parent) {
       this.transform.updateLocalTransform()
@@ -126,6 +127,9 @@ export class Camera3D extends PIXI.DisplayObject {
   }
 
   get viewProjection() {
+    if (this._aspectTo) {
+      this.aspect = this._aspectTo.width / this._aspectTo.height
+    }
     if (!this.parent) {
       this.transform.updateLocalTransform()
     }
