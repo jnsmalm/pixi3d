@@ -26,6 +26,7 @@ export abstract class Material {
     return this._mesh
   }
 
+  drawMode = PIXI.DRAW_MODES.TRIANGLES
   transparent = false
 
   constructor(public attributes: MaterialShaderAttribute[] = []) { }
@@ -88,7 +89,7 @@ export abstract class Material {
     renderer.shader.bind(this.shader)
     renderer.state.set(this.state)
     renderer.geometry.bind(this.geometry, this.shader)
-    renderer.geometry.draw(PIXI.DRAW_MODES.TRIANGLES)
+    renderer.geometry.draw(this.drawMode)
   }
 }
 

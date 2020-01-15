@@ -116,7 +116,7 @@ declare namespace PIXI {
   enum WRAP_MODES { REPEAT }
   enum TYPES { FLOAT }
   enum ALPHA_MODES { PREMULTIPLIED_ALPHA }
-  enum DRAW_MODES { TRIANGLES }
+  enum DRAW_MODES { TRIANGLES, LINES }
 
   namespace resources {
     let INSTALLED: any[]
