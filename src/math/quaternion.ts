@@ -24,4 +24,8 @@ export namespace Quaternion {
   export function normalize(a: Float32Array, out?: Float32Array): Float32Array {
     return quat.normalize(out || create(), a)
   }
+
+  export function fromEuler(x: number, y: number, z: number, out?: Float32Array): Float32Array {
+    return quat.fromEuler(out || create(), x, y, z)
+  }
 }
