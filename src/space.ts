@@ -1,18 +1,18 @@
-import { Matrix } from "./matrix"
-import { vec4 } from "gl-matrix"
+import { Matrix4 } from "./math/matrix4"
+import { Vector4 } from "./math/vector4"
 
 export namespace ScreenSpace {
-  let invertedViewProjection = new Float32Array(16)
-  let positionInClipSpace = new Float32Array(4)
+  const invertedViewProjection = Matrix4.create()
+  const positionInClipSpace = Vector4.create()
 
   export function toWorld(x: number, y: number, z: number, viewWidth: number, viewHeight: number, viewProjection: Float32Array) {
-    Matrix.invert(viewProjection, invertedViewProjection)
+    Matrix4.invert(viewProjection, invertedViewProjection)
 
     positionInClipSpace.set([
       (x / viewWidth) * 2 - 1, ((y / viewHeight) * 2 - 1) * -1, z / 1, 1
     ])
-    let positionInWorldSpace = vec4.transformMat4(
-      positionInClipSpace, positionInClipSpace, invertedViewProjection)
+    let positionInWorldSpace = Vector4.transformMat4(
+      positionInClipSpace, invertedViewProjection, positionInClipSpace)
 
     positionInWorldSpace[3] = 1.0 / positionInWorldSpace[3];
     for (let i = 0; i < 3; i++) {
@@ -25,16 +25,16 @@ export namespace ScreenSpace {
 }
 
 export namespace WorldSpace {
-  const positionInWorldSpace = new Float32Array(4)
+  const positionInWorldSpace = Vector4.create()
 
   export function toScreen(x: number, y: number, z: number, view: Float32Array, projection: Float32Array, viewWidth: number, viewHeight: number) {
     positionInWorldSpace.set([x, y, z, 1])
 
-    let positionInClipSpace = vec4.transformMat4(
-      positionInWorldSpace, positionInWorldSpace, view)
+    let positionInClipSpace = Vector4.transformMat4(
+      positionInWorldSpace, view, positionInWorldSpace)
 
-    positionInClipSpace = vec4.transformMat4(
-      positionInClipSpace, positionInClipSpace, projection)
+    positionInClipSpace = Vector4.transformMat4(
+      positionInClipSpace, projection, positionInClipSpace)
 
     if (positionInClipSpace[3] !== 0) {
       for (let i = 0; i < 3; i++) {

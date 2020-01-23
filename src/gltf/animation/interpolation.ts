@@ -1,4 +1,4 @@
-import { quat } from "gl-matrix"
+import { Quaternion } from "../../math/quaternion"
 
 function cubicSpline(t: number, p0: number, p1: number, m0: number, m1: number) {
   return ((2 * (t ** 3) - 3 * (t ** 2) + 1) * p0) + (((t ** 3) - 2 * (t ** 2) + t) * m0) + ((-2 * (t ** 3) + 3 * (t ** 2)) * p1) + (((t ** 3) - (t ** 2)) * m1)
@@ -59,9 +59,9 @@ export class glTFLinearInterpolation implements glTFInterpolation {
 }
 
 export class glTFSphericalLinearInterpolation implements glTFInterpolation {
-  private quat1 = new Float32Array(4)
-  private quat2 = new Float32Array(4)
-  private array = new Float32Array(4)
+  private quat1 = Quaternion.create()
+  private quat2 = Quaternion.create()
+  private array = Quaternion.create()
 
   constructor(private output: Float32Array) {
   }
@@ -69,12 +69,12 @@ export class glTFSphericalLinearInterpolation implements glTFInterpolation {
   interpolate(frame: number, position: number) {
     let pos1 = (frame + 0) * 4
     let pos2 = (frame + 1) * 4
-    let a = quat.set(
-      this.quat1, this.output[pos1], this.output[pos1 + 1], this.output[pos1 + 2], this.output[pos1 + 3]
+    let a = Quaternion.set(
+      this.output[pos1], this.output[pos1 + 1], this.output[pos1 + 2], this.output[pos1 + 3], this.quat1
     )
-    let b = quat.set(
-      this.quat2, this.output[pos2], this.output[pos2 + 1], this.output[pos2 + 2], this.output[pos2 + 3]
+    let b = Quaternion.set(
+      this.output[pos2], this.output[pos2 + 1], this.output[pos2 + 2], this.output[pos2 + 3], this.quat2
     )
-    return quat.normalize(this.array, quat.slerp(this.array, a, b, position))
+    return Quaternion.normalize(Quaternion.slerp(a, b, position, this.array), this.array)
   }
 }

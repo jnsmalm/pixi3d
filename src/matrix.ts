@@ -1,20 +1,10 @@
-import { vec3, vec4, mat4 } from "gl-matrix"
 import { ObservablePoint3D } from "./point"
 import { ObservableQuaternion } from "./quaternion"
+import { Matrix4 } from "./math/matrix4"
+import { Vector3 } from "./math/vector3"
+import { Vector4 } from "./math/vector4"
 
-export namespace Matrix {
-  const matrix = mat4.create()
-
-  export function transposeInverse(input: any, output: any) {
-    return mat4.transpose(output, mat4.invert(matrix, input))
-  }
-
-  export function invert(input: any, output: any) {
-    return mat4.invert(output, input)
-  }
-}
-
-export class UpdatableFloat32Array {
+export class ObservingFloat32Array {
   private _array: Float32Array
 
   // Initialize with random value to make sure it gets updated at least once.
@@ -36,17 +26,17 @@ export class TransformMatrix {
   array = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1])
   id = 0
 
-  private _position?: UpdatableFloat32Array
-  private _scale?: UpdatableFloat32Array
-  private _rotation?: UpdatableFloat32Array
-  private _up?: UpdatableFloat32Array
-  private _forward?: UpdatableFloat32Array
-  private _direction?: UpdatableFloat32Array
+  private _position?: ObservingFloat32Array
+  private _scale?: ObservingFloat32Array
+  private _rotation?: ObservingFloat32Array
+  private _up?: ObservingFloat32Array
+  private _forward?: ObservingFloat32Array
+  private _direction?: ObservingFloat32Array
 
   get position() {
     if (!this._position) {
-      this._position = new UpdatableFloat32Array(this, 3, data => {
-        mat4.getTranslation(data, this.array)
+      this._position = new ObservingFloat32Array(this, 3, data => {
+        Matrix4.getTranslation(this.array, data)
       })
     }
     return this._position.data
@@ -54,8 +44,8 @@ export class TransformMatrix {
 
   get scale() {
     if (!this._scale) {
-      this._scale = new UpdatableFloat32Array(this, 3, data => {
-        mat4.getScaling(data, this.array)
+      this._scale = new ObservingFloat32Array(this, 3, data => {
+        Matrix4.getScaling(this.array, data)
       })
     }
     return this._scale.data
@@ -63,8 +53,8 @@ export class TransformMatrix {
 
   get rotation() {
     if (!this._rotation) {
-      this._rotation = new UpdatableFloat32Array(this, 4, data => {
-        mat4.getRotation(data, this.array)
+      this._rotation = new ObservingFloat32Array(this, 4, data => {
+        Matrix4.getRotation(this.array, data)
       })
     }
     return this._rotation.data
@@ -72,8 +62,8 @@ export class TransformMatrix {
 
   get up() {
     if (!this._up) {
-      this._up = new UpdatableFloat32Array(this, 3, data => {
-        vec3.set(data, this.array[4], this.array[5], this.array[6])
+      this._up = new ObservingFloat32Array(this, 3, data => {
+        Vector3.set(this.array[4], this.array[5], this.array[6], data)
       })
     }
     return this._up.data
@@ -81,8 +71,8 @@ export class TransformMatrix {
 
   get forward() {
     if (!this._forward) {
-      this._forward = new UpdatableFloat32Array(this, 3, data => {
-        vec3.set(data, this.array[8], this.array[9], this.array[10])
+      this._forward = new ObservingFloat32Array(this, 3, data => {
+        Vector3.set(this.array[8], this.array[9], this.array[10], data)
       })
     }
     return this._forward.data
@@ -90,8 +80,8 @@ export class TransformMatrix {
 
   get direction() {
     if (!this._direction) {
-      this._direction = new UpdatableFloat32Array(this, 3, data => {
-        vec3.add(data, this.position, this.forward)
+      this._direction = new ObservingFloat32Array(this, 3, data => {
+        Vector3.add(this.position, this.forward, data)
       })
     }
     return this._direction.data
@@ -101,17 +91,17 @@ export class TransformMatrix {
     if (matrix instanceof TransformMatrix) {
       matrix = matrix.array
     }
-    mat4.copy(this.array, matrix); this.id++
+    Matrix4.copy(matrix, this.array); this.id++
   }
 
   setFromRotationPositionScale(rotation: ObservableQuaternion, position: ObservablePoint3D, scale: ObservablePoint3D) {
-    vec4.set(this.rotation, rotation.x, rotation.y, rotation.z, rotation.w)
-    vec3.set(this.scale, scale.x, scale.y, scale.z)
-    vec3.set(this.position, position.x, position.y, position.z)
-    mat4.fromRotationTranslationScale(this.array, this.rotation, this.position, this.scale); this.id++
+    Vector4.set(rotation.x, rotation.y, rotation.z, rotation.w, this.rotation)
+    Vector3.set(scale.x, scale.y, scale.z, this.scale)
+    Vector3.set(position.x, position.y, position.z, this.position)
+    Matrix4.fromRotationTranslationScale(this.rotation, this.position, this.scale, this.array); this.id++
   }
 
   setFromMultiplication(a: TransformMatrix, b: TransformMatrix) {
-    mat4.multiply(this.array, a.array, b.array); this.id++
+    Matrix4.multiply(a.array, b.array, this.array); this.id++
   }
 }

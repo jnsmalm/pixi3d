@@ -5,37 +5,37 @@ import { Vector2 } from "./vector2"
 import { Vector3 } from "./vector3"
 
 class Float32ArrayPool {
-  items: Float32Array[] = []
-  index = 0
+  sizes: { index: number, items: Float32Array[] }[] = []
 
-  constructor(public size: number) { }
-
-  create() {
-    if (this.index >= this.items.length) {
-      this.items.push(new Float32Array(this.size))
+  create(size: number) {
+    let pool = this.sizes[size]
+    if (!pool) {
+      pool = this.sizes[size] = { index: 0, items: [] }
     }
-    return this.items[this.index++]
+    if (pool.index >= pool.items.length) {
+      pool.items.push(new Float32Array(size))
+    }
+    return pool.items[pool.index++]
   }
 
   reset() {
-    this.index = 0; return this
+    this.sizes.forEach((value) => { value.index = 0 })
   }
 }
+
+const pool = new Float32ArrayPool()
 
 export namespace MatrixPool {
   let _enabled = false
 
-  let _pools = [
-    { object: Matrix3, pool: new Float32ArrayPool(9) },
-    { object: Matrix4, pool: new Float32ArrayPool(16) },
-    { object: Quaternion, pool: new Float32ArrayPool(4) },
-    { object: Vector2, pool: new Float32ArrayPool(2) },
-    { object: Vector3, pool: new Float32ArrayPool(3) },
+  let _objects = [
+    Matrix3, Matrix4, Quaternion, Vector2, Vector3,
   ]
 
   function pooling(enable: boolean) {
-    _pools.forEach((value) => {
-      value.object.pool = enable ? value.pool.reset() : undefined
+    pool.reset()
+    _objects.forEach((value) => {
+      value.pool = enable ? pool : undefined
     })
     _enabled = enable
   }

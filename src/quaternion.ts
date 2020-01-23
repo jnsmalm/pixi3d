@@ -1,7 +1,7 @@
 import { ObservablePoint3D } from "./point"
-import { quat } from "gl-matrix"
+import { Quaternion } from "./math/quaternion"
 
-const rotation = quat.create()
+const quat = Quaternion.create()
 
 export class ObservableQuaternion extends ObservablePoint3D {
   _w: number
@@ -12,12 +12,12 @@ export class ObservableQuaternion extends ObservablePoint3D {
   }
 
   setEulerAngles(x: number, y: number, z: number) {
-    quat.fromEuler(rotation, x, y, z)
-    if (this._x !== rotation[0] || this._y !== rotation[1] || this._z !== rotation[2] || this._w !== rotation[3]) {
-      this._x = rotation[0]
-      this._y = rotation[1]
-      this._z = rotation[2]
-      this._w = rotation[3]
+    Quaternion.fromEuler(x, y, z, quat)
+    if (this._x !== quat[0] || this._y !== quat[1] || this._z !== quat[2] || this._w !== quat[3]) {
+      this._x = quat[0]
+      this._y = quat[1]
+      this._z = quat[2]
+      this._w = quat[3]
       this.cb.call(this.scope)
     }
   }

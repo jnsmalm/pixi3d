@@ -1,18 +1,30 @@
 import { vec3 } from "gl-matrix"
 
 export namespace Vector3 {
-  export let pool: { create: () => Float32Array } | undefined
+  export let pool: { create: (size: number) => Float32Array } | undefined
 
   export function create() {
-    return pool ? pool.create() : new Float32Array(3)
+    return pool ? pool.create(3) : new Float32Array(3)
   }
 
   export function from({ x = 0, y = 0, z = 0 }, out?: Float32Array): Float32Array {
     return vec3.set(out || create(), x, y, z)
   }
 
+  export function set(x: number, y: number, z: number, out?: Float32Array): Float32Array {
+    return vec3.set(out || create(), x, y, z)
+  }
+
   export function copy(a: Float32Array, out?: Float32Array): Float32Array {
     return vec3.copy(out || create(), a)
+  }
+
+  export function distance(a: Float32Array, b: Float32Array): number {
+    return vec3.distance(a, b)
+  }
+
+  export function squaredDistance(a: Float32Array, b: Float32Array): number {
+    return vec3.squaredDistance(a, b)
   }
 
   Object.defineProperty(Vector3, "zero", {
@@ -77,12 +89,24 @@ export namespace Vector3 {
     return vec3.mul(out || create(), a, b)
   }
 
+  export function divide(a: Float32Array, b: Float32Array, out?: Float32Array): Float32Array {
+    return vec3.divide(out || create(), a, b)
+  }
+
   export function dot(a: Float32Array, b: Float32Array): number {
     return vec3.dot(a, b)
   }
 
   export function length(a: Float32Array): number {
     return vec3.length(a)
+  }
+
+  export function squaredLength(a: Float32Array): number {
+    return vec3.squaredLength(a)
+  }
+
+  export function inverse(a: Float32Array, out?: Float32Array): Float32Array {
+    return vec3.inverse(out || create(), a)
   }
 
   export function cross(a: Float32Array, b: Float32Array, out?: Float32Array): Float32Array {

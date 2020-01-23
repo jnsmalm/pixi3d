@@ -1,7 +1,7 @@
-import { mat4 } from "gl-matrix"
-import { UpdatableFloat32Array } from "./matrix"
+import { ObservingFloat32Array } from "./matrix"
 import { Transform3D } from "./transform"
 import { ScreenSpace, WorldSpace } from "./space"
+import { Matrix4 } from "./math/matrix4"
 
 interface ViewSize { width: number, height: number }
 
@@ -15,9 +15,9 @@ export class Camera3D extends PIXI.DisplayObject {
   }
 
   private _aspectTo?: ViewSize
-  private _projection?: UpdatableFloat32Array
-  private _view?: UpdatableFloat32Array
-  private _viewProjection?: UpdatableFloat32Array
+  private _projection?: ObservingFloat32Array
+  private _view?: ObservingFloat32Array
+  private _viewProjection?: ObservingFloat32Array
 
   get aspectTo() {
     return this._aspectTo
@@ -107,8 +107,8 @@ export class Camera3D extends PIXI.DisplayObject {
       this.transform.updateLocalTransform()
     }
     if (!this._projection) {
-      this._projection = new UpdatableFloat32Array(this, 16, data => {
-        mat4.perspective(data, this._fieldOfView, this._aspect, this._near, this._far)
+      this._projection = new ObservingFloat32Array(this, 16, data => {
+        Matrix4.perspective(this._fieldOfView, this._aspect, this._near, this._far, data)
       })
     }
     return this._projection.data
@@ -119,8 +119,8 @@ export class Camera3D extends PIXI.DisplayObject {
       this.transform.updateLocalTransform()
     }
     if (!this._view) {
-      this._view = new UpdatableFloat32Array(this, 16, data => {
-        mat4.lookAt(data, this.transform.worldTransform.position, this.transform.worldTransform.direction, this.transform.worldTransform.up)
+      this._view = new ObservingFloat32Array(this, 16, data => {
+        Matrix4.lookAt(this.transform.worldTransform.position, this.transform.worldTransform.direction, this.transform.worldTransform.up, data)
       })
     }
     return this._view.data
@@ -134,8 +134,8 @@ export class Camera3D extends PIXI.DisplayObject {
       this.transform.updateLocalTransform()
     }
     if (!this._viewProjection) {
-      this._viewProjection = new UpdatableFloat32Array(this, 16, data => {
-        mat4.multiply(data, this.projection, this.view)
+      this._viewProjection = new ObservingFloat32Array(this, 16, data => {
+        Matrix4.multiply(this.projection, this.view, data)
       })
     }
     return this._viewProjection.data
