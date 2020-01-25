@@ -2,7 +2,7 @@ import { Container3D } from "./container"
 import { Animation } from "./animation"
 import { glTFParser } from "./gltf/parser"
 import { glTFLoader } from "./gltf/loader"
-import { Mesh3D } from "./mesh"
+import { Mesh3D } from "./mesh/mesh"
 import { glTFResource } from "./gltf/gltf-resource"
 import { MaterialFactory } from "./material"
 

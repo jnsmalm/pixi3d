@@ -1,4 +1,5 @@
-import { Mesh3D, MeshGeometryData } from "./mesh"
+import { MeshGeometryData } from "./mesh/mesh-geometry"
+import { Mesh3D } from "./mesh/mesh"
 
 export enum MaterialShaderAttribute {
   position = "position",

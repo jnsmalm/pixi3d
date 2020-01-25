@@ -1,7 +1,7 @@
 import { PhysicallyBasedShaderFeature } from "./pbr-feature"
 import { PhysicallyBasedShader } from "./pbr-shader"
 import { Material } from "../material"
-import { MeshGeometryData } from "../mesh"
+import { MeshGeometryData } from "../mesh/mesh-geometry"
 import { Camera3D } from "../camera"
 import { glTFMaterial } from "../gltf/gltf-material"
 import { LightingEnvironment } from "../lighting/lighting-environment"

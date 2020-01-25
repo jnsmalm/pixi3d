@@ -1,4 +1,4 @@
-import { Mesh3D } from "../mesh"
+import { Mesh3D } from "../mesh/mesh"
 
 const SIZE = 128
 

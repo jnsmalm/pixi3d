@@ -1,4 +1,4 @@
-import { Mesh3D } from "../mesh"
+import { Mesh3D } from "../mesh/mesh"
 import { ColorMaterial } from "./color-material"
 import { MeshPicker } from "./mesh-picker"
 

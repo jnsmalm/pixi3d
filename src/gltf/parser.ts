@@ -2,7 +2,8 @@ import { Transform3D } from "../transform"
 import { MaterialFactory } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
-import { Mesh3D, MeshGeometryData, MeshMorphTarget } from "../mesh"
+import { MeshGeometryData, MeshMorphTarget } from "../mesh/mesh-geometry"
+import { Mesh3D } from "../mesh/mesh"
 import { glTFMaterialParser } from "./material-parser"
 import { glTFBufferAccessor } from "./buffer-accessor"
 import { glTFAnimationParser } from "./animation/parser"
@@ -60,7 +61,7 @@ export class glTFParser {
       if (node.mesh === undefined) {
         continue
       }
-      let mesh = this.createMesh(this.descriptor.meshes[node.mesh])
+      let mesh = this.createMesh(node.mesh)
       container.addChild(mesh)
     }
     return nodes
@@ -89,18 +90,19 @@ export class glTFParser {
     return transform
   }
 
-  protected createMesh(mesh: any) {
-    let source = this.parseMaterial(mesh)
-    let data = this.createMeshData(mesh)
+  public createMesh(meshIndex = 0) {
+    let mesh = this.descriptor.meshes[meshIndex]
+    let sourceMaterial = this.parseMaterial(mesh)
+    let geometryData = this.createMeshGeometryData(mesh)
     let materialFactory = this.options.materialFactory
     if (!materialFactory) {
       materialFactory = PhysicallyBasedMaterial
     }
-    let material = materialFactory.create(source)
-    return new Mesh3D(mesh.name, data, material, data.weights)
+    let material = materialFactory.create(sourceMaterial)
+    return new Mesh3D(mesh.name, geometryData, material, geometryData.weights)
   }
 
-  private createMeshData(mesh: any): MeshGeometryData {
+  private createMeshGeometryData(mesh: any): MeshGeometryData {
     return {
       indices: this.getIndices(mesh),
       positions: this.getPositions(mesh),

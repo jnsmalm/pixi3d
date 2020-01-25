@@ -1,4 +1,4 @@
-import { Mesh3D } from "./mesh"
+import { Mesh3D } from "./mesh/mesh"
 
 export class SortableMeshRenderer extends PIXI.ObjectRenderer {
   private objects: Mesh3D[] = []
