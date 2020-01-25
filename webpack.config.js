@@ -10,7 +10,7 @@ module.exports = env => {
       new BrowserSyncPlugin({
         host: "localhost",
         port: 3000,
-        server: { baseDir: ["dist"] },
+        server: { baseDir: ["public"] },
         watch: true
       })
     ],
@@ -41,13 +41,17 @@ module.exports = env => {
       extensions: [".ts", ".js"]
     },
     output: {
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, directory(env)),
       filename: "pixi3d.js",
       library: "PIXI3D",
       libraryTarget: "umd",
       umdNamedDefine: true
     }
   }
+}
+
+const directory = env => {
+  return env.production ? "dist" : "public"
 }
 
 const mode = env => {
