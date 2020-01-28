@@ -2,6 +2,8 @@ import { CubeMapResource } from "./cubemap-loader"
 import { ImageMipMapResource } from "./image-mipmap"
 
 export class CubeMipMapTexture extends PIXI.CubeTexture {
+  private _valid?: boolean
+
   levels: number
 
   constructor(resource: CubeMapResource) {
@@ -15,6 +17,23 @@ export class CubeMipMapTexture extends PIXI.CubeTexture {
         faces.map((value) => { return value.source })))
       this.levels = 0
     }
+  }
+
+  set valid(value: boolean) {
+    // This value can never be set directly, it's only there for 
+    // PIXI compatibility reasons.
+  }
+
+  get valid() {
+    if (this._valid) {
+      return true
+    }
+    for (let i = 0; i < this.resource.items.length; i++) {
+      if (!this.resource.items[i].resource.valid) {
+        return false
+      }
+    }
+    return this._valid = true
   }
 }
 
@@ -50,12 +69,6 @@ export class CubeMipMapResource extends PIXI.resources.CubeResource {
     gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
     gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR)
 
-    if (renderer.context.webGLVersion === 2) {
-      // Setting the base/max level of mipmap makes it look much better, 
-      // but it's only available in webgl 2.
-      gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_BASE_LEVEL, 0)
-      gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MAX_LEVEL, this.levels - 1)
-    }
     return true
   }
 }

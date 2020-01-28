@@ -1,6 +1,8 @@
 import { CubeMapResource } from "./cubemap-loader"
 
 export class ImageMipMapResource extends PIXI.resources.ImageResource {
+  private _valid = false
+
   mipmap: PIXI.Texture[] = []
 
   constructor(source: CubeMapResource, options: any) {
@@ -10,6 +12,18 @@ export class ImageMipMapResource extends PIXI.resources.ImageResource {
         this.mipmap.push(PIXI.Texture.from(source.mipmap[i]))
       }
     }
+  }
+
+  get valid() {
+    if (this._valid) {
+      return true
+    }
+    for (let i = 0; i < this.mipmap.length; i++) {
+      if (!this.mipmap[i].valid) {
+        return false
+      }
+    }
+    return this._valid = true
   }
 
   upload(renderer: any, baseTexture: PIXI.BaseTexture, glTexture: any, source: any) {
