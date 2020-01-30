@@ -1,57 +1,89 @@
 import { MeshGeometryData } from "./mesh/mesh-geometry"
 import { Mesh3D } from "./mesh/mesh"
 
+/**
+ * Predefined attributes for material shader.
+ */
 export enum MaterialShaderAttribute {
+  /** Expects shader attribute to be "attribute vec3 a_Position". */
   position = "position",
+  /** Expects shader attribute to be "attribute vec2 a_UV1". */
   uv1 = "uv1",
+  /** Expects shader attribute to be "attribute vec3 a_Normal". */
   normal = "normal",
+  /** Expects shader attribute to be "attribute vec4 a_Tangent". */
   tangent = "tangent"
 }
 
+/**
+ * Factory for creating materials.
+ */
+export interface MaterialFactory {
+  /** Creates a new material from the specified source. */
+  create(source: unknown): Material
+}
+
+/**
+ * Materials are used to render a single mesh.
+ */
 export abstract class Material {
+  protected _geometry?: PIXI.Geometry
   protected _mesh?: Mesh3D
-  protected state = Object.assign(new PIXI.State(), {
+  protected _shader?: PIXI.Shader
+
+  /** State used to render a mesh. */
+  state = Object.assign(new PIXI.State(), {
     culling: true, clockwiseFrontFace: false, depthTest: true
   })
-  protected geometry?: PIXI.Geometry
-  protected shader?: PIXI.Shader
 
-  get renderable() {
+  /** Value indicating if the material is valid to render. */
+  get valid() {
     return true
   }
 
-  get mesh() {
-    if (!this._mesh) {
-      throw new Error("PIXI3D: Material needs to be bound to a mesh.")
-    }
-    return this._mesh
-  }
-
+  /** Draw mode used to render a mesh. */
   drawMode = PIXI.DRAW_MODES.TRIANGLES
+
+  /** Value indicating if the material is transparent. */
   transparent = false
 
+  /**
+   * Creates a new material.
+   * @param attributes Predefined attributes for the shader.
+   */
   constructor(public attributes: MaterialShaderAttribute[] = []) { }
 
-  abstract createShader(renderer: any): PIXI.Shader
-  abstract updateUniforms?(shader: PIXI.Shader): void
+  /**
+   * Creates a shader used to render a mesh.
+   * @param mesh Mesh to use.
+   * @param renderer Renderer to use.
+   */
+  abstract createShader(mesh: Mesh3D, renderer: any): PIXI.Shader
 
-  bind(mesh: Mesh3D) {
-    if (this._mesh) {
-      throw new Error("PIXI3D: Material is already bound to a mesh.")
-    }
-    this._mesh = mesh
-  }
+  /**
+   * Updates the uniforms for the specified shader.
+   * @param mesh Mesh to use.
+   * @param shader Shader for updating uniforms.
+   */
+  abstract updateUniforms?(mesh: Mesh3D, shader: PIXI.Shader): void
 
+  /**
+   * Creates geometry used to render a mesh. Will use the predefined shader 
+   * attributes if those have been set.
+   * @param data Data used for creating the geometry.
+   */
   createGeometry(data: MeshGeometryData): PIXI.Geometry {
     let geometry = new PIXI.Geometry()
     if (data.indices) {
-      // PIXI seems to have problems using anything other than gl.UNSIGNED_SHORT 
-      // or gl.UNSIGNED_INT. Let's convert buffer to UNSIGNED_INT.
+      // PIXI seems to have problems using anything other than 
+      // gl.UNSIGNED_SHORT or gl.UNSIGNED_INT. Let's convert to UNSIGNED_INT.
       geometry.addIndex(new Uint32Array(data.indices.buffer))
     }
     if (this.attributes.includes(MaterialShaderAttribute.position)) {
-      geometry.addAttribute("a_Position", data.positions.buffer, 3, false,
-        PIXI.TYPES.FLOAT, data.positions.stride)
+      if (data.positions) {
+        geometry.addAttribute("a_Position", data.positions.buffer, 3, false,
+          PIXI.TYPES.FLOAT, data.positions.stride)
+      }
     }
     if (this.attributes.includes(MaterialShaderAttribute.uv1)) {
       if (data.texCoords) {
@@ -74,26 +106,32 @@ export abstract class Material {
     return geometry
   }
 
-  render(renderer: any) {
-    if (!this.renderable) {
+  /**
+   * Renders the specified mesh.
+   * @param mesh Mesh to render.
+   * @param renderer Renderer to use.
+   */
+  render(mesh: Mesh3D, renderer: any) {
+    if (this._mesh && mesh !== this._mesh) {
+      throw new Error("PIXI3D: Material can't be shared between meshes.")
+    } else {
+      this._mesh = mesh
+    }
+    if (!this.valid) {
       return
     }
-    if (!this.geometry) {
-      this.geometry = this.createGeometry(this.mesh.geometry)
+    if (!this._shader) {
+      this._shader = this.createShader(mesh, renderer)
     }
-    if (!this.shader) {
-      this.shader = this.createShader(renderer)
+    if (!this._geometry) {
+      this._geometry = this.createGeometry(mesh.geometry)
     }
     if (this.updateUniforms) {
-      this.updateUniforms(this.shader)
+      this.updateUniforms(mesh, this._shader)
     }
-    renderer.shader.bind(this.shader)
+    renderer.shader.bind(this._shader)
     renderer.state.set(this.state)
-    renderer.geometry.bind(this.geometry, this.shader)
+    renderer.geometry.bind(this._geometry, this._shader)
     renderer.geometry.draw(this.drawMode)
   }
-}
-
-export interface MaterialFactory {
-  create(source: unknown): Material
 }

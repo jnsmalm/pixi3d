@@ -11,7 +11,7 @@ export interface MeshAttribute {
 
 export interface MeshGeometryData {
   indices?: MeshAttribute
-  positions: MeshAttribute
+  positions?: MeshAttribute
   normals?: MeshAttribute
   texCoords?: MeshAttribute
   tangents?: MeshAttribute

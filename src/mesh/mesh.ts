@@ -10,7 +10,6 @@ export class Mesh3D extends Container3D {
 
   constructor(name: string | undefined, public geometry: MeshGeometryData, public material: Material, public weights?: number[]) {
     super(name)
-    material.bind(this)
   }
 
   render(renderer: any) {

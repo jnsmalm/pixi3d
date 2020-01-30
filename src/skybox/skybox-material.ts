@@ -1,5 +1,6 @@
 import { Camera3D } from "../camera"
 import { Material, MaterialShaderAttribute, MaterialFactory } from "../material"
+import { Mesh3D } from "../mesh/mesh"
 
 const vert: string = require("./shader/skybox.vert").default
 const frag: string = require("./shader/skybox.frag").default
@@ -13,17 +14,22 @@ export class SkyboxMaterialFactory implements MaterialFactory {
 }
 
 export class SkyboxMaterial extends Material {
+  private _valid = false
+
   constructor(public texture: PIXI.CubeTexture) {
     super([MaterialShaderAttribute.position])
     this.state.clockwiseFrontFace = true
   }
 
-  get renderable() {
-    return this.texture && this.texture.valid
+  get valid() {
+    if (this._valid) {
+      return true
+    }
+    return this._valid = this.texture && this.texture.valid
   }
 
-  updateUniforms(shader: PIXI.Shader) {
-    shader.uniforms.u_World = this.mesh.transform.worldTransform.array
+  updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
+    shader.uniforms.u_World = mesh.transform.worldTransform.array
     shader.uniforms.u_View = Camera3D.main.view
     shader.uniforms.u_Projection = Camera3D.main.projection
     shader.uniforms.u_Texture = this.texture

@@ -5,6 +5,7 @@ import { MeshGeometryData } from "../mesh/mesh-geometry"
 import { Camera3D } from "../camera"
 import { glTFMaterial } from "../gltf/gltf-material"
 import { LightingEnvironment } from "../lighting/lighting-environment"
+import { Mesh3D } from "../mesh/mesh"
 
 export enum PhysicallyBasedMaterialAlphaMode {
   opaque = "opaque",
@@ -16,8 +17,8 @@ const shaders: { [features: string]: PIXI.Shader } = {}
 
 export class PhysicallyBasedMaterial extends Material {
   private _doubleSided = false
+  private _valid = false
   private _lighting?: LightingEnvironment
-  private _renderable = false
 
   roughness = 1
   metallic = 1
@@ -37,8 +38,8 @@ export class PhysicallyBasedMaterial extends Material {
     return this._lighting
   }
 
-  get renderable() {
-    if (this._renderable) {
+  get valid() {
+    if (this._valid) {
       return true
     }
     if (this.lighting && this.lighting.ibl && !this.lighting.ibl.renderable) {
@@ -54,7 +55,7 @@ export class PhysicallyBasedMaterial extends Material {
     if (textures.some((value) => value && !value.valid)) {
       return false
     }
-    return this._renderable = true
+    return this._valid = true
   }
 
   get doubleSided() {
@@ -105,9 +106,10 @@ export class PhysicallyBasedMaterial extends Material {
       // or gl.UNSIGNED_INT. Let's convert buffer to UNSIGNED_INT.
       geometry.addIndex(new Uint32Array(data.indices.buffer))
     }
-    geometry.addAttribute("a_Position", data.positions.buffer, 3, false,
-      PIXI.TYPES.FLOAT, data.positions.stride)
-
+    if (data.positions) {
+      geometry.addAttribute("a_Position", data.positions.buffer, 3, false,
+        PIXI.TYPES.FLOAT, data.positions.stride)
+    }
     if (data.normals) {
       geometry.addAttribute("a_Normal", data.normals.buffer, 3, false,
         PIXI.TYPES.FLOAT, data.normals.stride)
@@ -142,7 +144,7 @@ export class PhysicallyBasedMaterial extends Material {
     return geometry
   }
 
-  createShader(renderer: any) {
+  createShader(mesh: Mesh3D, renderer: any) {
     if (renderer.context.webGLVersion === 1) {
       let extensions = [
         "EXT_shader_texture_lod",
@@ -154,7 +156,7 @@ export class PhysicallyBasedMaterial extends Material {
         }
       }
     }
-    let features = this.createFeatures(this.mesh.geometry)
+    let features = this.createFeatures(mesh.geometry)
     let checksum = features.join(",")
     if (!shaders[checksum]) {
       shaders[checksum] = PhysicallyBasedShader.build(renderer, features)
@@ -195,7 +197,7 @@ export class PhysicallyBasedMaterial extends Material {
       features.push(PhysicallyBasedShaderFeature.baseColorMap)
     }
 
-    // features.push(PhysicallyBasedMaterialFeature.materialUnlit)
+    // features.push(PhysicallyBasedShaderFeature.materialUnlit)
 
     features.push(PhysicallyBasedShaderFeature.materialMetallicRoughness)
     features.push(PhysicallyBasedShaderFeature.texLod)
@@ -228,10 +230,10 @@ export class PhysicallyBasedMaterial extends Material {
     return features
   }
 
-  updateUniforms(shader: PIXI.Shader) {
-    shader.uniforms.u_ModelMatrix = this.mesh.transform.worldTransform.array
+  updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
+    shader.uniforms.u_ModelMatrix = mesh.transform.worldTransform.array
     shader.uniforms.u_ViewProjectionMatrix = Camera3D.main.viewProjection
-    shader.uniforms.u_NormalMatrix = this.mesh.transform.worldTransform.array
+    shader.uniforms.u_NormalMatrix = mesh.transform.worldTransform.array
     shader.uniforms.u_Camera = Camera3D.main.viewPosition
 
     shader.uniforms.u_MetallicFactor = this.metallic
@@ -243,8 +245,8 @@ export class PhysicallyBasedMaterial extends Material {
       shader.uniforms.u_AlphaCutoff = this.alphaMaskCutoff
     }
 
-    if (this.mesh.weights) {
-      shader.uniforms.u_morphWeights = this.mesh.weights
+    if (mesh.weights) {
+      shader.uniforms.u_morphWeights = mesh.weights
     }
 
     if (this.baseColorTexture) {
@@ -283,19 +285,19 @@ export class PhysicallyBasedMaterial extends Material {
     }
   }
 
-  render(renderer: any) {
+  render(mesh: Mesh3D, renderer: any) {
     if (!(this.doubleSided && this.transparent)) {
-      super.render(renderer)
+      super.render(mesh, renderer)
     } else {
       let { culling, clockwiseFrontFace } = this.state
       Object.assign(this.state, {
         culling: true, clockwiseFrontFace: true
       })
-      super.render(renderer)
+      super.render(mesh, renderer)
       Object.assign(this.state, {
         culling: true, clockwiseFrontFace: false
       })
-      super.render(renderer)
+      super.render(mesh, renderer)
       Object.assign(this.state, {
         culling: culling, clockwiseFrontFace: clockwiseFrontFace
       })

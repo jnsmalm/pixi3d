@@ -6,7 +6,7 @@ export class SortableMeshRenderer extends PIXI.ObjectRenderer {
   flush() {
     this.sort()
     for (let mesh of this.objects) {
-      mesh.material.render(this.renderer)
+      mesh.material.render(mesh, this.renderer)
     }
     this.objects = []
   }
