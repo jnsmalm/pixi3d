@@ -2,39 +2,51 @@ import { ObservablePoint3D } from "./point"
 import { ObservableQuaternion } from "./quaternion"
 import { TransformMatrix } from "./matrix"
 
+/**
+ * Handles position, scaling and rotation.
+ */
 export class Transform3D extends PIXI.Transform {
+
+  /** Position in local space. */
   position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
+  /** Scale in local space. */
   scale = new ObservablePoint3D(this.onChange, this, 1, 1, 1)
+  /** Rotation in local space. */
   rotation = new ObservableQuaternion(this.onChange, this, 0, 0, 0, 1)
 
-  /**
-   * The world transformation matrix.
-   */
+  /** Transformation matrix in world space. */
   worldTransform = new TransformMatrix()
-
-  /**
-   * The local transformation matrix.
-   */
+  /** Transformation matrix in local space. */
   localTransform = new TransformMatrix()
 
-  updateLocalTransform() {
+  /**
+   * Updates the local transformation matrix.
+   */
+  protected updateLocalTransform() {
     if (this._localID === this._currentLocalID) {
       return
     }
     this.localTransform.setFromRotationPositionScale(
       this.rotation, this.position, this.scale)
-    this.worldTransform.setFromMatrix(this.localTransform)
-
+      
     this._parentID = -1
     this._currentLocalID = this._localID
   }
 
+  /**
+   * Sets position, rotation and scale from another transform.
+   * @param transform Transform to set values from.
+   */
   setFromTransform(transform: Transform3D) {
     this.position.copyFrom(transform.position)
     this.scale.copyFrom(transform.scale)
     this.rotation.copyFrom(transform.rotation)
   }
 
+  /**
+   * Sets position, rotation and scale from an matrix array.
+   * @param matrix Matrix array, expected to have a length of 16.
+   */
   setFromMatrix(matrix: ArrayLike<number>) {
     this.localTransform.setFromMatrix(matrix)
     this.position.set(...this.localTransform.position)
@@ -42,9 +54,13 @@ export class Transform3D extends PIXI.Transform {
     this.rotation.set(...this.localTransform.rotation)
   }
 
-  updateTransform(parentTransform: PIXI.Transform) {
+  /**
+   * Updates the world transformation matrix.
+   * @param parentTransform Parent transform.
+   */
+  updateTransform(parentTransform?: PIXI.Transform) {
     this.updateLocalTransform()
-    if (this._parentID === parentTransform._worldID) {
+    if (parentTransform && this._parentID === parentTransform._worldID) {
       return
     }
     if (parentTransform instanceof Transform3D) {
@@ -54,6 +70,8 @@ export class Transform3D extends PIXI.Transform {
       this.worldTransform.setFromMatrix(this.localTransform)
     }
     this._worldID++
-    this._parentID = parentTransform._worldID
+    if (parentTransform) {
+      this._parentID = parentTransform._worldID
+    }
   }
 }

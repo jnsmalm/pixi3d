@@ -16,7 +16,7 @@ export class PointLight extends PIXI.DisplayObject {
     // Make sure the transform has been updated in the case where the light is
     // not part of the stage hierarchy.
     if (!this.parent) {
-      this.transform.updateLocalTransform()
+      this.transform.updateTransform()
     }
     return this.transform.worldTransform.position
   }

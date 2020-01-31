@@ -104,7 +104,9 @@ export class Camera3D extends PIXI.DisplayObject {
       this.aspect = this._aspectTo.width / this._aspectTo.height
     }
     if (!this.parent) {
-      this.transform.updateLocalTransform()
+      // Make sure the transform has been updated in the case where the camera 
+      // is not part of the stage hierarchy.
+      this.transform.updateTransform()
     }
     if (!this._projection) {
       this._projection = new ObservingFloat32Array(this, 16, data => {
@@ -116,7 +118,9 @@ export class Camera3D extends PIXI.DisplayObject {
 
   get view() {
     if (!this.parent) {
-      this.transform.updateLocalTransform()
+      // Make sure the transform has been updated in the case where the camera 
+      // is not part of the stage hierarchy.
+      this.transform.updateTransform()
     }
     if (!this._view) {
       this._view = new ObservingFloat32Array(this, 16, data => {
@@ -131,7 +135,9 @@ export class Camera3D extends PIXI.DisplayObject {
       this.aspect = this._aspectTo.width / this._aspectTo.height
     }
     if (!this.parent) {
-      this.transform.updateLocalTransform()
+      // Make sure the transform has been updated in the case where the camera 
+      // is not part of the stage hierarchy.
+      this.transform.updateTransform()
     }
     if (!this._viewProjection) {
       this._viewProjection = new ObservingFloat32Array(this, 16, data => {
@@ -151,7 +157,9 @@ export class Camera3D extends PIXI.DisplayObject {
 
   get viewPosition() {
     if (!this.parent) {
-      this.transform.updateLocalTransform()
+      // Make sure the transform has been updated in the case where the camera 
+      // is not part of the stage hierarchy.
+      this.transform.updateTransform()
     }
     return this.transform.worldTransform.position
   }
