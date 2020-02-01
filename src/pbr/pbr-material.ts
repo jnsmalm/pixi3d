@@ -258,7 +258,7 @@ export class PhysicallyBasedMaterial extends Material {
       shader.uniforms.u_DiffuseEnvSampler = this.lighting.ibl.diffuse
       shader.uniforms.u_SpecularEnvSampler = this.lighting.ibl.specular
       shader.uniforms.u_brdfLUT = this.lighting.ibl.brdf
-      shader.uniforms.u_MipCount = this.lighting.ibl.specular.levels
+      shader.uniforms.u_MipCount = this.lighting.ibl.specular.levels - 1
     }
 
     if (this.emissiveTexture) {
