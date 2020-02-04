@@ -4,11 +4,20 @@ import { Quaternion } from "./math/quaternion"
 const quat = Quaternion.create()
 
 /**
- * Quaternions represents rotations in 3D space.
+ * Represents a rotation in 3D space.
  */
 export class ObservableQuaternion extends ObservablePoint3D {
   _w: number
 
+  /**
+   * Creates a new quaternion.
+   * @param cb Callback when changed.
+   * @param scope Owner of callback.
+   * @param x X component.
+   * @param y Y component.
+   * @param z Z component.
+   * @param w W component.
+   */
   constructor(cb: () => void, scope: any, x = 0, y = 0, z = 0, w = 1) {
     super(cb, scope, x, y, z)
     this._w = w
@@ -91,7 +100,7 @@ export class ObservableQuaternion extends ObservablePoint3D {
   set(...xyzw: number[]): void
 
   /**
-   * Sets the quaternion to a new x, y,z and w position.
+   * Sets the quaternion to new x, y, z and w components.
    * @param x X component to set.
    * @param y Y component to set.
    * @param z Z component to set.

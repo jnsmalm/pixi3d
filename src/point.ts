@@ -1,11 +1,25 @@
+/**
+ * Represents a position in 3D space.
+ */
 export class ObservablePoint3D extends PIXI.ObservablePoint {
   _z: number
 
+  /**
+   * Creates a new point.
+   * @param cb Callback when changed.
+   * @param scope Owner of callback.
+   * @param x Position on the x axis.
+   * @param y Position on the y axis.
+   * @param z Position on the z axis.
+   */
   constructor(cb: () => void, scope: any, x = 0, y = 0, z = 0) {
     super(cb, scope, x, y)
     this._z = z
   }
 
+  /**
+   * Position on the z axis relative to the local coordinates of the parent.
+   */
   get z() {
     return this._z
   }
@@ -17,11 +31,20 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
     }
   }
 
+  /**
+   * Creates a clone of this point.
+   * @param cb Callback when changed.
+   * @param scope Owner of callback.
+   */
   clone(cb: (() => void) | null = null, scope: any) {
     return new ObservablePoint3D(
       cb || this.cb, scope || this.scope, this._x, this._y, this._z)
   }
 
+  /**
+   * Copies x, y and z from the given point.
+   * @param p The point to copy from.
+   */
   copyFrom(p: { x: number, y: number, z: number } | Float32Array) {
     if (ArrayBuffer.isView(p)) {
       p = { x: p[0], y: p[1], z: p[2] }
@@ -35,16 +58,31 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
     return this
   }
 
+  /**
+   * Copies x, y and z into the given point.
+   * @param p The point to copy to.
+   */
   copyTo(p: ObservablePoint3D) {
     p.set(this._x, this._y, this._z)
     return p
   }
 
+  /**
+   * Returns true if the given point is equal to this point.
+   * @param p The point to check.
+   */
   equals(p: ObservablePoint3D) {
     return (p.x === this._x) && (p.y === this._y) && (p.z === this._z)
   }
 
   set(...xyz: number[]): void
+
+  /**
+   * Sets the point to a new x, y and z position.
+   * @param x Position on the x axis.
+   * @param y Position on the y axis.
+   * @param z Position on the z axis.
+   */
   set(x: number, y?: number, z?: number) {
     const _x = x || 0
     const _y = y || ((y !== 0) ? _x : 0)
