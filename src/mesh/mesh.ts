@@ -41,27 +41,24 @@ export class Mesh3D extends Container3D {
     return false
   }
 
-  static createTorus(material?: MaterialFactory) {
-    let options = { materialFactory: material }
+  static createTorus(materialFactory?: MaterialFactory) {
     return new glTFParser(
       new glTFResource(
         JSON.parse(require("./embedded/torus.gltf").default)),
-      options).createMesh()
+      materialFactory).createMesh()
   }
 
-  static createCube(material: MaterialFactory) {
-    let options = { materialFactory: material }
+  static createCube(materialFactory?: MaterialFactory) {
     return new glTFParser(
       new glTFResource(
         JSON.parse(require("./embedded/cube.gltf").default)),
-      options).createMesh()
+      materialFactory).createMesh()
   }
 
-  static createSphere(material: MaterialFactory) {
-    let options = { materialFactory: material }
+  static createSphere(materialFactory?: MaterialFactory) {
     return new glTFParser(
       new glTFResource(
         JSON.parse(require("./embedded/sphere.gltf").default)),
-      options).createMesh()
+      materialFactory).createMesh()
   }
 }

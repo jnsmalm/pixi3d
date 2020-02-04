@@ -11,17 +11,13 @@ import { glTFResource } from "./gltf-resource"
 import { glTFMaterial } from "./gltf-material"
 import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
 
-export interface glTFParserOptions {
-  materialFactory?: MaterialFactory
-}
-
 export class glTFParser {
   private bufferAccessor: glTFBufferAccessor
   private animationParser: glTFAnimationParser
   private materialParser: glTFMaterialParser
   private descriptor: any
 
-  constructor(public resource: glTFResource, public options: glTFParserOptions = {}) {
+  constructor(public resource: glTFResource, public materialFactory?: MaterialFactory) {
     this.descriptor = resource.descriptor
     this.bufferAccessor = new glTFBufferAccessor(this.descriptor, resource.buffers)
     this.animationParser = new glTFAnimationParser(resource)
@@ -94,7 +90,7 @@ export class glTFParser {
     let mesh = this.descriptor.meshes[meshIndex]
     let sourceMaterial = this.parseMaterial(mesh)
     let geometryData = this.createMeshGeometryData(mesh)
-    let materialFactory = this.options.materialFactory
+    let materialFactory = this.materialFactory
     if (!materialFactory) {
       materialFactory = PhysicallyBasedMaterial
     }
