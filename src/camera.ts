@@ -1,4 +1,4 @@
-import { ObservingFloat32Array } from "./matrix"
+import { MatrixComponent } from "./matrix/matrix-component"
 import { Matrix4 } from "./math/matrix4"
 import { Vector4 } from "./math/vector4"
 import { Container3D } from "./container"
@@ -17,9 +17,9 @@ export class Camera3D extends Container3D {
     return this.transform._worldID + this._id
   }
 
-  private _projection?: ObservingFloat32Array
-  private _view?: ObservingFloat32Array
-  private _viewProjection?: ObservingFloat32Array
+  private _projection?: MatrixComponent
+  private _view?: MatrixComponent
+  private _viewProjection?: MatrixComponent
 
   /** Main camera which is used by default. */
   static main: Camera3D
@@ -142,33 +142,33 @@ export class Camera3D extends Container3D {
   /** Projection matrix */
   get projection() {
     if (!this._projection) {
-      this._projection = new ObservingFloat32Array(this, 16, data => {
+      this._projection = new MatrixComponent(this, 16, data => {
         let aspect = this._aspect || this.renderer.width / this.renderer.height
         let fovy = this._fieldOfView * (Math.PI / 180)
         Matrix4.perspective(fovy, aspect, this._near, this._far, data)
       })
     }
-    return this._projection.data
+    return this._projection.array
   }
 
   /** View matrix */
   get view() {
     if (!this._view) {
-      this._view = new ObservingFloat32Array(this, 16, data => {
+      this._view = new MatrixComponent(this, 16, data => {
         Matrix4.lookAt(this.transform.worldTransform.position, this.transform.worldTransform.direction, this.transform.worldTransform.up, data)
       })
     }
-    return this._view.data
+    return this._view.array
   }
 
   /** View projection matrix */
   get viewProjection() {
     if (!this._viewProjection) {
-      this._viewProjection = new ObservingFloat32Array(this, 16, data => {
+      this._viewProjection = new MatrixComponent(this, 16, data => {
         Matrix4.multiply(this.projection, this.view, data)
       })
     }
-    return this._viewProjection.data
+    return this._viewProjection.array
   }
 
   /** View position (position of the camera as an array). */

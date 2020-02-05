@@ -1,6 +1,6 @@
 import { ObservablePoint3D } from "./point"
 import { ObservableQuaternion } from "./quaternion"
-import { TransformMatrix } from "./matrix"
+import { TransformMatrix } from "./matrix/transform-matrix"
 
 /**
  * Handles position, scaling and rotation.
@@ -34,21 +34,11 @@ export class Transform3D extends PIXI.Transform {
   }
 
   /**
-   * Sets position, rotation and scale from another transform.
-   * @param transform Transform to set values from.
-   */
-  setFromTransform(transform: Transform3D) {
-    this.position.copyFrom(transform.position)
-    this.scale.copyFrom(transform.scale)
-    this.rotation.copyFrom(transform.rotation)
-  }
-
-  /**
    * Sets position, rotation and scale from an matrix array.
    * @param matrix Matrix array, expected to have a length of 16.
    */
   setFromMatrix(matrix: ArrayLike<number>) {
-    this.localTransform.setFromMatrix(matrix)
+    this.localTransform.copyFrom(matrix)
     this.position.set(...this.localTransform.position)
     this.scale.set(...this.localTransform.scale)
     this.rotation.set(...this.localTransform.rotation)
@@ -64,10 +54,10 @@ export class Transform3D extends PIXI.Transform {
       return
     }
     if (parentTransform instanceof Transform3D) {
-      this.worldTransform.setFromMultiplication(
+      this.worldTransform.setFromMultiplyWorldLocal(
         parentTransform.worldTransform, this.localTransform)
     } else {
-      this.worldTransform.setFromMatrix(this.localTransform)
+      this.worldTransform.copyFrom(this.localTransform)
     }
     this._worldID++
     if (parentTransform) {

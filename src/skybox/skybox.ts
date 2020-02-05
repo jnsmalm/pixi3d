@@ -11,9 +11,8 @@ export class Skybox extends Container3D {
     let gltf = new glTFResource(
       JSON.parse(require("../mesh/embedded/cube.gltf").default))
 
-    this.model = this.addChild(Model3D.from(gltf, {
-      materialFactory: new SkyboxMaterialFactory(texture)
-    }))
+    this.model = this.addChild(
+      Model3D.from(gltf, new SkyboxMaterialFactory(texture)))
     this.model.scale.set(500)
   }
 }
