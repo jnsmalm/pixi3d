@@ -1,28 +1,70 @@
 import { Transform3D } from "./transform"
 import { ObservableQuaternion } from "./quaternion"
+import { ObservablePoint3D } from "./point"
 
+/**
+ * A container represents a collection of 3D objects.
+ */
 export class Container3D extends PIXI.Container {
-  constructor(public name?: string, public transform = new Transform3D()) {
-    super()
+
+  /** The world transform and local transform of the object. */
+  transform = new Transform3D()
+
+  set rotation(value: ObservableQuaternion | Float32Array) {
+    this.transform.rotation.copyFrom(value)
   }
 
+  /** The quaternion rotation of the object. */
+  get rotation(): ObservableQuaternion | Float32Array {
+    return this.transform.rotation
+  }
+
+  /** The coordinate of the object relative to the local coordinates 
+   * of the parent. */
+  get position() {
+    return this.transform.position
+  }
+
+  set position(value: ObservablePoint3D) {
+    this.transform.position.copyFrom(value)
+  }
+
+  /** The scale factor of the object. */
+  get scale() {
+    return this.transform.scale
+  }
+
+  set scale(value: ObservablePoint3D) {
+    this.transform.scale.copyFrom(value)
+  }
+
+  /** The position of the object on the x axis relative to the local 
+   * coordinates of the parent. */
+  get x() {
+    return this.transform.position.x
+  }
+
+  set x(value: number) {
+    this.transform.position.x = value
+  }
+
+  /** The position of the object on the y axis relative to the local 
+   * coordinates of the parent. */
+  get y() {
+    return this.transform.position.y
+  }
+
+  set y(value: number) {
+    this.transform.position.y = value
+  }
+
+  /** The position of the object on the z axis relative to the local 
+   * coordinates of the parent. */
   get z() {
     return this.transform.position.z
   }
 
   set z(value: number) {
     this.transform.position.z = value
-  }
-
-  get scale() {
-    return this.transform.scale
-  }
-
-  set rotation(value: ObservableQuaternion | Float32Array) {
-    this.transform.rotation.copyFrom(value)
-  }
-
-  get rotation(): ObservableQuaternion | Float32Array {
-    return this.transform.rotation
   }
 }

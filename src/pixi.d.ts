@@ -52,6 +52,7 @@ declare namespace PIXI {
   }
   class DisplayObject {
     transform: Transform
+    name?: string
     parent?: Container
     hitArea?: IHitArea
     on(event: string, callback: () => void): void

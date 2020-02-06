@@ -8,8 +8,8 @@ import { MeshGeometryData } from "./mesh-geometry"
 export class Mesh3D extends Container3D {
   pluginName = "mesh3d"
 
-  constructor(name: string | undefined, public geometry: MeshGeometryData, public material: Material, public weights?: number[]) {
-    super(name)
+  constructor(public geometry: MeshGeometryData, public material: Material, public weights?: number[]) {
+    super()
   }
 
   render(renderer: any) {

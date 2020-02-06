@@ -7,7 +7,7 @@ export class Skybox extends Container3D {
   model: Model3D
 
   constructor(public texture: PIXI.CubeTexture) {
-    super("skybox")
+    super()
     let gltf = new glTFResource(
       JSON.parse(require("../mesh/embedded/cube.gltf").default))
 
