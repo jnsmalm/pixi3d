@@ -1,18 +1,25 @@
 import { Container3D } from "../container"
-import { Model3D } from "../model"
 import { SkyboxMaterialFactory } from "./skybox-material"
-import { glTFResource } from "../gltf/gltf-resource"
+import { Mesh3D } from "../mesh/mesh"
 
+/**
+ * A skybox is a method of creating backgrounds in a 3D scene. It consists of
+ * a cube texture which has six sides.
+ */
 export class Skybox extends Container3D {
-  model: Model3D
 
+  /** Cube mesh used to render the skybox. */
+  mesh: Mesh3D
+
+  /**
+   * Creates a new skybox using the specified cube texture.
+   * @param texture Cube texture to use.
+   */
   constructor(public texture: PIXI.CubeTexture) {
     super()
-    let gltf = new glTFResource(
-      JSON.parse(require("../mesh/embedded/cube.gltf").default))
 
-    this.model = this.addChild(
-      Model3D.from(gltf, new SkyboxMaterialFactory(texture)))
-    this.model.scale.set(500)
+    this.mesh = this.addChild(
+      Mesh3D.createCube(new SkyboxMaterialFactory(texture)))
+    this.mesh.scale.set(500)
   }
 }
