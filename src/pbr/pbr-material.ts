@@ -42,7 +42,7 @@ export class PhysicallyBasedMaterial extends Material {
     if (this._valid) {
       return true
     }
-    if (this.lighting && this.lighting.ibl && !this.lighting.ibl.renderable) {
+    if (this.lighting && this.lighting.ibl && !this.lighting.ibl.valid) {
       return false
     }
     let textures = [

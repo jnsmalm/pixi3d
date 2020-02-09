@@ -1,15 +1,14 @@
-import { PointLight } from "./pointlight"
 import { ImageBasedLighting } from "./ibl"
 
+/**
+ * A lighting environment represents the different lighting conditions for a 
+ * specific object or an entire scene.
+ */
 export class LightingEnvironment {
-  lights: PointLight[] = []
 
-  constructor(public ibl?: ImageBasedLighting) { }
+  /** Settings when using image-based lighting (IBL). */
+  ibl?: ImageBasedLighting
 
+  /** The main lighting environment which is used by default. */
   static main = new LightingEnvironment()
-
-  createPointLight(x = 0, y = 0, z = 0, color = [1, 1, 1]) {
-    this.lights.push(new PointLight(x, y, z, color))
-    return this.lights[this.lights.length - 1]
-  }
 }
