@@ -11,7 +11,7 @@ export const glTFLoader = {
       return next()
     }
     glTFLoader.resources[resource.name] = resource.gltf =
-      glTFResource.fromExternalResources(resource.data, this, resource)
+      glTFResource.fromExternalResources(resource.data, this as any, resource)
 
     next()
   },

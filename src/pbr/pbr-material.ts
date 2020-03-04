@@ -104,40 +104,40 @@ export class PhysicallyBasedMaterial extends Material {
     if (data.indices) {
       // PIXI seems to have problems using anything other than gl.UNSIGNED_SHORT 
       // or gl.UNSIGNED_INT. Let's convert buffer to UNSIGNED_INT.
-      geometry.addIndex(new Uint32Array(data.indices.buffer))
+      geometry.addIndex(new PIXI.Buffer(new Uint32Array(data.indices.buffer)))
     }
     if (data.positions) {
-      geometry.addAttribute("a_Position", data.positions.buffer, 3, false,
-        PIXI.TYPES.FLOAT, data.positions.stride)
+      let buffer = new PIXI.Buffer(data.positions.buffer)
+      geometry.addAttribute("a_Position", buffer, 3, false, PIXI.TYPES.FLOAT, data.positions.stride)
     }
     if (data.normals) {
-      geometry.addAttribute("a_Normal", data.normals.buffer, 3, false,
-        PIXI.TYPES.FLOAT, data.normals.stride)
+      let buffer = new PIXI.Buffer(data.normals.buffer)
+      geometry.addAttribute("a_Normal", buffer, 3, false, PIXI.TYPES.FLOAT, data.normals.stride)
     }
     if (data.tangents) {
-      geometry.addAttribute("a_Tangent", data.tangents.buffer, 4, false,
-        PIXI.TYPES.FLOAT, data.tangents.stride)
+      let buffer = new PIXI.Buffer(data.tangents.buffer)
+      geometry.addAttribute("a_Tangent", buffer, 4, false, PIXI.TYPES.FLOAT, data.tangents.stride)
     }
     if (data.texCoords) {
-      geometry.addAttribute("a_UV1", data.texCoords.buffer, 2, false,
-        PIXI.TYPES.FLOAT, data.texCoords.stride)
+      let buffer = new PIXI.Buffer(data.texCoords.buffer)
+      geometry.addAttribute("a_UV1", buffer, 2, false, PIXI.TYPES.FLOAT, data.texCoords.stride)
     }
     if (data.morphTargets) {
       for (let i = 0; i < data.morphTargets.length; i++) {
         let positions = data.morphTargets[i].positions
         if (positions) {
-          geometry.addAttribute(`a_Target_Position${i}`, positions.buffer, 3,
-            false, PIXI.TYPES.FLOAT, positions.stride)
+          let buffer = new PIXI.Buffer(positions.buffer)
+          geometry.addAttribute(`a_Target_Position${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, positions.stride)
         }
         let normals = data.morphTargets[i].normals
         if (normals) {
-          geometry.addAttribute(`a_Target_Normal${i}`, normals.buffer, 3,
-            false, PIXI.TYPES.FLOAT, normals.stride)
+          let buffer = new PIXI.Buffer(normals.buffer)
+          geometry.addAttribute(`a_Target_Normal${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, normals.stride)
         }
         let tangents = data.morphTargets[i].tangents
         if (tangents) {
-          geometry.addAttribute(`a_Target_Tangent${i}`, tangents.buffer, 3,
-            false, PIXI.TYPES.FLOAT, tangents.stride)
+          let buffer = new PIXI.Buffer(tangents.buffer)
+          geometry.addAttribute(`a_Target_Tangent${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, tangents.stride)
         }
       }
     }

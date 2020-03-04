@@ -1,3 +1,4 @@
+import { IHitArea } from "pixi.js"
 import { Material, MaterialFactory } from "../material"
 import { Container3D } from "../container"
 import { MeshPickerHitArea } from "../picking/picker-hitarea"
@@ -8,20 +9,22 @@ import { MeshGeometryData } from "./mesh-geometry"
 export class Mesh3D extends Container3D {
   pluginName = "mesh3d"
 
+  hitArea?: IHitArea
+
   constructor(public geometry: MeshGeometryData, public material: Material, public weights?: number[]) {
     super()
   }
 
-  render(renderer: any) {
+  render(renderer: PIXI.Renderer) {
     super.render(renderer)
-    let meshRenderer = renderer.plugins[this.pluginName]
+    let meshRenderer = (renderer.plugins as any)[this.pluginName]
     if (!meshRenderer) {
       throw new Error(`PIXI3D: Renderer with name "${this.pluginName}" does not exist.`)
     }
     renderer.batch.setObjectRenderer(meshRenderer)
     meshRenderer.render(this)
 
-    let picker = renderer.plugins.picker
+    let picker = (renderer.plugins as any).picker
     if (picker && this.isInteractive()) {
       if (!this.hitArea) {
         this.hitArea = new MeshPickerHitArea(picker, this)

@@ -40,6 +40,9 @@ module.exports = env => {
     resolve: {
       extensions: [".ts", ".js"]
     },
+    externals: {
+      "pixi.js": "PIXI"
+    },
     output: {
       path: path.resolve(__dirname, directory(env)),
       filename: "pixi3d.js",

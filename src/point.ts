@@ -1,7 +1,9 @@
 /**
  * Represents a position in 3D space.
  */
-export class ObservablePoint3D extends PIXI.ObservablePoint {
+export class ObservablePoint3D {
+  _x: number
+  _y: number
   _z: number
 
   /**
@@ -12,9 +14,38 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
    * @param y Position on the y axis.
    * @param z Position on the z axis.
    */
-  constructor(cb: () => void, scope: any, x = 0, y = 0, z = 0) {
-    super(cb, scope, x, y)
+  constructor(protected cb: () => void, protected scope: any, x = 0, y = 0, z = 0) {
+    this._x = x
+    this._y = y
     this._z = z
+  }
+
+  /**
+   * Position on the x axis relative to the local coordinates of the parent.
+   */
+  get x() {
+    return this._x
+  }
+
+  set x(value: number) {
+    if (this._x !== value) {
+      this._x = value
+      this.cb.call(this.scope)
+    }
+  }
+
+  /**
+   * Position on the y axis relative to the local coordinates of the parent.
+   */
+  get y() {
+    return this._y
+  }
+
+  set y(value: number) {
+    if (this._y !== value) {
+      this._y = value
+      this.cb.call(this.scope)
+    }
   }
 
   /**

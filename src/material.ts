@@ -77,30 +77,30 @@ export abstract class Material {
     if (data.indices) {
       // PIXI seems to have problems using anything other than 
       // gl.UNSIGNED_SHORT or gl.UNSIGNED_INT. Let's convert to UNSIGNED_INT.
-      geometry.addIndex(new Uint32Array(data.indices.buffer))
+      geometry.addIndex(new PIXI.Buffer(new Uint32Array(data.indices.buffer)))
     }
     if (this.attributes.includes(MaterialShaderAttribute.position)) {
       if (data.positions) {
-        geometry.addAttribute("a_Position", data.positions.buffer, 3, false,
-          PIXI.TYPES.FLOAT, data.positions.stride)
+        let buffer = new PIXI.Buffer(data.positions.buffer)
+        geometry.addAttribute("a_Position", buffer, 3, false, PIXI.TYPES.FLOAT, data.positions.stride)
       }
     }
     if (this.attributes.includes(MaterialShaderAttribute.uv1)) {
       if (data.texCoords) {
-        geometry.addAttribute("a_UV1", data.texCoords.buffer, 2, false,
-          PIXI.TYPES.FLOAT, data.texCoords.stride)
+        let buffer = new PIXI.Buffer(data.texCoords.buffer)
+        geometry.addAttribute("a_UV1", buffer, 2, false, PIXI.TYPES.FLOAT, data.texCoords.stride)
       }
     }
     if (this.attributes.includes(MaterialShaderAttribute.normal)) {
       if (data.normals) {
-        geometry.addAttribute("a_Normal", data.normals.buffer, 3, false,
-          PIXI.TYPES.FLOAT, data.normals.stride)
+        let buffer = new PIXI.Buffer(data.normals.buffer)
+        geometry.addAttribute("a_Normal", buffer, 3, false, PIXI.TYPES.FLOAT, data.normals.stride)
       }
     }
     if (this.attributes.includes(MaterialShaderAttribute.tangent)) {
       if (data.tangents) {
-        geometry.addAttribute("a_Tangent", data.tangents.buffer, 4, false,
-          PIXI.TYPES.FLOAT, data.tangents.stride)
+        let buffer = new PIXI.Buffer(data.tangents.buffer)
+        geometry.addAttribute("a_Tangent", buffer, 4, false, PIXI.TYPES.FLOAT, data.tangents.stride)
       }
     }
     return geometry

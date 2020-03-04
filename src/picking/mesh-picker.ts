@@ -1,14 +1,15 @@
 import { Mesh3D } from "../mesh/mesh"
+import { MeshPickerHitArea } from "./picker-hitarea"
 
 const SIZE = 128
 
 export class MeshPicker {
   private pixels = new Uint8Array(SIZE * SIZE * 4)
-  private texture = PIXI.RenderTexture.create(SIZE, SIZE)
+  private texture = PIXI.RenderTexture.create({ width: SIZE, height: SIZE })
   private frame = 0
   private meshes: Mesh3D[] = []
 
-  constructor(public renderer: any) {
+  constructor(public renderer: PIXI.Renderer) {
     renderer.on("postrender", () => { this.update() })
   }
 
@@ -41,7 +42,7 @@ export class MeshPicker {
     if (this.frame++ % 2 === 0) {
       this.renderer.renderTexture.clear()
       for (let mesh of this.meshes) {
-        if (mesh.hitArea && mesh.hitArea.render) {
+        if (mesh.hitArea instanceof MeshPickerHitArea) {
           mesh.hitArea.render(this.renderer)
         }
       }
@@ -49,10 +50,10 @@ export class MeshPicker {
     } else {
       gl.readPixels(0, 0, SIZE * this.renderer.resolution, SIZE * this.renderer.resolution, gl.RGBA, gl.UNSIGNED_BYTE, this.pixels)
     }
-    this.renderer.renderTexture.bind(null)
+    this.renderer.renderTexture.bind(undefined)
   }
 }
 
 if (PIXI) {
-  PIXI.Renderer.registerPlugin("picker", MeshPicker)
+  PIXI.Renderer.registerPlugin("picker", MeshPicker as any)
 }

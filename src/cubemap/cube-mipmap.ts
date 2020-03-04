@@ -28,8 +28,9 @@ export class CubeMipMapTexture extends PIXI.CubeTexture {
     if (this._valid) {
       return true
     }
-    for (let i = 0; i < this.resource.items.length; i++) {
-      if (!this.resource.items[i].resource.valid) {
+    let resource = this.resource as CubeMipMapResource
+    for (let i = 0; i < resource.items.length; i++) {
+      if (!resource.items[i].resource.valid) {
         return false
       }
     }

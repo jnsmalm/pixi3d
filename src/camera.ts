@@ -1,6 +1,6 @@
-import { MatrixComponent } from "./matrix/matrix-component"
 import { Matrix4 } from "./math/matrix4"
 import { Vector4 } from "./math/vector4"
+import { MatrixComponent } from "./matrix/matrix-component"
 import { Container3D } from "./container"
 
 const mat4 = Matrix4.create()
@@ -178,5 +178,5 @@ export class Camera3D extends Container3D {
 }
 
 if (PIXI) {
-  PIXI.Renderer.registerPlugin("camera", Camera3D)
+  PIXI.Renderer.registerPlugin("camera", Camera3D as any)
 }

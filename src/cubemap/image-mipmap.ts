@@ -5,8 +5,8 @@ export class ImageMipMapResource extends PIXI.resources.ImageResource {
 
   mipmap: PIXI.Texture[] = []
 
-  constructor(source: CubeMapResource, options: any) {
-    super(source.source, options)
+  constructor(source: CubeMapResource) {
+    super(source.source)
     if (source.mipmap) {
       for (let i = 0; i < source.mipmap.length; i++) {
         this.mipmap.push(PIXI.Texture.from(source.mipmap[i]))
@@ -26,12 +26,12 @@ export class ImageMipMapResource extends PIXI.resources.ImageResource {
     return this._valid = true
   }
 
-  upload(renderer: any, baseTexture: PIXI.BaseTexture, glTexture: any, source: any) {
-    if (!super.upload(renderer, baseTexture, glTexture, source)) {
+  upload(renderer: PIXI.Renderer, baseTexture: PIXI.BaseTexture, glTexture: PIXI.GLTexture) {
+    if (!super.upload(renderer, baseTexture, glTexture)) {
       return false
     }
     for (let i = 0; i < this.mipmap.length; i++) {
-      let data = this.mipmap[i].baseTexture.resource.source
+      let data = (this.mipmap[i].baseTexture.resource as any).source
       renderer.gl.texImage2D(baseTexture.target, i + 1, baseTexture.format,
         baseTexture.format, baseTexture.type, data)
     }

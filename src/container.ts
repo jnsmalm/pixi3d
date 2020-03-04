@@ -1,70 +1,56 @@
+import { DisplayObject3D } from "./object"
 import { Transform3D } from "./transform"
-import { ObservableQuaternion } from "./quaternion"
-import { ObservablePoint3D } from "./point"
 
 /**
  * A container represents a collection of 3D objects.
  */
-export class Container3D extends PIXI.Container {
+export class Container3D extends DisplayObject3D {
+  private _container: any
 
-  /** The world transform and local transform of the object. */
-  transform = new Transform3D()
+  constructor() {
+    super()
 
-  set rotation(value: ObservableQuaternion | Float32Array) {
-    this.transform.rotation.copyFrom(value)
+    this._container = new PIXI.Container()
+    this._container.transform = this.transform
   }
 
-  /** The quaternion rotation of the object. */
-  get rotation(): ObservableQuaternion | Float32Array {
-    return this.transform.rotation
+  get transform() {
+    return this._transform
   }
 
-  /** The coordinate of the object relative to the local coordinates 
-   * of the parent. */
-  get position() {
-    return this.transform.position
+  set transform(value: Transform3D) {
+    this._transform = value
+    this._container.transform = value
   }
 
-  set position(value: ObservablePoint3D) {
-    this.transform.position.copyFrom(value)
+  get children() {
+    return this._container.children
   }
 
-  /** The scale factor of the object. */
-  get scale() {
-    return this.transform.scale
+  get parent(): Container3D | undefined {
+    return this._container.parent
   }
 
-  set scale(value: ObservablePoint3D) {
-    this.transform.scale.copyFrom(value)
+  set parent(parent: Container3D | undefined) {
+    this._container.parent = parent
   }
 
-  /** The position of the object on the x axis relative to the local 
-   * coordinates of the parent. */
-  get x() {
-    return this.transform.position.x
+  updateTransform() {
+    this._container.updateTransform()
   }
 
-  set x(value: number) {
-    this.transform.position.x = value
+  addChild(child: Container3D) {
+    return this._container.addChild(child)
   }
 
-  /** The position of the object on the y axis relative to the local 
-   * coordinates of the parent. */
-  get y() {
-    return this.transform.position.y
+  removeChild(child: Container3D) {
+    return this._container.removeChild(child)
   }
 
-  set y(value: number) {
-    this.transform.position.y = value
-  }
-
-  /** The position of the object on the z axis relative to the local 
-   * coordinates of the parent. */
-  get z() {
-    return this.transform.position.z
-  }
-
-  set z(value: number) {
-    this.transform.position.z = value
+  render(renderer: PIXI.Renderer) {
+    if (!this.visible || !this.renderable) {
+      return
+    }
+    this._container.render(renderer)
   }
 }

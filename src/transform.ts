@@ -5,7 +5,12 @@ import { TransformMatrix } from "./matrix/transform-matrix"
 /**
  * Handles position, scaling and rotation.
  */
-export class Transform3D extends PIXI.Transform {
+export class Transform3D {
+
+  public _localID = 0
+  public _currentLocalID = 0
+  public _parentID = 0
+  public _worldID = 0
 
   /** Position in local space. */
   position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
@@ -19,6 +24,10 @@ export class Transform3D extends PIXI.Transform {
   /** Transformation matrix in local space. */
   localTransform = new TransformMatrix()
 
+  protected onChange() {
+    this._localID++
+  }
+
   /**
    * Updates the local transformation matrix.
    */
@@ -28,7 +37,7 @@ export class Transform3D extends PIXI.Transform {
     }
     this.localTransform.setFromRotationPositionScale(
       this.rotation, this.position, this.scale)
-      
+
     this._parentID = -1
     this._currentLocalID = this._localID
   }
@@ -48,7 +57,7 @@ export class Transform3D extends PIXI.Transform {
    * Updates the world transformation matrix.
    * @param parentTransform Parent transform.
    */
-  updateTransform(parentTransform?: PIXI.Transform) {
+  updateTransform(parentTransform?: Transform3D) {
     this.updateLocalTransform()
     if (parentTransform && this._parentID === parentTransform._worldID) {
       return
