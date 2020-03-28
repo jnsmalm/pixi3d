@@ -2,11 +2,11 @@
   "name": "pixi3d",
   "version": "0.1.0",
   "description": "Render in 3D using PixiJS",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "webpack --env.production",
-    "install": "./node_modules/typescript/bin/tsc",
-    "start": "webpack --env --watch"
+    "prepare": "tsc",
+    "serve": "webpack --env --watch"
   },
   "repository": {
     "type": "git",
@@ -19,16 +19,16 @@
   },
   "homepage": "https://github.com/jnsmalm/pixi3d#readme",
   "dependencies": {
-    "@types/node": "^12.11.1",
-    "gl-matrix": "^3.1.0",
-    "raw-loader": "^3.1.0",
-    "typescript": "3.8.3"
+    "pixi.js": "^5.2.1"
   },
   "devDependencies": {
+    "@types/node": "^12.12.32",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
-    "pixi.js": "^5.2.1",
+    "gl-matrix": "^3.2.1",
+    "raw-loader": "^3.1.0",
     "ts-loader": "^6.2.0",
+    "typescript": "^3.8.3",
     "url-loader": "^3.0.0",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9"

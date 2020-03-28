@@ -1,3 +1,5 @@
-/node_modules
+/typings
 /dist
+/lib
+/node_modules
 /public

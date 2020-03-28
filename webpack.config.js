@@ -33,7 +33,8 @@ module.exports = env => {
             options: {
               limit: 8192,
             },
-          }
+          },
+          exclude: /node_modules/
         },
       ]
     },

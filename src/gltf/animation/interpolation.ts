@@ -75,6 +75,6 @@ export class glTFSphericalLinearInterpolation implements glTFInterpolation {
     let b = Quaternion.set(
       this.output[pos2], this.output[pos2 + 1], this.output[pos2 + 2], this.output[pos2 + 3], this.quat2
     )
-    return Quaternion.normalize(Quaternion.slerp(a, b, position, this.array), this.array)
+    return Quaternion.normalize(Quaternion.slerp(a, b, position, this.array), this.array) as Float32Array
   }
 }

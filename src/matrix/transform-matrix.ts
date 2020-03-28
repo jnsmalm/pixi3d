@@ -92,7 +92,7 @@ export class TransformMatrix {
    * Copies values from the given matrix.
    * @param matrix The matrix to copy from.
    */
-  copyFrom(matrix: TransformMatrix | ArrayLike<number>) {
+  copyFrom(matrix: TransformMatrix | Float32Array) {
     if (matrix instanceof TransformMatrix) {
       matrix = matrix.array
     }

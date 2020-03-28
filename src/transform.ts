@@ -47,7 +47,7 @@ export class Transform3D {
    * @param matrix Matrix array, expected to have a length of 16.
    */
   setFromMatrix(matrix: ArrayLike<number>) {
-    this.localTransform.copyFrom(matrix)
+    this.localTransform.copyFrom(matrix as Float32Array)
     this.position.set(...this.localTransform.position)
     this.scale.set(...this.localTransform.scale)
     this.rotation.set(...this.localTransform.rotation)
