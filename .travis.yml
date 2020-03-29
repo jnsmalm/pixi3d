@@ -5,3 +5,11 @@ script:
 - npm run build
 notifications:
   email: false
+deploy:
+  provider: releases
+  api_key:
+    secure: W7sfVuWT5/Crp/yK5mtOtiO/mYl7hwve3A72EFA4mQZO4LGN+paiyhMAQy2/6pMUyaTNyVQvZj/zyY46AHX4cH/+DU0uRNDu0CcC1iuY8NNj2wcEPt+BUijeLexRxriCzn0oQfyDjfFiT9vCYZu3a3FmoyqKX65YlOKelvlAsth6ZiX55mq6FQwVyATXc/Rm3YyrgV0PZYNaY/E4namR1K70jomCErBYxX5GaaLz9WsfrczU4SLj0+7ZIN0D4gVjDbxxrDwrN+1m13ortB5CABj/ckTK2y9GX2z2KuoQaFfv7qDgoxSF0Ea3tpb9B5A8as4L4Z9EuJSuxEDjN0cJAbMLg41Gc0Ob2MQ8MHiICQbcg54MMCuD5sTyVPmkpKl8YPU2QoGkT+tSVaZKRdjKvZrCw/VLHFs7rIorRt4uZmLTbA0XdhRTuHdjbPze86UFkC6icE3z2OtjFnpMzRpz6A4KUFJ1cwzcESAEeAyuhH9kDpwPsgcq0Pe1/p+pTxvtKzyTugyEzhvc+xT0wFNPcy7uI7yHYMBAJAXVk+2qCAOyPN56bvOJOpsRiEiuCBKK7r+LkwK8c9b3VEnPk0GN8bYex1DaIOox0cPtvo9MFM5f6Dd+D3sK2LHwYkvbYcjaqxAIjCKgLXt+ocmlTYQGn18L3/tb3spvVYcf4jLlL8Y=
+  file: dist/pixi3d.js
+  skip_cleanup: true
+  on:
+    tags: on
