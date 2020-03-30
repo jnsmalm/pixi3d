@@ -11,15 +11,15 @@ components which makes it easy to create nice looking 3D scenes out-of-the-box.
 * Customizable materials and shaders
 
 # Getting started
-Let's create a simple program which renders a rotating cube. Start by getting 
-the latest version of Pixi3D. Pixi3D has a dependency to PixiJS (v5.2+), so 
-that is needed as well.
+Let's create a simple program which renders a rotating cube. Start by [getting the latest version](https://github.com/jnsmalm/pixi3d/releases) of Pixi3D. Pixi3D has a dependency to [PixiJS](https://github.com/pixijs/pixi.js/releases) (v5.2+), so that is needed as well.
 
 Create a file *app.js* with the following contents.
 
 *app.js*
 ```javascript
-let app = new PIXI.Application()
+let app = new PIXI.Application({
+  backgroundColor: 0xdddddd
+})
 let box = app.stage.addChild(PIXI3D.Mesh3D.createCube())
 
 let rotation = 0
