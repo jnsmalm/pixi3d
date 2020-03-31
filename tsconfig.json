@@ -6,7 +6,6 @@
     "target": "es5",
     "downlevelIteration": true,
     "sourceMap": true,
-    "declarationDir": "typings",
     "declaration": true
   },
   "include": [

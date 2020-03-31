@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Render in 3D using PixiJS",
   "main": "lib/index.js",
+  "files": ["lib/**/*"],
   "scripts": {
     "build": "webpack --env.production",
     "prepare": "tsc",
