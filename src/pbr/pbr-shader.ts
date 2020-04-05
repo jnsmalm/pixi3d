@@ -1,5 +1,7 @@
+import * as PIXI from "pixi.js"
+
 export namespace PhysicallyBasedShader {
-  export function build(renderer: any, features: string[]) {
+  export function build(renderer: PIXI.Renderer, features: string[]) {
     let environment = "webgl1"
     if (renderer.context.webGLVersion === 2) {
       environment = "webgl2"

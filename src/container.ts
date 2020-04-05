@@ -1,56 +1,47 @@
-import { DisplayObject3D } from "./object"
+import * as PIXI from "pixi.js"
+
+import { ObservableQuaternion } from "./quaternion"
 import { Transform3D } from "./transform"
+import { ObservablePoint3D } from "./point"
 
 /**
  * A container represents a collection of 3D objects.
  */
-export class Container3D extends DisplayObject3D {
-  private _container: any
+export class Container3D extends PIXI.Container {
+  transform = new Transform3D()
 
-  constructor() {
-    super()
-
-    this._container = new PIXI.Container()
-    this._container.transform = this.transform
+  set position(value: ObservablePoint3D) {
+    this.transform.position.copyFrom(value)
   }
 
-  get transform() {
-    return this._transform
+  get position(): ObservablePoint3D {
+    return this.transform.position
   }
 
-  set transform(value: Transform3D) {
-    this._transform = value
-    this._container.transform = value
+  set scale(value: ObservablePoint3D) {
+    this.transform.scale.copyFrom(value)
   }
 
-  get children() {
-    return this._container.children
+  get scale(): ObservablePoint3D {
+    return this.transform.scale
   }
 
-  get parent(): Container3D | undefined {
-    return this._container.parent
+  set rotationQuaternion(value: ObservableQuaternion) {
+    this.transform.rotationQuaternion.copyFrom(value)
   }
 
-  set parent(parent: Container3D | undefined) {
-    this._container.parent = parent
+  /** The quaternion rotation of the object. */
+  get rotationQuaternion(): ObservableQuaternion {
+    return this.transform.rotationQuaternion
   }
 
-  updateTransform() {
-    this._container.updateTransform()
+  /** The position of the object on the z axis relative to the local 
+   * coordinates of the parent. */
+  get z() {
+    return this.transform.position.z
   }
 
-  addChild(child: Container3D) {
-    return this._container.addChild(child)
-  }
-
-  removeChild(child: Container3D) {
-    return this._container.removeChild(child)
-  }
-
-  render(renderer: PIXI.Renderer) {
-    if (!this.visible || !this.renderable) {
-      return
-    }
-    this._container.render(renderer)
+  set z(value: number) {
+    this.transform.position.z = value
   }
 }

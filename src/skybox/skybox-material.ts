@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { Camera3D } from "../camera"
 import { Material, MaterialShaderAttribute, MaterialFactory } from "../material"
 import { Mesh3D } from "../mesh/mesh"
@@ -29,7 +31,7 @@ export class SkyboxMaterial extends Material {
   }
 
   updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
-    shader.uniforms.u_World = mesh.transform.worldTransform.array
+    shader.uniforms.u_World = mesh.transform.worldTransform.toArray()
     shader.uniforms.u_View = Camera3D.main.view
     shader.uniforms.u_Projection = Camera3D.main.projection
     shader.uniforms.u_Texture = this.texture

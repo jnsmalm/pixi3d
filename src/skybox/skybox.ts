@@ -1,6 +1,8 @@
-import { Container3D } from "../container"
+import * as PIXI from "pixi.js"
+
 import { SkyboxMaterialFactory } from "./skybox-material"
 import { Mesh3D } from "../mesh/mesh"
+import { Container3D } from "../container"
 
 /**
  * A skybox is a method of creating backgrounds in a 3D scene. It consists of

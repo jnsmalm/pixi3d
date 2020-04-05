@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 export class glTFResource {
   buffers: ArrayBuffer[] = []
   images: PIXI.Texture[] = []

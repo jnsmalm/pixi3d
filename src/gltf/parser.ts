@@ -81,7 +81,7 @@ export class glTFParser {
       )
     }
     if (node.rotation) {
-      transform.rotation.set(
+      transform.rotationQuaternion.set(
         node.rotation[0], node.rotation[1], node.rotation[2], node.rotation[3]
       )
     }

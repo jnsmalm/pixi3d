@@ -1,5 +1,7 @@
-import { ObservablePoint3D } from "./point"
+import * as PIXI from "pixi.js"
+
 import { Quaternion } from "./math/quaternion"
+import { ObservablePoint3D } from "./point"
 
 const quat = Quaternion.create()
 
@@ -31,13 +33,7 @@ export class ObservableQuaternion extends ObservablePoint3D {
    */
   setEulerAngles(x: number, y: number, z: number) {
     Quaternion.fromEuler(x, y, z, quat)
-    if (this._x !== quat[0] || this._y !== quat[1] || this._z !== quat[2] || this._w !== quat[3]) {
-      this._x = quat[0]
-      this._y = quat[1]
-      this._z = quat[2]
-      this._w = quat[3]
-      this.cb.call(this.scope)
-    }
+    this.set(quat[0], quat[1], quat[2], quat[3])
   }
 
   /** W component of the quaternion. */
@@ -57,25 +53,19 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * @param cb Callback when changed.
    * @param scope Owner of callback.
    */
-  clone(cb: (() => void) | null = null, scope: any) {
+  clone(cb?: (...params: any[]) => any, scope?: any) {
     return new ObservableQuaternion(
-      cb || this.cb, scope || this.scope, this._x, this._y, this._z, this._w)
+      cb || this.cb, scope || this.scope, this.x, this.y, this.z, this.w)
   }
 
   /**
    * Copies x, y, z, and w from the given quaternion.
    * @param p The quaternion to copy from.
    */
-  copyFrom(p: { x: number, y: number, z: number, w: number } | Float32Array) {
-    if (ArrayBuffer.isView(p)) {
-      p = { x: p[0], y: p[1], z: p[2], w: p[3] }
-    }
-    if (this._x !== p.x || this._y !== p.y || this._z !== p.z || this._w !== p.w) {
-      this._x = p.x
-      this._y = p.y
-      this._z = p.z
-      this._w = p.w
-      this.cb.call(this.scope)
+  copyFrom(p: PIXI.IPoint) {
+    super.copyFrom(p)
+    if (p instanceof ObservableQuaternion) {
+      this.w = p.w
     }
     return this
   }
@@ -84,8 +74,10 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * Copies x, y, z and w into the given quaternion.
    * @param p The quaternion to copy to.
    */
-  copyTo(p: ObservableQuaternion) {
-    p.set(this._x, this._y, this._z, this._w)
+  copyTo(p: PIXI.IPoint) {
+    if (p instanceof ObservableQuaternion) {
+      p.set(this.x, this.y, this.z, this.w)
+    }
     return p
   }
 
@@ -93,11 +85,12 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * Returns true if the given quaternion is equal to this quaternion.
    * @param p The quaternion to check.
    */
-  equals(p: ObservableQuaternion) {
-    return (p.x === this._x) && (p.y === this._y) && (p.z === this._z) && (p.w === this._w)
+  equals(p: PIXI.IPoint) {
+    if (p instanceof ObservableQuaternion) {
+      return super.equals(p) && (p.w === this.w)
+    }
+    return false
   }
-
-  set(...xyzw: number[]): void
 
   /**
    * Sets the quaternion to new x, y, z and w components.
@@ -107,16 +100,12 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * @param w W component to set.
    */
   set(x: number, y?: number, z?: number, w?: number) {
-    const _x = x || 0
-    const _y = y || ((y !== 0) ? _x : 0)
-    const _z = z || ((z !== 0) ? _x : 0)
-    const _w = w || ((w !== 0) ? _x : 0)
-    if (this._x !== _x || this._y !== _y || this._z !== _z || this._w !== _w) {
-      this._x = _x
-      this._y = _y
-      this._z = _z
+    super.set(x, y, z)
+    const _w = w || ((w !== 0) ? x : 0)
+    if (this._w !== _w) {
       this._w = _w
       this.cb.call(this.scope)
     }
+    return this
   }
 }

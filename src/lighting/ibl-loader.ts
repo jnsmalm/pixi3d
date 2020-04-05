@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
 import { ImageBasedLighting } from "./ibl"
 
@@ -19,6 +21,4 @@ export const ImageBasedLightingLoader = {
   }
 }
 
-if (PIXI) {
-  PIXI.Loader.registerPlugin(ImageBasedLightingLoader)
-}
+PIXI.Loader.registerPlugin(ImageBasedLightingLoader)

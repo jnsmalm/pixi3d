@@ -41,8 +41,13 @@ module.exports = env => {
     resolve: {
       extensions: [".ts", ".js"]
     },
-    externals: {
-      "pixi.js": "PIXI"
+    externals : {
+      "pixi.js" : {
+        commonjs: "pixi.js",
+        commonjs2: "pixi.js",
+        amd: "pixi.js",
+        root: "PIXI"
+      }
     },
     output: {
       path: path.resolve(__dirname, directory(env)),

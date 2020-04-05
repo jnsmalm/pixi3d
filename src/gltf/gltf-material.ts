@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 export class glTFMaterial {
   alphaMaskCutoff = 0.5
   alphaMode = "OPAQUE"

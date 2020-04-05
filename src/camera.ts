@@ -1,7 +1,9 @@
+import * as PIXI from "pixi.js"
+
+import { Container3D } from "./container"
 import { Matrix4 } from "./math/matrix4"
 import { Vector4 } from "./math/vector4"
 import { MatrixComponent } from "./matrix/matrix-component"
-import { Container3D } from "./container"
 
 const mat4 = Matrix4.create()
 const vec4 = Vector4.create()
@@ -14,7 +16,7 @@ export class Camera3D extends Container3D {
 
   /** Current version id. */
   get id() {
-    return this.transform._worldID + this._id
+    return (<any>this.transform)._worldID + this._id
   }
 
   private _projection?: MatrixComponent
@@ -28,7 +30,7 @@ export class Camera3D extends Container3D {
    * Creates a new camera.
    * @param renderer Renderer to use.
    */
-  constructor(public renderer: any) {
+  constructor(public renderer: PIXI.Renderer) {
     super()
 
     this.renderer.on("prerender", () => {
@@ -44,7 +46,7 @@ export class Camera3D extends Container3D {
       Camera3D.main = this
     }
     this.transform.position.z = 5
-    this.transform.rotation.setEulerAngles(0, 180, 0)
+    this.transform.rotationQuaternion.setEulerAngles(0, 180, 0)
   }
 
   /**
@@ -177,6 +179,4 @@ export class Camera3D extends Container3D {
   }
 }
 
-if (PIXI) {
-  PIXI.Renderer.registerPlugin("camera", Camera3D as any)
-}
+PIXI.Renderer.registerPlugin("camera", <any>Camera3D)

@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { CubeMipMapTexture } from "./cube-mipmap"
 
 export interface CubeMapResource { source: string, mipmap?: string[] }
@@ -18,6 +20,4 @@ export const CubeMapLoader = {
   }
 }
 
-if (PIXI) {
-  PIXI.Loader.registerPlugin(CubeMapLoader)
-}
+PIXI.Loader.registerPlugin(CubeMapLoader)

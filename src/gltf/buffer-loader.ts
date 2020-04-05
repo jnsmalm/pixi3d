@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 const EXTENSION = "bin"
 
 export const glTFBufferLoader = {
@@ -14,6 +16,4 @@ export const glTFBufferLoader = {
   }
 }
 
-if (PIXI) {
-  PIXI.Loader.registerPlugin(glTFBufferLoader)
-}
+PIXI.Loader.registerPlugin(glTFBufferLoader)

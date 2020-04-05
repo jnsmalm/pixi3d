@@ -73,7 +73,7 @@ export class glTFRotationAnimation extends glTFAnimationChannel {
     let result = this.interpolation.interpolate(
       this.getCurrentFrame(), this.getCurrentFramePosition()
     )
-    this.transform.rotation.set(result[0], result[1], result[2], result[3])
+    this.transform.rotationQuaternion.set(result[0], result[1], result[2], result[3])
   }
 }
 

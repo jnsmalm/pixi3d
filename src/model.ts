@@ -1,9 +1,11 @@
-import { Container3D } from "./container"
-import { Animation } from "./animation"
+import * as PIXI from "pixi.js"
+
 import { glTFParser } from "./gltf/parser"
 import { glTFLoader } from "./gltf/loader"
-import { Mesh3D } from "./mesh/mesh"
 import { glTFResource } from "./gltf/gltf-resource"
+import { Mesh3D } from "./mesh/mesh"
+import { Container3D } from "./container"
+import { Animation } from "./animation"
 import { MaterialFactory } from "./material"
 
 /**
@@ -38,10 +40,26 @@ export class Model3D extends Container3D {
    * Gets an animation by it's name.
    * @param name Name of the animation.
    */
-  getAnimationByName(name: string): Animation | undefined {
+  getAnimationByName(name: string) {
     for (let animation of this.animations) {
       if (animation.name === name) {
         return animation
+      }
+    }
+  }
+
+  static getMeshByName(name: string, container: PIXI.Container) {
+    for (let child of container.children) {
+      if (child.name === name && child instanceof Mesh3D) {
+        return child
+      }
+    }
+    for (let child of container.children) {
+      if (child instanceof PIXI.Container) {
+        let result = <Mesh3D>Model3D.getMeshByName(name, child)
+        if (result) {
+          return result
+        }
       }
     }
   }
@@ -50,35 +68,7 @@ export class Model3D extends Container3D {
    * Gets a mesh by it's name.
    * @param name Name of the mesh.
    */
-  getMeshByName(name: string, container = this): Mesh3D | undefined {
-    for (let child of container.children) {
-      if (child.name === name && child instanceof Mesh3D) {
-        return child
-      }
-    }
-    for (let child of container.children) {
-      let result = this.getMeshByName(name, child)
-      if (result) {
-        return result
-      }
-    }
-  }
-
-  /**
-   * Gets a child by it's name.
-   * @param name Name of the child.
-   */
-  getChildByName(name: string, container = this): Container3D | undefined {
-    for (let child of container.children) {
-      if (child.name === name) {
-        return child
-      }
-    }
-    for (let child of container.children) {
-      let result = this.getChildByName(name, child)
-      if (result) {
-        return result
-      }
-    }
+  getMeshByName(name: string): Mesh3D | undefined {
+    return Model3D.getMeshByName(name, this)
   }
 }

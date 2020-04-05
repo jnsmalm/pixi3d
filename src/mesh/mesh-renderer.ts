@@ -1,21 +1,23 @@
+import * as PIXI from "pixi.js"
+
 import { Mesh3D } from "./mesh"
 
 /**
  * Renders 3d meshes in sorted order.
  */
 export class Mesh3DRenderer extends PIXI.ObjectRenderer {
-  private _objects: Mesh3D[] = []
+  private _meshes: Mesh3D[] = []
 
   /**
    * Creates a new mesh renderer.
    * @param renderer The renderer to use.
    */
-  constructor(public renderer: PIXI.Renderer) { 
+  constructor(public renderer: PIXI.Renderer) {
     super(renderer)
   }
 
   destroy() {
-    (this as any).renderer = undefined
+    (<any>this.renderer) = undefined
   }
 
   /**
@@ -26,17 +28,17 @@ export class Mesh3DRenderer extends PIXI.ObjectRenderer {
       return
     }
     this.sort()
-    for (let mesh of this._objects) {
+    for (let mesh of this._meshes) {
       mesh.material.render(mesh, this.renderer)
     }
-    this._objects = []
+    this._meshes = []
   }
 
   /**
    * Sorts all added meshes by material transparency.
    */
   sort() {
-    this._objects.sort((a, b) => {
+    this._meshes.sort((a, b) => {
       if (a.material.transparent === b.material.transparent) {
         return 0
       }
@@ -48,11 +50,9 @@ export class Mesh3DRenderer extends PIXI.ObjectRenderer {
    * Adds a mesh to be rendered.
    * @param mesh Mesh to add.
    */
-  render(mesh: any) {
-    this._objects.push(mesh)
+  render(mesh: Mesh3D) {
+    this._meshes.push(mesh)
   }
 }
 
-if (PIXI) {
-  PIXI.Renderer.registerPlugin("mesh3d", Mesh3DRenderer as any)
-}
+PIXI.Renderer.registerPlugin("mesh3d", <any>Mesh3DRenderer)

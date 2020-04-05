@@ -1,10 +1,10 @@
+import * as PIXI from "pixi.js"
+
 /**
  * Represents a position in 3D space.
  */
-export class ObservablePoint3D {
-  _x: number
-  _y: number
-  _z: number
+export class ObservablePoint3D extends PIXI.ObservablePoint {
+  private _z: number
 
   /**
    * Creates a new point.
@@ -15,37 +15,8 @@ export class ObservablePoint3D {
    * @param z Position on the z axis.
    */
   constructor(protected cb: () => void, protected scope: any, x = 0, y = 0, z = 0) {
-    this._x = x
-    this._y = y
+    super(cb, scope, x, y)
     this._z = z
-  }
-
-  /**
-   * Position on the x axis relative to the local coordinates of the parent.
-   */
-  get x() {
-    return this._x
-  }
-
-  set x(value: number) {
-    if (this._x !== value) {
-      this._x = value
-      this.cb.call(this.scope)
-    }
-  }
-
-  /**
-   * Position on the y axis relative to the local coordinates of the parent.
-   */
-  get y() {
-    return this._y
-  }
-
-  set y(value: number) {
-    if (this._y !== value) {
-      this._y = value
-      this.cb.call(this.scope)
-    }
   }
 
   /**
@@ -67,24 +38,19 @@ export class ObservablePoint3D {
    * @param cb Callback when changed.
    * @param scope Owner of callback.
    */
-  clone(cb: (() => void) | null = null, scope: any) {
+  clone(cb?: (...params: any[]) => any, scope?: any) {
     return new ObservablePoint3D(
-      cb || this.cb, scope || this.scope, this._x, this._y, this._z)
+      cb || this.cb, scope || this.scope, this.x, this.y, this._z)
   }
 
   /**
    * Copies x, y and z from the given point.
    * @param p The point to copy from.
    */
-  copyFrom(p: { x: number, y: number, z: number } | Float32Array) {
-    if (ArrayBuffer.isView(p)) {
-      p = { x: p[0], y: p[1], z: p[2] }
-    }
-    if (this._x !== p.x || this._y !== p.y || this._z !== p.z) {
-      this._x = p.x
-      this._y = p.y
-      this._z = p.z
-      this.cb.call(this.scope)
+  copyFrom(p: PIXI.IPoint) {
+    super.copyFrom(p)
+    if (p instanceof ObservablePoint3D) {
+      this.z = p.z
     }
     return this
   }
@@ -93,8 +59,10 @@ export class ObservablePoint3D {
    * Copies x, y and z into the given point.
    * @param p The point to copy to.
    */
-  copyTo(p: ObservablePoint3D) {
-    p.set(this._x, this._y, this._z)
+  copyTo(p: PIXI.IPoint) {
+    if (p instanceof ObservablePoint3D) {
+      p.set(this.x, this.y, this.z)
+    }
     return p
   }
 
@@ -102,11 +70,12 @@ export class ObservablePoint3D {
    * Returns true if the given point is equal to this point.
    * @param p The point to check.
    */
-  equals(p: ObservablePoint3D) {
-    return (p.x === this._x) && (p.y === this._y) && (p.z === this._z)
+  equals(p: PIXI.IPoint): boolean {
+    if (p instanceof ObservablePoint3D) {
+      return super.equals(p) && (p.z === this.z)
+    }
+    return false
   }
-
-  set(...xyz: number[]): void
 
   /**
    * Sets the point to a new x, y and z position.
@@ -115,14 +84,12 @@ export class ObservablePoint3D {
    * @param z Position on the z axis.
    */
   set(x: number, y?: number, z?: number) {
-    const _x = x || 0
-    const _y = y || ((y !== 0) ? _x : 0)
-    const _z = z || ((z !== 0) ? _x : 0)
-    if (this._x !== _x || this._y !== _y || this._z !== _z) {
-      this._x = _x
-      this._y = _y
+    super.set(x, y)
+    const _z = z || ((z !== 0) ? x : 0)
+    if (this._z !== _z) {
       this._z = _z
       this.cb.call(this.scope)
     }
+    return this
   }
 }

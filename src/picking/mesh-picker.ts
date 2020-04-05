@@ -1,5 +1,7 @@
-import { Mesh3D } from "../mesh/mesh"
+import * as PIXI from "pixi.js"
+
 import { MeshPickerHitArea } from "./picker-hitarea"
+import { Mesh3D } from "../mesh/mesh"
 
 const SIZE = 128
 
@@ -54,6 +56,4 @@ export class MeshPicker {
   }
 }
 
-if (PIXI) {
-  PIXI.Renderer.registerPlugin("picker", MeshPicker as any)
-}
+PIXI.Renderer.registerPlugin("picker", <any>MeshPicker)

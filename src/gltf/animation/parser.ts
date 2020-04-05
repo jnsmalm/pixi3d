@@ -3,6 +3,7 @@ import { glTFBufferAccessor } from "../buffer-accessor"
 import { glTFAnimation, glTFRotationAnimation, glTFTranslationAnimation, glTFScaleAnimation, glTFWeightsAnimation } from "./animation"
 import { glTFStepInterpolation, glTFSphericalLinearInterpolation, glTFCubicSplineInterpolation, glTFLinearInterpolation } from "./interpolation"
 import { glTFResource } from "../gltf-resource"
+import { Mesh3D } from "../../mesh/mesh"
 
 export class glTFAnimationParser {
   protected bufferAccessor: glTFBufferAccessor
@@ -44,7 +45,10 @@ export class glTFAnimationParser {
         this.createInterpolation(sampler.interpolation, input, output, 3))
     }
     if (path === "weights") {
-      let weights = target.children[0].weights
+      let weights = (target.children[0] as Mesh3D).weights
+      if (!weights) {
+        return undefined
+      }
       return new glTFWeightsAnimation(weights, input,
         this.createInterpolation(sampler.interpolation, input, output, weights.length))
     }

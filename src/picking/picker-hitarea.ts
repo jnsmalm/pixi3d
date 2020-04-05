@@ -15,16 +15,6 @@ export class MeshPickerHitArea {
       (id >> 16) & 255, (id >> 8) & 255, id & 255
     ])
     this._material = new ColorMaterial(this._color)
-
-    let worldTransform = mesh.transform.worldTransform as any
-    worldTransform.applyInverse = (a: any, b: any) => {
-      // PIXI expects this method to exist and to return the position with the 
-      // inverse of the current transformation applied. We want the global 
-      // position at all times for the picking to work. So this is a hack to 
-      // make PIXI happy.
-      b.x = a.x; b.y = a.y
-    }
-
   }
 
   render(renderer: any) {

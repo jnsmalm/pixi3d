@@ -1,15 +1,15 @@
-import { IHitArea } from "pixi.js"
+import * as PIXI from "pixi.js"
+
 import { Material, MaterialFactory } from "../material"
 import { Container3D } from "../container"
 import { MeshPickerHitArea } from "../picking/picker-hitarea"
 import { glTFResource } from "../gltf/gltf-resource"
 import { glTFParser } from "../gltf/parser"
 import { MeshGeometryData } from "./mesh-geometry"
+import { MeshPicker } from "../picking/mesh-picker"
 
 export class Mesh3D extends Container3D {
   pluginName = "mesh3d"
-
-  hitArea?: IHitArea
 
   constructor(public geometry: MeshGeometryData, public material: Material, public weights?: number[]) {
     super()
@@ -17,14 +17,15 @@ export class Mesh3D extends Container3D {
 
   render(renderer: PIXI.Renderer) {
     super.render(renderer)
-    let meshRenderer = (renderer.plugins as any)[this.pluginName]
+
+    let meshRenderer = <PIXI.ObjectRenderer>(<any>renderer.plugins)[this.pluginName]
     if (!meshRenderer) {
       throw new Error(`PIXI3D: Renderer with name "${this.pluginName}" does not exist.`)
     }
     renderer.batch.setObjectRenderer(meshRenderer)
     meshRenderer.render(this)
 
-    let picker = (renderer.plugins as any).picker
+    let picker = <MeshPicker>(<any>renderer.plugins).picker
     if (picker && this.isInteractive()) {
       if (!this.hitArea) {
         this.hitArea = new MeshPickerHitArea(picker, this)
@@ -33,7 +34,7 @@ export class Mesh3D extends Container3D {
     }
   }
 
-  isInteractive(object?: any): boolean {
+  isInteractive(object?: PIXI.DisplayObject): boolean {
     object = object || this
     if (object.interactive) {
       return true

@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { glTFResource } from "./gltf-resource"
 import { glTFMaterial } from "./gltf-material"
 

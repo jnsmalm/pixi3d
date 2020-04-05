@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 const EXTENSIONS = ["glsl", "vert", "frag"]
 
 export const ShaderSourceLoader = {
@@ -16,6 +18,4 @@ export const ShaderSourceLoader = {
   }
 }
 
-if (PIXI) {
-  PIXI.Loader.registerPlugin(ShaderSourceLoader)
-}
+PIXI.Loader.registerPlugin(ShaderSourceLoader)

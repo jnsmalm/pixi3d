@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { glTFResource } from "./gltf-resource"
 
 const EXTENSION = "gltf"
@@ -21,6 +23,4 @@ export const glTFLoader = {
   }
 }
 
-if (PIXI) {
-  PIXI.Loader.registerPlugin(glTFLoader)
-}
+PIXI.Loader.registerPlugin(glTFLoader)

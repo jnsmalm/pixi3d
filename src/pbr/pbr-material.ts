@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { PhysicallyBasedShaderFeature } from "./pbr-feature"
 import { PhysicallyBasedShader } from "./pbr-shader"
 import { Material } from "../material"
@@ -231,9 +233,9 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
-    shader.uniforms.u_ModelMatrix = mesh.transform.worldTransform.array
+    shader.uniforms.u_ModelMatrix = mesh.transform.worldTransform.toArray()
     shader.uniforms.u_ViewProjectionMatrix = Camera3D.main.viewProjection
-    shader.uniforms.u_NormalMatrix = mesh.transform.worldTransform.array
+    shader.uniforms.u_NormalMatrix = mesh.transform.worldTransform.toArray()
     shader.uniforms.u_Camera = Camera3D.main.viewPosition
 
     shader.uniforms.u_MetallicFactor = this.metallic
@@ -285,7 +287,7 @@ export class PhysicallyBasedMaterial extends Material {
     }
   }
 
-  render(mesh: Mesh3D, renderer: any) {
+  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
     if (!(this.doubleSided && this.transparent)) {
       super.render(mesh, renderer)
     } else {

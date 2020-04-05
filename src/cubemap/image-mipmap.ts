@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { CubeMapResource } from "./cubemap-loader"
 
 export class ImageMipMapResource extends PIXI.resources.ImageResource {
@@ -31,7 +33,7 @@ export class ImageMipMapResource extends PIXI.resources.ImageResource {
       return false
     }
     for (let i = 0; i < this.mipmap.length; i++) {
-      let data = (this.mipmap[i].baseTexture.resource as any).source
+      let data = (<any>this.mipmap[i].baseTexture.resource).source
       renderer.gl.texImage2D(baseTexture.target, i + 1, baseTexture.format,
         baseTexture.format, baseTexture.type, data)
     }

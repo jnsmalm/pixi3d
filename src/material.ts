@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { MeshGeometryData } from "./mesh/mesh-geometry"
 import { Mesh3D } from "./mesh/mesh"
 
@@ -58,7 +60,7 @@ export abstract class Material {
    * @param mesh Mesh to use.
    * @param renderer Renderer to use.
    */
-  abstract createShader(mesh: Mesh3D, renderer: any): PIXI.Shader
+  abstract createShader(mesh: Mesh3D, renderer: PIXI.Renderer): PIXI.Shader
 
   /**
    * Updates the uniforms for the specified shader.
@@ -111,7 +113,7 @@ export abstract class Material {
    * @param mesh Mesh to render.
    * @param renderer Renderer to use.
    */
-  render(mesh: Mesh3D, renderer: any) {
+  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
     if (this._mesh && mesh !== this._mesh) {
       throw new Error("PIXI3D: Material can't be shared between meshes.")
     } else {
@@ -129,7 +131,7 @@ export abstract class Material {
     if (this.updateUniforms) {
       this.updateUniforms(mesh, this._shader)
     }
-    renderer.shader.bind(this._shader)
+    renderer.shader.bind(this._shader, false)
     renderer.state.set(this.state)
     renderer.geometry.bind(this._geometry, this._shader)
     renderer.geometry.draw(this.drawMode)

@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
 
 /**

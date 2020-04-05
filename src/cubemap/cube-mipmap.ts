@@ -1,5 +1,8 @@
-import { CubeMapResource } from "./cubemap-loader"
+import * as PIXI from "pixi.js"
+
 import { ImageMipMapResource } from "./image-mipmap"
+import { CubeMapResource } from "./cubemap-loader"
+
 
 export class CubeMipMapTexture extends PIXI.CubeTexture {
   private _valid?: boolean
@@ -63,7 +66,7 @@ export class CubeMipMapResource extends PIXI.resources.CubeResource {
     super(resources)
   }
 
-  style(renderer: any) {
+  style(renderer: PIXI.Renderer) {
     let gl = renderer.gl
 
     gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
