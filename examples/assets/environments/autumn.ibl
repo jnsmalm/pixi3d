@@ -1,0 +1,18 @@
+{
+  "diffuse": {
+    "source": "assets/environments/autumn/diffuse_{{face}}.jpg"
+  },
+  "specular": {
+    "source": "assets/environments/autumn/specular_{{face}}_0_256x256.jpg",
+    "mipmap": [
+      "assets/environments/autumn/specular_{{face}}_1_128x128.jpg",
+      "assets/environments/autumn/specular_{{face}}_2_64x64.jpg",
+      "assets/environments/autumn/specular_{{face}}_3_32x32.jpg",
+      "assets/environments/autumn/specular_{{face}}_4_16x16.jpg",
+      "assets/environments/autumn/specular_{{face}}_5_8x8.jpg",
+      "assets/environments/autumn/specular_{{face}}_6_4x4.jpg",
+      "assets/environments/autumn/specular_{{face}}_7_2x2.jpg",
+      "assets/environments/autumn/specular_{{face}}_8_1x1.jpg"
+    ]
+  }
+}

@@ -1,23 +1,13 @@
 const path = require("path")
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = env => {
-  return {
-    entry: {
-      pixi3d: "./src/index.ts",
-      example: "./examples/src/" + env.example + ".js"
-    },
+  return [{
+    entry: "./src/index.ts",
     devtool: "source-map",
     mode: "development",
     devServer: {
       contentBase: "./examples"
     },
-    plugins: [
-      new HtmlWebpackPlugin({
-        filename: "index.html",
-        template: "./examples/index.html"
-      })
-    ],
     module: {
       rules: [
         {
@@ -55,10 +45,24 @@ module.exports = env => {
     },
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: "[name].js",
+      filename: "pixi3d.js",
       library: "PIXI3D",
       libraryTarget: "umd",
       umdNamedDefine: true
     }
-  }
+  }, {
+    entry: "./examples/src/" + env.example + ".js",
+    devtool: "source-map",
+    mode: "development",
+    devServer: {
+      contentBase: "./examples"
+    },
+    resolve: {
+      extensions: [".ts", ".js"]
+    },
+    output: {
+      path: path.resolve(__dirname, "dist"),
+      filename: "example.js",
+    }
+  }]
 }
