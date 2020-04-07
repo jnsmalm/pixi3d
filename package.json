@@ -11,7 +11,7 @@
   "scripts": {
     "build": "webpack --env.production",
     "prepare": "npm run build",
-    "serve": "webpack --env --watch"
+    "serve": "webpack-dev-server --open --config examples/example.config.js"
   },
   "repository": {
     "type": "git",
@@ -25,15 +25,15 @@
   "homepage": "https://github.com/jnsmalm/pixi3d#readme",
   "devDependencies": {
     "@types/node": "^12.12.32",
-    "browser-sync": "^2.26.7",
-    "browser-sync-webpack-plugin": "^2.2.2",
     "gl-matrix": "^3.2.1",
+    "html-webpack-plugin": "^4.0.4",
     "pixi.js": "^5.2.1",
     "raw-loader": "^3.1.0",
     "ts-loader": "^6.2.0",
     "typescript": "^3.8.3",
     "url-loader": "^3.0.0",
     "webpack": "^4.41.0",
-    "webpack-cli": "^3.3.9"
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.10.3"
   }
 }

@@ -18,7 +18,7 @@ Create a file *app.js* with the following contents.
 *app.js*
 ```javascript
 let app = new PIXI.Application({
-  backgroundColor: 0xdddddd
+  backgroundColor: 0xdddddd, resizeTo: window, antialias: true
 })
 let box = app.stage.addChild(PIXI3D.Mesh3D.createCube())
 
@@ -42,6 +42,23 @@ Also create *index.html* and include the required scripts.
 </body>
 </html>
 ```
+
+### Examples
+
+Included with the source code is a set of examples on how to use the different 
+features of Pixi3D. The examples can be found in the *examples/src* folder and 
+can be run by using the *serve* script.
+
+For example, to run the *getting started* application:
+```
+npm install
+npm run serve -- --env.example=<example>
+```
+
+The *serve* script can also be used for trying out Pixi3D without having to do 
+any additional setup. Just create a new file i.e. *app.js* in examples folder and run it with the *serve* script:
+
+`npm run serve -- --env.example=app`
 
 # Documentation
 Pixi3D is built on top of PixiJS (v5.2+) and therefore any program that wants 
