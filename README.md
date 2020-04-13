@@ -1,37 +1,37 @@
 # Pixi3D
-Pixi3D is a JavaScript library which makes it possible to render 3D graphics 
-using PixiJS. Because Pixi3D is built on top of PixiJS, it plays very nice with 
-the already established and easy to use PixiJS API. Pixi3D includes several 
-components which makes it easy to create nice looking 3D scenes out-of-the-box.
+Pixi3D is a JavaScript library which makes it possible to render 3D graphics on 
+the web using PixiJS. Because Pixi3D is built on top of PixiJS, it plays nice 
+with the already established and easy to use PixiJS API. Pixi3D works for both 
+desktop and mobile web browsers and includes several components which makes it 
+easy to create nice looking 3D scenes out-of-the-box:
 
-* Built on top of the already familiar PixiJS API
 * Load models from file or create procedural generated meshes
 * Supports physically-based rendering (PBR) and image-based lighting (IBL)
 * Morphing and rotation/translation/scale animations
 * Customizable materials and shaders
+* Built on top of the already familiar PixiJS API
 
 # Getting started
-Let's create a simple program which renders a rotating cube. Start by [getting the latest version](https://github.com/jnsmalm/pixi3d/releases) of Pixi3D. Pixi3D has a dependency to [PixiJS](https://github.com/pixijs/pixi.js/releases) (v5.2+), so that is needed as well.
+Let's create a simple application which renders a rotating cube. Start by [getting the latest version of Pixi3D](https://github.com/jnsmalm/pixi3d/releases). Also [get an up-to-date version of PixiJS](https://github.com/pixijs/pixi.js/releases) (v5.2+) which is needed to use Pixi3D.
 
-Create a file *app.js* with the following contents.
+Next, create a file *app.js* with the following contents.
 
-*app.js*
 ```javascript
 let app = new PIXI.Application({
   backgroundColor: 0xdddddd, resizeTo: window, antialias: true
 })
-let box = app.stage.addChild(PIXI3D.Mesh3D.createCube())
+document.body.appendChild(app.view)
+
+let mesh = app.stage.addChild(PIXI3D.Mesh3D.createCube())
 
 let rotation = 0
 app.ticker.add(() => {
-  box.rotationQuaternion.setEulerAngles(0, rotation++, 0)
+  mesh.rotationQuaternion.setEulerAngles(0, rotation++, 0)
 })
-document.body.appendChild(app.view)
 ```
 
-Also create *index.html* and include the required scripts.
+Then create *index.html* and include the required scripts.
 
-*index.html*
 ```html
 <!doctype html>
 <html lang="en">
@@ -43,53 +43,94 @@ Also create *index.html* and include the required scripts.
 </html>
 ```
 
+### Install with npm
+Pixi3D is also available as a npm package, to install the latest release you
+can run the following command:
+
+`npm install pixi3d --save-dev`
+
+This requires that an up-to-date version of Node.js is already installed.
+
 ### Examples
+Included with the source code is a set of examples which shows how to use some 
+of the different features of Pixi3D. The examples can be found in the folder
+*examples/src* and can be run by using the *serve* script.
 
-Included with the source code is a set of examples on how to use the different 
-features of Pixi3D. The examples can be found in the *examples/src* folder and 
-can be run by using the *serve* script.
+For example, to run the *getting-started* application:
 
-For example, to run the *getting started* application:
-```
-npm install
-npm run serve -- --env.example=<example>
-```
+`npm run serve -- --env.example=getting-started`
 
 The *serve* script can also be used for trying out Pixi3D without having to do 
-any additional setup. Just create a new file i.e. *app.js* in examples folder and run it with the *serve* script:
+any additional setup. Just create a new file i.e. *testing-feature.js* in the 
+examples folder and run it with the *serve* script:
 
-`npm run serve -- --env.example=app`
+`npm run serve -- --env.example=testing-feature`
 
-# Documentation
-Pixi3D is built on top of PixiJS (v5.2+) and therefore any program that wants 
-to use Pixi3D, also needs to include PixiJS. The PixiJS library focuses on 2D 
-graphics, put since version 5 the library exposes a set of lower level API:s 
-which is what Pixi3D takes advantage of. PixiJS is a established library and 
-contains a lot of functionality for making a coders life easier. Such features 
-could be loading assets, having a hierarchy of objects or handling user 
-interaction. PixiJS works on both desktop and mobile and Pixi3D should work on 
-all platforms supported by PixiJS (v5.2+).
+# Overview
+The overall goal of Pixi3D is to make it simple to render 3D graphics in a 
+project which has already invested in using PixiJS (which focuses on 2D 
+graphics). PixiJS is a established rendering library and contains a lot of 
+functionality for making stuff easier. Such features could be loading assets, 
+having a scene graph or handling user interaction. Because Pixi3D is built on 
+top of PixiJS, all of those features are available in Pixi3D as well. 
 
-## Container and transform
+Some of the concepts explained requires a basic understanding about PixiJS. For 
+more information and to learn more about PixiJS go to https://www.pixijs.com
 
-A container is what the name suggests - a container for other objects. A 
-container can be used for creating an object hierarchy with parent-child 
-relations. Container objects has a transform property which is used to be able 
-to set the position, rotation and scale of that object. When creating a 
-hierarchy of objects, the transform of a child object is always relative to 
-it's parent transform. For example, when moving the parent all of it's children 
-will move as well (same also for rotation and scaling). 
+### Position, rotation and scale in 3D
+A core concept in PixiJS is the idea of a scene graph, that is an object 
+hierarchy with parent-child relations. Containers can be created which can have 
+a number of children, and those children can have children of their own and so 
+on. All objects have a transform which is used to be able to set the position, 
+rotation and scale of that object. The transform of an object is always relative 
+to it's parent transform. That means that when moving the parent object, all of 
+it's children will move as well (same goes for rotation and scaling).
 
-API: Container3D, Transform3D.
+The transform object in PixiJS is intended for 2D graphics, so to be able to 
+transform objects in 3D a few additions and changes is needed. First is 
+*position* and *scale*, which both has been extended with the z-axis.
 
-Note about Pixi3D and PixiJS transform, 3D/2D.
+```javascript
+object.position.z = 10
+```
 
-## Mesh and model
+Next is *rotation* which must be able to rotate in all three axes instead of 
+just one (which is the case when using 2D). So when rotating an object in 3D, 
+*rotationQuaternion* is used instead of the regular *rotation* available in 
+PixiJS. The easiest way to set the rotation of an object is by using the 
+*setEulerAngles* method:
 
-A mesh contains the geometry of an object and has a material which is used to 
-render the mesh geometry. A model is a container for mesh objects and can also 
-include animations for those meshes. A mesh can be created with geometry which 
-has been generated by code, or it can be loaded from a glTF file as a model.
+```javascript
+// Sets the rotation of an object to 45 degrees around the y-axis.
+object.rotationQuaternion.setEulerAngles(0, 45, 0)
+```
+
+### Geometry, mesh and model
+The geometry is what defines the shape of an object. But it can also include 
+other kind of information such as texture coordinates, colors or normals. The 
+different attributes of the geometry is set depending on the desired visual 
+effect and which material/shader is used. The attributes are being represented 
+as a list of numbers using typed arrays (i.e. *Float32Array* or *Uint32Array*).
+
+A mesh is an object which can be added to the scene graph. It contains geometry 
+and has a material which is used to render the mesh. A mesh can be created with 
+procedural geometry or be a part of a model containing many meshes.
+
+A model is a container for mesh objects but can also include animations for 
+those meshes. Models are generally being loaded from a file which has been 
+created in a 3D modeling tool like Maya or Blender. Pixi3D supports loading of 
+models using the glTF file format.
+
+```javascript
+let app = new PIXI.Application({
+  backgroundColor: 0xdddddd, resizeTo: window, antialias: true
+})
+app.loader.add("assets/model.gltf")
+
+app.loader.load(() => {
+  let model = PIXI3D.Model3D.from("assets/model.gltf")
+})
+```
 
 > glTF™ (GL Transmission Format) is a royalty-free specification for the 
 > efficient transmission and loading of 3D scenes and models by applications. 
@@ -98,16 +139,13 @@ has been generated by code, or it can be loaded from a glTF file as a model.
 > format for 3D content tools and services that streamlines authoring workflows 
 > and enables interoperable use of content across the industry.
 
-Read more about glTF at https://www.khronos.org/gltf/
+Learn more about glTF at https://www.khronos.org/gltf/
 
-API: Mesh3D, Model3D.
-
-## Material and shader
-
+### Material and shader
 A material is what defines and renders the geometry of a mesh. Which material 
 to use depends on the requirements of how the object should be displayed. By 
 using customized materials, it is possible to create any desired graphical 
-effect. A material uses a shader to describe the displayed output.
+effect. A material uses a shader program to describe the visual output.
 
 Shader programs are written using OpenGL Shading Language (GLSL) which runs on 
 the GPU. The shader interprets the data of the mesh geometry and describes how 
@@ -116,159 +154,9 @@ Pixi3D, vertex shaders and fragment shaders. Vertex shaders are used to control
 where vertices end up on the screen and pixel shaders are used to set the color 
 of a pixel.
 
-API: Material, PhysicallyBasedMaterial.
+# Building
 
-## Custom material
-
-*color-shader.vert*
-```glsl
-attribute vec3 position;
-
-uniform mat4 world;
-uniform mat4 viewProjection;
-
-void main() {
-  gl_Position = viewProjection * world * vec4(position, 1.0);
-}
+Build *pixi3d.js* to *dist* folder with production settings.
 ```
-
-*color-shader.frag*
-```glsl
-uniform vec3 color;
-
-void main() {
-  gl_FragColor = vec4(color, 1.0);
-}
-```
-
-*app.js*
-```javascript
-const { Camera3D, Model3D, Material } = PIXI3D
-
-class ColorMaterial extends Material {
-  constructor() {
-    super(["position"])
-  }
-
-  updateUniforms(shader) {
-    shader.uniforms.world = this.mesh.transform.worldTransform.array
-    shader.uniforms.viewProjection = Camera3D.main.viewProjection
-    shader.uniforms.color = [0.8, 0.2, 0.7]
-  }
-
-  createShader() {
-    return new PIXI.Shader(PIXI.Program.from(
-      app.loader.resources["color-shader.vert"].source,
-      app.loader.resources["color-shader.frag"].source
-    ))
-  }
-
-  static create() {
-    return new ColorMaterial()
-  }
-}
-
-let app = new PIXI.Application({ width: 800, height: 600, antialias: true })
-
-Camera3D.main.aspectRatio = 800 / 600
-
-app.loader.add("cube.gltf")
-app.loader.add("color-shader.vert")
-app.loader.add("color-shader.frag")
-
-app.loader.load(() => {
-  let model = app.stage.addChild(
-    Model3D.from("cube.gltf", { materialFactory: ColorMaterial })
-  )
-})
-
-document.body.appendChild(app.view)
-```
-
-## Cubemaps
-
-PIXI3D supports loading cubemaps from file. It expects 6 images which all share the same filename format (example below). `{{face}}` will be replaced with the following strings: "posx", "negx", "posy", "negy", "posz" and "negz". It can also contain optional mipmaps.
-
-*environment.cubemap*
-```json
-{
-  "source": "folder/environment_{{face}}_128x128.jpg",
-  "mipmap": [
-    "folder/environment_{{face}}_64x64.jpg",
-    "folder/environment_{{face}}_32x32.jpg",
-    "folder/environment_{{face}}_16x16.jpg"
-  ]
-}
-```
-
-*app.js*
-```javascript
-app.loader.add("environment.cubemap")
-app.loader.load(() => {
-  let texture = app.loader.resources["environment.cubemap"].texture
-})
-```
-
-## Image based lighting
-
-Cmft (https://github.com/dariomanesku/cmft) is a tool which can generate radiance and irradiance cubemaps to be used as diffuse and specular image based lighting.
-
-*Diffuse (irradiance)*
-```
-% cmft --input environment.hdr --filter irradiance --inputGammaDenominator 2.2  --outputNum 1 --output0 diffuse --output0params tga,bgra8,facelist
-
-% mogrify -format jpg *.tga
-```
-
-*Specular (radiance)*
-```
-% cmft --input environment.hdr --filter radiance --srcFaceSize 256 --dstFaceSize 256 --excludeBase true --glossScale 10 --glossBias 1 --lightingModel phongbrdf --useOpenCL true --inputGammaDenominator 2.2 --outputNum 1 --output0 specular --output0params tga,bgra8,facelist
-
-% mogrify -format jpg *.tga
-```
-
-*environment.ibl*
-```json
-{
-  "diffuse": {
-    "source": "diffuse_{{face}}.jpg"
-  },
-  "specular": {
-    "source": "specular_{{face}}_0_256x256.jpg",
-    "mipmap": [
-      "specular_{{face}}_1_128x128.jpg",
-      "specular_{{face}}_2_64x64.jpg",
-      "specular_{{face}}_3_32x32.jpg",
-      "specular_{{face}}_4_16x16.jpg",
-      "specular_{{face}}_5_8x8.jpg",
-      "specular_{{face}}_6_4x4.jpg",
-      "specular_{{face}}_7_2x2.jpg",
-      "specular_{{face}}_8_1x1.jpg",
-    ]
-  }
-}
-```
-
-*app.js*
-```javascript
-app.loader.add("environment.ibl")
-app.loader.load(() => {
-  LightingEnvironment.main.ibl = app.loader.resources["environment.ibl"].ibl
-})
-```
-
-## Development
-
-The following command will start a local webserver in "dist" folder and watch all files for changes.
-```
-> npm install
-> npm start
-```
-
-## Building
-
-The following command will build *pixi3d.js* in "dist" folder with production settings.
-```
-> npm install
 > npm run build
 ```
