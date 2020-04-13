@@ -16,6 +16,9 @@ export class Mesh3D extends Container3D {
   }
 
   render(renderer: PIXI.Renderer) {
+    if (!this.visible || !this.renderable) {
+      return
+    }
     super.render(renderer)
 
     let meshRenderer = <PIXI.ObjectRenderer>(<any>renderer.plugins)[this.pluginName]
