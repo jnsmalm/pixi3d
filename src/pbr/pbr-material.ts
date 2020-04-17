@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js"
 import { PhysicallyBasedShaderFeature } from "./pbr-feature"
 import { PhysicallyBasedShader } from "./pbr-shader"
 import { Material } from "../material"
-import { MeshGeometryData } from "../mesh/mesh-geometry"
+import { MeshVertexData } from "../mesh/mesh-vertex"
 import { Camera3D } from "../camera"
 import { glTFMaterial } from "../gltf/gltf-material"
 import { LightingEnvironment } from "../lighting/lighting-environment"
@@ -100,7 +100,7 @@ export class PhysicallyBasedMaterial extends Material {
     return material
   }
 
-  createGeometry(data: MeshGeometryData) {
+  createGeometry(data: MeshVertexData) {
     let geometry = new PIXI.Geometry()
 
     if (data.indices) {
@@ -120,9 +120,9 @@ export class PhysicallyBasedMaterial extends Material {
       let buffer = new PIXI.Buffer(data.tangents.buffer)
       geometry.addAttribute("a_Tangent", buffer, 4, false, PIXI.TYPES.FLOAT, data.tangents.stride)
     }
-    if (data.texCoords) {
-      let buffer = new PIXI.Buffer(data.texCoords.buffer)
-      geometry.addAttribute("a_UV1", buffer, 2, false, PIXI.TYPES.FLOAT, data.texCoords.stride)
+    if (data.uvs && data.uvs[0]) {
+      let buffer = new PIXI.Buffer(data.uvs[0].buffer)
+      geometry.addAttribute("a_UV1", buffer, 2, false, PIXI.TYPES.FLOAT, data.uvs[0].stride)
     }
     if (data.morphTargets) {
       for (let i = 0; i < data.morphTargets.length; i++) {
@@ -146,7 +146,7 @@ export class PhysicallyBasedMaterial extends Material {
     return geometry
   }
 
-  createShader(mesh: Mesh3D, renderer: any) {
+  createShader(mesh: Mesh3D, renderer: PIXI.Renderer) {
     if (renderer.context.webGLVersion === 1) {
       let extensions = [
         "EXT_shader_texture_lod",
@@ -158,7 +158,7 @@ export class PhysicallyBasedMaterial extends Material {
         }
       }
     }
-    let features = this.createFeatures(mesh.geometry)
+    let features = this.createFeatures(mesh.vertexData)
     let checksum = features.join(",")
     if (!shaders[checksum]) {
       shaders[checksum] = PhysicallyBasedShader.build(renderer, features)
@@ -166,32 +166,32 @@ export class PhysicallyBasedMaterial extends Material {
     return shaders[checksum]
   }
 
-  createFeatures(geometry: MeshGeometryData) {
+  createFeatures(vertexData: MeshVertexData) {
     let features: string[] = []
 
-    if (geometry.normals) {
+    if (vertexData.normals) {
       features.push(PhysicallyBasedShaderFeature.normal)
     }
-    if (geometry.texCoords) {
+    if (vertexData.uvs) {
       features.push(PhysicallyBasedShaderFeature.texCoord0)
     }
-    if (geometry.tangents) {
+    if (vertexData.tangents) {
       features.push(PhysicallyBasedShaderFeature.tangent)
     }
-    if (geometry.morphTargets) {
-      for (let i = 0; i < geometry.morphTargets.length; i++) {
-        if (geometry.morphTargets[i].positions) {
+    if (vertexData.morphTargets) {
+      for (let i = 0; i < vertexData.morphTargets.length; i++) {
+        if (vertexData.morphTargets[i].positions) {
           features.push(PhysicallyBasedShaderFeature.targetPosition + i)
         }
-        if (geometry.morphTargets[i].normals) {
+        if (vertexData.morphTargets[i].normals) {
           features.push(PhysicallyBasedShaderFeature.targetNormal + i)
         }
-        if (geometry.morphTargets[i].tangents) {
+        if (vertexData.morphTargets[i].tangents) {
           features.push(PhysicallyBasedShaderFeature.targetTangent + i)
         }
       }
-      if (geometry.weights) {
-        features.push(PhysicallyBasedShaderFeature.weightCount + " " + geometry.weights.length)
+      if (vertexData.weights) {
+        features.push(PhysicallyBasedShaderFeature.weightCount + " " + vertexData.weights.length)
       }
       features.push(PhysicallyBasedShaderFeature.morphing)
     }

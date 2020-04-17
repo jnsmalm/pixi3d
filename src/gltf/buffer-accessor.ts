@@ -1,4 +1,4 @@
-import { MeshAttribute } from "../mesh/mesh-geometry"
+import { MeshVertexAttribute } from "../mesh/mesh-vertex"
 
 const TYPE_SIZES: { [name: string]: number } = {
   SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
@@ -26,7 +26,7 @@ export class glTFBufferAccessor {
     throw new Error(`PIXI3D: Unknown component type "${componentType}".`)
   }
 
-  createAttributeData(attribute: number): MeshAttribute {
+  createVertexAttribute(attribute: number): MeshVertexAttribute {
     let accessor = this.descriptor.accessors[attribute]
     let bufferView = this.descriptor.bufferViews[accessor.bufferView || 0]
 

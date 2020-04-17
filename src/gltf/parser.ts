@@ -2,7 +2,7 @@ import { Transform3D } from "../transform"
 import { MaterialFactory } from "../material"
 import { Model3D } from "../model"
 import { Container3D } from "../container"
-import { MeshGeometryData, MeshMorphTarget } from "../mesh/mesh-geometry"
+import { MeshVertexData, MeshVertexMorphTarget } from "../mesh/mesh-vertex"
 import { Mesh3D } from "../mesh/mesh"
 import { glTFMaterialParser } from "./material-parser"
 import { glTFBufferAccessor } from "./buffer-accessor"
@@ -91,7 +91,7 @@ export class glTFParser {
   public createMesh(meshIndex = 0) {
     let mesh = this.descriptor.meshes[meshIndex]
     let sourceMaterial = this.parseMaterial(mesh)
-    let geometryData = this.createMeshGeometryData(mesh)
+    let geometryData = this.createMeshVertexData(mesh)
     let materialFactory = this.materialFactory
     if (!materialFactory) {
       materialFactory = PhysicallyBasedMaterial
@@ -100,46 +100,46 @@ export class glTFParser {
     return new Mesh3D(geometryData, material, geometryData.weights)
   }
 
-  private createMeshGeometryData(mesh: any): MeshGeometryData {
+  private createMeshVertexData(mesh: any): MeshVertexData {
     return {
       indices: this.getIndices(mesh),
       positions: this.getPositions(mesh),
       normals: this.getNormals(mesh),
       morphTargets: this.getMorphTargets(mesh),
       weights: this.getWeights(mesh),
-      texCoords: this.getTexCoords(mesh),
+      uvs: this.getTextureCoordinates(mesh),
       tangents: this.getTangents(mesh),
     }
   }
 
   private getPositions(mesh: any) {
-    return this.bufferAccessor.createAttributeData(mesh.primitives[0].attributes["POSITION"])
+    return this.bufferAccessor.createVertexAttribute(mesh.primitives[0].attributes["POSITION"])
   }
 
   private getNormals(mesh: any) {
     let attribute = mesh.primitives[0].attributes["NORMAL"]
     if (attribute !== undefined) {
-      return this.bufferAccessor.createAttributeData(attribute)
+      return this.bufferAccessor.createVertexAttribute(attribute)
     }
   }
 
   private getTangents(mesh: any) {
     let attribute = mesh.primitives[0].attributes["TANGENT"]
     if (attribute !== undefined) {
-      return this.bufferAccessor.createAttributeData(attribute)
+      return this.bufferAccessor.createVertexAttribute(attribute)
     }
   }
 
   private getIndices(mesh: any) {
     if (mesh.primitives[0].indices !== undefined) {
-      return this.bufferAccessor.createAttributeData(mesh.primitives[0].indices)
+      return this.bufferAccessor.createVertexAttribute(mesh.primitives[0].indices)
     }
   }
 
-  private getTexCoords(mesh: any) {
+  private getTextureCoordinates(mesh: any) {
     let attribute = mesh.primitives[0].attributes["TEXCOORD_0"]
     if (attribute !== undefined) {
-      return this.bufferAccessor.createAttributeData(attribute)
+      return [this.bufferAccessor.createVertexAttribute(attribute)]
     }
   }
 
@@ -159,9 +159,9 @@ export class glTFParser {
     if (!targets) {
       return undefined
     }
-    let result: MeshMorphTarget[] = []
+    let result: MeshVertexMorphTarget[] = []
     for (let i = 0; i < targets.length; i++) {
-      let target: MeshMorphTarget = {
+      let target: MeshVertexMorphTarget = {
         positions: this.getTargetAttribute(mesh.primitives[0].targets[i], "POSITION"),
         normals: this.getTargetAttribute(mesh.primitives[0].targets[i], "NORMAL"),
         tangents: this.getTargetAttribute(mesh.primitives[0].targets[i], "TANGENT")
@@ -174,7 +174,7 @@ export class glTFParser {
   private getTargetAttribute(target: any, name: string) {
     let attribute = target[name]
     if (attribute) {
-      return this.bufferAccessor.createAttributeData(attribute)
+      return this.bufferAccessor.createVertexAttribute(attribute)
     }
   }
 

@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { MeshGeometryData } from "./mesh/mesh-geometry"
+import { MeshVertexData } from "./mesh/mesh-vertex"
 import { Mesh3D } from "./mesh/mesh"
 
 /**
@@ -74,7 +74,7 @@ export abstract class Material {
    * attributes if those have been set.
    * @param data Data used for creating the geometry.
    */
-  createGeometry(data: MeshGeometryData): PIXI.Geometry {
+  createGeometry(data: MeshVertexData): PIXI.Geometry {
     let geometry = new PIXI.Geometry()
     if (data.indices) {
       // PIXI seems to have problems using anything other than 
@@ -88,9 +88,9 @@ export abstract class Material {
       }
     }
     if (this.attributes.includes(MaterialShaderAttribute.uv1)) {
-      if (data.texCoords) {
-        let buffer = new PIXI.Buffer(data.texCoords.buffer)
-        geometry.addAttribute("a_UV1", buffer, 2, false, PIXI.TYPES.FLOAT, data.texCoords.stride)
+      if (data.uvs && data.uvs[0]) {
+        let buffer = new PIXI.Buffer(data.uvs[0].buffer)
+        geometry.addAttribute("a_UV1", buffer, 2, false, PIXI.TYPES.FLOAT, data.uvs[0].stride)
       }
     }
     if (this.attributes.includes(MaterialShaderAttribute.normal)) {
@@ -126,7 +126,7 @@ export abstract class Material {
       this._shader = this.createShader(mesh, renderer)
     }
     if (!this._geometry) {
-      this._geometry = this.createGeometry(mesh.geometry)
+      this._geometry = this.createGeometry(mesh.vertexData)
     }
     if (this.updateUniforms) {
       this.updateUniforms(mesh, this._shader)
