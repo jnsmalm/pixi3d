@@ -66,7 +66,7 @@ examples folder and run it with the *serve* script:
 
 `npm run serve -- --env.example=testing-feature`
 
-## Introduction
+## Fundamentals
 The overall goal of Pixi3D is to make it simple to render 3D graphics in a 
 project which has already invested in using PixiJS (which focuses on 2D 
 graphics). PixiJS is a established rendering library and contains a lot of 
