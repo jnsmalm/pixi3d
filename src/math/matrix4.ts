@@ -13,7 +13,7 @@ export namespace Matrix4 {
     }
   })
 
-  export function targetTo(eye: vec3, target: mat4, up: vec3, out?: mat4) {
+  export function targetTo(eye: vec3, target: vec3, up: vec3, out?: mat4) {
     return mat4.targetTo(out || create(), eye, target, up)
   }
 

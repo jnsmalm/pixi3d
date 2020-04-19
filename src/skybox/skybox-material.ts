@@ -1,8 +1,8 @@
 import * as PIXI from "pixi.js"
 
-import { Camera3D } from "../camera"
-import { Material, MaterialShaderAttribute, MaterialFactory } from "../material"
+import { Camera3D } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
+import { Material, MaterialShaderAttribute, MaterialFactory } from "../material"
 
 const vert: string = require("./shader/skybox.vert").default
 const frag: string = require("./shader/skybox.frag").default

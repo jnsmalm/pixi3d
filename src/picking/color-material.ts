@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { Camera3D } from "../camera"
+import { Camera3D } from "../camera/camera"
 import { Material, MaterialShaderAttribute } from "../material"
 import { Mesh3D } from "../mesh/mesh"
 

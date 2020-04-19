@@ -1,9 +1,9 @@
 import * as PIXI from "pixi.js"
 
-import { Container3D } from "./container"
-import { Matrix4 } from "./math/matrix4"
-import { Vector4 } from "./math/vector4"
-import { MatrixComponent } from "./matrix/matrix-component"
+import { Container3D } from "../container"
+import { Matrix4 } from "../math/matrix4"
+import { Vector4 } from "../math/vector4"
+import { MatrixComponent } from "../matrix/matrix-component"
 
 const mat4 = Matrix4.create()
 const vec4 = Vector4.create()
@@ -40,7 +40,9 @@ export class Camera3D extends Container3D {
         // renderer aspect ratio has changed).
         this._id++
       }
-      this.transform.updateTransform()
+      if (!this.parent) {
+        this.transform.updateTransform()
+      }
     })
     if (!Camera3D.main) {
       Camera3D.main = this
