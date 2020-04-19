@@ -1,6 +1,6 @@
 {
   "name": "pixi3d",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Render in 3D using PixiJS",
   "main": "dist/pixi3d.js",
   "files": [
