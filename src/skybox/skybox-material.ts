@@ -3,12 +3,13 @@ import * as PIXI from "pixi.js"
 import { Camera3D } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
 import { Material, MaterialShaderAttribute, MaterialFactory } from "../material"
+import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
 
 const vert: string = require("./shader/skybox.vert").default
 const frag: string = require("./shader/skybox.frag").default
 
 export class SkyboxMaterialFactory implements MaterialFactory {
-  constructor(public texture: PIXI.CubeTexture) { }
+  constructor(public texture: CubeMipMapTexture) { }
 
   create(): Material {
     return new SkyboxMaterial(this.texture)
@@ -18,7 +19,7 @@ export class SkyboxMaterialFactory implements MaterialFactory {
 export class SkyboxMaterial extends Material {
   private _valid = false
 
-  constructor(public texture: PIXI.CubeTexture) {
+  constructor(public texture: CubeMipMapTexture) {
     super([MaterialShaderAttribute.position])
     this.state.clockwiseFrontFace = true
   }

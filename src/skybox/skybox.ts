@@ -3,6 +3,7 @@ import * as PIXI from "pixi.js"
 import { SkyboxMaterialFactory } from "./skybox-material"
 import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
+import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
 
 /**
  * A skybox is a method of creating backgrounds in a 3D scene. It consists of
@@ -17,7 +18,7 @@ export class Skybox extends Container3D {
    * Creates a new skybox using the specified cube texture.
    * @param texture Cube texture to use.
    */
-  constructor(public texture: PIXI.CubeTexture) {
+  constructor(public texture: CubeMipMapTexture) {
     super()
 
     this.mesh = this.addChild(

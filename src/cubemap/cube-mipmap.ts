@@ -3,8 +3,7 @@ import * as PIXI from "pixi.js"
 import { ImageMipMapResource } from "./image-mipmap"
 import { CubeMapResource } from "./cubemap-loader"
 
-
-export class CubeMipMapTexture extends PIXI.CubeTexture {
+export class CubeMipMapTexture extends PIXI.BaseTexture {
   private _valid?: boolean
 
   levels: number

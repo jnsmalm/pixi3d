@@ -13,7 +13,7 @@ export class ImageBasedLighting {
    * @param specular Cube mipmap texture used for the specular component.
    * @param brdf BRDF integration map lookup texture.
    */
-  constructor(public diffuse: PIXI.CubeTexture, public specular: CubeMipMapTexture, public brdf?: PIXI.Texture) {
+  constructor(public diffuse: CubeMipMapTexture, public specular: CubeMipMapTexture, public brdf?: PIXI.Texture) {
     if (!this.brdf) {
       this.brdf = PIXI.Texture.from(require("./assets/brdf.png").default)
     }
