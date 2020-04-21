@@ -52,11 +52,11 @@ run the following command:
 This requires that an up-to-date version of Node.js is already installed.
 
 ### Examples
-Included with the source code is a set of examples which shows how to use some 
-of the different features of Pixi3D. The examples can be found in the folder
-*examples/src* and can be run by using the *serve* script.
-
-For example, to run the *getting-started* application:
+Included with the source code is a collection of examples which shows how to use
+some of the different features of Pixi3D. To be able to run the examples, 
+download or clone the repository from https://github.com/jnsmalm/pixi3d and run 
+*npm install*. Browse the examples inside the *examples/src* folder and run them 
+using the *serve* script. For example, to run the *getting-started* application:
 
 `npm run serve -- --env.example=getting-started`
 
