@@ -43,13 +43,6 @@ export class Mesh3D extends Container3D {
     return false
   }
 
-  static createTorus(materialFactory?: MaterialFactory) {
-    return new glTFParser(
-      new glTFResource(
-        JSON.parse(require("./embedded/torus.gltf").default)),
-      materialFactory).createMesh()
-  }
-
   static createCube(materialFactory?: MaterialFactory) {
     return new glTFParser(
       new glTFResource(
