@@ -9,7 +9,7 @@ import { MatrixPool } from "../math/matrix-pool"
  * Allows the user to control the camera by orbiting around the target.
  */
 export class OrbitCameraControl {
-  private _rotation = Quaternion.create()
+  private _euler = { x: 0, y: 0 }
   private _distance = 5
 
   /** Allows the camera to be controlled. */
@@ -24,7 +24,7 @@ export class OrbitCameraControl {
     })
     canvas.addEventListener("mousemove", (event) => {
       if (this.allowControl && event.buttons === 1) {
-        this.updateOrbitBy(-event.movementX * 0.01, -event.movementY * 0.01)
+        this.orbitBy(-event.movementY, -event.movementX)
       }
     })
   }
@@ -38,21 +38,31 @@ export class OrbitCameraControl {
    */
   set distance(value: number) {
     this._distance = value
-    this.updateOrbitBy(0, 0)
+    this.orbitTo(this._euler.x, this._euler.y)
   }
 
   /**
-   * Updates the orbit position by the specified x-axis and y-axis.
+   * Moves the orbit position by the specified x-axis and y-axis.
    * @param x Value for the x-axis.
    * @param y Value for the y-axis.
    */
-  updateOrbitBy(x: number, y: number) {
-    MatrixPool.scope(() => {
-      Quaternion.rotateY(this._rotation, x, this._rotation)
-      Quaternion.rotateX(this._rotation, y, this._rotation)
+  orbitBy(x: number, y: number) {
+    this.orbitTo(this._euler.x + x, this._euler.y + y)
+  }
 
+  /**
+   * Sets the orbit position to the specified x-axis and y-axis.
+   * @param x Value for the x-axis (between -75 and 75).
+   * @param y Value for the y-axis.
+   */
+  orbitTo(x: number, y: number) {
+    this._euler.x = Math.min(Math.max(-75, x), 75)
+    this._euler.y = y
+
+    MatrixPool.scope(() => {
+      let quat = Quaternion.fromEuler(this._euler.x, this._euler.y, 0)
       let pos = Vector3.transformQuat(
-        Vector3.from({ x: 0, y: 0, z: this._distance }), this._rotation)
+        Vector3.from({ x: 0, y: 0, z: this._distance }), quat)
       let up = Vector3.from({ x: 0, y: 1, z: 0 })
       let forward = Vector3.normalize(pos)
       let target = Vector3.from({ x: 0, y: 0, z: 0 })
