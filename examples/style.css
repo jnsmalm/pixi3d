@@ -4,3 +4,13 @@ body {
   width: 100%;
   position: fixed;
 }
+
+.light {
+  position: absolute;
+  font-family: Montserrat;
+  cursor: move;
+  background-color: dimgrey;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+}

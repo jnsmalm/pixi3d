@@ -12,7 +12,7 @@ easy to create nice looking 3D scenes out-of-the-box:
 * Built on top of the already familiar PixiJS API
 
 ## Getting started
-Let's create a simple application which renders a rotating cube. Start by [getting the latest version of Pixi3D](https://github.com/jnsmalm/pixi3d/releases). Also [get an up-to-date version of PixiJS](https://github.com/pixijs/pixi.js/releases) (v5.2+) which is needed to use Pixi3D.
+Let's create a simple application which renders a rotating cube. Start by [getting the latest version of Pixi3D](https://github.com/jnsmalm/pixi3d/releases). Also [get an up-to-date version of PixiJS](https://github.com/pixijs/pixi.js/releases) (v5.3+) which is needed to use Pixi3D.
 
 Next, create a file *app.js* with the following contents.
 
@@ -23,6 +23,9 @@ let app = new PIXI.Application({
 document.body.appendChild(app.view)
 
 let mesh = app.stage.addChild(PIXI3D.Mesh3D.createCube())
+
+let light = Object.assign(new PIXI3D.Light(), { x: -1, z: 3 })
+PIXI3D.LightingEnvironment.main.lights.push(light)
 
 let rotation = 0
 app.ticker.add(() => {

@@ -12,6 +12,14 @@ document.body.appendChild(app.view)
 // being created and added as a child of the PixiJS application root.
 let mesh = app.stage.addChild(PIXI3D.Mesh3D.createCube())
 
+// Create a light source and add it to the main lighting environment. Without 
+// doing this, the rendered mesh would be completely black.
+let light = Object.assign(new PIXI3D.Light(), {
+  x: -1,
+  z: +3,
+})
+PIXI3D.LightingEnvironment.main.lights.push(light)
+
 let rotation = 0
 app.ticker.add(() => {
   // This function will be called before each render happens. When rotating an

@@ -55,20 +55,31 @@ export class Camera3D extends Container3D {
    * Converts screen coordinates to world coordinates.
    * @param x Screen x coordinate.
    * @param y Screen y coordinate.
-   * @param z Value between -1 and 1 (near clipping plane to far clipping plane).
+   * @param distance Distance from the camera.
    */
-  screenToWorld(x: number, y: number, z: number) {
-    let invViewProj = Matrix4.invert(this.viewProjection, mat4)
-    let posClipSpace = Vector4.set(
-      (x / this.renderer.width) * 2 - 1, ((y / this.renderer.height) * 2 - 1) * -1, z, 1, vec4
+  screenToWorld(x: number, y: number, distance: number) {
+    let far = this.far
+
+    // Before doing the calculations, the far clip plane is changed to the same 
+    // value as distance from the camera. By doing this we can just set z value 
+    // for the clip space to 1 and the desired z position will be correct.
+    this.far = distance
+
+    let invertedViewProjection = Matrix4.invert(this.viewProjection, mat4)
+    let clipSpace = Vector4.set(
+      (x / this.renderer.width) * 2 - 1, ((y / this.renderer.height) * 2 - 1) * -1, 1, 1, vec4
     )
-    let posWorldSpace = Vector4.transformMat4(posClipSpace, invViewProj, vec4)
-    posWorldSpace[3] = 1.0 / posWorldSpace[3]
+
+    // Reset to the previous value
+    this.far = far
+
+    let worldSpace = Vector4.transformMat4(clipSpace, invertedViewProjection, vec4)
+    worldSpace[3] = 1.0 / worldSpace[3]
     for (let i = 0; i < 3; i++) {
-      posWorldSpace[i] *= posWorldSpace[3]
+      worldSpace[i] *= worldSpace[3]
     }
     return {
-      x: posWorldSpace[0], y: posWorldSpace[1], z: posWorldSpace[2]
+      x: worldSpace[0], y: worldSpace[1], z: worldSpace[2]
     };
   }
 
@@ -79,18 +90,18 @@ export class Camera3D extends Container3D {
    * @param z World z coordinate.
    */
   worldToScreen(x: number, y: number, z: number) {
-    let posWorldSpace = Vector4.set(x, y, z, 1, vec4)
-    let posClipSpace = Vector4.transformMat4(
-      Vector4.transformMat4(posWorldSpace, this.view, vec4), this.projection, vec4
+    let worldSpace = Vector4.set(x, y, z, 1, vec4)
+    let clipSpace = Vector4.transformMat4(
+      Vector4.transformMat4(worldSpace, this.view, vec4), this.projection, vec4
     )
-    if (posClipSpace[3] !== 0) {
+    if (clipSpace[3] !== 0) {
       for (let i = 0; i < 3; i++) {
-        posClipSpace[i] /= posClipSpace[3]
+        clipSpace[i] /= clipSpace[3]
       }
     }
     return {
-      x: (posClipSpace[0] + 1) / 2 * this.renderer.width,
-      y: this.renderer.height - (posClipSpace[1] + 1) / 2 * this.renderer.height
+      x: (clipSpace[0] + 1) / 2 * this.renderer.width,
+      y: this.renderer.height - (clipSpace[1] + 1) / 2 * this.renderer.height
     }
   }
 

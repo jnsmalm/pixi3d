@@ -26,5 +26,7 @@ export enum PhysicallyBasedShaderFeature {
   alphaModeOpaque = "ALPHAMODE_OPAQUE 1",
   alphaModeMask = "ALPHAMODE_MASK 1",
   texLod = "USE_TEX_LOD 1",
-  morphing = "USE_MORPHING 1"
+  morphing = "USE_MORPHING 1",
+  punctual = "USE_PUNCTUAL 1",
+  lightCount = "LIGHT_COUNT {0}"
 }

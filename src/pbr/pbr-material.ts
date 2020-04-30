@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js"
 
+import { LightType } from "../lighting/light-type"
 import { PhysicallyBasedShaderFeature } from "./pbr-feature"
 import { PhysicallyBasedMeshShader } from "./pbr-shader"
 import { Material } from "../material"
@@ -151,6 +152,11 @@ export class PhysicallyBasedMaterial extends Material {
     features.push(PhysicallyBasedShaderFeature.materialMetallicRoughness)
     features.push(PhysicallyBasedShaderFeature.texLod)
 
+    if (this.lighting.lights.length > 0) {
+      features.push(PhysicallyBasedShaderFeature.lightCount.replace("{0}", this.lighting.lights.length.toString()))
+      features.push(PhysicallyBasedShaderFeature.punctual)
+    }
+
     if (this.lighting.ibl) {
       features.push(PhysicallyBasedShaderFeature.ibl)
     }
@@ -201,6 +207,27 @@ export class PhysicallyBasedMaterial extends Material {
     if (this.baseColorTexture) {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture
       shader.uniforms.u_BaseColorUVSet = 0
+    }
+
+    for (let i = 0; i < this.lighting.lights.length; i++) {
+      let light = this.lighting.lights[i]
+
+      let type = 0
+      switch (light.type) {
+        case LightType.point: type = 1; break
+        case LightType.directional: type = 0; break
+        case LightType.spot: type = 2; break
+      }
+
+      shader.uniforms[`u_Lights[${i}].type`] = type
+      shader.uniforms[`u_Lights[${i}].position`] = light.worldPosition
+      shader.uniforms[`u_Lights[${i}].direction`] = light.direction
+      shader.uniforms[`u_Lights[${i}].range`] = light.range
+      shader.uniforms[`u_Lights[${i}].color`] = light.color
+      shader.uniforms[`u_Lights[${i}].intensity`] = light.intensity
+      shader.uniforms[`u_Lights[${i}].innerConeCos`] = Math.cos(light.innerConeAngle)
+      shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle)
+      shader.uniforms[`u_Lights[${i}].padding`] = light.padding
     }
 
     if (this.lighting.ibl) {
