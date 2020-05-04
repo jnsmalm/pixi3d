@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 
 import { Camera3D } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
-import { Material, MaterialShaderAttribute, MaterialFactory } from "../material"
+import { Material, MaterialFactory } from "../material"
 import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
 
 const vert: string = require("./shader/skybox.vert").default
@@ -20,7 +20,7 @@ export class SkyboxMaterial extends Material {
   private _valid = false
 
   constructor(public texture: CubeMipMapTexture) {
-    super([MaterialShaderAttribute.position])
+    super()
     this.state.clockwiseFrontFace = true
   }
 

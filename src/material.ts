@@ -1,21 +1,7 @@
 import * as PIXI from "pixi.js"
 
-import { MeshVertexData } from "./mesh/mesh-vertex"
 import { Mesh3D } from "./mesh/mesh"
-
-/**
- * Predefined attributes for material shader.
- */
-export enum MaterialShaderAttribute {
-  /** Expects shader attribute to be "attribute vec3 a_Position". */
-  position = "position",
-  /** Expects shader attribute to be "attribute vec2 a_UV1". */
-  uv1 = "uv1",
-  /** Expects shader attribute to be "attribute vec3 a_Normal". */
-  normal = "normal",
-  /** Expects shader attribute to be "attribute vec4 a_Tangent". */
-  tangent = "tangent"
-}
+import { MeshGeometry } from "./mesh/mesh-geometry"
 
 /**
  * Factory for creating materials.
@@ -29,8 +15,6 @@ export interface MaterialFactory {
  * Materials are used to render a single mesh.
  */
 export abstract class Material {
-  protected _geometry?: PIXI.Geometry
-  protected _mesh?: Mesh3D
   protected _shader?: PIXI.Shader
 
   /** State used to render a mesh. */
@@ -49,11 +33,9 @@ export abstract class Material {
   /** Value indicating if the material is transparent. */
   transparent = false
 
-  /**
-   * Creates a new material.
-   * @param attributes Predefined attributes for the shader.
-   */
-  constructor(public attributes: MaterialShaderAttribute[] = []) { }
+  get name() {
+    return "material"
+  }
 
   /**
    * Creates a shader used to render a mesh.
@@ -69,43 +51,28 @@ export abstract class Material {
    */
   abstract updateUniforms?(mesh: Mesh3D, shader: PIXI.Shader): void
 
-  /**
-   * Creates geometry used to render a mesh. Will use the predefined shader 
-   * attributes if those have been set.
-   * @param data Data used for creating the geometry.
-   */
-  createGeometry(data: MeshVertexData): PIXI.Geometry {
-    let geometry = new PIXI.Geometry()
-    if (data.indices) {
+  addGeometryAttributes(geometry: MeshGeometry) {
+    if (geometry.indices) {
       // PIXI seems to have problems using anything other than 
       // gl.UNSIGNED_SHORT or gl.UNSIGNED_INT. Let's convert to UNSIGNED_INT.
-      geometry.addIndex(new PIXI.Buffer(new Uint32Array(data.indices.buffer)))
+      geometry.addIndex(new PIXI.Buffer(new Uint32Array(geometry.indices.buffer)))
     }
-    if (this.attributes.includes(MaterialShaderAttribute.position)) {
-      if (data.positions) {
-        let buffer = new PIXI.Buffer(data.positions.buffer)
-        geometry.addAttribute("a_Position", buffer, 3, false, PIXI.TYPES.FLOAT, data.positions.stride)
-      }
+    if (geometry.positions) {
+      geometry.addAttribute("a_Position", new PIXI.Buffer(geometry.positions.buffer),
+        3, false, PIXI.TYPES.FLOAT, geometry.positions.stride)
     }
-    if (this.attributes.includes(MaterialShaderAttribute.uv1)) {
-      if (data.uvs && data.uvs[0]) {
-        let buffer = new PIXI.Buffer(data.uvs[0].buffer)
-        geometry.addAttribute("a_UV1", buffer, 2, false, PIXI.TYPES.FLOAT, data.uvs[0].stride)
-      }
+    if (geometry.uvs && geometry.uvs[0]) {
+      geometry.addAttribute("a_UV1", new PIXI.Buffer(geometry.uvs[0].buffer),
+        2, false, PIXI.TYPES.FLOAT, geometry.uvs[0].stride)
     }
-    if (this.attributes.includes(MaterialShaderAttribute.normal)) {
-      if (data.normals) {
-        let buffer = new PIXI.Buffer(data.normals.buffer)
-        geometry.addAttribute("a_Normal", buffer, 3, false, PIXI.TYPES.FLOAT, data.normals.stride)
-      }
+    if (geometry.normals) {
+      geometry.addAttribute("a_Normal", new PIXI.Buffer(geometry.normals.buffer),
+        3, false, PIXI.TYPES.FLOAT, geometry.normals.stride)
     }
-    if (this.attributes.includes(MaterialShaderAttribute.tangent)) {
-      if (data.tangents) {
-        let buffer = new PIXI.Buffer(data.tangents.buffer)
-        geometry.addAttribute("a_Tangent", buffer, 4, false, PIXI.TYPES.FLOAT, data.tangents.stride)
-      }
+    if (geometry.tangents) {
+      geometry.addAttribute("a_Tangent", new PIXI.Buffer(geometry.tangents.buffer),
+        4, false, PIXI.TYPES.FLOAT, geometry.tangents.stride)
     }
-    return geometry
   }
 
   /**
@@ -114,26 +81,18 @@ export abstract class Material {
    * @param renderer Renderer to use.
    */
   render(mesh: Mesh3D, renderer: PIXI.Renderer) {
-    if (this._mesh && mesh !== this._mesh) {
-      throw new Error("PIXI3D: Material can't be shared between meshes.")
-    } else {
-      this._mesh = mesh
-    }
     if (!this.valid) {
       return
     }
     if (!this._shader) {
       this._shader = this.createShader(mesh, renderer)
     }
-    if (!this._geometry) {
-      this._geometry = this.createGeometry(mesh.vertexData)
-    }
     if (this.updateUniforms) {
       this.updateUniforms(mesh, this._shader)
     }
     renderer.shader.bind(this._shader, false)
     renderer.state.set(this.state)
-    renderer.geometry.bind(this._geometry, this._shader)
+    renderer.geometry.bind(mesh.geometry, this._shader)
     renderer.geometry.draw(this.drawMode)
   }
 }

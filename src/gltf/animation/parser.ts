@@ -25,8 +25,8 @@ export class glTFAnimationParser {
   }
 
   private createAnimationChannel(sampler: any, path: string, target: Container3D) {
-    let input = this.bufferAccessor.createVertexAttribute(sampler.input).buffer as Float32Array
-    let output = this.bufferAccessor.createVertexAttribute(sampler.output).buffer as Float32Array
+    let input = this.bufferAccessor.createGeometryAttribute(sampler.input).buffer as Float32Array
+    let output = this.bufferAccessor.createGeometryAttribute(sampler.output).buffer as Float32Array
 
     if (path === "rotation") {
       if (sampler.interpolation === "LINEAR") {
@@ -45,7 +45,7 @@ export class glTFAnimationParser {
         this.createInterpolation(sampler.interpolation, input, output, 3))
     }
     if (path === "weights") {
-      let weights = (target.children[0] as Mesh3D).weights
+      let weights = (target.children[0] as Mesh3D).geometry.weights
       if (!weights) {
         return undefined
       }

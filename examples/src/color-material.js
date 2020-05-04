@@ -23,12 +23,7 @@ app.loader.load(() => {
 
 class ColorMaterial extends PIXI3D.Material {
   constructor() {
-    // When creating a material, it can be initialized with the vertex shader 
-    // attributes. This will make sure the geometry data sent to the shader is
-    // in correct format. If more control is needed about how the geometry data
-    // is structured, the "createGeometry" method can be overridden. Only 
-    // "position" is set because it's the only vertex attribute in the shader.
-    super(["position"])
+    super()
 
     // The default color is white using RGB (0-255).
     this.color = [255, 255, 255]

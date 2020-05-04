@@ -7,10 +7,10 @@ app.loader.add("assets/shaders/mesh-geometry/mesh-geometry.vert")
 app.loader.add("assets/shaders/mesh-geometry/mesh-geometry.frag")
 
 app.loader.load(() => {
-  // Create the vertex data needed to render the mesh with the specified 
-  // material. In this case, the vertex data includes position (x,y,z) and 
-  // color (r,g,b). Three vertices is needed to get the triangle shape.
-  let vertexData = {
+  // Create the geometry needed to render the mesh with the specified material. 
+  // In this case, the vertex data includes position (x,y,z) and color (r,g,b). 
+  // Three vertices is needed to get the triangle shape.
+  let geometry = Object.assign(new PIXI3D.MeshGeometry(), {
     positions: {
       buffer: new Float32Array([
         // Vertex 1 (x,y,z)
@@ -31,20 +31,18 @@ app.loader.load(() => {
         1, 0, 0
       ])
     }
-  }
+  })
   app.stage.addChild(
-    new PIXI3D.Mesh3D(vertexData, new MeshGeometryMaterial()))
+    new PIXI3D.Mesh3D(geometry, new MeshGeometryMaterial()))
 })
 
 class MeshGeometryMaterial extends PIXI3D.Material {
-  createGeometry(data) {
-    // Create the geometry used when rendering with the specified shader. This
+  addGeometryAttributes(geometry) {
+    // Add the attributes used when rendering with the specified shader. This
     // geometry has two attributes: position and color. The number of components
     // for the attribute is also specified, both have three (z,y,z and r,g,b).
-    let geometry = new PIXI.Geometry()
-    geometry.addAttribute("a_Position", data.positions.buffer, 3)
-    geometry.addAttribute("a_Color", data.colors.buffer, 3)
-    return geometry
+    geometry.addAttribute("a_Position", geometry.positions.buffer, 3)
+    geometry.addAttribute("a_Color", geometry.colors.buffer, 3)
   }
 
   updateUniforms(mesh, shader) {

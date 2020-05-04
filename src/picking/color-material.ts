@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js"
 
+import { Material } from "../material"
 import { Camera3D } from "../camera/camera"
-import { Material, MaterialShaderAttribute } from "../material"
 import { Mesh3D } from "../mesh/mesh"
 
 const vert = require("./shader/color-picking.vert").default
@@ -13,7 +13,7 @@ export class ColorMaterial extends Material {
   private color = new Float32Array(3)
 
   constructor(color: Uint8Array) {
-    super([MaterialShaderAttribute.position])
+    super()
     for (let i = 0; i < 3; i++) {
       this.color[i] = color[i] / 255
     }

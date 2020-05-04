@@ -3,11 +3,11 @@ import * as PIXI from "pixi.js"
 import { PhysicallyBasedShaderFeature } from "./pbr-feature"
 import { PhysicallyBasedShader } from "./pbr-shader"
 import { Material } from "../material"
-import { MeshVertexData } from "../mesh/mesh-vertex"
 import { Camera3D } from "../camera/camera"
 import { glTFMaterial } from "../gltf/gltf-material"
 import { LightingEnvironment } from "../lighting/lighting-environment"
 import { Mesh3D } from "../mesh/mesh"
+import { MeshGeometry } from "../mesh/mesh-geometry"
 
 export enum PhysicallyBasedMaterialAlphaMode {
   opaque = "opaque",
@@ -32,6 +32,10 @@ export class PhysicallyBasedMaterial extends Material {
   baseColor = [1, 1, 1, 1]
   alphaMaskCutoff = 0.5
   alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
+
+  get name() {
+    return "physically-based"
+  }
 
   get lighting() {
     if (!this._lighting) {
@@ -100,50 +104,28 @@ export class PhysicallyBasedMaterial extends Material {
     return material
   }
 
-  createGeometry(data: MeshVertexData) {
-    let geometry = new PIXI.Geometry()
+  addGeometryAttributes(geometry: MeshGeometry) {
+    super.addGeometryAttributes(geometry)
 
-    if (data.indices) {
-      // PIXI seems to have problems using anything other than gl.UNSIGNED_SHORT 
-      // or gl.UNSIGNED_INT. Let's convert buffer to UNSIGNED_INT.
-      geometry.addIndex(new PIXI.Buffer(new Uint32Array(data.indices.buffer)))
-    }
-    if (data.positions) {
-      let buffer = new PIXI.Buffer(data.positions.buffer)
-      geometry.addAttribute("a_Position", buffer, 3, false, PIXI.TYPES.FLOAT, data.positions.stride)
-    }
-    if (data.normals) {
-      let buffer = new PIXI.Buffer(data.normals.buffer)
-      geometry.addAttribute("a_Normal", buffer, 3, false, PIXI.TYPES.FLOAT, data.normals.stride)
-    }
-    if (data.tangents) {
-      let buffer = new PIXI.Buffer(data.tangents.buffer)
-      geometry.addAttribute("a_Tangent", buffer, 4, false, PIXI.TYPES.FLOAT, data.tangents.stride)
-    }
-    if (data.uvs && data.uvs[0]) {
-      let buffer = new PIXI.Buffer(data.uvs[0].buffer)
-      geometry.addAttribute("a_UV1", buffer, 2, false, PIXI.TYPES.FLOAT, data.uvs[0].stride)
-    }
-    if (data.morphTargets) {
-      for (let i = 0; i < data.morphTargets.length; i++) {
-        let positions = data.morphTargets[i].positions
+    if (geometry.morphTargets) {
+      for (let i = 0; i < geometry.morphTargets.length; i++) {
+        let positions = geometry.morphTargets[i].positions
         if (positions) {
           let buffer = new PIXI.Buffer(positions.buffer)
           geometry.addAttribute(`a_Target_Position${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, positions.stride)
         }
-        let normals = data.morphTargets[i].normals
+        let normals = geometry.morphTargets[i].normals
         if (normals) {
           let buffer = new PIXI.Buffer(normals.buffer)
           geometry.addAttribute(`a_Target_Normal${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, normals.stride)
         }
-        let tangents = data.morphTargets[i].tangents
+        let tangents = geometry.morphTargets[i].tangents
         if (tangents) {
           let buffer = new PIXI.Buffer(tangents.buffer)
           geometry.addAttribute(`a_Target_Tangent${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, tangents.stride)
         }
       }
     }
-    return geometry
   }
 
   createShader(mesh: Mesh3D, renderer: PIXI.Renderer) {
@@ -158,7 +140,7 @@ export class PhysicallyBasedMaterial extends Material {
         }
       }
     }
-    let features = this.createFeatures(mesh.vertexData)
+    let features = this.createFeatures(mesh.geometry)
     let checksum = features.join(",")
     if (!shaders[checksum]) {
       shaders[checksum] = PhysicallyBasedShader.build(renderer, features)
@@ -166,7 +148,7 @@ export class PhysicallyBasedMaterial extends Material {
     return shaders[checksum]
   }
 
-  createFeatures(vertexData: MeshVertexData) {
+  createFeatures(vertexData: MeshGeometry) {
     let features: string[] = []
 
     if (vertexData.normals) {
@@ -247,8 +229,8 @@ export class PhysicallyBasedMaterial extends Material {
       shader.uniforms.u_AlphaCutoff = this.alphaMaskCutoff
     }
 
-    if (mesh.weights) {
-      shader.uniforms.u_morphWeights = mesh.weights
+    if (mesh.geometry.weights) {
+      shader.uniforms.u_morphWeights = mesh.geometry.weights
     }
 
     if (this.baseColorTexture) {

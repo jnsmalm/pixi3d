@@ -5,17 +5,20 @@ import { Container3D } from "../container"
 import { MeshPickerHitArea } from "../picking/picker-hitarea"
 import { glTFResource } from "../gltf/gltf-resource"
 import { glTFParser } from "../gltf/parser"
-import { MeshVertexData } from "./mesh-vertex"
+import { MeshGeometry } from "./mesh-geometry"
 import { MeshPicker } from "../picking/mesh-picker"
 
 export class Mesh3D extends Container3D {
   pluginName = "mesh3d"
 
-  constructor(public vertexData: MeshVertexData, public material: Material, public weights?: number[]) {
+  constructor(public geometry: MeshGeometry, public material: Material) {
     super()
   }
 
   _render(renderer: PIXI.Renderer) {
+    if (!this.geometry.hasMaterialAttributes(this.material)) {
+      this.geometry.addMaterialAttributes(this.material)
+    }
     let meshRenderer = <PIXI.ObjectRenderer>(<any>renderer.plugins)[this.pluginName]
     if (!meshRenderer) {
       throw new Error(`PIXI3D: Renderer with name "${this.pluginName}" does not exist.`)
