@@ -13,6 +13,12 @@ export class Mesh3D extends Container3D {
 
   constructor(public geometry: MeshGeometry, public material: Material) {
     super()
+    if (!geometry) {
+      throw new Error("PIXI3D: Geometry is required when creating a mesh.")
+    }
+    if (!material) {
+      throw new Error("PIXI3D: Material is required when creating a mesh.")
+    }
   }
 
   _render(renderer: PIXI.Renderer) {

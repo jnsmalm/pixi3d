@@ -94,7 +94,9 @@ export class glTFParser {
     let geometry = this.createMeshGeometry(mesh)
     let materialFactory = this.materialFactory || PhysicallyBasedMaterial
     let material = materialFactory.create(sourceMaterial)
-    return new Mesh3D(geometry, material)
+    return Object.assign(new Mesh3D(geometry, material), {
+      name: mesh.name
+    })
   }
 
   private createMeshGeometry(mesh: any): MeshGeometry {
