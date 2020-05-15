@@ -32,6 +32,7 @@ export class PhysicallyBasedMaterial extends Material {
   baseColor = [1, 1, 1, 1]
   alphaMaskCutoff = 0.5
   alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
+  exposure = 1
 
   get name() {
     return "physically-based"
@@ -223,7 +224,7 @@ export class PhysicallyBasedMaterial extends Material {
     shader.uniforms.u_MetallicFactor = this.metallic
     shader.uniforms.u_RoughnessFactor = this.roughness
     shader.uniforms.u_BaseColorFactor = this.baseColor
-    shader.uniforms.u_Exposure = 1
+    shader.uniforms.u_Exposure = this.exposure
 
     if (this.alphaMode === PhysicallyBasedMaterialAlphaMode.mask) {
       shader.uniforms.u_AlphaCutoff = this.alphaMaskCutoff
