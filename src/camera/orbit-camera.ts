@@ -37,7 +37,7 @@ export class OrbitCameraControl {
    * Get or sets the distance (in units) between camera and the target.
    */
   set distance(value: number) {
-    this._distance = value
+    this._distance = Math.max(value, 0.01)
     this.orbitTo(this._euler.x, this._euler.y)
   }
 
