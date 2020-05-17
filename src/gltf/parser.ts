@@ -52,15 +52,18 @@ export class glTFParser {
   private createNodes() {
     let nodes: Container3D[] = []
     for (let node of this.descriptor.nodes) {
-      let container = new Container3D()
-      container.name = node.name
-      container.transform = this.createTransform(node)
+      let container = Object.assign(new Container3D(), {
+        name: node.name,
+        transform: this.createTransform(node)
+      })
       nodes.push(container)
       if (node.mesh === undefined) {
         continue
       }
-      let mesh = this.createMesh(node.mesh)
-      container.addChild(mesh)
+      let mesh = this.descriptor.meshes[node.mesh]
+      for (let primitive of mesh.primitives) {
+        container.addChild(this.createPrimitive(mesh, primitive))
+      }
     }
     return nodes
   }
@@ -88,82 +91,89 @@ export class glTFParser {
     return transform
   }
 
-  public createMesh(meshIndex = 0) {
-    let mesh = this.descriptor.meshes[meshIndex]
-    let sourceMaterial = this.parseMaterial(mesh)
-    let geometry = this.createMeshGeometry(mesh)
-    let materialFactory = this.materialFactory || PhysicallyBasedMaterial
-    let material = materialFactory.create(sourceMaterial)
+  public createMesh(index = 0) {
+    let result: Mesh3D[] = []
+    let mesh = this.descriptor.meshes[index]
+    for (let primitive of mesh.primitives) {
+      result.push(this.createPrimitive(mesh, primitive))
+    }
+    return result
+  }
+
+  private createPrimitive(mesh: any, primitive: any): Mesh3D {
+    let geometry = this.createGeometry(mesh, primitive)
+    let factory = this.materialFactory || PhysicallyBasedMaterial
+    let material = factory.create(this.createMaterial(primitive))
     return Object.assign(new Mesh3D(geometry, material), {
       name: mesh.name
     })
   }
 
-  private createMeshGeometry(mesh: any): MeshGeometry {
+  private createGeometry(mesh: any, primitive: any): MeshGeometry {
     return Object.assign(new MeshGeometry(), {
-      indices: this.getIndices(mesh),
-      positions: this.getPositions(mesh),
-      uvs: this.getTextureCoordinates(mesh),
-      normals: this.getNormals(mesh),
-      tangents: this.getTangents(mesh),
-      morphTargets: this.getMorphTargets(mesh),
-      weights: this.getWeights(mesh)
+      indices: this.getIndices(primitive),
+      positions: this.getPositions(primitive),
+      uvs: this.getTextureCoordinates(primitive),
+      normals: this.getNormals(primitive),
+      tangents: this.getTangents(primitive),
+      morphTargets: this.getMorphTargets(primitive),
+      weights: this.getWeights(mesh, primitive)
     })
   }
 
-  private getPositions(mesh: any) {
-    return this.bufferAccessor.createGeometryAttribute(mesh.primitives[0].attributes["POSITION"])
+  private getPositions(primitive: any) {
+    return this.bufferAccessor.createGeometryAttribute(primitive.attributes["POSITION"])
   }
 
-  private getNormals(mesh: any) {
-    let attribute = mesh.primitives[0].attributes["NORMAL"]
+  private getNormals(primitive: any) {
+    let attribute = primitive.attributes["NORMAL"]
     if (attribute !== undefined) {
       return this.bufferAccessor.createGeometryAttribute(attribute)
     }
   }
 
-  private getTangents(mesh: any) {
-    let attribute = mesh.primitives[0].attributes["TANGENT"]
+  private getTangents(primitive: any) {
+    let attribute = primitive.attributes["TANGENT"]
     if (attribute !== undefined) {
       return this.bufferAccessor.createGeometryAttribute(attribute)
     }
   }
 
-  private getIndices(mesh: any) {
-    if (mesh.primitives[0].indices !== undefined) {
-      return this.bufferAccessor.createGeometryAttribute(mesh.primitives[0].indices)
+  private getIndices(primitive: any) {
+    if (primitive.indices !== undefined) {
+      return this.bufferAccessor.createGeometryAttribute(primitive.indices)
     }
   }
 
-  private getTextureCoordinates(mesh: any) {
-    let attribute = mesh.primitives[0].attributes["TEXCOORD_0"]
+  private getTextureCoordinates(primitive: any) {
+    let attribute = primitive.attributes["TEXCOORD_0"]
     if (attribute !== undefined) {
       return [this.bufferAccessor.createGeometryAttribute(attribute)]
     }
   }
 
-  private getWeights(mesh: any) {
+  private getWeights(mesh: any, primitive: any) {
     if (mesh.weights) {
       return mesh.weights
     }
-    let targets = mesh.primitives[0].targets
+    let targets = primitive.targets
     if (targets) {
       return targets.map(() => 0)
     }
     return undefined
   }
 
-  private getMorphTargets(mesh: any) {
-    let targets = mesh.primitives[0].targets
+  private getMorphTargets(primitive: any) {
+    let targets = primitive.targets
     if (!targets) {
       return undefined
     }
     let result = []
     for (let i = 0; i < targets.length; i++) {
       let target = {
-        positions: this.getTargetAttribute(mesh.primitives[0].targets[i], "POSITION"),
-        normals: this.getTargetAttribute(mesh.primitives[0].targets[i], "NORMAL"),
-        tangents: this.getTargetAttribute(mesh.primitives[0].targets[i], "TANGENT")
+        positions: this.getTargetAttribute(primitive.targets[i], "POSITION"),
+        normals: this.getTargetAttribute(primitive.targets[i], "NORMAL"),
+        tangents: this.getTargetAttribute(primitive.targets[i], "TANGENT")
       }
       result.push(target)
     }
@@ -177,12 +187,12 @@ export class glTFParser {
     }
   }
 
-  protected parseMaterial(mesh: any) {
-    if (mesh.primitives[0].material === undefined) {
+  protected createMaterial(primitive: any) {
+    if (primitive.material === undefined) {
       return new glTFMaterial()
     }
     return this.materialParser.createMaterial(
-      this.descriptor.materials[mesh.primitives[0].material])
+      this.descriptor.materials[primitive.material])
   }
 
   protected createAnimation(animation: any, nodes: Container3D[]) {

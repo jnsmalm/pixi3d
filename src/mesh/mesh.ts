@@ -56,13 +56,13 @@ export class Mesh3D extends Container3D {
     return new glTFParser(
       new glTFResource(
         JSON.parse(require("./embedded/cube.gltf").default)),
-      materialFactory).createMesh()
+      materialFactory).createMesh()[0]
   }
 
   static createSphere(materialFactory?: MaterialFactory) {
     return new glTFParser(
       new glTFResource(
         JSON.parse(require("./embedded/sphere.gltf").default)),
-      materialFactory).createMesh()
+      materialFactory).createMesh()[0]
   }
 }
