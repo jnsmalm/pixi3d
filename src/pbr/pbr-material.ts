@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js"
 
 import { PhysicallyBasedShaderFeature } from "./pbr-feature"
-import { PhysicallyBasedShader } from "./pbr-shader"
+import { PhysicallyBasedMeshShader } from "./pbr-shader"
 import { Material } from "../material"
 import { Camera3D } from "../camera/camera"
 import { glTFMaterial } from "../gltf/gltf-material"
@@ -15,10 +15,9 @@ export enum PhysicallyBasedMaterialAlphaMode {
   blend = "blend"
 }
 
-const shaders: { [features: string]: PIXI.Shader } = {}
+const shaders: { [features: string]: PhysicallyBasedMeshShader } = {}
 
 export class PhysicallyBasedMaterial extends Material {
-  private _doubleSided = false
   private _valid = false
   private _lighting?: LightingEnvironment
 
@@ -65,17 +64,6 @@ export class PhysicallyBasedMaterial extends Material {
     return this._valid = true
   }
 
-  get doubleSided() {
-    return this._doubleSided
-  }
-
-  set doubleSided(value: boolean) {
-    if (value) {
-      this.state.culling = false
-    }
-    this._doubleSided = value
-  }
-
   static create(source: unknown) {
     let material = new PhysicallyBasedMaterial()
     if (source instanceof glTFMaterial) {
@@ -105,30 +93,6 @@ export class PhysicallyBasedMaterial extends Material {
     return material
   }
 
-  addGeometryAttributes(geometry: MeshGeometry) {
-    super.addGeometryAttributes(geometry)
-
-    if (geometry.morphTargets) {
-      for (let i = 0; i < geometry.morphTargets.length; i++) {
-        let positions = geometry.morphTargets[i].positions
-        if (positions) {
-          let buffer = new PIXI.Buffer(positions.buffer)
-          geometry.addAttribute(`a_Target_Position${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, positions.stride)
-        }
-        let normals = geometry.morphTargets[i].normals
-        if (normals) {
-          let buffer = new PIXI.Buffer(normals.buffer)
-          geometry.addAttribute(`a_Target_Normal${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, normals.stride)
-        }
-        let tangents = geometry.morphTargets[i].tangents
-        if (tangents) {
-          let buffer = new PIXI.Buffer(tangents.buffer)
-          geometry.addAttribute(`a_Target_Tangent${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, tangents.stride)
-        }
-      }
-    }
-  }
-
   createShader(mesh: Mesh3D, renderer: PIXI.Renderer) {
     if (renderer.context.webGLVersion === 1) {
       let extensions = [
@@ -144,7 +108,7 @@ export class PhysicallyBasedMaterial extends Material {
     let features = this.createFeatures(mesh.geometry)
     let checksum = features.join(",")
     if (!shaders[checksum]) {
-      shaders[checksum] = PhysicallyBasedShader.build(renderer, features)
+      shaders[checksum] = PhysicallyBasedMeshShader.build(renderer, features)
     }
     return shaders[checksum]
   }
@@ -267,25 +231,6 @@ export class PhysicallyBasedMaterial extends Material {
       shader.uniforms.u_OcclusionSampler = this.occlusionTexture
       shader.uniforms.u_OcclusionStrength = 1
       shader.uniforms.u_OcclusionUVSet = 0
-    }
-  }
-
-  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
-    if (!(this.doubleSided && this.transparent)) {
-      super.render(mesh, renderer)
-    } else {
-      let { culling, clockwiseFrontFace } = this.state
-      Object.assign(this.state, {
-        culling: true, clockwiseFrontFace: true
-      })
-      super.render(mesh, renderer)
-      Object.assign(this.state, {
-        culling: true, clockwiseFrontFace: false
-      })
-      super.render(mesh, renderer)
-      Object.assign(this.state, {
-        culling: culling, clockwiseFrontFace: clockwiseFrontFace
-      })
     }
   }
 }

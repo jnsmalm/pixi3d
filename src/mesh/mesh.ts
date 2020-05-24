@@ -11,20 +11,17 @@ import { MeshPicker } from "../picking/mesh-picker"
 export class Mesh3D extends Container3D {
   pluginName = "mesh3d"
 
-  constructor(public geometry: MeshGeometry, public material: Material) {
+  /** Names of the passes used for rendering the mesh. */
+  renderPasses = ["standard"]
+
+  constructor(public geometry: MeshGeometry, public material?: Material) {
     super()
     if (!geometry) {
       throw new Error("PIXI3D: Geometry is required when creating a mesh.")
     }
-    if (!material) {
-      throw new Error("PIXI3D: Material is required when creating a mesh.")
-    }
   }
 
   _render(renderer: PIXI.Renderer) {
-    if (!this.geometry.hasMaterialAttributes(this.material)) {
-      this.geometry.addMaterialAttributes(this.material)
-    }
     let meshRenderer = <PIXI.ObjectRenderer>(<any>renderer.plugins)[this.pluginName]
     if (!meshRenderer) {
       throw new Error(`PIXI3D: Renderer with name "${this.pluginName}" does not exist.`)
@@ -50,6 +47,13 @@ export class Mesh3D extends Container3D {
       return this.isInteractive(object.parent)
     }
     return false
+  }
+
+  static createPlane(materialFactory?: MaterialFactory) {
+    return new glTFParser(
+      new glTFResource(
+        JSON.parse(require("./embedded/plane.gltf").default)),
+      materialFactory).createMesh()[0]
   }
 
   static createCube(materialFactory?: MaterialFactory) {

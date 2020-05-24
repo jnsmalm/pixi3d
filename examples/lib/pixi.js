@@ -1,6 +1,6 @@
 /*!
- * pixi.js - v5.2.1
- * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+ * pixi.js - v5.2.4
+ * Compiled Sun, 03 May 2020 22:38:52 UTC
  *
  * pixi.js is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -471,8 +471,8 @@ var PIXI = (function (exports) {
 	};
 
 	/*!
-	 * @pixi/polyfill - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/polyfill - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/polyfill is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -632,6 +632,7 @@ var PIXI = (function (exports) {
 	var appleIphone = /iPhone/i;
 	var appleIpod = /iPod/i;
 	var appleTablet = /iPad/i;
+	var appleUniversal = /\biOS-universal(?:.+)Mac\b/i;
 	var androidPhone = /\bAndroid(?:.+)Mobile\b/i;
 	var androidTablet = /Android/i;
 	var amazonPhone = /(?:SD4930UR|\bSilk(?:.+)Mobile\b)/i;
@@ -643,12 +644,40 @@ var PIXI = (function (exports) {
 	var otherOpera = /Opera Mini/i;
 	var otherChrome = /\b(CriOS|Chrome)(?:.+)Mobile/i;
 	var otherFirefox = /Mobile(?:.+)Firefox\b/i;
-	function match(regex, userAgent) {
-	    return regex.test(userAgent);
+	var isAppleTabletOnIos13 = function (navigator) {
+	    return (typeof navigator !== 'undefined' &&
+	        navigator.platform === 'MacIntel' &&
+	        typeof navigator.maxTouchPoints === 'number' &&
+	        navigator.maxTouchPoints > 1 &&
+	        typeof MSStream === 'undefined');
+	};
+	function createMatch(userAgent) {
+	    return function (regex) { return regex.test(userAgent); };
 	}
-	function isMobile(userAgent) {
-	    userAgent =
-	        userAgent || (typeof navigator !== 'undefined' ? navigator.userAgent : '');
+	function isMobile(param) {
+	    var nav = {
+	        userAgent: '',
+	        platform: '',
+	        maxTouchPoints: 0
+	    };
+	    if (!param && typeof navigator !== 'undefined') {
+	        nav = {
+	            userAgent: navigator.userAgent,
+	            platform: navigator.platform,
+	            maxTouchPoints: navigator.maxTouchPoints || 0
+	        };
+	    }
+	    else if (typeof param === 'string') {
+	        nav.userAgent = param;
+	    }
+	    else if (param && param.userAgent) {
+	        nav = {
+	            userAgent: param.userAgent,
+	            platform: param.platform,
+	            maxTouchPoints: param.maxTouchPoints || 0
+	        };
+	    }
+	    var userAgent = nav.userAgent;
 	    var tmp = userAgent.split('[FBAN');
 	    if (typeof tmp[1] !== 'undefined') {
 	        userAgent = tmp[0];
@@ -657,57 +686,61 @@ var PIXI = (function (exports) {
 	    if (typeof tmp[1] !== 'undefined') {
 	        userAgent = tmp[0];
 	    }
+	    var match = createMatch(userAgent);
 	    var result = {
 	        apple: {
-	            phone: match(appleIphone, userAgent) && !match(windowsPhone, userAgent),
-	            ipod: match(appleIpod, userAgent),
-	            tablet: !match(appleIphone, userAgent) &&
-	                match(appleTablet, userAgent) &&
-	                !match(windowsPhone, userAgent),
-	            device: (match(appleIphone, userAgent) ||
-	                match(appleIpod, userAgent) ||
-	                match(appleTablet, userAgent)) &&
-	                !match(windowsPhone, userAgent),
+	            phone: match(appleIphone) && !match(windowsPhone),
+	            ipod: match(appleIpod),
+	            tablet: !match(appleIphone) &&
+	                (match(appleTablet) || isAppleTabletOnIos13(nav)) &&
+	                !match(windowsPhone),
+	            universal: match(appleUniversal),
+	            device: (match(appleIphone) ||
+	                match(appleIpod) ||
+	                match(appleTablet) ||
+	                match(appleUniversal) ||
+	                isAppleTabletOnIos13(nav)) &&
+	                !match(windowsPhone)
 	        },
 	        amazon: {
-	            phone: match(amazonPhone, userAgent),
-	            tablet: !match(amazonPhone, userAgent) && match(amazonTablet, userAgent),
-	            device: match(amazonPhone, userAgent) || match(amazonTablet, userAgent),
+	            phone: match(amazonPhone),
+	            tablet: !match(amazonPhone) && match(amazonTablet),
+	            device: match(amazonPhone) || match(amazonTablet)
 	        },
 	        android: {
-	            phone: (!match(windowsPhone, userAgent) && match(amazonPhone, userAgent)) ||
-	                (!match(windowsPhone, userAgent) && match(androidPhone, userAgent)),
-	            tablet: !match(windowsPhone, userAgent) &&
-	                !match(amazonPhone, userAgent) &&
-	                !match(androidPhone, userAgent) &&
-	                (match(amazonTablet, userAgent) || match(androidTablet, userAgent)),
-	            device: (!match(windowsPhone, userAgent) &&
-	                (match(amazonPhone, userAgent) ||
-	                    match(amazonTablet, userAgent) ||
-	                    match(androidPhone, userAgent) ||
-	                    match(androidTablet, userAgent))) ||
-	                match(/\bokhttp\b/i, userAgent),
+	            phone: (!match(windowsPhone) && match(amazonPhone)) ||
+	                (!match(windowsPhone) && match(androidPhone)),
+	            tablet: !match(windowsPhone) &&
+	                !match(amazonPhone) &&
+	                !match(androidPhone) &&
+	                (match(amazonTablet) || match(androidTablet)),
+	            device: (!match(windowsPhone) &&
+	                (match(amazonPhone) ||
+	                    match(amazonTablet) ||
+	                    match(androidPhone) ||
+	                    match(androidTablet))) ||
+	                match(/\bokhttp\b/i)
 	        },
 	        windows: {
-	            phone: match(windowsPhone, userAgent),
-	            tablet: match(windowsTablet, userAgent),
-	            device: match(windowsPhone, userAgent) || match(windowsTablet, userAgent),
+	            phone: match(windowsPhone),
+	            tablet: match(windowsTablet),
+	            device: match(windowsPhone) || match(windowsTablet)
 	        },
 	        other: {
-	            blackberry: match(otherBlackBerry, userAgent),
-	            blackberry10: match(otherBlackBerry10, userAgent),
-	            opera: match(otherOpera, userAgent),
-	            firefox: match(otherFirefox, userAgent),
-	            chrome: match(otherChrome, userAgent),
-	            device: match(otherBlackBerry, userAgent) ||
-	                match(otherBlackBerry10, userAgent) ||
-	                match(otherOpera, userAgent) ||
-	                match(otherFirefox, userAgent) ||
-	                match(otherChrome, userAgent),
+	            blackberry: match(otherBlackBerry),
+	            blackberry10: match(otherBlackBerry10),
+	            opera: match(otherOpera),
+	            firefox: match(otherFirefox),
+	            chrome: match(otherChrome),
+	            device: match(otherBlackBerry) ||
+	                match(otherBlackBerry10) ||
+	                match(otherOpera) ||
+	                match(otherFirefox) ||
+	                match(otherChrome)
 	        },
 	        any: false,
 	        phone: false,
-	        tablet: false,
+	        tablet: false
 	    };
 	    result.any =
 	        result.apple.device ||
@@ -722,8 +755,8 @@ var PIXI = (function (exports) {
 	}
 
 	/*!
-	 * @pixi/settings - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/settings - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/settings is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -731,7 +764,7 @@ var PIXI = (function (exports) {
 
 	// The ESM/CJS versions of ismobilejs only
 
-	var isMobile$1 = isMobile();
+	var isMobile$1 = isMobile(window.navigator);
 
 	/**
 	 * The maximum recommended texture units to use.
@@ -3511,8 +3544,8 @@ var PIXI = (function (exports) {
 	};
 
 	/*!
-	 * @pixi/constants - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/constants - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/constants is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -3890,8 +3923,8 @@ var PIXI = (function (exports) {
 	})(exports.MASK_TYPES || (exports.MASK_TYPES = {}));
 
 	/*!
-	 * @pixi/utils - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/utils - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/utils is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -3922,7 +3955,7 @@ var PIXI = (function (exports) {
 	settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = true;
 
 	var saidHello = false;
-	var VERSION = '5.2.1';
+	var VERSION = '5.2.4';
 	/**
 	 * Skips the hello message of renderers that are created after this is run.
 	 *
@@ -4791,8 +4824,8 @@ var PIXI = (function (exports) {
 	});
 
 	/*!
-	 * @pixi/math - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/math - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/math is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -6696,8 +6729,8 @@ var PIXI = (function (exports) {
 	}());
 
 	/*!
-	 * @pixi/display - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/display - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/display is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -8597,8 +8630,8 @@ var PIXI = (function (exports) {
 	Container.prototype.containerUpdateTransform = Container.prototype.updateTransform;
 
 	/*!
-	 * @pixi/accessibility - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/accessibility - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/accessibility is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -8825,6 +8858,19 @@ var PIXI = (function (exports) {
 	     */
 	    this.isMobileAccessibility = false;
 
+	    /**
+	     * count to throttle div updates on android devices
+	     * @type number
+	     * @private
+	     */
+	    this.androidUpdateCount = 0;
+
+	    /**
+	     * the frequency to update the div elements ()
+	     * @private
+	     */
+	    this.androidUpdateFrequency = 500; // 2fps
+
 	    // let listen for tab.. once pressed we can fire up and show the accessibility layer
 	    window.addEventListener('keydown', this._onKeyDown, false);
 	};
@@ -8847,7 +8893,7 @@ var PIXI = (function (exports) {
 	    hookDiv.style.left = DIV_HOOK_POS_Y + "px";
 	    hookDiv.style.zIndex = DIV_HOOK_ZINDEX;
 	    hookDiv.style.backgroundColor = '#FF0000';
-	    hookDiv.title = 'HOOK DIV';
+	    hookDiv.title = 'select to enable accessability for this content';
 
 	    hookDiv.addEventListener('focus', function () {
 	        this$1.isMobileAccessibility = true;
@@ -8964,6 +9010,19 @@ var PIXI = (function (exports) {
 	 */
 	AccessibilityManager.prototype.update = function update ()
 	{
+	    /* On Android default web browser, tab order seems to be calculated by position rather than tabIndex,
+	    *  moving buttons can cause focus to flicker between two buttons making it hard/impossible to navigate,
+	    *  so I am just running update every half a second, seems to fix it.
+	    */
+	    var now = performance.now();
+
+	    if (isMobile$1.android.device && now < this.androidUpdateCount)
+	    {
+	        return;
+	    }
+
+	    this.androidUpdateCount = now + this.androidUpdateFrequency;
+
 	    if (!this.renderer.renderingToScreen)
 	    {
 	        return;
@@ -8973,8 +9032,11 @@ var PIXI = (function (exports) {
 	    this.updateAccessibleObjects(this.renderer._lastObjectRendered);
 
 	    var rect = this.renderer.view.getBoundingClientRect();
-	    var sx = rect.width / this.renderer.width;
-	    var sy = rect.height / this.renderer.height;
+
+	    var resolution = this.renderer.resolution;
+
+	    var sx = (rect.width / this.renderer.width) * resolution;
+	    var sy = (rect.height / this.renderer.height) * resolution;
 
 	    var div = this.div;
 
@@ -8997,11 +9059,6 @@ var PIXI = (function (exports) {
 	            child._accessibleDiv = null;
 
 	            i--;
-
-	            if (this.children.length === 0)
-	            {
-	                this.deactivate();
-	            }
 	        }
 	        else
 	        {
@@ -9288,8 +9345,8 @@ var PIXI = (function (exports) {
 	});
 
 	/*!
-	 * @pixi/ticker - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/ticker - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/ticker is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -10130,8 +10187,8 @@ var PIXI = (function (exports) {
 	}());
 
 	/*!
-	 * @pixi/interaction - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/interaction - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/interaction is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -12727,8 +12784,8 @@ var PIXI = (function (exports) {
 	});
 
 	/*!
-	 * @pixi/runner - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/runner - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/runner is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -12923,8 +12980,8 @@ var PIXI = (function (exports) {
 	});
 
 	/*!
-	 * @pixi/core - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/core - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/core is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -13395,17 +13452,17 @@ var PIXI = (function (exports) {
 	    {
 	        var this$1 = this;
 
-	        if (createBitmap !== undefined)
-	        {
-	            this.createBitmap = createBitmap;
-	        }
-
 	        if (this._load)
 	        {
 	            return this._load;
 	        }
 
-	        this._load = new Promise(function (resolve) {
+	        if (createBitmap !== undefined)
+	        {
+	            this.createBitmap = createBitmap;
+	        }
+
+	        this._load = new Promise(function (resolve, reject) {
 	            this$1.url = this$1.source.src;
 	            var ref = this$1;
 	            var source = ref.source;
@@ -13438,7 +13495,11 @@ var PIXI = (function (exports) {
 	            else
 	            {
 	                source.onload = completed;
-	                source.onerror = function (event) { return this$1.onError.run(event); };
+	                source.onerror = function (event) {
+	                    // Avoids Promise freezing when resource broken
+	                    reject(event);
+	                    this$1.onError.emit(event);
+	                };
 	            }
 	        });
 
@@ -14980,11 +15041,21 @@ var PIXI = (function (exports) {
 	        tempImage.src = this.svg;
 
 	        tempImage.onerror = function (event) {
+	            if (!this$1._resolve)
+	            {
+	                return;
+	            }
+
 	            tempImage.onerror = null;
 	            this$1.onError.run(event);
 	        };
 
 	        tempImage.onload = function () {
+	            if (!this$1._resolve)
+	            {
+	                return;
+	            }
+
 	            var svgWidth = tempImage.width;
 	            var svgHeight = tempImage.height;
 
@@ -15147,8 +15218,25 @@ var PIXI = (function (exports) {
 	        BaseImageResource.call(this, source);
 
 	        this.noSubImage = true;
+
+	        /**
+	         * `true` to use PIXI.Ticker.shared to auto update the base texture.
+	         *
+	         * @type {boolean}
+	         * @default true
+	         * @private
+	         */
 	        this._autoUpdate = true;
-	        this._isAutoUpdating = false;
+
+	        /**
+	         * `true` if the instance is currently connected to PIXI.Ticker.shared to auto update the base texture.
+	         *
+	         * @type {boolean}
+	         * @default false
+	         * @private
+	         */
+	        this._isConnectedToTicker = false;
+
 	        this._updateFPS = options.updateFPS || 0;
 	        this._msToNextUpdate = 0;
 
@@ -15316,10 +15404,10 @@ var PIXI = (function (exports) {
 	            this._onCanPlay();
 	        }
 
-	        if (!this._isAutoUpdating && this.autoUpdate)
+	        if (this.autoUpdate && !this._isConnectedToTicker)
 	        {
 	            Ticker.shared.add(this.update, this);
-	            this._isAutoUpdating = true;
+	            this._isConnectedToTicker = true;
 	        }
 	    };
 
@@ -15330,10 +15418,10 @@ var PIXI = (function (exports) {
 	     */
 	    VideoResource.prototype._onPlayStop = function _onPlayStop ()
 	    {
-	        if (this._isAutoUpdating)
+	        if (this._isConnectedToTicker)
 	        {
 	            Ticker.shared.remove(this.update, this);
-	            this._isAutoUpdating = false;
+	            this._isConnectedToTicker = false;
 	        }
 	    };
 
@@ -15377,7 +15465,7 @@ var PIXI = (function (exports) {
 	     */
 	    VideoResource.prototype.dispose = function dispose ()
 	    {
-	        if (this._isAutoUpdating)
+	        if (this._isConnectedToTicker)
 	        {
 	            Ticker.shared.remove(this.update, this);
 	        }
@@ -15408,15 +15496,15 @@ var PIXI = (function (exports) {
 	        {
 	            this._autoUpdate = value;
 
-	            if (!this._autoUpdate && this._isAutoUpdating)
+	            if (!this._autoUpdate && this._isConnectedToTicker)
 	            {
 	                Ticker.shared.remove(this.update, this);
-	                this._isAutoUpdating = false;
+	                this._isConnectedToTicker = false;
 	            }
-	            else if (this._autoUpdate && !this._isAutoUpdating)
+	            else if (this._autoUpdate && !this._isConnectedToTicker && this._isSourcePlaying())
 	            {
 	                Ticker.shared.add(this.update, this);
-	                this._isAutoUpdating = true;
+	                this._isConnectedToTicker = true;
 	            }
 	        }
 	    };
@@ -15586,7 +15674,8 @@ var PIXI = (function (exports) {
 	            gl.texImage2D(
 	                baseTexture.target,
 	                0,
-	                gl.DEPTH_COMPONENT16, // Needed for depth to render properly in webgl2.0
+	                //  gl.DEPTH_COMPONENT16 Needed for depth to render properly in webgl2.0
+	                renderer.context.webGLVersion === 1 ? gl.DEPTH_COMPONENT : gl.DEPTH_COMPONENT16,
 	                baseTexture.width,
 	                baseTexture.height,
 	                0,
@@ -15652,11 +15741,13 @@ var PIXI = (function (exports) {
 	        if ( index === void 0 ) { index = 0; }
 
 	    // TODO add some validation to the texture - same width / height etc?
-	    this.colorTextures[index] = texture || new BaseTexture(null, { scaleMode: 0,
+	    this.colorTextures[index] = texture || new BaseTexture(null, {
+	        scaleMode: exports.SCALE_MODES.NEAREST,
 	        resolution: 1,
 	        mipmap: false,
 	        width: this.width,
-	        height: this.height });
+	        height: this.height,
+	    });
 
 	    this.dirtyId++;
 	    this.dirtyFormat++;
@@ -15672,14 +15763,16 @@ var PIXI = (function (exports) {
 	Framebuffer.prototype.addDepthTexture = function addDepthTexture (texture)
 	{
 	    /* eslint-disable max-len */
-	    this.depthTexture = texture || new BaseTexture(new DepthResource(null, { width: this.width, height: this.height }), { scaleMode: 0,
+	    this.depthTexture = texture || new BaseTexture(new DepthResource(null, { width: this.width, height: this.height }), {
+	        scaleMode: exports.SCALE_MODES.NEAREST,
 	        resolution: 1,
 	        width: this.width,
 	        height: this.height,
 	        mipmap: false,
 	        format: exports.FORMATS.DEPTH_COMPONENT,
-	        type: exports.TYPES.UNSIGNED_SHORT });
-	    /* eslint-disable max-len */
+	        type: exports.TYPES.UNSIGNED_SHORT,
+	    });
+
 	    this.dirtyId++;
 	    this.dirtyFormat++;
 
@@ -16308,6 +16401,7 @@ var PIXI = (function (exports) {
 	                this.baseTexture.destroy();
 	            }
 
+	            this.baseTexture.off('loaded', this.onBaseTextureUpdated, this);
 	            this.baseTexture.off('update', this.onBaseTextureUpdated, this);
 
 	            this.baseTexture = null;
@@ -16331,7 +16425,13 @@ var PIXI = (function (exports) {
 	     */
 	    Texture.prototype.clone = function clone ()
 	    {
-	        return new Texture(this.baseTexture, this.frame, this.orig, this.trim, this.rotate, this.defaultAnchor);
+	        return new Texture(this.baseTexture,
+	            this.frame.clone(),
+	            this.orig.clone(),
+	            this.trim && this.trim.clone(),
+	            this.rotate,
+	            this.defaultAnchor
+	        );
 	    };
 
 	    /**
@@ -16706,7 +16806,7 @@ var PIXI = (function (exports) {
 	 *
 	 * ```js
 	 * let renderer = PIXI.autoDetectRenderer();
-	 * let renderTexture = PIXI.RenderTexture.create(800, 600);
+	 * let renderTexture = PIXI.RenderTexture.create({ width: 800, height: 600 });
 	 * let sprite = PIXI.Sprite.from("spinObj_01.png");
 	 *
 	 * sprite.position.x = 800/2;
@@ -18072,8 +18172,19 @@ var PIXI = (function (exports) {
 	            filterClamp: new Float32Array(4),
 	        }, true);
 
-	        this._pixelsWidth = renderer.view.width;
-	        this._pixelsHeight = renderer.view.height;
+	        /**
+	         * Whether to clear output renderTexture in AUTO/BLIT mode. See {@link PIXI.CLEAR_MODES}
+	         * @member {boolean}
+	         */
+	        this.forceClear = false;
+
+	        /**
+	         * Old padding behavior is to use the max amount instead of sum padding.
+	         * Use this flag if you need the old behavior.
+	         * @member {boolean}
+	         * @default false
+	         */
+	        this.useMaxPadding = false;
 	    }
 
 	    if ( System ) { FilterSystem.__proto__ = System; }
@@ -18103,8 +18214,12 @@ var PIXI = (function (exports) {
 
 	            // lets use the lowest resolution..
 	            resolution = Math.min(resolution, filter.resolution);
-	            // and the largest amount of padding!
-	            padding = Math.max(padding, filter.padding);
+	            // figure out the padding required for filters
+	            padding = this.useMaxPadding
+	                // old behavior: use largest amount of padding!
+	                ? Math.max(padding, filter.padding)
+	                // new behavior: sum the padding
+	                : padding + filter.padding;
 	            // only auto fit if all filters are autofit
 	            autoFit = autoFit || filter.autoFit;
 
@@ -18797,7 +18912,7 @@ var PIXI = (function (exports) {
 	        {
 	            Object.assign(this.extensions, {
 	                drawBuffers: gl.getExtension('WEBGL_draw_buffers'),
-	                depthTexture: gl.getExtension('WEBKIT_WEBGL_depth_texture'),
+	                depthTexture: gl.getExtension('WEBGL_depth_texture'),
 	                loseContext: gl.getExtension('WEBGL_lose_context'),
 	                vertexArrayObject: gl.getExtension('OES_vertex_array_object')
 	                    || gl.getExtension('MOZ_OES_vertex_array_object')
@@ -23953,7 +24068,7 @@ var PIXI = (function (exports) {
 	        if (glTexture.mipmap)
 	        {
 	            /* eslint-disable max-len */
-	            gl.texParameteri(texture.target, gl.TEXTURE_MIN_FILTER, texture.scaleMode ? gl.LINEAR_MIPMAP_LINEAR : gl.NEAREST_MIPMAP_NEAREST);
+	            gl.texParameteri(texture.target, gl.TEXTURE_MIN_FILTER, texture.scaleMode === exports.SCALE_MODES.LINEAR ? gl.LINEAR_MIPMAP_LINEAR : gl.NEAREST_MIPMAP_NEAREST);
 	            /* eslint-disable max-len */
 
 	            var anisotropicExt = this.renderer.context.extensions.anisotropicFiltering;
@@ -23967,10 +24082,10 @@ var PIXI = (function (exports) {
 	        }
 	        else
 	        {
-	            gl.texParameteri(texture.target, gl.TEXTURE_MIN_FILTER, texture.scaleMode ? gl.LINEAR : gl.NEAREST);
+	            gl.texParameteri(texture.target, gl.TEXTURE_MIN_FILTER, texture.scaleMode === exports.SCALE_MODES.LINEAR ? gl.LINEAR : gl.NEAREST);
 	        }
 
-	        gl.texParameteri(texture.target, gl.TEXTURE_MAG_FILTER, texture.scaleMode ? gl.LINEAR : gl.NEAREST);
+	        gl.texParameteri(texture.target, gl.TEXTURE_MAG_FILTER, texture.scaleMode === exports.SCALE_MODES.LINEAR ? gl.LINEAR : gl.NEAREST);
 	    };
 
 	    return TextureSystem;
@@ -24221,7 +24336,7 @@ var PIXI = (function (exports) {
 	     * This can be quite useful if your displayObject is complicated and needs to be reused multiple times.
 	     *
 	     * @param {PIXI.DisplayObject} displayObject - The displayObject the object will be generated from.
-	     * @param {number} scaleMode - Should be one of the scaleMode consts.
+	     * @param {PIXI.SCALE_MODES} scaleMode - The scale mode of the texture.
 	     * @param {number} resolution - The resolution / device pixel ratio of the texture being generated.
 	     * @param {PIXI.Rectangle} [region] - The region of the displayObject, that shall be rendered,
 	     *        if no region is specified, defaults to the local bounds of the displayObject.
@@ -24235,7 +24350,13 @@ var PIXI = (function (exports) {
 	        if (region.width === 0) { region.width = 1; }
 	        if (region.height === 0) { region.height = 1; }
 
-	        var renderTexture = RenderTexture.create(region.width | 0, region.height | 0, scaleMode, resolution);
+	        var renderTexture = RenderTexture.create(
+	            {
+	                width: region.width | 0,
+	                height: region.height | 0,
+	                scaleMode: scaleMode,
+	                resolution: resolution,
+	            });
 
 	        tempMatrix.tx = -region.x;
 	        tempMatrix.ty = -region.y;
@@ -25981,8 +26102,8 @@ var PIXI = (function (exports) {
 	var BatchRenderer = BatchPluginFactory.create();
 
 	/*!
-	 * @pixi/app - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/app - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/app is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -26206,8 +26327,8 @@ var PIXI = (function (exports) {
 	Application.registerPlugin(ResizePlugin);
 
 	/*!
-	 * @pixi/extract - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/extract - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/extract is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -26362,8 +26483,15 @@ var PIXI = (function (exports) {
 	    // pulling pixels
 	    if (flipY)
 	    {
-	        canvasBuffer.context.scale(1, -1);
-	        canvasBuffer.context.drawImage(canvasBuffer.canvas, 0, -height);
+	        var target$1 = new CanvasRenderTarget(canvasBuffer.width, canvasBuffer.height, 1);
+
+	        target$1.context.scale(1, -1);
+
+	        // we can't render to itself because we should be empty before render.
+	        target$1.context.drawImage(canvasBuffer.canvas, 0, -height);
+
+	        canvasBuffer.destroy();
+	        canvasBuffer = target$1;
 	    }
 
 	    if (generated)
@@ -29028,8 +29156,8 @@ var PIXI = (function (exports) {
 	};
 
 	/*!
-	 * @pixi/loaders - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/loaders - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/loaders is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -29329,8 +29457,8 @@ var PIXI = (function (exports) {
 	var LoaderResource = Resource$1;
 
 	/*!
-	 * @pixi/particles - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/particles - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/particles is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -30306,8 +30434,8 @@ var PIXI = (function (exports) {
 	}(ObjectRenderer));
 
 	/*!
-	 * @pixi/graphics - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/graphics - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/graphics is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -30337,7 +30465,7 @@ var PIXI = (function (exports) {
 	    {
 	        if ( defaultSegments === void 0 ) { defaultSegments = 20; }
 
-	        if (!this.adaptive || !length || Number.isNaN(length))
+	        if (!this.adaptive || !length || isNaN(length))
 	        {
 	            return defaultSegments;
 	        }
@@ -30561,10 +30689,7 @@ var PIXI = (function (exports) {
 	            );
 	        }
 
-	        points.push(
-	            points[0],
-	            points[1]
-	        );
+	        points.push(points[0], points[1]);
 	    },
 
 	    triangulate: function triangulate(graphicsData, graphicsGeometry)
@@ -30576,7 +30701,15 @@ var PIXI = (function (exports) {
 	        var vertPos = verts.length / 2;
 	        var center = vertPos;
 
-	        verts.push(graphicsData.shape.x, graphicsData.shape.y);
+	        var circle = graphicsData.shape;
+	        var matrix = graphicsData.matrix;
+	        var x = circle.x;
+	        var y = circle.y;
+
+	        // Push center (special point)
+	        verts.push(
+	            graphicsData.matrix ? (matrix.a * x) + (matrix.c * y) + matrix.tx : x,
+	            graphicsData.matrix ? (matrix.b * x) + (matrix.d * y) + matrix.ty : y);
 
 	        for (var i = 0; i < points.length; i += 2)
 	        {
@@ -30661,26 +30794,38 @@ var PIXI = (function (exports) {
 	        var width = rrectData.width;
 	        var height = rrectData.height;
 
-	        var radius = rrectData.radius;
+	        // Don't allow negative radius or greater than half the smallest width
+	        var radius = Math.max(0, Math.min(rrectData.radius, Math.min(width, height) / 2));
 
 	        points.length = 0;
 
-	        quadraticBezierCurve(x, y + radius,
-	            x, y,
-	            x + radius, y,
-	            points);
-	        quadraticBezierCurve(x + width - radius,
-	            y, x + width, y,
-	            x + width, y + radius,
-	            points);
-	        quadraticBezierCurve(x + width, y + height - radius,
-	            x + width, y + height,
-	            x + width - radius, y + height,
-	            points);
-	        quadraticBezierCurve(x + radius, y + height,
-	            x, y + height,
-	            x, y + height - radius,
-	            points);
+	        // No radius, do a simple rectangle
+	        if (!radius)
+	        {
+	            points.push(x, y,
+	                x + width, y,
+	                x + width, y + height,
+	                x, y + height);
+	        }
+	        else
+	        {
+	            quadraticBezierCurve(x, y + radius,
+	                x, y,
+	                x + radius, y,
+	                points);
+	            quadraticBezierCurve(x + width - radius,
+	                y, x + width, y,
+	                x + width, y + radius,
+	                points);
+	            quadraticBezierCurve(x + width, y + height - radius,
+	                x + width, y + height,
+	                x + width - radius, y + height,
+	                points);
+	            quadraticBezierCurve(x + radius, y + height,
+	                x, y + height,
+	                x, y + height - radius,
+	                points);
+	        }
 
 	        // this tiny number deals with the issue that occurs when points overlap and earcut fails to triangulate the item.
 	        // TODO - fix this properly, this is not very elegant.. but it works for now.
@@ -32788,10 +32933,10 @@ var PIXI = (function (exports) {
 	        this.width = 0;
 
 	        /**
-	         * The alignment of any lines drawn (0.5 = middle, 1 = outter, 0 = inner).
+	         * The alignment of any lines drawn (0.5 = middle, 1 = outer, 0 = inner).
 	         *
 	         * @member {number}
-	         * @default 0
+	         * @default 0.5
 	         */
 	        this.alignment = 0.5;
 
@@ -34111,8 +34256,8 @@ var PIXI = (function (exports) {
 	Graphics._TEMP_POINT = new Point();
 
 	/*!
-	 * @pixi/sprite - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/sprite - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/sprite is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -34275,8 +34420,6 @@ var PIXI = (function (exports) {
 	        // Batchable stuff..
 	        // TODO could make this a mixin?
 	        this.indices = indices;
-	        this.size = 4;
-	        this.start = 0;
 
 	        /**
 	         * Plugin that is responsible for rendering this element.
@@ -34788,8 +34931,8 @@ var PIXI = (function (exports) {
 	}(Container));
 
 	/*!
-	 * @pixi/text - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/text - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/text is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -36452,7 +36595,13 @@ var PIXI = (function (exports) {
 	var Text = /*@__PURE__*/(function (Sprite) {
 	    function Text(text, style, canvas)
 	    {
-	        canvas = canvas || document.createElement('canvas');
+	        var ownCanvas = false;
+
+	        if (!canvas)
+	        {
+	            canvas = document.createElement('canvas');
+	            ownCanvas = true;
+	        }
 
 	        canvas.width = 3;
 	        canvas.height = 3;
@@ -36463,6 +36612,17 @@ var PIXI = (function (exports) {
 	        texture.trim = new Rectangle();
 
 	        Sprite.call(this, texture);
+
+	        /**
+	         * Keep track if this Text object created it's own canvas
+	         * element (`true`) or uses the constructor argument (`false`).
+	         * Used to workaround a GC issues with Safari < 13 when
+	         * destroying Text. See `destroy` for more info.
+	         *
+	         * @member {boolean}
+	         * @private
+	         */
+	        this._ownCanvas = ownCanvas;
 
 	        /**
 	         * The canvas element that everything is drawn to
@@ -36618,7 +36778,10 @@ var PIXI = (function (exports) {
 	            else
 	            {
 	                // set canvas text styles
-	                context.fillStyle = this._generateFillStyle(style, lines);
+	                context.fillStyle = this._generateFillStyle(style, lines, measured);
+	                // TODO: Can't have different types for getter and setter. The getter shouldn't have the number type as
+	                //       the setter converts to string. See this thread for more details:
+	                //       https://github.com/microsoft/TypeScript/issues/2521
 	                context.strokeStyle = style.stroke;
 
 	                context.shadowColor = 0;
@@ -36831,7 +36994,7 @@ var PIXI = (function (exports) {
 	     * @param {string[]} lines - The lines of text.
 	     * @return {string|number|CanvasGradient} The fill style
 	     */
-	    Text.prototype._generateFillStyle = function _generateFillStyle (style, lines)
+	    Text.prototype._generateFillStyle = function _generateFillStyle (style, lines, metrics)
 	    {
 	        if (!Array.isArray(style.fill))
 	        {
@@ -36845,16 +37008,16 @@ var PIXI = (function (exports) {
 	        // the gradient will be evenly spaced out according to how large the array is.
 	        // ['#FF0000', '#00FF00', '#0000FF'] would created stops at 0.25, 0.5 and 0.75
 	        var gradient;
-	        var totalIterations;
-	        var currentIteration;
-	        var stop;
 
 	        // a dropshadow will enlarge the canvas and result in the gradient being
 	        // generated with the incorrect dimensions
 	        var dropShadowCorrection = (style.dropShadow) ? style.dropShadowDistance : 0;
 
-	        var width = Math.ceil(this.canvas.width / this._resolution) - dropShadowCorrection;
-	        var height = Math.ceil(this.canvas.height / this._resolution) - dropShadowCorrection;
+	        // should also take padding into account, padding can offset the gradient
+	        var padding = style.padding || 0;
+
+	        var width = Math.ceil(this.canvas.width / this._resolution) - dropShadowCorrection - (padding * 2);
+	        var height = Math.ceil(this.canvas.height / this._resolution) - dropShadowCorrection - (padding * 2);
 
 	        // make a copy of the style settings, so we can manipulate them later
 	        var fill = style.fill.slice();
@@ -36882,42 +37045,66 @@ var PIXI = (function (exports) {
 	        if (style.fillGradientType === TEXT_GRADIENT.LINEAR_VERTICAL)
 	        {
 	            // start the gradient at the top center of the canvas, and end at the bottom middle of the canvas
-	            gradient = this.context.createLinearGradient(width / 2, 0, width / 2, height);
+	            gradient = this.context.createLinearGradient(width / 2, padding, width / 2, height + padding);
 
 	            // we need to repeat the gradient so that each individual line of text has the same vertical gradient effect
 	            // ['#FF0000', '#00FF00', '#0000FF'] over 2 lines would create stops at 0.125, 0.25, 0.375, 0.625, 0.75, 0.875
-	            totalIterations = (fill.length + 1) * lines.length;
-	            currentIteration = 0;
+
+	            // There's potential for floating point precision issues at the seams between gradient repeats.
+	            // The loop below generates the stops in order, so track the last generated one to prevent
+	            // floating point precision from making us go the teeniest bit backwards, resulting in
+	            // the first and last colors getting swapped.
+	            var lastIterationStop = 0;
+
+	            // Actual height of the text itself, not counting spacing for lineHeight/leading/dropShadow etc
+	            var textHeight = metrics.fontProperties.fontSize + style.strokeThickness;
+
+	            // textHeight, but as a 0-1 size in global gradient stop space
+	            var gradStopLineHeight = textHeight / height;
+
 	            for (var i$1 = 0; i$1 < lines.length; i$1++)
 	            {
-	                currentIteration += 1;
+	                var thisLineTop = metrics.lineHeight * i$1;
+
 	                for (var j = 0; j < fill.length; j++)
 	                {
+	                    // 0-1 stop point for the current line, multiplied to global space afterwards
+	                    var lineStop = 0;
+
 	                    if (typeof fillGradientStops[j] === 'number')
 	                    {
-	                        stop = (fillGradientStops[j] / lines.length) + (i$1 / lines.length);
+	                        lineStop = fillGradientStops[j];
 	                    }
 	                    else
 	                    {
-	                        stop = currentIteration / totalIterations;
+	                        lineStop = j / fill.length;
 	                    }
-	                    gradient.addColorStop(stop, fill[j]);
-	                    currentIteration++;
+
+	                    var globalStop = (thisLineTop / height) + (lineStop * gradStopLineHeight);
+
+	                    // Prevent color stop generation going backwards from floating point imprecision
+	                    var clampedStop = Math.max(lastIterationStop, globalStop);
+
+	                    clampedStop = Math.min(clampedStop, 1); // Cap at 1 as well for safety's sake to avoid a possible throw.
+	                    gradient.addColorStop(clampedStop, fill[j]);
+	                    lastIterationStop = clampedStop;
 	                }
 	            }
 	        }
 	        else
 	        {
 	            // start the gradient at the center left of the canvas, and end at the center right of the canvas
-	            gradient = this.context.createLinearGradient(0, height / 2, width, height / 2);
+	            gradient = this.context.createLinearGradient(padding, height / 2, width + padding, height / 2);
 
 	            // can just evenly space out the gradients in this case, as multiple lines makes no difference
 	            // to an even left to right gradient
-	            totalIterations = fill.length + 1;
-	            currentIteration = 1;
+	            var totalIterations = fill.length + 1;
+	            var currentIteration = 1;
 
 	            for (var i$2 = 0; i$2 < fill.length; i$2++)
 	            {
+	                var stop = (void 0);
+
 	                if (typeof fillGradientStops[i$2] === 'number')
 	                {
 	                    stop = fillGradientStops[i$2];
@@ -36956,6 +37143,13 @@ var PIXI = (function (exports) {
 	        options = Object.assign({}, defaultDestroyOptions, options);
 
 	        Sprite.prototype.destroy.call(this, options);
+
+	        // set canvas width and height to 0 to workaround memory leak in Safari < 13
+	        // https://stackoverflow.com/questions/52532614/total-canvas-memory-use-exceeds-the-maximum-limit-safari-12
+	        if (this._ownCanvas)
+	        {
+	            this.canvas.height = this.canvas.width = 0;
+	        }
 
 	        // make sure to reset the the context and canvas.. dont want this hanging around in memory!
 	        this.context = null;
@@ -37088,8 +37282,8 @@ var PIXI = (function (exports) {
 	}(Sprite));
 
 	/*!
-	 * @pixi/prepare - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/prepare - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/prepare is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -37747,7 +37941,7 @@ var PIXI = (function (exports) {
 	    // if its not batchable - update vao for particular shader
 	    if (!geometry.batchable)
 	    {
-	        renderer.geometry.bind(geometry, item._resolveDirectShader());
+	        renderer.geometry.bind(geometry, item._resolveDirectShader(renderer));
 	    }
 
 	    return true;
@@ -37814,8 +38008,8 @@ var PIXI = (function (exports) {
 	};
 
 	/*!
-	 * @pixi/spritesheet - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/spritesheet - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/spritesheet is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -37845,15 +38039,23 @@ var PIXI = (function (exports) {
 	 * @class
 	 * @memberof PIXI
 	 */
-	var Spritesheet = function Spritesheet(baseTexture, data, resolutionFilename)
+	var Spritesheet = function Spritesheet(texture, data, resolutionFilename)
 	{
 	    if ( resolutionFilename === void 0 ) { resolutionFilename = null; }
 
 	    /**
-	     * Reference to ths source texture
+	     * Reference to original source image from the Loader. This reference is retained so we
+	     * can destroy the Texture later on. It is never used internally.
+	     * @type {PIXI.Texture}
+	     * @private
+	     */
+	    this._texture = texture instanceof Texture ? texture : null;
+
+	    /**
+	     * Reference to ths source texture.
 	     * @type {PIXI.BaseTexture}
 	     */
-	    this.baseTexture = baseTexture;
+	    this.baseTexture = texture instanceof BaseTexture ? texture : this._texture.baseTexture;
 
 	    /**
 	     * A map containing all textures of the sprite sheet.
@@ -38138,8 +38340,13 @@ var PIXI = (function (exports) {
 	    this.textures = null;
 	    if (destroyBase)
 	    {
+	        if (this._texture)
+	        {
+	            this._texture.destroy();
+	        }
 	        this.baseTexture.destroy();
 	    }
+	    this._texture = null;
 	    this.baseTexture = null;
 	};
 
@@ -38192,7 +38399,7 @@ var PIXI = (function (exports) {
 	        }
 
 	        var spritesheet = new Spritesheet(
-	            res.texture.baseTexture,
+	            res.texture,
 	            resource.data,
 	            resource.url
 	        );
@@ -38222,8 +38429,8 @@ var PIXI = (function (exports) {
 	};
 
 	/*!
-	 * @pixi/sprite-tiling - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/sprite-tiling - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/sprite-tiling is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -38727,8 +38934,8 @@ var PIXI = (function (exports) {
 	}(ObjectRenderer));
 
 	/*!
-	 * @pixi/text-bitmap - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/text-bitmap - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/text-bitmap is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -39305,7 +39512,7 @@ var PIXI = (function (exports) {
 	        var info = xml.getElementsByTagName('info')[0];
 	        var common = xml.getElementsByTagName('common')[0];
 	        var pages = xml.getElementsByTagName('page');
-	        var res = getResolutionOfUrl(pages[0].getAttribute('file'), settings.RESOLUTION);
+	        var res = getResolutionOfUrl(pages[0].getAttribute('file'));
 	        var pagesTextures = {};
 
 	        data.font = info.getAttribute('face');
@@ -39553,8 +39760,8 @@ var PIXI = (function (exports) {
 	};
 
 	/*!
-	 * @pixi/filter-alpha - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/filter-alpha - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/filter-alpha is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -39617,8 +39824,8 @@ var PIXI = (function (exports) {
 	}(Filter));
 
 	/*!
-	 * @pixi/filter-blur - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/filter-blur - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/filter-blur is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40042,8 +40249,8 @@ var PIXI = (function (exports) {
 	}(Filter));
 
 	/*!
-	 * @pixi/filter-color-matrix - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/filter-color-matrix - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/filter-color-matrix is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40640,8 +40847,8 @@ var PIXI = (function (exports) {
 	ColorMatrixFilter.prototype.grayscale = ColorMatrixFilter.prototype.greyscale;
 
 	/*!
-	 * @pixi/filter-displacement - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/filter-displacement - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/filter-displacement is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40757,8 +40964,8 @@ var PIXI = (function (exports) {
 	}(Filter));
 
 	/*!
-	 * @pixi/filter-fxaa - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/filter-fxaa - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/filter-fxaa is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40794,8 +41001,8 @@ var PIXI = (function (exports) {
 	}(Filter));
 
 	/*!
-	 * @pixi/filter-noise - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/filter-noise - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/filter-noise is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -40873,8 +41080,8 @@ var PIXI = (function (exports) {
 	}(Filter));
 
 	/*!
-	 * @pixi/mixin-cache-as-bitmap - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/mixin-cache-as-bitmap - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/mixin-cache-as-bitmap is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -41057,7 +41264,7 @@ var PIXI = (function (exports) {
 	    // for now we cache the current renderTarget that the WebGL renderer is currently using.
 	    // this could be more elegant..
 	    var cachedRenderTexture = renderer.renderTexture.current;
-	    var cachedSourceFrame = renderer.renderTexture.sourceFrame;
+	    var cachedSourceFrame = renderer.renderTexture.sourceFrame.clone();
 	    var cachedProjectionTransform = renderer.projection.transform;
 
 	    // We also store the filter stack - I will definitely look to change how this works a little later down the line.
@@ -41175,6 +41382,7 @@ var PIXI = (function (exports) {
 	    this.alpha = 1;
 
 	    var cachedRenderTarget = renderer.context;
+	    var cachedProjectionTransform = renderer._projTransform;
 
 	    bounds.ceil(settings.RESOLUTION);
 
@@ -41200,11 +41408,10 @@ var PIXI = (function (exports) {
 	    // set all properties to there original so we can render to a texture
 	    this.renderCanvas = this._cacheData.originalRenderCanvas;
 
-	    // renderTexture.render(this, m, true);
 	    renderer.render(this, renderTexture, true, m, false);
-
 	    // now restore the state be setting the new properties
 	    renderer.context = cachedRenderTarget;
+	    renderer._projTransform = cachedProjectionTransform;
 
 	    this.renderCanvas = this._renderCachedCanvas;
 	    // the rest is the same as for WebGL
@@ -41298,8 +41505,8 @@ var PIXI = (function (exports) {
 	};
 
 	/*!
-	 * @pixi/mixin-get-child-by-name - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/mixin-get-child-by-name - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/mixin-get-child-by-name is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -41335,8 +41542,8 @@ var PIXI = (function (exports) {
 	};
 
 	/*!
-	 * @pixi/mixin-get-global-position - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/mixin-get-global-position - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/mixin-get-global-position is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -42741,8 +42948,8 @@ var PIXI = (function (exports) {
 	}
 
 	/*!
-	 * @pixi/mesh - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/mesh - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/mesh is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -43521,8 +43728,8 @@ var PIXI = (function (exports) {
 	}(Geometry));
 
 	/*!
-	 * @pixi/mesh-extras - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/mesh-extras - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/mesh-extras is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -44328,8 +44535,8 @@ var PIXI = (function (exports) {
 	}(SimplePlane));
 
 	/*!
-	 * @pixi/sprite-animated - v5.2.1
-	 * Compiled Tue, 28 Jan 2020 23:37:37 UTC
+	 * @pixi/sprite-animated - v5.2.4
+	 * Compiled Sun, 03 May 2020 22:38:52 UTC
 	 *
 	 * @pixi/sprite-animated is licensed under the MIT License.
 	 * http://www.opensource.org/licenses/mit-license
@@ -44385,15 +44592,23 @@ var PIXI = (function (exports) {
 	         */
 	        this._durations = null;
 
-	        this.textures = textures;
-
 	        /**
 	         * `true` uses PIXI.Ticker.shared to auto update animation time.
+	         *
 	         * @type {boolean}
 	         * @default true
 	         * @private
 	         */
 	        this._autoUpdate = autoUpdate !== false;
+
+	        /**
+	         * `true` if the instance is currently connected to PIXI.Ticker.shared to auto update animation time.
+	         *
+	         * @type {boolean}
+	         * @default false
+	         * @private
+	         */
+	        this._isConnectedToTicker = false;
 
 	        /**
 	         * The speed that the AnimatedSprite will play at. Higher is faster, lower is slower.
@@ -44454,20 +44669,24 @@ var PIXI = (function (exports) {
 	         */
 	        this._currentTime = 0;
 
+	        this._playing = false;
+
 	        /**
-	         * Indicates if the AnimatedSprite is currently playing.
+	         * The texture index that was displayed last time
 	         *
-	         * @member {boolean}
-	         * @readonly
+	         * @member {number}
+	         * @private
 	         */
-	        this.playing = false;
+	        this._previousFrame = null;
+
+	        this.textures = textures;
 	    }
 
 	    if ( Sprite ) { AnimatedSprite.__proto__ = Sprite; }
 	    AnimatedSprite.prototype = Object.create( Sprite && Sprite.prototype );
 	    AnimatedSprite.prototype.constructor = AnimatedSprite;
 
-	    var prototypeAccessors = { totalFrames: { configurable: true },textures: { configurable: true },currentFrame: { configurable: true } };
+	    var prototypeAccessors = { totalFrames: { configurable: true },textures: { configurable: true },currentFrame: { configurable: true },playing: { configurable: true },autoUpdate: { configurable: true } };
 
 	    /**
 	     * Stops the AnimatedSprite.
@@ -44480,10 +44699,11 @@ var PIXI = (function (exports) {
 	            return;
 	        }
 
-	        this.playing = false;
-	        if (this._autoUpdate)
+	        this._playing = false;
+	        if (this._autoUpdate && this._isConnectedToTicker)
 	        {
 	            Ticker.shared.remove(this.update, this);
+	            this._isConnectedToTicker = false;
 	        }
 	    };
 
@@ -44498,10 +44718,11 @@ var PIXI = (function (exports) {
 	            return;
 	        }
 
-	        this.playing = true;
-	        if (this._autoUpdate)
+	        this._playing = true;
+	        if (this._autoUpdate && !this._isConnectedToTicker)
 	        {
 	            Ticker.shared.add(this.update, this, exports.UPDATE_PRIORITY.HIGH);
+	            this._isConnectedToTicker = true;
 	        }
 	    };
 
@@ -44546,7 +44767,6 @@ var PIXI = (function (exports) {
 	    /**
 	     * Updates the object transform for rendering.
 	     *
-	     * @private
 	     * @param {number} deltaTime - Time since last tick.
 	     */
 	    AnimatedSprite.prototype.update = function update (deltaTime)
@@ -44585,8 +44805,7 @@ var PIXI = (function (exports) {
 
 	        if (this._currentTime < 0 && !this.loop)
 	        {
-	            this._currentTime = 0;
-	            this.stop();
+	            this.gotoAndStop(0);
 
 	            if (this.onComplete)
 	            {
@@ -44595,8 +44814,7 @@ var PIXI = (function (exports) {
 	        }
 	        else if (this._currentTime >= this._textures.length && !this.loop)
 	        {
-	            this._currentTime = this._textures.length - 1;
-	            this.stop();
+	            this.gotoAndStop(this._textures.length - 1);
 
 	            if (this.onComplete)
 	            {
@@ -44628,7 +44846,16 @@ var PIXI = (function (exports) {
 	     */
 	    AnimatedSprite.prototype.updateTexture = function updateTexture ()
 	    {
-	        this._texture = this._textures[this.currentFrame];
+	        var currentFrame = this.currentFrame;
+
+	        if (this._previousFrame === currentFrame)
+	        {
+	            return;
+	        }
+
+	        this._previousFrame = currentFrame;
+
+	        this._texture = this._textures[currentFrame];
 	        this._textureID = -1;
 	        this._textureTrimmedID = -1;
 	        this._cachedTint = 0xFFFFFF;
@@ -44744,6 +44971,7 @@ var PIXI = (function (exports) {
 	                this._durations.push(value[i].time);
 	            }
 	        }
+	        this._previousFrame = null;
 	        this.gotoAndStop(0);
 	        this.updateTexture();
 	    };
@@ -44764,6 +44992,46 @@ var PIXI = (function (exports) {
 	        }
 
 	        return currentFrame;
+	    };
+
+	    /**
+	     * Indicates if the AnimatedSprite is currently playing.
+	     *
+	     * @member {boolean}
+	     * @readonly
+	     */
+	    prototypeAccessors.playing.get = function ()
+	    {
+	        return this._playing;
+	    };
+
+	    /**
+	     * Whether to use PIXI.Ticker.shared to auto update animation time
+	     *
+	     * @member {boolean}
+	     */
+	    prototypeAccessors.autoUpdate.get = function ()
+	    {
+	        return this._autoUpdate;
+	    };
+
+	    prototypeAccessors.autoUpdate.set = function (value) // eslint-disable-line require-jsdoc
+	    {
+	        if (value !== this._autoUpdate)
+	        {
+	            this._autoUpdate = value;
+
+	            if (!this._autoUpdate && this._isConnectedToTicker)
+	            {
+	                Ticker.shared.remove(this.update, this);
+	                this._isConnectedToTicker = false;
+	            }
+	            else if (this._autoUpdate && !this._isConnectedToTicker && this._playing)
+	            {
+	                Ticker.shared.add(this.update, this);
+	                this._isConnectedToTicker = true;
+	            }
+	        }
 	    };
 
 	    Object.defineProperties( AnimatedSprite.prototype, prototypeAccessors );
@@ -44795,7 +45063,7 @@ var PIXI = (function (exports) {
 	 * @name VERSION
 	 * @type {string}
 	 */
-	var VERSION$1 = '5.2.1';
+	var VERSION$1 = '5.2.4';
 
 	/**
 	 * @namespace PIXI

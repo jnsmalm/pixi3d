@@ -3,11 +3,12 @@ import * as PIXI from "pixi.js"
 import { Material } from "../material"
 import { Camera3D } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
+import { MeshShader } from "../mesh/mesh-shader"
 
 const vert = require("./shader/color-picking.vert").default
 const frag = require("./shader/color-picking.frag").default
 
-const shader = new PIXI.Shader(PIXI.Program.from(vert, frag))
+const shader = new MeshShader(PIXI.Program.from(vert, frag))
 
 export class ColorMaterial extends Material {
   private color = new Float32Array(3)

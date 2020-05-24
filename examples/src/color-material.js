@@ -46,6 +46,6 @@ class ColorMaterial extends PIXI3D.Material {
     let program = PIXI.Program.from(
       app.loader.resources["assets/shaders/color/color.vert"].source,
       app.loader.resources["assets/shaders/color/color.frag"].source)
-    return new PIXI.Shader(program)
+    return new PIXI3D.MeshShader(program)
   }
 }

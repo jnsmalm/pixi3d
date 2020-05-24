@@ -1,6 +1,5 @@
 import * as PIXI from "pixi.js"
-
-import { Material } from "../material"
+import { MeshShader } from "./mesh-shader"
 
 export interface MeshGeometryAttribute {
   buffer: ArrayBuffer
@@ -8,7 +7,7 @@ export interface MeshGeometryAttribute {
 }
 
 export class MeshGeometry extends PIXI.Geometry {
-  private _materials: string[] = []
+  private _shaders: string[] = []
 
   indices?: MeshGeometryAttribute
   positions?: MeshGeometryAttribute
@@ -37,12 +36,12 @@ export class MeshGeometry extends PIXI.Geometry {
     return <MeshGeometry>super.addIndex(buffer)
   }
 
-  addMaterialAttributes(material: Material) {
-    material.addGeometryAttributes(this)
-    this._materials.push(material.name)
+  addShaderAttributes(shader: MeshShader) {
+    shader.addShaderAttributes(this)
+    this._shaders.push(shader.name)
   }
 
-  hasMaterialAttributes(material: Material) {
-    return this._materials.indexOf(material.name) >= 0
+  hasShaderAttributes(material: MeshShader) {
+    return this._shaders.indexOf(material.name) >= 0
   }
 }

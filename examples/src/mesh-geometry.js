@@ -37,14 +37,6 @@ app.loader.load(() => {
 })
 
 class MeshGeometryMaterial extends PIXI3D.Material {
-  addGeometryAttributes(geometry) {
-    // Add the attributes used when rendering with the specified shader. This
-    // geometry has two attributes: position and color. The number of components
-    // for the attribute is also specified, both have three (z,y,z and r,g,b).
-    geometry.addAttribute("a_Position", geometry.positions.buffer, 3)
-    geometry.addAttribute("a_Color", geometry.colors.buffer, 3)
-  }
-
   updateUniforms(mesh, shader) {
     // Updates the shader uniforms before rendering with this material.
     shader.uniforms.u_World = mesh.worldTransform.toArray()
@@ -57,6 +49,16 @@ class MeshGeometryMaterial extends PIXI3D.Material {
     let program = PIXI.Program.from(
       app.loader.resources["assets/shaders/mesh-geometry/mesh-geometry.vert"].source,
       app.loader.resources["assets/shaders/mesh-geometry/mesh-geometry.frag"].source)
-    return new PIXI.Shader(program)
+    return new ColorShader(program)
+  }
+}
+
+class ColorShader extends PIXI3D.MeshShader {
+  addShaderAttributes(geometry) {
+    // Add the attributes used when rendering with the specified shader. This
+    // geometry has two attributes: position and color. The number of components
+    // for the attribute is also specified, both have three (z,y,z and r,g,b).
+    geometry.addAttribute("a_Position", geometry.positions.buffer, 3)
+    geometry.addAttribute("a_Color", geometry.colors.buffer, 3)
   }
 }
