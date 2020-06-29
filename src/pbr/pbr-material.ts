@@ -10,6 +10,10 @@ import { LightingEnvironment } from "../lighting/lighting-environment"
 import { Mesh3D } from "../mesh/mesh"
 import { MeshGeometry } from "../mesh/mesh-geometry"
 
+export interface PhysicallyBasedMaterialOptions {
+  unlit?: boolean
+}
+
 export enum PhysicallyBasedMaterialAlphaMode {
   opaque = "opaque",
   mask = "mask",
@@ -21,6 +25,7 @@ const shaders: { [features: string]: PhysicallyBasedMeshShader } = {}
 export class PhysicallyBasedMaterial extends Material {
   private _valid = false
   private _lighting?: LightingEnvironment
+  private _unlit = false
 
   roughness = 1
   metallic = 1
@@ -65,6 +70,37 @@ export class PhysicallyBasedMaterial extends Material {
     return this._valid = true
   }
 
+  get unlit() {
+    return this._unlit
+  }
+
+  set unlit(value: boolean) {
+    if (this._unlit !== value) {
+      this._unlit = value
+      // Clear the shader so it can be recreated with the new feature.
+      this._shader = undefined
+    }
+  }
+
+  /**
+   * Creates a physically based material factory.
+   * @param options Options when creating the material.
+   */
+  static factory(options: PhysicallyBasedMaterialOptions = {}) {
+    let { unlit = false } = options
+    return {
+      create: (source: unknown) => {
+        return Object.assign(PhysicallyBasedMaterial.create(source), {
+          unlit: unlit
+        })
+      }
+    }
+  }
+
+  /**
+   * Creates a new physically based material from the specified source.
+   * @param source Source from which the material is created.
+   */
   static create(source: unknown) {
     let material = new PhysicallyBasedMaterial()
     if (source instanceof glTFMaterial) {
@@ -146,9 +182,9 @@ export class PhysicallyBasedMaterial extends Material {
     if (this.baseColorTexture) {
       features.push(PhysicallyBasedShaderFeature.baseColorMap)
     }
-
-    // features.push(PhysicallyBasedShaderFeature.materialUnlit)
-
+    if (this._unlit) {
+      features.push(PhysicallyBasedShaderFeature.materialUnlit)
+    }
     features.push(PhysicallyBasedShaderFeature.materialMetallicRoughness)
     features.push(PhysicallyBasedShaderFeature.texLod)
 
