@@ -25,15 +25,15 @@ export class glTFParser {
   }
 
   createModel() {
-    let nodes = this.createNodes()
+    let hierarchy = this.createHierarchy()
     let scene = this.descriptor.scene || 0
-    let model = new Model3D()
+    let model = new Model3D(hierarchy.meshes)
     for (let child of this.descriptor.scenes[scene].nodes) {
-      this.addChild(model, child, nodes)
+      this.addChild(model, child, hierarchy.nodes)
     }
     if (this.descriptor.animations) {
       for (let animation of this.descriptor.animations) {
-        model.animations.push(this.createAnimation(animation, nodes))
+        model.animations.push(this.createAnimation(animation, hierarchy.nodes))
       }
     }
     return model
@@ -49,8 +49,9 @@ export class glTFParser {
     }
   }
 
-  private createNodes() {
+  private createHierarchy() {
     let nodes: Container3D[] = []
+    let meshes: Mesh3D[] = []
     for (let node of this.descriptor.nodes) {
       let container = Object.assign(new Container3D(), {
         name: node.name,
@@ -62,10 +63,10 @@ export class glTFParser {
       }
       let mesh = this.descriptor.meshes[node.mesh]
       for (let primitive of mesh.primitives) {
-        container.addChild(this.createPrimitive(mesh, primitive))
+        meshes.push(container.addChild(this.createPrimitive(mesh, primitive)))
       }
     }
-    return nodes
+    return { nodes, meshes }
   }
 
   private createTransform(node: any) {

@@ -4,7 +4,7 @@ import { Material, MaterialFactory } from "../material"
 import { Container3D } from "../container"
 import { MeshPickerHitArea } from "../picking/picker-hitarea"
 import { glTFResource } from "../gltf/gltf-resource"
-import { glTFParser } from "../gltf/parser"
+import { glTFParser } from "../gltf/gltf-parser"
 import { MeshGeometry } from "./mesh-geometry"
 import { MeshPicker } from "../picking/mesh-picker"
 

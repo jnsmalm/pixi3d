@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js"
 
-import { glTFParser } from "./gltf/parser"
-import { glTFLoader } from "./gltf/loader"
+import { glTFParser } from "./gltf/gltf-parser"
+import { glTFLoader } from "./gltf/gltf-loader"
 import { glTFResource } from "./gltf/gltf-resource"
 import { Mesh3D } from "./mesh/mesh"
 import { Container3D } from "./container"
@@ -13,10 +13,6 @@ import { MaterialFactory } from "./material"
  * hierarchy of meshes and animations.
  */
 export class Model3D extends Container3D {
-
-  /** Animations for the model. */
-  animations: Animation[] = []
-
   /**
    * Creates a new model from a source.
    * @param source Source to create the model from.
@@ -36,16 +32,21 @@ export class Model3D extends Container3D {
     return new glTFParser(resource, materialFactory).createModel()
   }
 
+  /** Animations for the model. */
+  animations: Animation[] = []
+
+  /**
+   * Allows for easier access to the meshes. Note that this list and the actual 
+   * childen are not automatically synchronized after the model has been loaded.
+   */
+  meshes: Mesh3D[] = []
+
   /**
    * Gets an animation by it's name.
    * @param name Name of the animation.
    */
   getAnimationByName(name: string) {
-    for (let animation of this.animations) {
-      if (animation.name === name) {
-        return animation
-      }
-    }
+    return this.animations.find((animation) => { animation.name === name })
   }
 
   static getMeshByName(name: string, container: PIXI.Container) {
