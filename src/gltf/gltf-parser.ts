@@ -27,7 +27,7 @@ export class glTFParser {
   createModel() {
     let hierarchy = this.createHierarchy()
     let scene = this.descriptor.scene || 0
-    let model = new Model3D(hierarchy.meshes)
+    let model = new Model3D()
     for (let child of this.descriptor.scenes[scene].nodes) {
       this.addChild(model, child, hierarchy.nodes)
     }
@@ -36,6 +36,7 @@ export class glTFParser {
         model.animations.push(this.createAnimation(animation, hierarchy.nodes))
       }
     }
+    model.meshes = hierarchy.meshes
     return model
   }
 
