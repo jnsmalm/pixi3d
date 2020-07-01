@@ -39,10 +39,6 @@ export class PhysicallyBasedMaterial extends Material {
   alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
   exposure = 1
 
-  get name() {
-    return "physically-based"
-  }
-
   get lighting() {
     if (!this._lighting) {
       return LightingEnvironment.main
