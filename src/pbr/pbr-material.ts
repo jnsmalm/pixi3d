@@ -10,10 +10,6 @@ import { LightingEnvironment } from "../lighting/lighting-environment"
 import { Mesh3D } from "../mesh/mesh"
 import { MeshGeometry } from "../mesh/mesh-geometry"
 
-export interface PhysicallyBasedMaterialOptions {
-  unlit?: boolean
-}
-
 export enum PhysicallyBasedMaterialAlphaMode {
   opaque = "opaque",
   mask = "mask",
@@ -26,6 +22,7 @@ export class PhysicallyBasedMaterial extends Material {
   private _valid = false
   private _lighting?: LightingEnvironment
   private _unlit = false
+  private _alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
 
   roughness = 1
   metallic = 1
@@ -36,8 +33,24 @@ export class PhysicallyBasedMaterial extends Material {
   emissiveTexture?: PIXI.Texture
   baseColor = [1, 1, 1, 1]
   alphaMaskCutoff = 0.5
-  alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
   exposure = 1
+
+  get alphaMode() {
+    return this._alphaMode
+  }
+
+  set alphaMode(value: PhysicallyBasedMaterialAlphaMode) {
+    if (this._alphaMode !== value) {
+      this._alphaMode = value
+      if (this._alphaMode === PhysicallyBasedMaterialAlphaMode.opaque) {
+        this.transparent = false
+      } else {
+        this.transparent = true
+      }
+      // Clear the shader so it can be recreated with the new feature.
+      this._shader = undefined
+    }
+  }
 
   get lighting() {
     if (!this._lighting) {
@@ -80,15 +93,12 @@ export class PhysicallyBasedMaterial extends Material {
 
   /**
    * Creates a physically based material factory.
-   * @param options Options when creating the material.
+   * @param properties Properties to set on the material when created.
    */
-  static factory(options: PhysicallyBasedMaterialOptions = {}) {
-    let { unlit = false } = options
+  static factory(properties = {}) {
     return {
       create: (source: unknown) => {
-        return Object.assign(PhysicallyBasedMaterial.create(source), {
-          unlit: unlit
-        })
+        return <PhysicallyBasedMaterial>Object.assign(PhysicallyBasedMaterial.create(source), properties)
       }
     }
   }
@@ -108,12 +118,10 @@ export class PhysicallyBasedMaterial extends Material {
       switch (source.alphaMode) {
         case "BLEND": {
           material.alphaMode = PhysicallyBasedMaterialAlphaMode.blend
-          material.transparent = true
           break
         }
         case "MASK": {
           material.alphaMode = PhysicallyBasedMaterialAlphaMode.mask
-          material.transparent = true
           break
         }
       }
@@ -204,7 +212,7 @@ export class PhysicallyBasedMaterial extends Material {
     if (this.occlusionTexture) {
       features.push(PhysicallyBasedShaderFeature.occlusionMap)
     }
-    switch (this.alphaMode) {
+    switch (this._alphaMode) {
       case PhysicallyBasedMaterialAlphaMode.opaque: {
         features.push(PhysicallyBasedShaderFeature.alphaModeOpaque)
         break
@@ -228,7 +236,7 @@ export class PhysicallyBasedMaterial extends Material {
     shader.uniforms.u_BaseColorFactor = this.baseColor
     shader.uniforms.u_Exposure = this.exposure
 
-    if (this.alphaMode === PhysicallyBasedMaterialAlphaMode.mask) {
+    if (this._alphaMode === PhysicallyBasedMaterialAlphaMode.mask) {
       shader.uniforms.u_AlphaCutoff = this.alphaMaskCutoff
     }
 
