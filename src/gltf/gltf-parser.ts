@@ -7,7 +7,7 @@ import { Mesh3D } from "../mesh/mesh"
 import { glTFMaterialParser } from "./material-parser"
 import { glTFBufferAccessor } from "./buffer-accessor"
 import { glTFAnimationParser } from "./animation/parser"
-import { glTFResource } from "./gltf-resource"
+import { glTFAsset } from "./gltf-asset"
 import { glTFMaterial } from "./gltf-material"
 import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
 
@@ -17,11 +17,11 @@ export class glTFParser {
   private materialParser: glTFMaterialParser
   private descriptor: any
 
-  constructor(public resource: glTFResource, public materialFactory?: MaterialFactory) {
-    this.descriptor = resource.descriptor
-    this.bufferAccessor = new glTFBufferAccessor(this.descriptor, resource.buffers)
-    this.animationParser = new glTFAnimationParser(resource)
-    this.materialParser = new glTFMaterialParser(resource)
+  constructor(public asset: glTFAsset, public materialFactory?: MaterialFactory) {
+    this.descriptor = asset.descriptor
+    this.bufferAccessor = new glTFBufferAccessor(this.descriptor, asset.buffers)
+    this.animationParser = new glTFAnimationParser(asset)
+    this.materialParser = new glTFMaterialParser(asset)
   }
 
   createModel() {

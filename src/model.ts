@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 
 import { glTFParser } from "./gltf/gltf-parser"
 import { glTFLoader } from "./gltf/gltf-loader"
-import { glTFResource } from "./gltf/gltf-resource"
+import { glTFAsset } from "./gltf/gltf-asset"
 import { Mesh3D } from "./mesh/mesh"
 import { Container3D } from "./container"
 import { Animation } from "./animation"
@@ -15,21 +15,12 @@ import { MaterialFactory } from "./material"
 export class Model3D extends Container3D {
   /**
    * Creates a new model from a source.
-   * @param source Source to create the model from.
+   * @param asset Source to create the model from.
    * @param materialFactory Factory from which to create the material for the
    * meshes of the model.
    */
-  static from(source: glTFResource | string, materialFactory?: MaterialFactory) {
-    let resource: glTFResource
-    if (typeof source === "string") {
-      resource = glTFLoader.resources[source]
-      if (!resource) {
-        throw Error(`PIXI3D: Could not find "${source}", was the file loaded?`)
-      }
-    } else {
-      resource = source
-    }
-    return new glTFParser(resource, materialFactory).createModel()
+  static from(asset: glTFAsset, materialFactory?: MaterialFactory) {
+    return new glTFParser(asset, materialFactory).createModel()
   }
 
   /** Animations for the model. */

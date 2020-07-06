@@ -2,13 +2,13 @@ import { Container3D } from "../../container"
 import { glTFBufferAccessor } from "../buffer-accessor"
 import { glTFAnimation, glTFRotationAnimation, glTFTranslationAnimation, glTFScaleAnimation, glTFWeightsAnimation } from "./animation"
 import { glTFStepInterpolation, glTFSphericalLinearInterpolation, glTFCubicSplineInterpolation, glTFLinearInterpolation } from "./interpolation"
-import { glTFResource } from "../gltf-resource"
+import { glTFAsset } from "../gltf-asset"
 import { Mesh3D } from "../../mesh/mesh"
 
 export class glTFAnimationParser {
   protected bufferAccessor: glTFBufferAccessor
 
-  constructor(public resource: glTFResource) {
+  constructor(public resource: glTFAsset) {
     this.bufferAccessor = new glTFBufferAccessor(resource.descriptor, resource.buffers)
   }
 

@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js"
 import { Material, MaterialFactory } from "../material"
 import { Container3D } from "../container"
 import { MeshPickerHitArea } from "../picking/picker-hitarea"
-import { glTFResource } from "../gltf/gltf-resource"
+import { glTFAsset } from "../gltf/gltf-asset"
 import { glTFParser } from "../gltf/gltf-parser"
 import { MeshGeometry } from "./mesh-geometry"
 import { MeshPicker } from "../picking/mesh-picker"
@@ -51,21 +51,21 @@ export class Mesh3D extends Container3D {
 
   static createPlane(materialFactory?: MaterialFactory) {
     return new glTFParser(
-      new glTFResource(
+      glTFAsset.load(
         JSON.parse(require("./embedded/plane.gltf").default)),
       materialFactory).createMesh()[0]
   }
 
   static createCube(materialFactory?: MaterialFactory) {
     return new glTFParser(
-      new glTFResource(
+      glTFAsset.load(
         JSON.parse(require("./embedded/cube.gltf").default)),
       materialFactory).createMesh()[0]
   }
 
   static createSphere(materialFactory?: MaterialFactory) {
     return new glTFParser(
-      new glTFResource(
+      glTFAsset.load(
         JSON.parse(require("./embedded/sphere.gltf").default)),
       materialFactory).createMesh()[0]
   }

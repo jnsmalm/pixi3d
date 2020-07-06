@@ -1,20 +1,16 @@
 import * as PIXI from "pixi.js"
 
-import { glTFResource } from "./gltf-resource"
+import { glTFAsset, glTFAssetResourceLoader } from "./gltf-asset"
 
 const EXTENSION = "gltf"
 
-const resources: { [source: string]: glTFResource } = {}
-
 export const glTFLoader = {
-  resources: resources,
   use: function (resource: any, next: () => void) {
     if (resource.extension !== EXTENSION) {
       return next()
     }
-    glTFLoader.resources[resource.name] = resource.gltf =
-      glTFResource.fromExternalResources(resource.data, this as any, resource)
-
+    // @ts-ignore This function is bound to loader
+    resource.gltf = glTFAsset.load(resource.data, new glTFExternalResourceLoader(this, resource))
     next()
   },
   add: function () {
@@ -24,3 +20,17 @@ export const glTFLoader = {
 }
 
 PIXI.Loader.registerPlugin(glTFLoader)
+
+class glTFExternalResourceLoader implements glTFAssetResourceLoader {
+  constructor(public loader: PIXI.Loader, public resource: PIXI.LoaderResource) {
+    //
+  }
+
+  load(uri: string, onComplete: (resource: PIXI.LoaderResource) => void) {
+    this.loader.add({
+      parentResource: this.resource,
+      url: this.resource.url.substring(0, this.resource.url.lastIndexOf("/") + 1) + uri,
+      onComplete: onComplete
+    })
+  }
+}

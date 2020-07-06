@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { glTFResource } from "./gltf-resource"
+import { glTFAsset } from "./gltf-asset"
 import { glTFMaterial } from "./gltf-material"
 
 export interface glTFMaterialParser {
@@ -8,7 +8,7 @@ export interface glTFMaterialParser {
 }
 
 export class glTFMaterialParser implements glTFMaterialParser {
-  constructor(public resource: glTFResource) {
+  constructor(public resource: glTFAsset) {
   }
 
   createMaterial(data: any) {

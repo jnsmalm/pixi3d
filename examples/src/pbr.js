@@ -8,7 +8,8 @@ app.loader.add("autumn", "assets/environments/autumn.ibl")
 let container = app.stage.addChild(new PIXI3D.Container3D())
 
 app.loader.load(() => {
-  let model = container.addChild(PIXI3D.Model3D.from("waterbottle"))
+  let model = container.addChild(
+    PIXI3D.Model3D.from(app.loader.resources["waterbottle"].gltf))
   model.scale.set(15)
   model.rotationQuaternion.setEulerAngles(0, 0, 20)
 

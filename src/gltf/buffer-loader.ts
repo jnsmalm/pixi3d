@@ -4,10 +4,9 @@ const EXTENSION = "bin"
 
 export const glTFBufferLoader = {
   use: function (resource: any, next: () => void) {
-    if (resource.extension !== EXTENSION || !resource.metadata) {
+    if (resource.extension !== EXTENSION) {
       return next()
     }
-    resource.metadata.gltf.buffers[resource.metadata.index] = resource.data
     next()
   },
   add: function () {
