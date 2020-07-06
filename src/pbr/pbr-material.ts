@@ -16,6 +16,16 @@ export enum PhysicallyBasedMaterialAlphaMode {
   blend = "blend"
 }
 
+export enum PhysicallyBasedMaterialDebugMode {
+  alpha = "alpha",
+  emissive = "emissive",
+  f0 = "f0",
+  metallic = "metallic",
+  normal = "normal",
+  occlusion = "occlusion",
+  roughness = "roughness"
+}
+
 const shaders: { [features: string]: PhysicallyBasedMeshShader } = {}
 
 export class PhysicallyBasedMaterial extends Material {
@@ -23,6 +33,7 @@ export class PhysicallyBasedMaterial extends Material {
   private _lighting?: LightingEnvironment
   private _unlit = false
   private _alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
+  private _debugMode?: PhysicallyBasedMaterialDebugMode
 
   roughness = 1
   metallic = 1
@@ -34,6 +45,7 @@ export class PhysicallyBasedMaterial extends Material {
   baseColor = [1, 1, 1, 1]
   alphaMaskCutoff = 0.5
   exposure = 1
+  
 
   get alphaMode() {
     return this._alphaMode
@@ -47,6 +59,18 @@ export class PhysicallyBasedMaterial extends Material {
       } else {
         this.transparent = true
       }
+      // Clear the shader so it can be recreated with the new feature.
+      this._shader = undefined
+    }
+  }
+
+  get debugMode() {
+    return this._debugMode
+  }
+
+  set debugMode(value: PhysicallyBasedMaterialDebugMode | undefined) {
+    if (this._debugMode !== value) {
+      this._debugMode = value
       // Clear the shader so it can be recreated with the new feature.
       this._shader = undefined
     }
@@ -219,6 +243,39 @@ export class PhysicallyBasedMaterial extends Material {
       }
       case PhysicallyBasedMaterialAlphaMode.mask: {
         features.push(PhysicallyBasedShaderFeature.alphaModeMask)
+        break
+      }
+    }
+    if (this._debugMode) {
+      features.push(PhysicallyBasedShaderFeature.debugOutput)
+    }
+    switch (this._debugMode) {
+      case PhysicallyBasedMaterialDebugMode.alpha: {
+        features.push(PhysicallyBasedShaderFeature.debugAlpha)
+        break
+      }
+      case PhysicallyBasedMaterialDebugMode.emissive: {
+        features.push(PhysicallyBasedShaderFeature.debugEmissive)
+        break
+      }
+      case PhysicallyBasedMaterialDebugMode.f0: {
+        features.push(PhysicallyBasedShaderFeature.debugF0)
+        break
+      }
+      case PhysicallyBasedMaterialDebugMode.metallic: {
+        features.push(PhysicallyBasedShaderFeature.debugMetallic)
+        break
+      }
+      case PhysicallyBasedMaterialDebugMode.normal: {
+        features.push(PhysicallyBasedShaderFeature.debugNormal)
+        break
+      }
+      case PhysicallyBasedMaterialDebugMode.occlusion: {
+        features.push(PhysicallyBasedShaderFeature.debugOcclusion)
+        break
+      }
+      case PhysicallyBasedMaterialDebugMode.roughness: {
+        features.push(PhysicallyBasedShaderFeature.debugRoughness)
         break
       }
     }
