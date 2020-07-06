@@ -3,11 +3,23 @@ body {
   margin: 0;
   width: 100%;
   position: fixed;
+  font-family: Montserrat;
+}
+
+.message {
+  position: absolute;
+  background-color: #cacaca;
+  color: #555555;
+  padding: 10px;
+  border-radius: 3px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 600px;
 }
 
 .light {
   position: absolute;
-  font-family: Montserrat;
   cursor: move;
   background-color: dimgrey;
   color: white;
