@@ -1,5 +1,3 @@
-import * as PIXI from "pixi.js"
-
 import { SkyboxMaterialFactory } from "./skybox-material"
 import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
@@ -10,19 +8,15 @@ import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
  * a cube texture which has six sides.
  */
 export class Skybox extends Container3D {
-
-  /** Cube mesh used to render the skybox. */
-  mesh: Mesh3D
+  private _mesh: Mesh3D
 
   /**
    * Creates a new skybox using the specified cube texture.
    * @param texture Cube texture to use.
    */
-  constructor(public texture: CubeMipMapTexture) {
+  constructor(texture: CubeMipMapTexture) {
     super()
-
-    this.mesh = this.addChild(
+    this._mesh = this.addChild(
       Mesh3D.createCube(new SkyboxMaterialFactory(texture)))
-    this.mesh.scale.set(500)
   }
 }

@@ -18,25 +18,37 @@ export class SkyboxMaterialFactory implements MaterialFactory {
 }
 
 export class SkyboxMaterial extends Material {
+  private _texture: CubeMipMapTexture
   private _valid = false
+  private _state = Object.assign(new PIXI.State(), {
+    culling: true, clockwiseFrontFace: true, depthTest: true
+  })
 
-  constructor(public texture: CubeMipMapTexture) {
+  constructor(texture: CubeMipMapTexture) {
     super()
-    this.doubleSided = true
+    this._texture = texture
+  }
+
+  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
+    // Disable writing to the depth buffer. This is because we want all other 
+    // objects to be in-front of the skybox.
+    renderer.gl.depthMask(false)
+    super.render(mesh, renderer, this._state)
+    renderer.gl.depthMask(true)
   }
 
   get valid() {
     if (this._valid) {
       return true
     }
-    return this._valid = this.texture && this.texture.valid
+    return this._valid = this._texture && this._texture.valid
   }
 
   updateUniforms(mesh: Mesh3D, shader: MeshShader) {
     shader.uniforms.u_World = mesh.transform.worldTransform.toArray()
     shader.uniforms.u_View = Camera3D.main.view
     shader.uniforms.u_Projection = Camera3D.main.projection
-    shader.uniforms.u_Texture = this.texture
+    shader.uniforms.u_Texture = this._texture
   }
 
   createShader() {
