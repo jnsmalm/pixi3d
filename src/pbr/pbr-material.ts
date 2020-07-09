@@ -14,8 +14,8 @@ import { PhysicallyBasedMaterialAlphaMode } from "./pbr-alpha"
 const shaders: { [features: string]: PhysicallyBasedMeshShader } = {}
 
 export class PhysicallyBasedMaterial extends Material {
-  private _valid = false
   private _lighting?: LightingEnvironment
+  private _valid = false
   private _unlit = false
   private _alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
   private _debugMode?: PhysicallyBasedMaterialDebugMode
@@ -113,18 +113,40 @@ export class PhysicallyBasedMaterial extends Material {
     }
   }
 
+  /**
+   * Camera used when rendering a mesh. If this value is not set, the main camera 
+   * will be used by default.
+   */
+  camera?: Camera3D
+
+  private get cameraForRendering() {
+    return this.camera || Camera3D.main
+  }
+
+  private get lightingForRendering() {
+    return this.lighting || LightingEnvironment.main
+  }
+
+  /**
+   * Lighting environment used when rendering a mesh. If this value is not set, 
+   * the main lighting environment will be used by default.
+   */
   get lighting() {
-    if (!this._lighting) {
-      return LightingEnvironment.main
-    }
     return this._lighting
+  }
+
+  set lighting(value: LightingEnvironment | undefined) {
+    if (this._lighting !== value) {
+      this._lighting = value
+      this.invalidateShader()
+    }
   }
 
   get valid() {
     if (this._valid) {
       return true
     }
-    if (this.lighting && this.lighting.ibl && !this.lighting.ibl.valid) {
+    if (!this.lightingForRendering.valid) {
       return false
     }
     let textures = [
@@ -152,7 +174,7 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   /**
-   * Invalidates the shader so it can be recreated with the set features.
+   * Invalidates the shader so it can be recompiled with the current features.
    */
   invalidateShader() {
     this._shader = undefined
@@ -213,7 +235,7 @@ export class PhysicallyBasedMaterial extends Material {
         }
       }
     }
-    let features = PhysicallyBasedFeatures.build(mesh.geometry, this)
+    let features = PhysicallyBasedFeatures.build(mesh.geometry, this, this.lightingForRendering)
     let checksum = features.join(",")
     if (!shaders[checksum]) {
       shaders[checksum] = PhysicallyBasedMeshShader.build(renderer, features)
@@ -223,9 +245,9 @@ export class PhysicallyBasedMaterial extends Material {
 
   updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
     shader.uniforms.u_ModelMatrix = mesh.transform.worldTransform.toArray()
-    shader.uniforms.u_ViewProjectionMatrix = Camera3D.main.viewProjection
+    shader.uniforms.u_ViewProjectionMatrix = this.cameraForRendering.viewProjection
     shader.uniforms.u_NormalMatrix = mesh.transform.worldTransform.toArray()
-    shader.uniforms.u_Camera = Camera3D.main.viewPosition
+    shader.uniforms.u_Camera = this.cameraForRendering.viewPosition
     shader.uniforms.u_MetallicFactor = this.metallic
     shader.uniforms.u_RoughnessFactor = this.roughness
     shader.uniforms.u_BaseColorFactor = this.baseColor
@@ -241,8 +263,8 @@ export class PhysicallyBasedMaterial extends Material {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture
       shader.uniforms.u_BaseColorUVSet = 0
     }
-    for (let i = 0; i < this.lighting.lights.length; i++) {
-      let light = this.lighting.lights[i]
+    for (let i = 0; i < this.lightingForRendering.lights.length; i++) {
+      let light = this.lightingForRendering.lights[i]
       let type = 0
       switch (light.type) {
         case LightType.point: type = 1; break
@@ -259,11 +281,11 @@ export class PhysicallyBasedMaterial extends Material {
       shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle)
       shader.uniforms[`u_Lights[${i}].padding`] = light.padding
     }
-    if (this.lighting.ibl) {
-      shader.uniforms.u_DiffuseEnvSampler = this.lighting.ibl.diffuse
-      shader.uniforms.u_SpecularEnvSampler = this.lighting.ibl.specular
-      shader.uniforms.u_brdfLUT = this.lighting.ibl.brdf
-      shader.uniforms.u_MipCount = this.lighting.ibl.specular.levels - 1
+    if (this.lightingForRendering.ibl) {
+      shader.uniforms.u_DiffuseEnvSampler = this.lightingForRendering.ibl.diffuse
+      shader.uniforms.u_SpecularEnvSampler = this.lightingForRendering.ibl.specular
+      shader.uniforms.u_brdfLUT = this.lightingForRendering.ibl.brdf
+      shader.uniforms.u_MipCount = this.lightingForRendering.ibl.specular.levels - 1
     }
     if (this.emissiveTexture) {
       shader.uniforms.u_EmissiveSampler = this.emissiveTexture

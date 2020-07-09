@@ -37,7 +37,7 @@ export class ImageMipMapResource extends PIXI.resources.ImageResource {
       renderer.gl.texImage2D(baseTexture.target, i + 1, baseTexture.format,
         baseTexture.format, baseTexture.type, data)
     }
-    return true;
+    return true
   }
 
   static test(source: any) {

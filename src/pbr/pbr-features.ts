@@ -2,9 +2,10 @@ import { MeshGeometry } from "../mesh/mesh-geometry"
 import { PhysicallyBasedMaterialAlphaMode } from "./pbr-alpha"
 import { PhysicallyBasedMaterialDebugMode } from "./pbr-debug"
 import { PhysicallyBasedMaterial } from "./pbr-material"
+import { LightingEnvironment } from "../lighting/lighting-environment"
 
 export namespace PhysicallyBasedFeatures {
-  export function build(geometry: MeshGeometry, material: PhysicallyBasedMaterial) {
+  export function build(geometry: MeshGeometry, material: PhysicallyBasedMaterial, lightingEnvironment: LightingEnvironment) {
     let features: string[] = []
 
     if (geometry.normals) {
@@ -42,12 +43,11 @@ export namespace PhysicallyBasedFeatures {
     features.push("MATERIAL_METALLICROUGHNESS 1")
     features.push("USE_TEX_LOD 1")
 
-    if (material.lighting.lights.length > 0) {
-      features.push(`LIGHT_COUNT ${material.lighting.lights.length}`)
+    if (lightingEnvironment.lights.length > 0) {
+      features.push(`LIGHT_COUNT ${lightingEnvironment.lights.length}`)
       features.push("USE_PUNCTUAL 1")
     }
-
-    if (material.lighting.ibl) {
+    if (lightingEnvironment.ibl) {
       features.push("USE_IBL 1")
     }
     if (material.emissiveTexture) {

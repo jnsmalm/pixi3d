@@ -6,25 +6,41 @@ import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
  * A collection of components used for image-based lighting (IBL).
  */
 export class ImageBasedLighting {
+  private _diffuse: CubeMipMapTexture
+  private _brdf: PIXI.Texture
+  private _specular: CubeMipMapTexture
+
+  /** Cube texture used for the diffuse component. */
+  get diffuse() {
+    return this._diffuse
+  }
+
+  /** BRDF integration map lookup texture */
+  get brdf() {
+    return this._brdf
+  }
+
+  /** Cube mipmap texture used for the specular component. */
+  get specular() {
+    return this._specular
+  }
 
   /**
-   * Creates a new image based lighting object.
+   * Creates a new image-based lighting object.
    * @param diffuse Cube texture used for the diffuse component.
    * @param specular Cube mipmap texture used for the specular component.
    * @param brdf BRDF integration map lookup texture.
    */
-  constructor(public diffuse: CubeMipMapTexture, public specular: CubeMipMapTexture, public brdf?: PIXI.Texture) {
-    if (!this.brdf) {
-      this.brdf = PIXI.Texture.from(require("./assets/brdf.png").default)
-    }
+  constructor(diffuse: CubeMipMapTexture, specular: CubeMipMapTexture, brdf?: PIXI.Texture) {
+    this._diffuse = diffuse
+    this._brdf = brdf || PIXI.Texture.from(require("./assets/brdf.png").default)
+    this._specular = specular
   }
 
   /**
-   * Value indicating if the image based lighting object is valid to be used 
-   * for rendering.
+   * Value indicating if this object is valid to be used for rendering.
    */
   get valid() {
-    return this.diffuse && this.diffuse.valid && this.specular &&
-      this.specular.valid && this.brdf && this.brdf.valid
+    return this._diffuse.valid && this._specular.valid && this._brdf.valid
   }
 }
