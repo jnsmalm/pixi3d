@@ -19,7 +19,6 @@ export class SkyboxMaterialFactory implements MaterialFactory {
 
 export class SkyboxMaterial extends Material {
   private _texture: CubeMipMapTexture
-  private _valid = false
   private _state = Object.assign(new PIXI.State(), {
     culling: true, clockwiseFrontFace: true, depthTest: true
   })
@@ -37,13 +36,6 @@ export class SkyboxMaterial extends Material {
     renderer.gl.depthMask(true)
   }
 
-  get valid() {
-    if (this._valid) {
-      return true
-    }
-    return this._valid = this._texture && this._texture.valid
-  }
-
   updateUniforms(mesh: Mesh3D, shader: MeshShader) {
     shader.uniforms.u_World = mesh.transform.worldTransform.toArray()
     shader.uniforms.u_View = Camera3D.main.view
@@ -52,6 +44,8 @@ export class SkyboxMaterial extends Material {
   }
 
   createShader() {
-    return new MeshShader(PIXI.Program.from(vert, frag))
+    if (this._texture.valid) {
+      return new MeshShader(PIXI.Program.from(vert, frag))
+    }
   }
 }

@@ -15,7 +15,6 @@ const shaders: { [features: string]: PhysicallyBasedMeshShader } = {}
 
 export class PhysicallyBasedMaterial extends Material {
   private _lighting?: LightingEnvironment
-  private _valid = false
   private _unlit = false
   private _alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
   private _debugMode?: PhysicallyBasedMaterialDebugMode
@@ -36,10 +35,10 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   set baseColorTexture(value: PIXI.Texture | undefined) {
-    if (!this._baseColorTexture && value || this._baseColorTexture && !value) {
+    if (value !== this._baseColorTexture) {
       this.invalidateShader()
+      this._baseColorTexture = value
     }
-    this._baseColorTexture = value
   }
 
   get metallicRoughnessTexture() {
@@ -47,10 +46,10 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   set metallicRoughnessTexture(value: PIXI.Texture | undefined) {
-    if (!this._metallicRoughnessTexture && value || this._metallicRoughnessTexture && !value) {
+    if (value !== this._metallicRoughnessTexture) {
       this.invalidateShader()
+      this._metallicRoughnessTexture = value
     }
-    this._metallicRoughnessTexture = value
   }
 
   get normalTexture() {
@@ -58,10 +57,10 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   set normalTexture(value: PIXI.Texture | undefined) {
-    if (!this._normalTexture && value || this._normalTexture && !value) {
+    if (value !== this._normalTexture) {
       this.invalidateShader()
+      this._normalTexture = value
     }
-    this._normalTexture = value
   }
 
   get occlusionTexture() {
@@ -69,10 +68,10 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   set occlusionTexture(value: PIXI.Texture | undefined) {
-    if (!this._occlusionTexture && value || this._occlusionTexture && !value) {
+    if (value !== this._occlusionTexture) {
       this.invalidateShader()
+      this._occlusionTexture = value
     }
-    this._occlusionTexture = value
   }
 
   get emissiveTexture() {
@@ -80,10 +79,10 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   set emissiveTexture(value: PIXI.Texture | undefined) {
-    if (!this._emissiveTexture && value || this._emissiveTexture && !value) {
+    if (value !== this._emissiveTexture) {
       this.invalidateShader()
+      this._emissiveTexture = value
     }
-    this._emissiveTexture = value
   }
 
   get alphaMode() {
@@ -108,8 +107,8 @@ export class PhysicallyBasedMaterial extends Material {
 
   set debugMode(value: PhysicallyBasedMaterialDebugMode | undefined) {
     if (this._debugMode !== value) {
-      this._debugMode = value
       this.invalidateShader()
+      this._debugMode = value
     }
   }
 
@@ -136,30 +135,10 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   set lighting(value: LightingEnvironment | undefined) {
-    if (this._lighting !== value) {
-      this._lighting = value
+    if (value !== this._lighting) {
       this.invalidateShader()
+      this._lighting = value
     }
-  }
-
-  get valid() {
-    if (this._valid) {
-      return true
-    }
-    if (!this.lightingForRendering.valid) {
-      return false
-    }
-    let textures = [
-      this.baseColorTexture,
-      this.metallicRoughnessTexture,
-      this.normalTexture,
-      this.occlusionTexture,
-      this.emissiveTexture
-    ]
-    if (textures.some((value) => value && !value.valid)) {
-      return false
-    }
-    return this._valid = true
   }
 
   get unlit() {
@@ -174,7 +153,7 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   /**
-   * Invalidates the shader so it can be recompiled with the current features.
+   * Invalidates the shader so it can be rebuilt with the current features.
    */
   invalidateShader() {
     this._shader = undefined
@@ -236,6 +215,11 @@ export class PhysicallyBasedMaterial extends Material {
       }
     }
     let features = PhysicallyBasedFeatures.build(mesh.geometry, this, this.lightingForRendering)
+    if (!features) {
+      // The shader features couldn't be built, some resources may still be 
+      // loading. Don't worry, we will retry creating shader at next render.
+      return undefined
+    }
     let checksum = features.join(",")
     if (!shaders[checksum]) {
       shaders[checksum] = PhysicallyBasedMeshShader.build(renderer, features)
@@ -259,7 +243,7 @@ export class PhysicallyBasedMaterial extends Material {
     if (mesh.geometry.weights) {
       shader.uniforms.u_morphWeights = mesh.geometry.weights
     }
-    if (this.baseColorTexture) {
+    if (this.baseColorTexture?.valid) {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture
       shader.uniforms.u_BaseColorUVSet = 0
     }
@@ -281,27 +265,27 @@ export class PhysicallyBasedMaterial extends Material {
       shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle)
       shader.uniforms[`u_Lights[${i}].padding`] = light.padding
     }
-    if (this.lightingForRendering.ibl) {
+    if (this.lightingForRendering.ibl?.valid) {
       shader.uniforms.u_DiffuseEnvSampler = this.lightingForRendering.ibl.diffuse
       shader.uniforms.u_SpecularEnvSampler = this.lightingForRendering.ibl.specular
       shader.uniforms.u_brdfLUT = this.lightingForRendering.ibl.brdf
       shader.uniforms.u_MipCount = this.lightingForRendering.ibl.specular.levels - 1
     }
-    if (this.emissiveTexture) {
+    if (this.emissiveTexture?.valid) {
       shader.uniforms.u_EmissiveSampler = this.emissiveTexture
       shader.uniforms.u_EmissiveUVSet = 0
       shader.uniforms.u_EmissiveFactor = [1, 1, 1]
     }
-    if (this.normalTexture) {
+    if (this.normalTexture?.valid) {
       shader.uniforms.u_NormalSampler = this.normalTexture
       shader.uniforms.u_NormalScale = 1
       shader.uniforms.u_NormalUVSet = 0
     }
-    if (this.metallicRoughnessTexture) {
+    if (this.metallicRoughnessTexture?.valid) {
       shader.uniforms.u_MetallicRoughnessSampler = this.metallicRoughnessTexture
       shader.uniforms.u_MetallicRoughnessUVSet = 0
     }
-    if (this.occlusionTexture) {
+    if (this.occlusionTexture?.valid) {
       shader.uniforms.u_OcclusionSampler = this.occlusionTexture
       shader.uniforms.u_OcclusionStrength = 1
       shader.uniforms.u_OcclusionUVSet = 0

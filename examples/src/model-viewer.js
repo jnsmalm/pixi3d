@@ -101,9 +101,14 @@ let model, resourceLoader = new glTFLocalResourceLoader((descriptor) => {
   document.getElementById("message").style.display = "none"
 })
 
-app.loader.add("autumn", "assets/environments/autumn.ibl")
-app.loader.load(() => {
-  PIXI3D.LightingEnvironment.main.ibl = app.loader.resources["autumn"].ibl
+app.loader.add("diffuse.cubemap", "assets/environments/autumn/diffuse.cubemap")
+app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap")
+
+app.loader.load((loader, resources) => {
+  PIXI3D.LightingEnvironment.main =
+    new PIXI3D.LightingEnvironment(new PIXI3D.ImageBasedLighting(
+      resources["diffuse.cubemap"].texture,
+      resources["specular.cubemap"].texture))
 })
 
 let material = {

@@ -34,9 +34,6 @@ export namespace PhysicallyBasedFeatures {
       }
       features.push("USE_MORPHING 1")
     }
-    if (material.baseColorTexture) {
-      features.push("HAS_BASE_COLOR_MAP 1")
-    }
     if (material.unlit) {
       features.push("MATERIAL_UNLIT 1")
     }
@@ -48,18 +45,39 @@ export namespace PhysicallyBasedFeatures {
       features.push("USE_PUNCTUAL 1")
     }
     if (lightingEnvironment.ibl) {
+      if (!lightingEnvironment.ibl.valid) {
+        return undefined
+      }
       features.push("USE_IBL 1")
     }
+    if (material.baseColorTexture) {
+      if (!material.baseColorTexture.valid) {
+        return undefined
+      }
+      features.push("HAS_BASE_COLOR_MAP 1")
+    }
     if (material.emissiveTexture) {
+      if (!material.emissiveTexture.valid) {
+        return undefined
+      }
       features.push("HAS_EMISSIVE_MAP 1")
     }
     if (material.normalTexture) {
+      if (!material.normalTexture.valid) {
+        return undefined
+      }
       features.push("HAS_NORMAL_MAP 1")
     }
     if (material.metallicRoughnessTexture) {
+      if (!material.metallicRoughnessTexture.valid) {
+        return undefined
+      }
       features.push("HAS_METALLIC_ROUGHNESS_MAP 1")
     }
     if (material.occlusionTexture) {
+      if (!material.occlusionTexture.valid) {
+        return undefined
+      }
       features.push("HAS_OCCLUSION_MAP 1")
     }
     switch (material.alphaMode) {

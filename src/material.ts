@@ -17,11 +17,6 @@ export interface MaterialFactory {
 export abstract class Material {
   protected _shader?: MeshShader
 
-  /** Value indicating if the material is valid to render. */
-  get valid() {
-    return true
-  }
-
   /** Draw mode used to render a mesh. */
   drawMode = PIXI.DRAW_MODES.TRIANGLES
 
@@ -36,7 +31,7 @@ export abstract class Material {
    * @param mesh Mesh to use.
    * @param renderer Renderer to use.
    */
-  abstract createShader(mesh: Mesh3D, renderer: PIXI.Renderer): MeshShader
+  abstract createShader(mesh: Mesh3D, renderer: PIXI.Renderer): MeshShader | undefined
 
   /**
    * Updates the uniforms for the specified shader.
@@ -52,11 +47,12 @@ export abstract class Material {
    * @param state The state to use.
    */
   render(mesh: Mesh3D, renderer: PIXI.Renderer, state?: PIXI.State) {
-    if (!this.valid) {
-      return
-    }
     if (!this._shader) {
       this._shader = this.createShader(mesh, renderer)
+      if (!this._shader) {
+        // The shader couldn't be created for some reason
+        return
+      }
     }
     if (this.updateUniforms) {
       this.updateUniforms(mesh, this._shader)

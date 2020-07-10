@@ -8,8 +8,9 @@ control.orbitTo(-25, 45)
 
 app.loader.add("water.vert", "assets/shaders/water/water.vert")
 app.loader.add("water.frag", "assets/shaders/water/water.frag")
+app.loader.add("diffuse.cubemap", "assets/environments/autumn/diffuse.cubemap")
+app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap")
 app.loader.add("water_dudv.jpg", "assets/textures/water_dudv.jpg")
-app.loader.add("autumn.ibl", "assets/environments/autumn.ibl")
 
 // Enable render to texture with depth for the standard render pass. This is
 // being done to be able to use the rendered output in the water render pass.
@@ -22,14 +23,17 @@ let waterPass = new PIXI3D.MaterialRenderPass(app.renderer, "water")
 waterPass.enableRenderToTexture()
 app.renderer.plugins.mesh3d.renderPasses.push(waterPass)
 
-app.loader.load(() => {
+app.loader.load((loader, resources) => {
   let cube = app.stage.addChild(PIXI3D.Mesh3D.createCube())
 
+  cube.material.exposure = 3
+  cube.material.roughness = 0.8
+  
   // Create the plane used as water. It will be rendered using the water pass
   // and the water material.
   let water = app.stage.addChild(PIXI3D.Mesh3D.createPlane())
   water.renderPasses = [waterPass.name]
-  water.material = new WaterMaterial(app.loader.resources["water_dudv.jpg"].texture, standardPass.colorTexture, standardPass.depthTexture)
+  water.material = new WaterMaterial(resources["water_dudv.jpg"].texture, standardPass.colorTexture, standardPass.depthTexture)
   water.scale.set(10, 1, 10)
   water.material.doubleSided = true
 
@@ -56,7 +60,10 @@ app.loader.load(() => {
     sprite2.y = app.renderer.height
   })
 
-  PIXI3D.LightingEnvironment.main.ibl = app.loader.resources["autumn.ibl"].ibl
+  PIXI3D.LightingEnvironment.main =
+    new PIXI3D.LightingEnvironment(new PIXI3D.ImageBasedLighting(
+      resources["diffuse.cubemap"].texture,
+      resources["specular.cubemap"].texture))
 })
 document.body.appendChild(app.view)
 

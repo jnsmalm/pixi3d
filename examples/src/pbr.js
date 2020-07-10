@@ -4,18 +4,21 @@ let app = new PIXI.Application({
 document.body.appendChild(app.view)
 
 app.loader.add("waterbottle.gltf", "assets/models/waterbottle/waterbottle.gltf")
-app.loader.add("autumn.ibl", "assets/environments/autumn.ibl")
+app.loader.add("diffuse.cubemap", "assets/environments/autumn/diffuse.cubemap")
+app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap")
 
 let container = app.stage.addChild(new PIXI3D.Container3D())
 
-app.loader.load(() => {
+app.loader.load((loader, resources) => {
   let model = container.addChild(
-    PIXI3D.Model3D.from(app.loader.resources["waterbottle.gltf"].gltf))
+    PIXI3D.Model3D.from(resources["waterbottle.gltf"].gltf))
   model.scale.set(15)
   model.rotationQuaternion.setEulerAngles(0, 0, 20)
 
   PIXI3D.LightingEnvironment.main =
-    new PIXI3D.LightingEnvironment(app.loader.resources["autumn.ibl"].ibl)
+    new PIXI3D.LightingEnvironment(new PIXI3D.ImageBasedLighting(
+      resources["diffuse.cubemap"].texture,
+      resources["specular.cubemap"].texture))
 
   let rotation = 0
   app.ticker.add(() => {
