@@ -3,6 +3,7 @@ let app = new PIXI.Application({
 })
 document.body.appendChild(app.view)
 
+document.getElementById("message").style.display = "block"
 document.getElementById("message").innerText = "Load gltf models by dragging and dropping files to this window"
 
 let control = new PIXI3D.OrbitCameraControl(app.view)
