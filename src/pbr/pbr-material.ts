@@ -28,7 +28,7 @@ export class PhysicallyBasedMaterial extends Material {
   metallic = 1
   baseColor = [1, 1, 1, 1]
   alphaMaskCutoff = 0.5
-  exposure = 1
+  exposure = 3
 
   get baseColorTexture() {
     return this._baseColorTexture
