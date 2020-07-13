@@ -18,14 +18,14 @@ export class SkyboxMaterialFactory implements MaterialFactory {
 }
 
 export class SkyboxMaterial extends Material {
-  private _texture: CubeMipMapTexture
   private _state = Object.assign(new PIXI.State(), {
     culling: true, clockwiseFrontFace: true, depthTest: true
   })
 
-  constructor(texture: CubeMipMapTexture) {
+  camera?: Camera3D
+
+  constructor(public texture: CubeMipMapTexture) {
     super()
-    this._texture = texture
   }
 
   render(mesh: Mesh3D, renderer: PIXI.Renderer) {
@@ -37,14 +37,16 @@ export class SkyboxMaterial extends Material {
   }
 
   updateUniforms(mesh: Mesh3D, shader: MeshShader) {
+    let camera = this.camera || Camera3D.main
+
     shader.uniforms.u_World = mesh.transform.worldTransform.toArray()
-    shader.uniforms.u_View = Camera3D.main.view
-    shader.uniforms.u_Projection = Camera3D.main.projection
-    shader.uniforms.u_Texture = this._texture
+    shader.uniforms.u_View = camera.view
+    shader.uniforms.u_Projection = camera.projection
+    shader.uniforms.u_Texture = this.texture
   }
 
   createShader() {
-    if (this._texture.valid) {
+    if (this.texture.valid) {
       return new MeshShader(PIXI.Program.from(vert, frag))
     }
   }
