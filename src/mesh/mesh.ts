@@ -52,14 +52,14 @@ export class Mesh3D extends Container3D {
   static createPlane(materialFactory?: MaterialFactory) {
     return new glTFParser(
       glTFAsset.load(
-        JSON.parse(require("./embedded/plane.gltf").default)),
+        JSON.parse(require("./assets/plane.gltf").default)),
       materialFactory).createMesh()[0]
   }
 
   static createCube(materialFactory?: MaterialFactory) {
     return new glTFParser(
       glTFAsset.load(
-        JSON.parse(require("./embedded/cube.gltf").default)),
+        JSON.parse(require("./assets/cube.gltf").default)),
       materialFactory).createMesh()[0]
   }
 }
