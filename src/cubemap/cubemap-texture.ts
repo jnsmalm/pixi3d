@@ -1,11 +1,12 @@
 import * as PIXI from "pixi.js"
 
-import { ImageMipMapResource } from "./image-mipmap"
+import { MipMapResource } from "./mipmap-resource"
 
 /**
  * Cubemap texture which supports multiple user specified mipmaps.
  */
 export class CubeMipMapTexture extends PIXI.BaseTexture {
+  
   /** Gets an array of faces. */
   static get faces() {
     return ["posx", "negx", "posy", "negy", "posz", "negz"]
@@ -25,7 +26,7 @@ export class CubeMipMapTexture extends PIXI.BaseTexture {
       let textures = source.map((val) => {
         return PIXI.Texture.from(val.replace("{{face}}", face))
       })
-      return new ImageMipMapResource(textures,
+      return new MipMapResource(textures,
         PIXI.TARGETS.TEXTURE_CUBE_MAP_POSITIVE_X + index)
     })
     return new CubeMipMapTexture(
@@ -34,7 +35,7 @@ export class CubeMipMapTexture extends PIXI.BaseTexture {
 }
 
 export class CubeMipMapResource extends PIXI.resources.CubeResource {
-  constructor(source: ImageMipMapResource[], public levels = 1) {
+  constructor(source: MipMapResource[], public levels = 1) {
     super(source)
   }
 

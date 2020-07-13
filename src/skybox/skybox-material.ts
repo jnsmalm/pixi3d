@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js"
 import { Camera3D } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
 import { Material, MaterialFactory } from "../material"
-import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
+import { CubeMipMapTexture } from "../cubemap/cubemap-texture"
 import { MeshShader } from "../mesh/mesh-shader"
 
 const vert: string = require("./shader/skybox.vert").default

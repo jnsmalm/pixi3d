@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
+import { CubeMipMapTexture } from "../cubemap/cubemap-texture"
 
 /**
  * A collection of components used for image-based lighting (IBL).

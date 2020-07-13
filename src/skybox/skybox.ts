@@ -1,7 +1,7 @@
 import { SkyboxMaterialFactory, SkyboxMaterial } from "./skybox-material"
 import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
-import { CubeMipMapTexture } from "../cubemap/cube-mipmap"
+import { CubeMipMapTexture } from "../cubemap/cubemap-texture"
 import { Camera3D } from "../camera/camera"
 
 /**

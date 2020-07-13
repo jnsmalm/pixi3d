@@ -1,8 +1,8 @@
 import * as PIXI from "pixi.js"
 
-import { CubeMipMapTexture } from "./cube-mipmap"
+import { CubeMipMapTexture } from "./cubemap-texture"
 
-export const CubeMapLoader = {
+export const CubeMipMapLoader = {
   use: function (resource: any, next: () => void) {
     if (resource.extension !== "cubemap") {
       return next()
@@ -21,6 +21,8 @@ export const CubeMapLoader = {
       return { parentResource: resource, url: url }
     }))
     let completed = 0
+
+    // Listen for resources being loaded.
     let binding = loader.onLoad.add((loader: any, res: any) => {
       if (urls.includes(res.url)) {
         if (++completed === urls.length) {
@@ -38,4 +40,4 @@ export const CubeMapLoader = {
   }
 }
 
-PIXI.Loader.registerPlugin(CubeMapLoader)
+PIXI.Loader.registerPlugin(CubeMipMapLoader)
