@@ -228,10 +228,10 @@ export class PhysicallyBasedMaterial extends Material {
   }
 
   updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
-    shader.uniforms.u_ModelMatrix = mesh.transform.worldTransform.toArray()
+    shader.uniforms.u_ModelMatrix = mesh.worldTransform.toArray()
     shader.uniforms.u_ViewProjectionMatrix = this.cameraForRendering.viewProjection
-    shader.uniforms.u_NormalMatrix = mesh.transform.worldTransform.toArray()
-    shader.uniforms.u_Camera = this.cameraForRendering.viewPosition
+    shader.uniforms.u_NormalMatrix = mesh.worldTransform.toArray()
+    shader.uniforms.u_Camera = this.cameraForRendering.worldTransform.position
     shader.uniforms.u_MetallicFactor = this.metallic
     shader.uniforms.u_RoughnessFactor = this.roughness
     shader.uniforms.u_BaseColorFactor = this.baseColor

@@ -2,9 +2,9 @@ let app = new PIXI.Application({
   backgroundColor: 0xdddddd, resizeTo: window, antialias: true
 })
 
-let control = new PIXI3D.OrbitCameraControl(app.view)
+let control = new PIXI3D.CameraOrbitControl(app.view)
 control.distance = 6
-control.orbitTo(-25, 45)
+control.angles.set(25, 45)
 
 app.loader.add("water.vert", "assets/shaders/water/water.vert")
 app.loader.add("water.frag", "assets/shaders/water/water.frag")
@@ -26,8 +26,7 @@ app.renderer.plugins.mesh3d.renderPasses.push(waterPass)
 app.loader.load((loader, resources) => {
   let cube = app.stage.addChild(PIXI3D.Mesh3D.createCube())
 
-  cube.material.exposure = 3
-  cube.material.roughness = 0.8
+  cube.material.roughness = 0.95
   
   // Create the plane used as water. It will be rendered using the water pass
   // and the water material.

@@ -4,6 +4,7 @@ import { Container3D } from "../container"
 import { Matrix4 } from "../math/matrix4"
 import { Vector4 } from "../math/vector4"
 import { MatrixComponent } from "../matrix/matrix-component"
+import { ObservablePoint3D } from "../point"
 
 const mat4 = Matrix4.create()
 const vec4 = Vector4.create()
@@ -14,7 +15,6 @@ const vec4 = Vector4.create()
 export class Camera3D extends Container3D {
   private _id = 0
 
-  /** Current version id. */
   get id() {
     return (<any>this.transform)._worldID + this._id
   }
@@ -27,7 +27,8 @@ export class Camera3D extends Container3D {
   static main: Camera3D
 
   /**
-   * Creates a new camera.
+   * Creates a new camera using the specified renderer. By default the camera
+   * looks towards negative z and is positioned at z = 5.
    * @param renderer Renderer to use.
    */
   constructor(public renderer: PIXI.Renderer) {
@@ -41,6 +42,8 @@ export class Camera3D extends Container3D {
         this._id++
       }
       if (!this.parent) {
+        // When the camera is not attached to the scene hierarchy the transform 
+        // needs to be updated manually.
         this.transform.updateTransform()
       }
     })
@@ -56,8 +59,9 @@ export class Camera3D extends Container3D {
    * @param x Screen x coordinate.
    * @param y Screen y coordinate.
    * @param distance Distance from the camera.
+   * @param point Point to set.
    */
-  screenToWorld(x: number, y: number, distance: number) {
+  screenToWorld(x: number, y: number, distance: number, point = new ObservablePoint3D(() => { }, undefined)) {
     let far = this.far
 
     // Before doing the calculations, the far clip plane is changed to the same 
@@ -69,8 +73,6 @@ export class Camera3D extends Container3D {
     let clipSpace = Vector4.set(
       (x / this.renderer.width) * 2 - 1, ((y / this.renderer.height) * 2 - 1) * -1, 1, 1, vec4
     )
-
-    // Reset to the previous value
     this.far = far
 
     let worldSpace = Vector4.transformMat4(clipSpace, invertedViewProjection, vec4)
@@ -78,9 +80,7 @@ export class Camera3D extends Container3D {
     for (let i = 0; i < 3; i++) {
       worldSpace[i] *= worldSpace[3]
     }
-    return {
-      x: worldSpace[0], y: worldSpace[1], z: worldSpace[2]
-    };
+    return point.set(worldSpace[0], worldSpace[1], worldSpace[2])
   }
 
   /**
@@ -88,8 +88,9 @@ export class Camera3D extends Container3D {
    * @param x World x coordinate.
    * @param y World y coordinate.
    * @param z World z coordinate.
+   * @param point Point to set.
    */
-  worldToScreen(x: number, y: number, z: number) {
+  worldToScreen(x: number, y: number, z: number, point = new PIXI.Point()) {
     let worldSpace = Vector4.set(x, y, z, 1, vec4)
     let clipSpace = Vector4.transformMat4(
       Vector4.transformMat4(worldSpace, this.view, vec4), this.projection, vec4
@@ -99,10 +100,9 @@ export class Camera3D extends Container3D {
         clipSpace[i] /= clipSpace[3]
       }
     }
-    return {
-      x: (clipSpace[0] + 1) / 2 * this.renderer.width,
-      y: this.renderer.height - (clipSpace[1] + 1) / 2 * this.renderer.height
-    }
+    let { width, height } = this.renderer
+    return point.set((clipSpace[0] + 1) / 2 * width,
+      height - (clipSpace[1] + 1) / 2 * height)
   }
 
   private _fieldOfView = 60
@@ -110,7 +110,10 @@ export class Camera3D extends Container3D {
   private _far = 1000
   private _aspect?: number
 
-  /** Aspect ratio (width divided by height). */
+  /**
+   * Aspect ratio (width divided by height). If not set, the aspect ratio of 
+   * the renderer will be used by default.
+   */
   get aspect() {
     return this._aspect
   }
@@ -121,7 +124,7 @@ export class Camera3D extends Container3D {
     }
   }
 
-  /** Vertical field of view in degrees. */
+  /** Vertical field of view in degrees, 60 is the default value. */
   get fieldOfView() {
     return this._fieldOfView
   }
@@ -132,7 +135,7 @@ export class Camera3D extends Container3D {
     }
   }
 
-  /** Near clipping plane distance. */
+  /** Near clipping plane distance, 0.1 is the default value. */
   get near() {
     return this._near
   }
@@ -143,7 +146,7 @@ export class Camera3D extends Container3D {
     }
   }
 
-  /** Far clipping plane distance. */
+  /** Far clipping plane distance, 1000 is the default value. */
   get far() {
     return this._far
   }
@@ -184,11 +187,6 @@ export class Camera3D extends Container3D {
       })
     }
     return this._viewProjection.array
-  }
-
-  /** View position (position of the camera as an array). */
-  get viewPosition() {
-    return this.transform.worldTransform.position
   }
 }
 

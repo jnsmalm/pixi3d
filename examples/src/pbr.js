@@ -3,7 +3,7 @@ let app = new PIXI.Application({
 })
 document.body.appendChild(app.view)
 
-let control = new PIXI3D.OrbitCameraControl(app.view)
+let control = new PIXI3D.CameraOrbitControl(app.view)
 
 app.loader.add("diffuse.cubemap", "assets/environments/autumn/diffuse.cubemap")
 app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap")
