@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-export class MipMapResource extends PIXI.resources.ArrayResource {
+export class MipmapResource extends PIXI.resources.ArrayResource {
   constructor(source: string[] | PIXI.Texture[], public target: number) {
     super(source)
   }

@@ -1,7 +1,7 @@
 import { SkyboxMaterialFactory, SkyboxMaterial } from "./skybox-material"
 import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
-import { CubeMipMapTexture } from "../cubemap/cubemap-texture"
+import { CubeMipmapTexture } from "../cubemap/cube-mipmap-texture"
 import { Camera3D } from "../camera/camera"
 
 /**
@@ -16,7 +16,7 @@ export class Skybox extends Container3D {
    * Creates a new skybox using the specified cube texture.
    * @param texture Cube texture to use for rendering.
    */
-  constructor(texture: CubeMipMapTexture) {
+  constructor(texture: CubeMipmapTexture) {
     super()
     this._mesh = this.addChild(
       Mesh3D.createCube(new SkyboxMaterialFactory(texture)))
@@ -41,7 +41,7 @@ export class Skybox extends Container3D {
     return (<SkyboxMaterial>this._mesh.material).texture
   }
 
-  set texture(val: CubeMipMapTexture) {
+  set texture(val: CubeMipmapTexture) {
     (<SkyboxMaterial>this._mesh.material).texture = val
   }
 }
