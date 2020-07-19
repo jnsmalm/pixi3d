@@ -15,7 +15,7 @@ export class ImageBasedLighting {
     return this._diffuse
   }
 
-  /** BRDF integration map lookup texture */
+  /** BRDF integration map lookup texture. */
   get brdf() {
     return this._brdf
   }

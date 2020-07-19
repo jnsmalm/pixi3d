@@ -5,8 +5,8 @@ export enum LightType {
   spot = "spot",
 
   /**
-   * A light that, which is located infinitely far away, and emits light in 
-   * one direction only.
+   * A light that is located infinitely far away, and emits light in one 
+   * direction only.
    */
   directional = "directional",
 

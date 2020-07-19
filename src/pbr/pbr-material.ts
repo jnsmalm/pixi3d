@@ -256,20 +256,20 @@ export class PhysicallyBasedMaterial extends Material {
         case LightType.spot: type = 2; break
       }
       shader.uniforms[`u_Lights[${i}].type`] = type
-      shader.uniforms[`u_Lights[${i}].position`] = light.worldPosition
+      shader.uniforms[`u_Lights[${i}].position`] = light.worldTransform.position
       shader.uniforms[`u_Lights[${i}].direction`] = light.direction
       shader.uniforms[`u_Lights[${i}].range`] = light.range
       shader.uniforms[`u_Lights[${i}].color`] = light.color
       shader.uniforms[`u_Lights[${i}].intensity`] = light.intensity
       shader.uniforms[`u_Lights[${i}].innerConeCos`] = Math.cos(light.innerConeAngle)
       shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle)
-      shader.uniforms[`u_Lights[${i}].padding`] = light.padding
     }
-    if (this.lightingForRendering.ibl?.valid) {
-      shader.uniforms.u_DiffuseEnvSampler = this.lightingForRendering.ibl.diffuse
-      shader.uniforms.u_SpecularEnvSampler = this.lightingForRendering.ibl.specular
-      shader.uniforms.u_brdfLUT = this.lightingForRendering.ibl.brdf
-      shader.uniforms.u_MipCount = this.lightingForRendering.ibl.specular.levels - 1
+    let imageBasedLighting = this.lightingForRendering.imageBasedLighting
+    if (imageBasedLighting?.valid) {
+      shader.uniforms.u_DiffuseEnvSampler = imageBasedLighting.diffuse
+      shader.uniforms.u_SpecularEnvSampler = imageBasedLighting.specular
+      shader.uniforms.u_brdfLUT = imageBasedLighting.brdf
+      shader.uniforms.u_MipCount = imageBasedLighting.specular.levels - 1
     }
     if (this.emissiveTexture?.valid) {
       shader.uniforms.u_EmissiveSampler = this.emissiveTexture

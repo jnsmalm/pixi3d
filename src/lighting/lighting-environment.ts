@@ -1,4 +1,4 @@
-import { ImageBasedLighting } from "./ibl"
+import { ImageBasedLighting } from "./image-based-lighting"
 import { Light } from "./light"
 
 /**
@@ -6,31 +6,42 @@ import { Light } from "./light"
  * specific object or an entire scene.
  */
 export class LightingEnvironment {
-  private _ibl?: ImageBasedLighting
+  private _imageBasedLighting?: ImageBasedLighting
 
   /** Lights affecting this lighting environment. */
   lights: Light[] = []
 
-  /**
-   * Creates a new lighting environment.
-   * @param ibl Settings when using image-based lighting (IBL).
-   */
-  constructor(ibl?: ImageBasedLighting) {
-    this._ibl = ibl
-  }
-
-  /** Settings when using image-based lighting (IBL). */
-  get ibl() {
-    return this._ibl
-  }
+  /** Main lighting environment which is used by default. */
+  static main: LightingEnvironment
 
   /**
-   * Value indicating if this object is valid to be used for rendering.
+   * Creates a new lighting environment using the specified renderer.
+   * @param renderer Renderer to use.
    */
+  constructor(public renderer: PIXI.Renderer, imageBasedLighting?: ImageBasedLighting) {
+    this.renderer.on("prerender", () => {
+      for (let light of this.lights) {
+        // Make sure the transform has been updated in the case where the light
+        // is not part of the stage hierarchy.
+        if (!light.parent) {
+          light.transform.updateTransform()
+        }
+      }
+    })
+    if (!LightingEnvironment.main) {
+      LightingEnvironment.main = this
+    }
+    this._imageBasedLighting = imageBasedLighting
+  }
+
+  get imageBasedLighting() {
+    return this._imageBasedLighting
+  }
+
+  /** Value indicating if this object is valid to be used for rendering. */
   get valid() {
-    return !this._ibl || this._ibl.valid
+    return !this._imageBasedLighting || this._imageBasedLighting.valid
   }
-
-  /** The main lighting environment which is used by default. */
-  static main = new LightingEnvironment()
 }
+
+PIXI.Renderer.registerPlugin("lighting", <any>LightingEnvironment)

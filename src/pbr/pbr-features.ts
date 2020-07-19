@@ -44,8 +44,8 @@ export namespace PhysicallyBasedFeatures {
       features.push(`LIGHT_COUNT ${lightingEnvironment.lights.length}`)
       features.push("USE_PUNCTUAL 1")
     }
-    if (lightingEnvironment.ibl) {
-      if (!lightingEnvironment.ibl.valid) {
+    if (lightingEnvironment.imageBasedLighting) {
+      if (!lightingEnvironment.imageBasedLighting.valid) {
         return undefined
       }
       features.push("USE_IBL 1")
