@@ -2,30 +2,44 @@ import * as PIXI from "pixi.js"
 
 import { Camera3D } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
-import { Material, MaterialFactory } from "../material"
+import { Material } from "../material"
 import { CubeMipmapTexture } from "../cubemap/cube-mipmap-texture"
 import { MeshShader } from "../mesh/mesh-shader"
-
-const vert: string = require("./shader/skybox.vert").default
-const frag: string = require("./shader/skybox.frag").default
-
-export class SkyboxMaterialFactory implements MaterialFactory {
-  constructor(public texture: CubeMipmapTexture) { }
-
-  create(): Material {
-    return new SkyboxMaterial(this.texture)
-  }
-}
 
 export class SkyboxMaterial extends Material {
   private _state = Object.assign(new PIXI.State(), {
     culling: true, clockwiseFrontFace: true, depthTest: true
   })
 
+  get texture() {
+    return this._texture
+  }
+
+  set texture(value: CubeMipmapTexture) {
+    if (value !== this._texture) {
+      if (!this._texture.valid) {
+        // Remove the shader so it can be rebuilt with the current features. 
+        // It may happen that we set a texture which is not yet valid, in that 
+        // case we don't want to render the skybox until it has become valid.
+        this._shader = undefined
+      }
+      this._texture = value
+    }
+  }
+
   camera?: Camera3D
 
-  constructor(public texture: CubeMipmapTexture) {
+  constructor(private _texture: CubeMipmapTexture) {
     super()
+  }
+
+  updateUniforms(mesh: Mesh3D, shader: MeshShader) {
+    let camera = this.camera || Camera3D.main
+
+    shader.uniforms.u_ModelMatrix = mesh.worldTransform.toArray()
+    shader.uniforms.u_View = camera.view
+    shader.uniforms.u_Projection = camera.projection
+    shader.uniforms.u_EnvironmentSampler = this.texture
   }
 
   render(mesh: Mesh3D, renderer: PIXI.Renderer) {
@@ -36,16 +50,10 @@ export class SkyboxMaterial extends Material {
     renderer.gl.depthMask(true)
   }
 
-  updateUniforms(mesh: Mesh3D, shader: MeshShader) {
-    let camera = this.camera || Camera3D.main
-
-    shader.uniforms.u_World = mesh.transform.worldTransform.toArray()
-    shader.uniforms.u_View = camera.view
-    shader.uniforms.u_Projection = camera.projection
-    shader.uniforms.u_Texture = this.texture
-  }
-
   createShader() {
+    const vert: string = require("./shader/skybox.vert").default
+    const frag: string = require("./shader/skybox.frag").default
+    
     if (this.texture.valid) {
       return new MeshShader(PIXI.Program.from(vert, frag))
     }
