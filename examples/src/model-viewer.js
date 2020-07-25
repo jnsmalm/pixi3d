@@ -37,7 +37,7 @@ class glTFLocalResourceLoader {
     if (!this.descriptor) { return false }
 
     for (let buffer of this.descriptor.buffers) {
-      if (!PIXI3D.glTFAsset.isEmbeddedBuffer(buffer.uri)) {
+      if (!PIXI3D.glTFAsset.isEmbeddedResource(buffer.uri)) {
         if (!Object.keys(this.resources).includes(buffer.uri)) {
           return false
         }
@@ -45,7 +45,7 @@ class glTFLocalResourceLoader {
     }
     if (this.descriptor.images) {
       for (let image of this.descriptor.images) {
-        if (!PIXI3D.glTFAsset.isEmbeddedImage(image.uri)) {
+        if (!PIXI3D.glTFAsset.isEmbeddedResource(image.uri)) {
           if (!Object.keys(this.resources).find((name) => { return image.uri.indexOf(name) >= 0 })) {
             return false
           }
@@ -98,6 +98,11 @@ let model, resourceLoader = new glTFLocalResourceLoader((descriptor) => {
   app.stage.removeChildren()
   model = app.stage.addChild(PIXI3D.Model3D.from(
     asset, PIXI3D.PhysicallyBasedMaterial.factory(material)))
+
+  for (let animation of model.animations) {
+    animation.play()
+  }
+
   gui.show()
   document.getElementById("message").style.display = "none"
 })
@@ -107,7 +112,7 @@ app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap"
 
 app.loader.load((loader, resources) => {
   PIXI3D.LightingEnvironment.main =
-    new PIXI3D.LightingEnvironment(new PIXI3D.ImageBasedLighting(
+    new PIXI3D.LightingEnvironment(app.renderer, new PIXI3D.ImageBasedLighting(
       resources["diffuse.cubemap"].texture,
       resources["specular.cubemap"].texture))
 })
