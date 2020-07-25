@@ -3,9 +3,10 @@ import { PhysicallyBasedMaterialAlphaMode } from "./pbr-alpha"
 import { PhysicallyBasedMaterialDebugMode } from "./pbr-debug"
 import { PhysicallyBasedMaterial } from "./pbr-material"
 import { LightingEnvironment } from "../lighting/lighting-environment"
+import { Mesh3D } from "../mesh/mesh"
 
 export namespace PhysicallyBasedFeatures {
-  export function build(geometry: MeshGeometry, material: PhysicallyBasedMaterial, lightingEnvironment: LightingEnvironment) {
+  export function build(mesh: Mesh3D, geometry: MeshGeometry, material: PhysicallyBasedMaterial, lightingEnvironment: LightingEnvironment) {
     let features: string[] = []
 
     if (geometry.normals) {
@@ -17,22 +18,22 @@ export namespace PhysicallyBasedFeatures {
     if (geometry.tangents) {
       features.push("HAS_TANGENTS 1")
     }
-    if (geometry.morphTargets) {
-      for (let i = 0; i < geometry.morphTargets.length; i++) {
-        if (geometry.morphTargets[i].positions) {
+    if (geometry.targets) {
+      for (let i = 0; i < geometry.targets.length; i++) {
+        if (geometry.targets[i].positions) {
           features.push("HAS_TARGET_POSITION" + i)
         }
-        if (geometry.morphTargets[i].normals) {
+        if (geometry.targets[i].normals) {
           features.push("HAS_TARGET_NORMAL" + i)
         }
-        if (geometry.morphTargets[i].tangents) {
+        if (geometry.targets[i].tangents) {
           features.push("HAS_TARGET_TANGENT" + i)
         }
       }
-      if (geometry.weights) {
-        features.push(`WEIGHT_COUNT ${geometry.weights.length}`)
+      if (mesh.morphWeights) {
+        features.push(`WEIGHT_COUNT ${mesh.morphWeights.length}`)
+        features.push("USE_MORPHING 1")
       }
-      features.push("USE_MORPHING 1")
     }
     if (material.unlit) {
       features.push("MATERIAL_UNLIT 1")

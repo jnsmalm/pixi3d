@@ -3,16 +3,18 @@ import * as PIXI from "pixi.js"
 import { Material, MaterialFactory } from "../material"
 import { Container3D } from "../container"
 import { MeshPickerHitArea } from "../picking/picker-hitarea"
-import { glTFAsset } from "../gltf/gltf-asset"
-import { glTFParser } from "../gltf/gltf-parser"
 import { MeshGeometry } from "./mesh-geometry"
 import { MeshPicker } from "../picking/mesh-picker"
+import { glTFAsset } from "../gltf/gltf-asset"
+import { glTFParser } from "../gltf/gltf-parser"
 
 export class Mesh3D extends Container3D {
   pluginName = "mesh3d"
 
   /** Names of the passes used for rendering the mesh. */
   renderPasses = ["standard"]
+
+  morphWeights?: number[]
 
   constructor(public geometry: MeshGeometry, public material?: Material) {
     super()
@@ -50,16 +52,16 @@ export class Mesh3D extends Container3D {
   }
 
   static createPlane(materialFactory?: MaterialFactory) {
-    return new glTFParser(
+    return glTFParser.createMesh(
       glTFAsset.load(
         JSON.parse(require("./assets/plane.gltf").default)),
-      materialFactory).createMesh()[0]
+      materialFactory)[0]
   }
 
   static createCube(materialFactory?: MaterialFactory) {
-    return new glTFParser(
+    return glTFParser.createMesh(
       glTFAsset.load(
         JSON.parse(require("./assets/cube.gltf").default)),
-      materialFactory).createMesh()[0]
+      materialFactory)[0]
   }
 }

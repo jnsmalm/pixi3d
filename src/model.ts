@@ -1,7 +1,6 @@
 import * as PIXI from "pixi.js"
 
 import { glTFParser } from "./gltf/gltf-parser"
-import { glTFLoader } from "./gltf/gltf-loader"
 import { glTFAsset } from "./gltf/gltf-asset"
 import { Mesh3D } from "./mesh/mesh"
 import { Container3D } from "./container"
@@ -20,7 +19,7 @@ export class Model3D extends Container3D {
    * meshes of the model.
    */
   static from(asset: glTFAsset, materialFactory?: MaterialFactory) {
-    return new glTFParser(asset, materialFactory).createModel()
+    return glTFParser.createModel(asset, materialFactory)
   }
 
   /** Animations for the model. */

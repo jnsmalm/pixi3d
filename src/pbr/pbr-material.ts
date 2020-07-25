@@ -27,8 +27,9 @@ export class PhysicallyBasedMaterial extends Material {
   roughness = 1
   metallic = 1
   baseColor = [1, 1, 1, 1]
-  alphaMaskCutoff = 0.5
+  alphaCutoff = 0.5
   exposure = 3
+  emissive = [0, 0, 0]
 
   get baseColorTexture() {
     return this._baseColorTexture
@@ -194,10 +195,11 @@ export class PhysicallyBasedMaterial extends Material {
         }
       }
       material.emissiveTexture = source.emissiveTexture
+      material.emissive = source.emissive
       material.normalTexture = source.normalTexture
       material.occlusionTexture = source.occlusionTexture
       material.doubleSided = source.doubleSided
-      material.alphaMaskCutoff = source.alphaMaskCutoff
+      material.alphaCutoff = source.alphaCutoff
     }
     return material
   }
@@ -214,7 +216,7 @@ export class PhysicallyBasedMaterial extends Material {
         }
       }
     }
-    let features = PhysicallyBasedFeatures.build(mesh.geometry, this, this.lightingForRendering)
+    let features = PhysicallyBasedFeatures.build(mesh, mesh.geometry, this, this.lightingForRendering)
     if (!features) {
       // The shader features couldn't be built, some resources may still be 
       // loading. Don't worry, we will retry creating shader at next render.
@@ -232,16 +234,17 @@ export class PhysicallyBasedMaterial extends Material {
     shader.uniforms.u_ViewProjectionMatrix = this.cameraForRendering.viewProjection
     shader.uniforms.u_NormalMatrix = mesh.worldTransform.toArray()
     shader.uniforms.u_Camera = this.cameraForRendering.worldTransform.position
+    shader.uniforms.u_Exposure = this.exposure
     shader.uniforms.u_MetallicFactor = this.metallic
     shader.uniforms.u_RoughnessFactor = this.roughness
     shader.uniforms.u_BaseColorFactor = this.baseColor
-    shader.uniforms.u_Exposure = this.exposure
+    shader.uniforms.u_EmissiveFactor = this.emissive
 
     if (this._alphaMode === PhysicallyBasedMaterialAlphaMode.mask) {
-      shader.uniforms.u_AlphaCutoff = this.alphaMaskCutoff
+      shader.uniforms.u_AlphaCutoff = this.alphaCutoff
     }
-    if (mesh.geometry.weights) {
-      shader.uniforms.u_morphWeights = mesh.geometry.weights
+    if (mesh.morphWeights) {
+      shader.uniforms.u_morphWeights = mesh.morphWeights
     }
     if (this.baseColorTexture?.valid) {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture

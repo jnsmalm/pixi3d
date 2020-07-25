@@ -23,19 +23,19 @@ export class PhysicallyBasedMeshShader extends MeshShader {
   addShaderAttributes(geometry: MeshGeometry) {
     super.addShaderAttributes(geometry)
 
-    if (geometry.morphTargets) {
-      for (let i = 0; i < geometry.morphTargets.length; i++) {
-        let positions = geometry.morphTargets[i].positions
+    if (geometry.targets) {
+      for (let i = 0; i < geometry.targets.length; i++) {
+        let positions = geometry.targets[i].positions
         if (positions) {
           let buffer = new PIXI.Buffer(positions.buffer)
           geometry.addAttribute(`a_Target_Position${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, positions.stride)
         }
-        let normals = geometry.morphTargets[i].normals
+        let normals = geometry.targets[i].normals
         if (normals) {
           let buffer = new PIXI.Buffer(normals.buffer)
           geometry.addAttribute(`a_Target_Normal${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, normals.stride)
         }
-        let tangents = geometry.morphTargets[i].tangents
+        let tangents = geometry.targets[i].tangents
         if (tangents) {
           let buffer = new PIXI.Buffer(tangents.buffer)
           geometry.addAttribute(`a_Target_Tangent${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, tangents.stride)

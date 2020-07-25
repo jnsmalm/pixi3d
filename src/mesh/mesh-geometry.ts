@@ -6,6 +6,12 @@ export interface MeshGeometryAttribute {
   stride: number | undefined
 }
 
+interface MeshGeometryTarget {
+  positions?: MeshGeometryAttribute
+  normals?: MeshGeometryAttribute
+  tangents?: MeshGeometryAttribute
+}
+
 export class MeshGeometry extends PIXI.Geometry {
   private _shaders: string[] = []
 
@@ -14,12 +20,7 @@ export class MeshGeometry extends PIXI.Geometry {
   uvs?: MeshGeometryAttribute[]
   normals?: MeshGeometryAttribute
   tangents?: MeshGeometryAttribute
-  weights?: number[]
-  morphTargets?: {
-    positions?: MeshGeometryAttribute
-    normals?: MeshGeometryAttribute
-    tangents?: MeshGeometryAttribute
-  }[]
+  targets?: MeshGeometryTarget[]
 
   addAttribute(id: string, buffer?: PIXI.Buffer | number[], size?: number, normalized?: boolean, type?: number, stride?: number, start?: number): MeshGeometry {
     if (this.getAttribute(id)) {
