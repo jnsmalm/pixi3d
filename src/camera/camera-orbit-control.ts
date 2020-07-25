@@ -10,7 +10,7 @@ export class CameraOrbitControl {
 
   private _angles = new PIXI.ObservablePoint(() => {
     this._angles.x = Math.min(Math.max(-85, this._angles.x), 85)
-  }, undefined)
+  }, undefined, 0, 180)
 
   /**
    * Orientation euler angles (x-axis and y-axis). The angle for the x-axis 
