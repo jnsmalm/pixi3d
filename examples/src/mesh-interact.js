@@ -5,6 +5,9 @@ document.body.appendChild(app.view)
 
 let mesh = app.stage.addChild(PIXI3D.Mesh3D.createCube())
 
+// The picking hit area is set to enable picking interaction.
+mesh.hitArea = new PIXI3D.PickingHitArea(app.renderer, mesh)
+
 // To enable a mesh to be interacted with, "interactive" needs to be set. In 
 // this case "buttonMode" is also set to have the cursor changed to pointer.
 mesh.interactive = true
