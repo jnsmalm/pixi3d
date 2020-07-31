@@ -3,6 +3,9 @@ import * as PIXI from "pixi.js"
 import { MeshGeometry3D } from "./geometry/mesh-geometry"
 import { Mesh3D } from "./mesh"
 
+/**
+ * Shader used specifically to render a mesh.
+ */
 export class MeshShader extends PIXI.Shader {
 
   /** Default state used to render a mesh. */
@@ -13,15 +16,16 @@ export class MeshShader extends PIXI.Shader {
   /** Default draw mode used to render a mesh. */
   drawMode = PIXI.DRAW_MODES.TRIANGLES
 
+  /** The name of the mesh shader. Used for figuring out if geometry attributes is compatible with the shader. This needs to be set to something different than default value when custom attributes is used.*/
   get name() {
     return "mesh-shader"
   }
 
   /**
-   * Adds the required geometry attributes used by this shader.
-   * @param geometry Mesh geometry to use.
+   * Adds the required attributes used by this shader to the specified geometry. Override when using custom attributes.
+   * @param geometry The geometry to add attributes to.
    */
-  addShaderAttributes(geometry: MeshGeometry3D) {
+  addGeometryAttributes(geometry: MeshGeometry3D) {
     if (geometry.indices) {
       // PIXI seems to have problems using anything other than 
       // gl.UNSIGNED_SHORT or gl.UNSIGNED_INT. Let's convert to UNSIGNED_INT.

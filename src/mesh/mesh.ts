@@ -1,20 +1,31 @@
 import * as PIXI from "pixi.js"
 
-import { CubeGeometry } from "./geometry/cube-geometry"
 import { PlaneGeometry } from "./geometry/plane-geometry"
+import { CubeGeometry } from "./geometry/cube-geometry"
 import { MeshGeometry3D } from "./geometry/mesh-geometry"
 import { Material } from "../material"
 import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
 import { Container3D } from "../container"
 
+/**
+ * Represents a mesh which contains geometry and has a material.
+ */
 export class Mesh3D extends Container3D {
+
+  /** The name of the plugin used for rendering the mesh. */
   pluginName = "mesh3d"
+
+  /** Array of weights used for morphing between geometry targets. */
+  morphWeights?: number[]
 
   /** Names of the passes used for rendering the mesh. */
   renderPasses = ["standard"]
 
-  morphWeights?: number[]
-
+  /**
+   * Creates a new mesh with the specified geometry and material.
+   * @param geometry The geometry for the mesh.
+   * @param material The material for the mesh. If the material is empty the mesh won't be rendered.
+   */
   constructor(public geometry: MeshGeometry3D, public material?: Material) {
     super()
     if (!geometry) {
@@ -29,10 +40,18 @@ export class Mesh3D extends Container3D {
     <PIXI.ObjectRenderer>(<any>renderer.plugins)[this.pluginName].render(this)
   }
 
+  /**
+   * Creates a new plane (flat square, one unit long) mesh with the specified material.
+   * @param material The material to use.
+   */
   static createPlane(material: Material = new PhysicallyBasedMaterial()) {
     return new Mesh3D(PlaneGeometry.create(), material)
   }
 
+  /**
+   * Creates a new cube (six faces, one unit long) mesh with the specified material.
+   * @param material The material to use.
+   */
   static createCube(material: Material = new PhysicallyBasedMaterial()) {
     return new Mesh3D(CubeGeometry.create(), material)
   }

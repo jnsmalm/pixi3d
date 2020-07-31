@@ -20,8 +20,8 @@ export class PhysicallyBasedMeshShader extends MeshShader {
     return new PhysicallyBasedMeshShader(program)
   }
 
-  addShaderAttributes(geometry: MeshGeometry3D) {
-    super.addShaderAttributes(geometry)
+  addGeometryAttributes(geometry: MeshGeometry3D) {
+    super.addGeometryAttributes(geometry)
 
     if (geometry.targets) {
       for (let i = 0; i < geometry.targets.length; i++) {

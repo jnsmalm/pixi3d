@@ -4,6 +4,9 @@ import { MeshShader } from "../mesh-shader"
 import { MeshGeometryAttribute } from "./mesh-geometry-attribute"
 import { MeshGeometryTarget } from "./mesh-geometry-target"
 
+/**
+ * Geometry which can add the required attributes for a specific shader.
+ */
 export class MeshGeometry3D extends PIXI.Geometry {
   private _shaders: string[] = []
 
@@ -29,12 +32,20 @@ export class MeshGeometry3D extends PIXI.Geometry {
     return <MeshGeometry3D>super.addIndex(buffer)
   }
 
+  /**
+   * Adds the attributes required by the specified shader.
+   * @param shader The shader to use.
+   */
   addShaderAttributes(shader: MeshShader) {
-    shader.addShaderAttributes(this)
+    shader.addGeometryAttributes(this)
     this._shaders.push(shader.name)
   }
 
-  hasShaderAttributes(material: MeshShader) {
-    return this._shaders.indexOf(material.name) >= 0
+  /**
+   * Returns a value indicating if attributes are compatible with the specified shader.
+   * @param shader The shader to test for compatibility.
+   */
+  hasShaderAttributes(shader: MeshShader) {
+    return this._shaders.indexOf(shader.name) >= 0
   }
 }
