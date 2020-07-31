@@ -7,7 +7,7 @@ import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
 import { MaterialFactory, Material } from "../material"
 import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
-import { MeshGeometry } from "../mesh/mesh-geometry"
+import { MeshGeometry } from "../mesh/geometry/mesh-geometry"
 import { Model3D } from "../model"
 import { TransformMatrix } from "../matrix/transform-matrix"
 

@@ -1,4 +1,4 @@
-import { MeshGeometry } from "../mesh/mesh-geometry"
+import { MeshGeometry } from "../mesh/geometry/mesh-geometry"
 import { PhysicallyBasedMaterialAlphaMode } from "./pbr-alpha"
 import { PhysicallyBasedMaterialDebugMode } from "./pbr-debug"
 import { PhysicallyBasedMaterial } from "./pbr-material"

@@ -1,4 +1,4 @@
-import { MeshGeometry } from "../mesh-geometry"
+import { MeshGeometry } from "./mesh-geometry"
 
 export namespace PlaneGeometry {
   export function create() {

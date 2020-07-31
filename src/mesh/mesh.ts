@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 
 import { CubeGeometry } from "./geometry/cube-geometry"
 import { PlaneGeometry } from "./geometry/plane-geometry"
-import { MeshGeometry } from "./mesh-geometry"
+import { MeshGeometry } from "./geometry/mesh-geometry"
 import { Material } from "../material"
 import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
 import { Container3D } from "../container"

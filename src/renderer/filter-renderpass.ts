@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js"
 import { Mesh3D } from "../mesh/mesh"
 import { MeshRenderPass } from "./mesh-renderpass"
 import { MeshShader } from "../mesh/mesh-shader"
-import { MeshGeometry } from "../mesh/mesh-geometry"
+import { MeshGeometry } from "../mesh/geometry/mesh-geometry"
 
 /**
  * Render pass used for post processing filters.

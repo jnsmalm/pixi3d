@@ -1,16 +1,8 @@
 import * as PIXI from "pixi.js"
-import { MeshShader } from "./mesh-shader"
 
-export interface MeshGeometryAttribute {
-  buffer: ArrayBuffer
-  stride: number | undefined
-}
-
-interface MeshGeometryTarget {
-  positions?: MeshGeometryAttribute
-  normals?: MeshGeometryAttribute
-  tangents?: MeshGeometryAttribute
-}
+import { MeshShader } from "../mesh-shader"
+import { MeshGeometryAttribute } from "./mesh-geometry-attribute"
+import { MeshGeometryTarget } from "./mesh-geometry-target"
 
 export class MeshGeometry extends PIXI.Geometry {
   private _shaders: string[] = []

@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { MeshGeometry } from "./mesh-geometry"
+import { MeshGeometry } from "./geometry/mesh-geometry"
 import { Mesh3D } from "./mesh"
 
 export class MeshShader extends PIXI.Shader {
