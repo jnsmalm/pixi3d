@@ -1,8 +1,8 @@
-import { MeshGeometry } from "./mesh-geometry"
+import { MeshGeometry3D } from "./mesh-geometry"
 
 export namespace PlaneGeometry {
   export function create() {
-    return Object.assign(new MeshGeometry(), {
+    return Object.assign(new MeshGeometry3D(), {
       positions: {
         buffer: new Float32Array([-1, 0, 1, 1, 0, -1, -1, 0, -1, 1, 0, 1])
       },

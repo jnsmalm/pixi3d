@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 
 import { CubeGeometry } from "./geometry/cube-geometry"
 import { PlaneGeometry } from "./geometry/plane-geometry"
-import { MeshGeometry } from "./geometry/mesh-geometry"
+import { MeshGeometry3D } from "./geometry/mesh-geometry"
 import { Material } from "../material"
 import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
 import { Container3D } from "../container"
@@ -15,7 +15,7 @@ export class Mesh3D extends Container3D {
 
   morphWeights?: number[]
 
-  constructor(public geometry: MeshGeometry, public material?: Material) {
+  constructor(public geometry: MeshGeometry3D, public material?: Material) {
     super()
     if (!geometry) {
       throw new Error("PIXI3D: Geometry is required when creating a mesh.")

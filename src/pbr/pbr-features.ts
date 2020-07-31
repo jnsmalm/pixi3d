@@ -1,4 +1,4 @@
-import { MeshGeometry } from "../mesh/geometry/mesh-geometry"
+import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { PhysicallyBasedMaterialAlphaMode } from "./pbr-alpha"
 import { PhysicallyBasedMaterialDebugMode } from "./pbr-debug"
 import { PhysicallyBasedMaterial } from "./pbr-material"
@@ -6,7 +6,7 @@ import { LightingEnvironment } from "../lighting/lighting-environment"
 import { Mesh3D } from "../mesh/mesh"
 
 export namespace PhysicallyBasedFeatures {
-  export function build(mesh: Mesh3D, geometry: MeshGeometry, material: PhysicallyBasedMaterial, lightingEnvironment: LightingEnvironment) {
+  export function build(mesh: Mesh3D, geometry: MeshGeometry3D, material: PhysicallyBasedMaterial, lightingEnvironment: LightingEnvironment) {
     let features: string[] = []
 
     if (geometry.normals) {

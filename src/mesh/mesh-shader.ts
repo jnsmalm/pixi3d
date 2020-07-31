@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { MeshGeometry } from "./geometry/mesh-geometry"
+import { MeshGeometry3D } from "./geometry/mesh-geometry"
 import { Mesh3D } from "./mesh"
 
 export class MeshShader extends PIXI.Shader {
@@ -21,7 +21,7 @@ export class MeshShader extends PIXI.Shader {
    * Adds the required geometry attributes used by this shader.
    * @param geometry Mesh geometry to use.
    */
-  addShaderAttributes(geometry: MeshGeometry) {
+  addShaderAttributes(geometry: MeshGeometry3D) {
     if (geometry.indices) {
       // PIXI seems to have problems using anything other than 
       // gl.UNSIGNED_SHORT or gl.UNSIGNED_INT. Let's convert to UNSIGNED_INT.

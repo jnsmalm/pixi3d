@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { MeshGeometry } from "../mesh/geometry/mesh-geometry"
+import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { MeshShader } from "../mesh/mesh-shader"
 
 export class PhysicallyBasedMeshShader extends MeshShader {
@@ -20,7 +20,7 @@ export class PhysicallyBasedMeshShader extends MeshShader {
     return new PhysicallyBasedMeshShader(program)
   }
 
-  addShaderAttributes(geometry: MeshGeometry) {
+  addShaderAttributes(geometry: MeshGeometry3D) {
     super.addShaderAttributes(geometry)
 
     if (geometry.targets) {

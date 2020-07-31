@@ -4,7 +4,7 @@ import { MeshShader } from "../mesh-shader"
 import { MeshGeometryAttribute } from "./mesh-geometry-attribute"
 import { MeshGeometryTarget } from "./mesh-geometry-target"
 
-export class MeshGeometry extends PIXI.Geometry {
+export class MeshGeometry3D extends PIXI.Geometry {
   private _shaders: string[] = []
 
   indices?: MeshGeometryAttribute
@@ -14,11 +14,11 @@ export class MeshGeometry extends PIXI.Geometry {
   tangents?: MeshGeometryAttribute
   targets?: MeshGeometryTarget[]
 
-  addAttribute(id: string, buffer?: PIXI.Buffer | number[], size?: number, normalized?: boolean, type?: number, stride?: number, start?: number): MeshGeometry {
+  addAttribute(id: string, buffer?: PIXI.Buffer | number[], size?: number, normalized?: boolean, type?: number, stride?: number, start?: number): MeshGeometry3D {
     if (this.getAttribute(id)) {
       return this
     }
-    return <MeshGeometry>super.addAttribute(
+    return <MeshGeometry3D>super.addAttribute(
       id, buffer, size, normalized, type, stride, start)
   }
 
@@ -26,7 +26,7 @@ export class MeshGeometry extends PIXI.Geometry {
     if (this.getIndex()) {
       return this
     }
-    return <MeshGeometry>super.addIndex(buffer)
+    return <MeshGeometry3D>super.addIndex(buffer)
   }
 
   addShaderAttributes(shader: MeshShader) {

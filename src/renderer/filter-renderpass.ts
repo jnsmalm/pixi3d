@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js"
 import { Mesh3D } from "../mesh/mesh"
 import { MeshRenderPass } from "./mesh-renderpass"
 import { MeshShader } from "../mesh/mesh-shader"
-import { MeshGeometry } from "../mesh/geometry/mesh-geometry"
+import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 
 /**
  * Render pass used for post processing filters.
@@ -26,7 +26,7 @@ export class FilterRenderPass implements MeshRenderPass {
    * @param input Input texture to use for filter.
    */
   constructor(public renderer: PIXI.Renderer, public name: string, public shader: MeshShader, public input?: PIXI.Texture) {
-    this._mesh = new Mesh3D(Object.assign(new MeshGeometry(), {
+    this._mesh = new Mesh3D(Object.assign(new MeshGeometry3D(), {
       indices: {
         buffer: new Uint8Array([0, 1, 2, 0, 3, 1]),
         stride: 0

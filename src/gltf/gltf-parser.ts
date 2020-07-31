@@ -7,7 +7,7 @@ import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
 import { MaterialFactory, Material } from "../material"
 import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
-import { MeshGeometry } from "../mesh/geometry/mesh-geometry"
+import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { Model3D } from "../model"
 import { TransformMatrix } from "../matrix/transform-matrix"
 
@@ -193,7 +193,7 @@ export class glTFParser {
   parsePrimitive(primitive: any) {
     let { attributes, targets } = primitive
 
-    let geometry = Object.assign<MeshGeometry, Partial<MeshGeometry>>(new MeshGeometry(), {
+    let geometry = Object.assign<MeshGeometry3D, Partial<MeshGeometry3D>>(new MeshGeometry3D(), {
       indices: this.parseBuffer(primitive.indices),
       positions: this.parseBuffer(attributes["POSITION"]),
       normals: this.parseBuffer(attributes["NORMAL"]),

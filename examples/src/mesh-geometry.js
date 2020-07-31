@@ -10,7 +10,7 @@ app.loader.load(() => {
   // Create the geometry needed to render the mesh with the specified material. 
   // In this case, the vertex data includes position (x,y,z) and color (r,g,b). 
   // Three vertices is needed to get the triangle shape.
-  let geometry = Object.assign(new PIXI3D.MeshGeometry(), {
+  let geometry = Object.assign(new PIXI3D.MeshGeometry3D(), {
     positions: {
       buffer: new Float32Array([
         // Vertex 1 (x,y,z)
