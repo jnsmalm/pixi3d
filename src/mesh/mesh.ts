@@ -1,10 +1,11 @@
 import * as PIXI from "pixi.js"
 
-import { Material, MaterialFactory } from "../material"
-import { Container3D } from "../container"
+import { CubeGeometry } from "./geometry/cube-geometry"
+import { PlaneGeometry } from "./geometry/plane-geometry"
 import { MeshGeometry } from "./mesh-geometry"
-import { glTFAsset } from "../gltf/gltf-asset"
-import { glTFParser } from "../gltf/gltf-parser"
+import { Material } from "../material"
+import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
+import { Container3D } from "../container"
 
 export class Mesh3D extends Container3D {
   pluginName = "mesh3d"
@@ -28,17 +29,11 @@ export class Mesh3D extends Container3D {
     <PIXI.ObjectRenderer>(<any>renderer.plugins)[this.pluginName].render(this)
   }
 
-  static createPlane(materialFactory?: MaterialFactory) {
-    return glTFParser.createMesh(
-      glTFAsset.load(
-        JSON.parse(require("./assets/plane.gltf").default)),
-      materialFactory)[0]
+  static createPlane(material: Material = new PhysicallyBasedMaterial()) {
+    return new Mesh3D(PlaneGeometry.create(), material)
   }
 
-  static createCube(materialFactory?: MaterialFactory) {
-    return glTFParser.createMesh(
-      glTFAsset.load(
-        JSON.parse(require("./assets/cube.gltf").default)),
-      materialFactory)[0]
+  static createCube(material: Material = new PhysicallyBasedMaterial()) {
+    return new Mesh3D(CubeGeometry.create(), material)
   }
 }

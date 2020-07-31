@@ -18,10 +18,7 @@ export class Skybox extends Container3D {
    */
   constructor(texture: CubeMipmapTexture) {
     super()
-    this._mesh = this.addChild(
-      Mesh3D.createCube({
-        create: () => new SkyboxMaterial(texture)
-      }))
+    this._mesh = this.addChild(Mesh3D.createCube(new SkyboxMaterial(texture)))
   }
 
   /**
