@@ -82,11 +82,12 @@ function updateLightFromElement(light, element) {
   // Transform screen position of the element to world coordinates and 
   // calculate the light direction (only needed for point and spot).
   let position = PIXI3D.Camera3D.main.screenToWorld(bounds.x, bounds.y, distance)
-  let direction = PIXI3D.Vector3.subtract(
-    PIXI3D.Vector3.zero, PIXI3D.Vector3.from(position))
+  let direction = glMatrix.vec3.subtract(glMatrix.vec3.create(),
+    glMatrix.vec3.create(), glMatrix.vec3.set(
+      glMatrix.vec3.create(), position.x, position.y, position.z))
 
   light.position.set(position.x, position.y, position.z)
-  light.direction = PIXI3D.Vector3.normalize(direction)
+  light.direction = glMatrix.vec3.normalize(direction, direction)
 }
 
 function updateElementFromLight(light, element) {
