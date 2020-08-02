@@ -54,10 +54,11 @@ export class CameraOrbitControl {
    * Updates the position and rotation of the camera.
    */
   updateCamera() {
-    let rot = Quaternion.fromEuler(this._angles.x, this._angles.y, 0)
-    let dir = Vector3.transformQuat(Vector3.from({ x: 0, y: 0, z: 1 }), rot)
-    let pos = Vector3.subtract(Vector3.from(this.target),
-      Vector3.scale(dir, this.distance))
+    let rot = Quaternion.fromEuler(this._angles.x, this._angles.y, 0, new Float32Array(4))
+    let dir = Vector3.transformQuat(
+      Vector3.set(0, 0, 1, new Float32Array(3)), rot, new Float32Array(3))
+    let pos = Vector3.subtract(
+      Vector3.set(this.target.x, this.target.y, this.target.z, new Float32Array(3)), Vector3.scale(dir, this.distance, new Float32Array(3)), new Float32Array(3))
 
     this.camera.position.set(pos[0], pos[1], pos[2])
     this.camera.rotationQuaternion.set(rot[0], rot[1], rot[2], rot[3])

@@ -1,82 +1,14 @@
-import { quat, mat3 } from "gl-matrix"
-
 export namespace Quaternion {
-  export let pool: { create: (size: number) => Float32Array } | undefined
-
-  export function create() {
-    return pool ? pool.create(4) : quat.create()
+  export function set(x: number, y: number, z: number, w: number, out: Float32Array) {
+    out[0] = x; out[1] = y; out[2] = z; out[3] = w; return out
   }
-
-  export function from({ x = 0, y = 0, z = 0, w = 0 }, out?: quat) {
-    return quat.set(out || create(), x, y, z, w)
+  export function normalize(a: Float32Array, out: Float32Array) {
+    let x = a[0], y = a[1], z = a[2], w = a[3], len = x * x + y * y + z * z + w * w; if (len > 0) { len = 1 / Math.sqrt(len) } out[0] = x * len; out[1] = y * len; out[2] = z * len; out[3] = w * len; return out
   }
-
-  export function set(x: number, y: number, z: number, w: number, out?: quat) {
-    return quat.set(out || create(), x, y, z, w)
+  export function slerp(a: Float32Array, b: Float32Array, t: number, out: Float32Array) {
+    let ax = a[0], ay = a[1], az = a[2], aw = a[3], bx = b[0], by = b[1], bz = b[2], bw = b[3], omega, cosom = ax * bx + ay * by + az * bz + aw * bw, sinom, scale0, scale1; if (cosom < 0.0) { cosom = -cosom; bx = -bx; by = -by; bz = -bz; bw = -bw } if (1.0 - cosom > 0.000001) { omega = Math.acos(cosom); sinom = Math.sin(omega); scale0 = Math.sin((1.0 - t) * omega) / sinom; scale1 = Math.sin(t * omega) / sinom } else { scale0 = 1.0 - t; scale1 = t } out[0] = scale0 * ax + scale1 * bx; out[1] = scale0 * ay + scale1 * by; out[2] = scale0 * az + scale1 * bz; out[3] = scale0 * aw + scale1 * bw; return out
   }
-
-  Object.defineProperty(Quaternion, "identity", {
-    get: () => {
-      return quat.identity(create())
-    }
-  })
-
-  export function fromMat3(m: mat3, out?: quat) {
-    return quat.fromMat3(out || create(), m)
+  export function fromEuler(x: number, y: number, z: number, out: Float32Array) {
+    let halfToRad = (0.5 * Math.PI) / 180.0; x *= halfToRad; y *= halfToRad; z *= halfToRad; let sx = Math.sin(x); let cx = Math.cos(x); let sy = Math.sin(y); let cy = Math.cos(y); let sz = Math.sin(z); let cz = Math.cos(z); out[0] = sx * cy * cz - cx * sy * sz; out[1] = cx * sy * cz + sx * cy * sz; out[2] = cx * cy * sz - sx * sy * cz; out[3] = cx * cy * cz + sx * sy * sz; return out
   }
-
-  export function normalize(a: quat, out?: quat) {
-    return quat.normalize(out || create(), a)
-  }
-
-  export function fromEuler(x: number, y: number, z: number, out?: quat) {
-    return quat.fromEuler(out || create(), x, y, z)
-  }
-
-  export function lerp(a: quat, b: quat, t: number, out?: quat) {
-    return quat.lerp(out || create(), a, b, t)
-  }
-
-  export function slerp(a: quat, b: quat, t: number, out?: quat) {
-    return quat.slerp(out || create(), a, b, t)
-  }
-
-  export function rotationTo(a: quat, b: quat, out?: quat) {
-    return quat.rotationTo(out || create(), a, b)
-  }
-
-  export function add(a: quat, b: quat, out?: quat) {
-    return quat.add(out || create(), a, b)
-  }
-
-  export function multiply(a: quat, b: quat, out?: quat) {
-    return quat.multiply(out || create(), a, b)
-  }
-
-  export function getAngle(a: quat, b: quat) {
-    return quat.getAngle(a, b)
-  }
-
-  export function calculateW(a: quat, out?: quat) {
-    return quat.calculateW(out || create(), a)
-  }
-
-  export function rotateX(a: quat, rad: number, out?: quat) {
-    return quat.rotateX(out || create(), a, rad)
-  }
-
-  export function rotateY(a: quat, rad: number, out?: quat) {
-    return quat.rotateY(out || create(), a, rad)
-  }
-
-  export function rotateZ(a: quat, rad: number, out?: quat) {
-    return quat.rotateZ(out || create(), a, rad)
-  }
-
-  export function scale(a: quat, b: number, out?: quat) {
-    return quat.scale(out || create(), a, b)
-  }
-
-
-
 }

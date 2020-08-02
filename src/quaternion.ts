@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js"
 import { Quaternion } from "./math/quaternion"
 import { ObservablePoint3D } from "./point"
 
-const quat = Quaternion.create()
+const quat = new Float32Array(4)
 
 /**
  * Represents a rotation in 3D space.

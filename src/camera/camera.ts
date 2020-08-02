@@ -6,8 +6,8 @@ import { Vector4 } from "../math/vector4"
 import { MatrixComponent } from "../matrix/matrix-component"
 import { ObservablePoint3D } from "../point"
 
-const mat4 = Matrix4.create()
-const vec4 = Vector4.create()
+const mat4 = new Float32Array(16)
+const vec4 = new Float32Array(4)
 
 /**
  * Camera is a device from which the world is viewed.
@@ -70,6 +70,9 @@ export class Camera3D extends Container3D {
     this.far = distance
 
     let invertedViewProjection = Matrix4.invert(this.viewProjection, mat4)
+    if (invertedViewProjection === null) {
+      return
+    }
     let clipSpace = Vector4.set(
       (x / this.renderer.width) * 2 - 1, ((y / this.renderer.height) * 2 - 1) * -1, 1, 1, vec4
     )
