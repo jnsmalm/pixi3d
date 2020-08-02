@@ -10,7 +10,7 @@ app.loader.load(() => {
   // Create a cube mesh and add it to the stage. When creating the cube, a 
   // material factory can be given as an optional parameter. The material 
   // factory is responsible for creating the material used for rendering the mesh.
-  let mesh = app.stage.addChild(PIXI3D.Mesh3D.createCube(ColorMaterial))
+  let mesh = app.stage.addChild(PIXI3D.Mesh3D.createCube(new ColorMaterial()))
 
   let rotation = 0
   app.ticker.add(() => {
@@ -34,10 +34,6 @@ class ColorMaterial extends PIXI3D.Material {
     shader.uniforms.u_World = mesh.worldTransform.toArray()
     shader.uniforms.u_ViewProjection = PIXI3D.Camera3D.main.viewProjection
     shader.uniforms.u_Color = this.color.map(c => c / 255)
-  }
-
-  static create() {
-    return new ColorMaterial()
   }
 
   createShader() {
