@@ -1,34 +1,38 @@
 import * as PIXI from "pixi.js"
 
 import { Mesh3D } from "../mesh/mesh"
-import { MaterialRenderPass } from "./material-renderpass"
-import { MeshRenderPass } from "./mesh-renderpass"
+import { MaterialRenderPass } from "./material-render-pass"
+import { RenderPass } from "./render-pass"
 
 /**
  * Renders 3d meshes using the specified render passes.
  */
-export class MeshRenderer extends PIXI.ObjectRenderer {
+export class StandardRenderer extends PIXI.ObjectRenderer {
   private _meshes: Mesh3D[] = []
 
-  /** Passes used when rendering meshes. */
-  renderPasses: MeshRenderPass[]
+  /** Passes used for rendering the meshes. */
+  renderPasses: RenderPass[]
 
   /**
-   * Creates a new standard renderer.
+   * Creates a new mesh renderer.
    * @param renderer Renderer to use.
    */
   constructor(public renderer: PIXI.Renderer) {
     super(renderer)
-
+    this.renderPasses = [new MaterialRenderPass(renderer, "standard")]
     renderer.on("prerender", () => {
       for (let pass of this.renderPasses) {
-        if (pass.clear) {
-          pass.clear()
-        }
+        if (pass.clear) { pass.clear() }
       }
     })
+  }
 
-    this.renderPasses = [new MaterialRenderPass(renderer, "standard")]
+  /**
+   * Adds a mesh to be rendered.
+   * @param mesh Mesh to add.
+   */
+  render(mesh: Mesh3D) {
+    this._meshes.push(mesh)
   }
 
   /**
@@ -45,7 +49,7 @@ export class MeshRenderer extends PIXI.ObjectRenderer {
   }
 
   /**
-   * Sorts all added meshes by material transparency.
+   * Sorts all meshes by material transparency.
    */
   sort() {
     this._meshes.sort((a, b) => {
@@ -58,14 +62,6 @@ export class MeshRenderer extends PIXI.ObjectRenderer {
       return a.material.transparent ? 1 : -1
     })
   }
-
-  /**
-   * Adds a mesh to be rendered.
-   * @param mesh Mesh to add.
-   */
-  render(mesh: Mesh3D) {
-    this._meshes.push(mesh)
-  }
 }
 
-PIXI.Renderer.registerPlugin("mesh3d", <any>MeshRenderer)
+PIXI.Renderer.registerPlugin("standard3d", <any>StandardRenderer)
