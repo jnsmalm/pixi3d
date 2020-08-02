@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { Quaternion } from "./math/quaternion"
+import { Quat } from "./math/quat"
 import { ObservablePoint3D } from "./point"
 
 const quat = new Float32Array(4)
@@ -32,7 +32,7 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * @param z Z angle.
    */
   setEulerAngles(x: number, y: number, z: number) {
-    Quaternion.fromEuler(x, y, z, quat)
+    Quat.fromEuler(x, y, z, quat)
     this.set(quat[0], quat[1], quat[2], quat[3])
   }
 

@@ -2,9 +2,9 @@ import * as PIXI from "pixi.js"
 
 import { ObservablePoint3D } from "../point"
 import { ObservableQuaternion } from "../quaternion"
-import { Matrix4 } from "../math/matrix4"
-import { Vector3 } from "../math/vector3"
-import { Vector4 } from "../math/vector4"
+import { Mat4 } from "../math/mat4"
+import { Vec3 } from "../math/vec3"
+import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "./matrix-component"
 
 /**
@@ -55,7 +55,7 @@ export class TransformMatrix extends PIXI.Matrix {
   get position() {
     if (!this._position) {
       this._position = new MatrixComponent(this, 3, data => {
-        Matrix4.getTranslation(this._array, data)
+        Mat4.getTranslation(this._array, data)
       })
     }
     return this._position.array
@@ -65,7 +65,7 @@ export class TransformMatrix extends PIXI.Matrix {
   get scaling() {
     if (!this._scaling) {
       this._scaling = new MatrixComponent(this, 3, data => {
-        Matrix4.getScaling(this._array, data)
+        Mat4.getScaling(this._array, data)
       })
     }
     return this._scaling.array
@@ -75,7 +75,7 @@ export class TransformMatrix extends PIXI.Matrix {
   get rotation() {
     if (!this._rotation) {
       this._rotation = new MatrixComponent(this, 4, data => {
-        Matrix4.getRotation(this._array, data)
+        Mat4.getRotation(this._array, data)
       })
     }
     return this._rotation.array
@@ -85,7 +85,7 @@ export class TransformMatrix extends PIXI.Matrix {
   get up() {
     if (!this._up) {
       this._up = new MatrixComponent(this, 3, data => {
-        Vector3.set(this._array[4], this._array[5], this._array[6], data)
+        Vec3.set(this._array[4], this._array[5], this._array[6], data)
       })
     }
     return this._up.array
@@ -95,7 +95,7 @@ export class TransformMatrix extends PIXI.Matrix {
   get forward() {
     if (!this._forward) {
       this._forward = new MatrixComponent(this, 3, data => {
-        Vector3.set(this._array[8], this._array[9], this._array[10], data)
+        Vec3.set(this._array[8], this._array[9], this._array[10], data)
       })
     }
     return this._forward.array
@@ -105,7 +105,7 @@ export class TransformMatrix extends PIXI.Matrix {
   get direction() {
     if (!this._direction) {
       this._direction = new MatrixComponent(this, 3, data => {
-        Vector3.add(this.position, this.forward, data)
+        Vec3.add(this.position, this.forward, data)
       })
     }
     return this._direction.array
@@ -117,7 +117,7 @@ export class TransformMatrix extends PIXI.Matrix {
    */
   copyFrom(matrix: TransformMatrix) {
     if (matrix instanceof TransformMatrix) {
-      Matrix4.copy(matrix._array, this._array); this._id++
+      Mat4.copy(matrix._array, this._array); this._id++
     }
     return this
   }
@@ -129,10 +129,10 @@ export class TransformMatrix extends PIXI.Matrix {
    * @param scaling Scale to set.
    */
   setFromRotationPositionScale(rotation: ObservableQuaternion, position: ObservablePoint3D, scaling: ObservablePoint3D) {
-    Vector4.set(rotation.x, rotation.y, rotation.z, rotation.w, this.rotation)
-    Vector3.set(scaling.x, scaling.y, scaling.z, this.scaling)
-    Vector3.set(position.x, position.y, position.z, this.position)
-    Matrix4.fromRotationTranslationScale(this.rotation, this.position, this.scaling, this._array); this._id++
+    Vec4.set(rotation.x, rotation.y, rotation.z, rotation.w, this.rotation)
+    Vec3.set(scaling.x, scaling.y, scaling.z, this.scaling)
+    Vec3.set(position.x, position.y, position.z, this.position)
+    Mat4.fromRotationTranslationScale(this.rotation, this.position, this.scaling, this._array); this._id++
   }
 
   /**
@@ -141,6 +141,6 @@ export class TransformMatrix extends PIXI.Matrix {
    * @param local Local transform matrix.
    */
   setFromMultiplyWorldLocal(world: TransformMatrix, local: TransformMatrix) {
-    Matrix4.multiply(world._array, local._array, this._array); this._id++
+    Mat4.multiply(world._array, local._array, this._array); this._id++
   }
 }

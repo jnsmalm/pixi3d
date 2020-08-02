@@ -1,8 +1,8 @@
 import * as PIXI from "pixi.js"
 
 import { Container3D } from "../container"
-import { Matrix4 } from "../math/matrix4"
-import { Vector4 } from "../math/vector4"
+import { Mat4 } from "../math/mat4"
+import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "../matrix/matrix-component"
 import { ObservablePoint3D } from "../point"
 
@@ -69,16 +69,16 @@ export class Camera3D extends Container3D {
     // for the clip space to 1 and the desired z position will be correct.
     this.far = distance
 
-    let invertedViewProjection = Matrix4.invert(this.viewProjection, mat4)
+    let invertedViewProjection = Mat4.invert(this.viewProjection, mat4)
     if (invertedViewProjection === null) {
       return
     }
-    let clipSpace = Vector4.set(
+    let clipSpace = Vec4.set(
       (x / this.renderer.width) * 2 - 1, ((y / this.renderer.height) * 2 - 1) * -1, 1, 1, vec4
     )
     this.far = far
 
-    let worldSpace = Vector4.transformMat4(clipSpace, invertedViewProjection, vec4)
+    let worldSpace = Vec4.transformMat4(clipSpace, invertedViewProjection, vec4)
     worldSpace[3] = 1.0 / worldSpace[3]
     for (let i = 0; i < 3; i++) {
       worldSpace[i] *= worldSpace[3]
@@ -94,9 +94,9 @@ export class Camera3D extends Container3D {
    * @param point Point to set.
    */
   worldToScreen(x: number, y: number, z: number, point = new PIXI.Point()) {
-    let worldSpace = Vector4.set(x, y, z, 1, vec4)
-    let clipSpace = Vector4.transformMat4(
-      Vector4.transformMat4(worldSpace, this.view, vec4), this.projection, vec4
+    let worldSpace = Vec4.set(x, y, z, 1, vec4)
+    let clipSpace = Vec4.transformMat4(
+      Vec4.transformMat4(worldSpace, this.view, vec4), this.projection, vec4
     )
     if (clipSpace[3] !== 0) {
       for (let i = 0; i < 3; i++) {
@@ -166,7 +166,7 @@ export class Camera3D extends Container3D {
       this._projection = new MatrixComponent(this, 16, data => {
         let aspect = this._aspect || this.renderer.width / this.renderer.height
         let fovy = this._fieldOfView * (Math.PI / 180)
-        Matrix4.perspective(fovy, aspect, this._near, this._far, data)
+        Mat4.perspective(fovy, aspect, this._near, this._far, data)
       })
     }
     return this._projection.array
@@ -176,7 +176,7 @@ export class Camera3D extends Container3D {
   get view() {
     if (!this._view) {
       this._view = new MatrixComponent(this, 16, data => {
-        Matrix4.lookAt(this.transform.worldTransform.position, this.transform.worldTransform.direction, this.transform.worldTransform.up, data)
+        Mat4.lookAt(this.transform.worldTransform.position, this.transform.worldTransform.direction, this.transform.worldTransform.up, data)
       })
     }
     return this._view.array
@@ -186,7 +186,7 @@ export class Camera3D extends Container3D {
   get viewProjection() {
     if (!this._viewProjection) {
       this._viewProjection = new MatrixComponent(this, 16, data => {
-        Matrix4.multiply(this.projection, this.view, data)
+        Mat4.multiply(this.projection, this.view, data)
       })
     }
     return this._viewProjection.array

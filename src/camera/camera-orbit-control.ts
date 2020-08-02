@@ -1,6 +1,6 @@
 import { Camera3D } from "./camera"
-import { Quaternion } from "../math/quaternion"
-import { Vector3 } from "../math/vector3"
+import { Quat } from "../math/quat"
+import { Vec3 } from "../math/vec3"
 
 /**
  * Allows the user to control the camera by orbiting the target.
@@ -54,11 +54,11 @@ export class CameraOrbitControl {
    * Updates the position and rotation of the camera.
    */
   updateCamera() {
-    let rot = Quaternion.fromEuler(this._angles.x, this._angles.y, 0, new Float32Array(4))
-    let dir = Vector3.transformQuat(
-      Vector3.set(0, 0, 1, new Float32Array(3)), rot, new Float32Array(3))
-    let pos = Vector3.subtract(
-      Vector3.set(this.target.x, this.target.y, this.target.z, new Float32Array(3)), Vector3.scale(dir, this.distance, new Float32Array(3)), new Float32Array(3))
+    let rot = Quat.fromEuler(this._angles.x, this._angles.y, 0, new Float32Array(4))
+    let dir = Vec3.transformQuat(
+      Vec3.set(0, 0, 1, new Float32Array(3)), rot, new Float32Array(3))
+    let pos = Vec3.subtract(
+      Vec3.set(this.target.x, this.target.y, this.target.z, new Float32Array(3)), Vec3.scale(dir, this.distance, new Float32Array(3)), new Float32Array(3))
 
     this.camera.position.set(pos[0], pos[1], pos[2])
     this.camera.rotationQuaternion.set(rot[0], rot[1], rot[2], rot[3])

@@ -1,4 +1,4 @@
-export namespace Vector3 {
+export namespace Vec3 {
   export function set(x: number, y: number, z: number, out: Float32Array) {
     out[0] = x; out[1] = y; out[2] = z; return out
   }

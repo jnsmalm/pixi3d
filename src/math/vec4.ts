@@ -1,4 +1,4 @@
-export namespace Vector4 {
+export namespace Vec4 {
   export function set(x: number, y: number, z: number, w: number, out: Float32Array) {
     out[0] = x; out[1] = y; out[2] = z; out[3] = w; return out
   }

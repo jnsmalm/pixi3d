@@ -1,4 +1,4 @@
-export namespace Matrix4 {
+export namespace Mat4 {
   export function getTranslation(mat: Float32Array, out: Float32Array) {
     out[0] = mat[12]; out[1] = mat[13]; out[2] = mat[14]; return out
   }
