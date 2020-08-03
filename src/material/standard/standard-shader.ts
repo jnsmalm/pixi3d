@@ -1,10 +1,10 @@
 import * as PIXI from "pixi.js"
 
-import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
-import { MeshShader } from "../mesh/mesh-shader"
+import { MeshGeometry3D } from "../../mesh/geometry/mesh-geometry"
+import { MeshShader } from "../../mesh/mesh-shader"
+import { StandardShaderSource } from "./standard-shader-source"
 
-export class PhysicallyBasedMeshShader extends MeshShader {
-
+export class StandardShader extends MeshShader {
   static build(renderer: PIXI.Renderer, features: string[]) {
     let environment = "webgl1"
     if (renderer.context.webGLVersion === 2) {
@@ -14,10 +14,10 @@ export class PhysicallyBasedMeshShader extends MeshShader {
     let frag = require(`./shader/metallic-roughness.${environment}.frag`).default
 
     let program = PIXI.Program.from(
-      PhysicallyBasedShaderSource.build(vert, features),
-      PhysicallyBasedShaderSource.build(frag, features))
+      StandardShaderSource.build(vert, features),
+      StandardShaderSource.build(frag, features))
 
-    return new PhysicallyBasedMeshShader(program)
+    return new StandardShader(program)
   }
 
   addGeometryAttributes(geometry: MeshGeometry3D) {
@@ -42,19 +42,5 @@ export class PhysicallyBasedMeshShader extends MeshShader {
         }
       }
     }
-  }
-}
-
-namespace PhysicallyBasedShaderSource {
-  const FEATURES = /#define FEATURES/
-  const INCLUDES = /#include <(.+)>/gm
-
-  export function build(source: string, features: string[]) {
-    let match: RegExpExecArray | null
-    while ((match = INCLUDES.exec(source)) !== null) {
-      source = source.replace(match[0], require(`./shader/${match[1]}`).default)
-    }
-    return source.replace(FEATURES,
-      features.map(value => `#define ${value}`).join("\n"))
   }
 }

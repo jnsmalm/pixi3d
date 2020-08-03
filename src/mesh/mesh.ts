@@ -3,8 +3,8 @@ import * as PIXI from "pixi.js"
 import { PlaneGeometry } from "./geometry/plane-geometry"
 import { CubeGeometry } from "./geometry/cube-geometry"
 import { MeshGeometry3D } from "./geometry/mesh-geometry"
-import { Material } from "../material"
-import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
+import { Material } from "../material/material"
+import { StandardMaterial } from "../material/standard/standard-material"
 import { Container3D } from "../container"
 
 /**
@@ -44,7 +44,7 @@ export class Mesh3D extends Container3D {
    * Creates a new plane (flat square, one unit long) mesh with the specified material.
    * @param material The material to use.
    */
-  static createPlane(material: Material = new PhysicallyBasedMaterial()) {
+  static createPlane(material: Material = new StandardMaterial()) {
     return new Mesh3D(PlaneGeometry.create(), material)
   }
 
@@ -52,7 +52,7 @@ export class Mesh3D extends Container3D {
    * Creates a new cube (six faces, one unit long) mesh with the specified material.
    * @param material The material to use.
    */
-  static createCube(material: Material = new PhysicallyBasedMaterial()) {
+  static createCube(material: Material = new StandardMaterial()) {
     return new Mesh3D(CubeGeometry.create(), material)
   }
 }

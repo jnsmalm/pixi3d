@@ -1,4 +1,4 @@
-export enum PhysicallyBasedMaterialDebugMode {
+export enum StandardMaterialDebugMode {
   alpha = "alpha",
   emissive = "emissive",
   f0 = "f0",

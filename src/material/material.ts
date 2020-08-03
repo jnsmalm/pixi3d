@@ -1,15 +1,7 @@
 import * as PIXI from "pixi.js"
 
-import { Mesh3D } from "./mesh/mesh"
-import { MeshShader } from "./mesh/mesh-shader"
-
-/**
- * Factory for creating materials.
- */
-export interface MaterialFactory {
-  /** Creates a new material from the specified source. */
-  create(source: unknown): Material
-}
+import { Mesh3D } from "../mesh/mesh"
+import { MeshShader } from "../mesh/mesh-shader"
 
 /**
  * Materials are used to render a single mesh.

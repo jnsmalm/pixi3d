@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 
 import { Camera3D } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
-import { Material } from "../material"
+import { Material } from "../material/material"
 import { CubeMipmapTexture } from "../cubemap/cube-mipmap-texture"
 import { MeshShader } from "../mesh/mesh-shader"
 

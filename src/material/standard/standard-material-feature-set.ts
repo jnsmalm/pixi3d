@@ -1,12 +1,12 @@
-import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
-import { PhysicallyBasedMaterialAlphaMode } from "./pbr-alpha"
-import { PhysicallyBasedMaterialDebugMode } from "./pbr-debug"
-import { PhysicallyBasedMaterial } from "./pbr-material"
-import { LightingEnvironment } from "../lighting/lighting-environment"
-import { Mesh3D } from "../mesh/mesh"
+import { MeshGeometry3D } from "../../mesh/geometry/mesh-geometry"
+import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
+import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
+import { StandardMaterial } from "./standard-material"
+import { LightingEnvironment } from "../../lighting/lighting-environment"
+import { Mesh3D } from "../../mesh/mesh"
 
-export namespace PhysicallyBasedFeatures {
-  export function build(mesh: Mesh3D, geometry: MeshGeometry3D, material: PhysicallyBasedMaterial, lightingEnvironment: LightingEnvironment) {
+export namespace StandardMaterialFeatureSet {
+  export function build(mesh: Mesh3D, geometry: MeshGeometry3D, material: StandardMaterial, lightingEnvironment: LightingEnvironment) {
     let features: string[] = []
 
     if (geometry.normals) {
@@ -82,11 +82,11 @@ export namespace PhysicallyBasedFeatures {
       features.push("HAS_OCCLUSION_MAP 1")
     }
     switch (material.alphaMode) {
-      case PhysicallyBasedMaterialAlphaMode.opaque: {
+      case StandardMaterialAlphaMode.opaque: {
         features.push("ALPHAMODE_OPAQUE 1")
         break
       }
-      case PhysicallyBasedMaterialAlphaMode.mask: {
+      case StandardMaterialAlphaMode.mask: {
         features.push("ALPHAMODE_MASK 1")
         break
       }
@@ -95,31 +95,31 @@ export namespace PhysicallyBasedFeatures {
       features.push("DEBUG_OUTPUT 1")
     }
     switch (material.debugMode) {
-      case PhysicallyBasedMaterialDebugMode.alpha: {
+      case StandardMaterialDebugMode.alpha: {
         features.push("DEBUG_ALPHA 1")
         break
       }
-      case PhysicallyBasedMaterialDebugMode.emissive: {
+      case StandardMaterialDebugMode.emissive: {
         features.push("DEBUG_EMISSIVE 1")
         break
       }
-      case PhysicallyBasedMaterialDebugMode.f0: {
+      case StandardMaterialDebugMode.f0: {
         features.push("DEBUG_F0 1")
         break
       }
-      case PhysicallyBasedMaterialDebugMode.metallic: {
+      case StandardMaterialDebugMode.metallic: {
         features.push("DEBUG_METALLIC 1")
         break
       }
-      case PhysicallyBasedMaterialDebugMode.normal: {
+      case StandardMaterialDebugMode.normal: {
         features.push("DEBUG_NORMAL 1")
         break
       }
-      case PhysicallyBasedMaterialDebugMode.occlusion: {
+      case StandardMaterialDebugMode.occlusion: {
         features.push("DEBUG_OCCLUSION 1")
         break
       }
-      case PhysicallyBasedMaterialDebugMode.roughness: {
+      case StandardMaterialDebugMode.roughness: {
         features.push("DEBUG_ROUGHNESS 1")
         break
       }

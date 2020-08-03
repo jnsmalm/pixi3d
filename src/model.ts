@@ -5,7 +5,7 @@ import { glTFAsset } from "./gltf/gltf-asset"
 import { Mesh3D } from "./mesh/mesh"
 import { Container3D } from "./container"
 import { Animation } from "./animation"
-import { MaterialFactory } from "./material"
+import { MaterialFactory } from "./material/material-factory"
 
 /**
  * Represents a 3D model loaded from a source. The model consists of a 

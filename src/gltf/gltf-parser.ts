@@ -5,8 +5,9 @@ import { glTFBufferView } from "./gltf-buffer-view"
 import { glTFMaterial } from "./gltf-material"
 import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
-import { MaterialFactory, Material } from "../material"
-import { PhysicallyBasedMaterial } from "../pbr/pbr-material"
+import { Material } from "../material/material"
+import { MaterialFactory } from "../material/material-factory"
+import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { Model3D } from "../model"
 import { TransformMatrix } from "../matrix/transform-matrix"
@@ -30,7 +31,7 @@ export class glTFParser {
    */
   constructor(asset: glTFAsset, materialFactory?: MaterialFactory) {
     this._asset = asset
-    this._materialFactory = materialFactory || PhysicallyBasedMaterial
+    this._materialFactory = materialFactory || StandardMaterial
     this._descriptor = this._asset.descriptor
   }
 

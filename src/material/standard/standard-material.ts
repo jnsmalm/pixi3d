@@ -1,23 +1,23 @@
 import * as PIXI from "pixi.js"
 
-import { LightType } from "../lighting/light-type"
-import { PhysicallyBasedFeatures } from "./pbr-features"
-import { PhysicallyBasedMeshShader } from "./pbr-shader"
+import { LightType } from "../../lighting/light-type"
+import { StandardMaterialFeatureSet } from "./standard-material-feature-set"
+import { StandardShader } from "./standard-shader"
 import { Material } from "../material"
-import { Camera3D } from "../camera/camera"
-import { glTFMaterial } from "../gltf/gltf-material"
-import { LightingEnvironment } from "../lighting/lighting-environment"
-import { Mesh3D } from "../mesh/mesh"
-import { PhysicallyBasedMaterialDebugMode } from "./pbr-debug"
-import { PhysicallyBasedMaterialAlphaMode } from "./pbr-alpha"
+import { Camera3D } from "../../camera/camera"
+import { glTFMaterial } from "../../gltf/gltf-material"
+import { LightingEnvironment } from "../../lighting/lighting-environment"
+import { Mesh3D } from "../../mesh/mesh"
+import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
+import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 
-const shaders: { [features: string]: PhysicallyBasedMeshShader } = {}
+const shaders: { [features: string]: StandardShader } = {}
 
-export class PhysicallyBasedMaterial extends Material {
+export class StandardMaterial extends Material {
   private _lighting?: LightingEnvironment
   private _unlit = false
-  private _alphaMode = PhysicallyBasedMaterialAlphaMode.opaque
-  private _debugMode?: PhysicallyBasedMaterialDebugMode
+  private _alphaMode = StandardMaterialAlphaMode.opaque
+  private _debugMode?: StandardMaterialDebugMode
   private _baseColorTexture?: PIXI.Texture
   private _metallicRoughnessTexture?: PIXI.Texture
   private _normalTexture?: PIXI.Texture
@@ -90,10 +90,10 @@ export class PhysicallyBasedMaterial extends Material {
     return this._alphaMode
   }
 
-  set alphaMode(value: PhysicallyBasedMaterialAlphaMode) {
+  set alphaMode(value: StandardMaterialAlphaMode) {
     if (this._alphaMode !== value) {
       this._alphaMode = value
-      if (this._alphaMode === PhysicallyBasedMaterialAlphaMode.opaque) {
+      if (this._alphaMode === StandardMaterialAlphaMode.opaque) {
         this.transparent = false
       } else {
         this.transparent = true
@@ -106,7 +106,7 @@ export class PhysicallyBasedMaterial extends Material {
     return this._debugMode
   }
 
-  set debugMode(value: PhysicallyBasedMaterialDebugMode | undefined) {
+  set debugMode(value: StandardMaterialDebugMode | undefined) {
     if (this._debugMode !== value) {
       this.invalidateShader()
       this._debugMode = value
@@ -167,7 +167,7 @@ export class PhysicallyBasedMaterial extends Material {
   static factory(properties = {}) {
     return {
       create: (source: unknown) => {
-        return <PhysicallyBasedMaterial>Object.assign(PhysicallyBasedMaterial.create(source), properties)
+        return <StandardMaterial>Object.assign(StandardMaterial.create(source), properties)
       }
     }
   }
@@ -177,7 +177,7 @@ export class PhysicallyBasedMaterial extends Material {
    * @param source Source from which the material is created.
    */
   static create(source: unknown) {
-    let material = new PhysicallyBasedMaterial()
+    let material = new StandardMaterial()
     if (source instanceof glTFMaterial) {
       material.baseColor = source.baseColor
       material.baseColorTexture = source.baseColorTexture
@@ -186,11 +186,11 @@ export class PhysicallyBasedMaterial extends Material {
       material.metallicRoughnessTexture = source.metallicRoughnessTexture
       switch (source.alphaMode) {
         case "BLEND": {
-          material.alphaMode = PhysicallyBasedMaterialAlphaMode.blend
+          material.alphaMode = StandardMaterialAlphaMode.blend
           break
         }
         case "MASK": {
-          material.alphaMode = PhysicallyBasedMaterialAlphaMode.mask
+          material.alphaMode = StandardMaterialAlphaMode.mask
           break
         }
       }
@@ -216,7 +216,7 @@ export class PhysicallyBasedMaterial extends Material {
         }
       }
     }
-    let features = PhysicallyBasedFeatures.build(mesh, mesh.geometry, this, this.lightingForRendering)
+    let features = StandardMaterialFeatureSet.build(mesh, mesh.geometry, this, this.lightingForRendering)
     if (!features) {
       // The shader features couldn't be built, some resources may still be 
       // loading. Don't worry, we will retry creating shader at next render.
@@ -224,7 +224,7 @@ export class PhysicallyBasedMaterial extends Material {
     }
     let checksum = features.join(",")
     if (!shaders[checksum]) {
-      shaders[checksum] = PhysicallyBasedMeshShader.build(renderer, features)
+      shaders[checksum] = StandardShader.build(renderer, features)
     }
     return shaders[checksum]
   }
@@ -240,7 +240,7 @@ export class PhysicallyBasedMaterial extends Material {
     shader.uniforms.u_BaseColorFactor = this.baseColor
     shader.uniforms.u_EmissiveFactor = this.emissive
 
-    if (this._alphaMode === PhysicallyBasedMaterialAlphaMode.mask) {
+    if (this._alphaMode === StandardMaterialAlphaMode.mask) {
       shader.uniforms.u_AlphaCutoff = this.alphaCutoff
     }
     if (mesh.morphWeights) {
