@@ -152,6 +152,9 @@ export class glTFParser {
     if (pbr?.roughnessFactor !== undefined) {
       result.roughness = pbr.roughnessFactor
     }
+    if (material.extensions) {
+      result.unlit = material.extensions["KHR_materials_unlit"] != undefined
+    }
     return this._materialFactory.create(result)
   }
 

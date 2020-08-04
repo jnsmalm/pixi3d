@@ -213,6 +213,7 @@ export class StandardMaterial extends Material {
           break
         }
       }
+      material.unlit = source.unlit
       material.emissiveTexture = source.emissiveTexture
       material.emissive = source.emissive
       material.normalTexture = source.normalTexture

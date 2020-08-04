@@ -17,4 +17,5 @@ export class glTFMaterial {
   emissiveTexture?: PIXI.Texture
   emissive = [0, 0, 0]
   baseColor = [1, 1, 1, 1]
+  unlit = false
 }
