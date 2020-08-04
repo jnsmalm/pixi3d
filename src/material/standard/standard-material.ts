@@ -28,6 +28,7 @@ export class StandardMaterial extends Material {
   private _occlusionTexture?: PIXI.Texture
   private _emissiveTexture?: PIXI.Texture
   private _metallicRoughnessTexture?: PIXI.Texture
+  private _transparent = false
 
   /** The roughness of the material. */
   roughness = 1
@@ -116,9 +117,9 @@ export class StandardMaterial extends Material {
     if (this._alphaMode !== value) {
       this._alphaMode = value
       if (this._alphaMode === StandardMaterialAlphaMode.opaque) {
-        this.transparent = false
+        this._transparent = false
       } else {
-        this.transparent = true
+        this._transparent = true
       }
       this.invalidateShader()
     }
@@ -134,6 +135,17 @@ export class StandardMaterial extends Material {
       this.invalidateShader()
       this._debugMode = value
     }
+  }
+
+  get transparent() {
+    return this._transparent
+  }
+
+  set transparent(value: boolean) {
+    if (value !== this._transparent) {
+      this.alphaMode = value ? StandardMaterialAlphaMode.blend : StandardMaterialAlphaMode.opaque
+    }
+    this._transparent = value
   }
 
   /**
