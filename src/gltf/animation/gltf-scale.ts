@@ -1,6 +1,6 @@
 import { glTFChannel } from "./gltf-channel"
 import { glTFInterpolation } from "./gltf-interpolation"
-import { Transform3D } from "../../transform"
+import { Transform3D } from "../../transform/transform"
 
 export class glTFScale extends glTFChannel {
   private _transform: Transform3D

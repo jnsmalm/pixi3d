@@ -1,8 +1,8 @@
 import * as PIXI from "pixi.js"
 
-import { ObservableQuaternion } from "./quaternion"
-import { Transform3D } from "./transform"
-import { ObservablePoint3D } from "./point"
+import { ObservableQuaternion } from "./transform/observable-quaternion"
+import { Transform3D } from "./transform/transform"
+import { ObservablePoint3D } from "./transform/observable-point"
 
 /**
  * A container represents a collection of 3D objects.

@@ -1,24 +1,24 @@
 import * as PIXI from "pixi.js"
 
-import { Quat } from "./math/quat"
-import { ObservablePoint3D } from "./point"
+import { Quat } from "../math/quat"
+import { ObservablePoint3D } from "./observable-point"
 
 const quat = new Float32Array(4)
 
 /**
- * Represents a rotation in 3D space.
+ * Represents a rotation quaternion in 3D space.
  */
 export class ObservableQuaternion extends ObservablePoint3D {
   _w: number
 
   /**
-   * Creates a new quaternion.
-   * @param cb Callback when changed.
-   * @param scope Owner of callback.
-   * @param x X component.
-   * @param y Y component.
-   * @param z Z component.
-   * @param w W component.
+   * Creates a new observable quaternion.
+   * @param cb The callback when changed.
+   * @param scope The owner of callback.
+   * @param x The x component.
+   * @param y The y component.
+   * @param z The z component.
+   * @param w The w component.
    */
   constructor(cb: () => void, scope: any, x = 0, y = 0, z = 0, w = 1) {
     super(cb, scope, x, y, z)
@@ -26,10 +26,10 @@ export class ObservableQuaternion extends ObservablePoint3D {
   }
 
   /**
-   * Sets the euler angle in degrees.
-   * @param x X angle.
-   * @param y Y angle.
-   * @param z Z angle.
+   * Sets the euler angles in degrees.
+   * @param x The x angle.
+   * @param y The y angle.
+   * @param z The z angle.
    */
   setEulerAngles(x: number, y: number, z: number) {
     Quat.fromEuler(x, y, z, quat)
@@ -107,5 +107,13 @@ export class ObservableQuaternion extends ObservablePoint3D {
       this.cb.call(this.scope)
     }
     return this
+  }
+
+  /**
+   * Sets the quaternion to a new x, y, z and w components.
+   * @param array The array containing x, y, z and w, expected length is 4.
+   */
+  setFrom(array: ArrayLike<number>) {
+    this.set(array[0], array[1], array[2], array[3]); return this
   }
 }

@@ -10,7 +10,7 @@ import { MaterialFactory } from "../material/material-factory"
 import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { Model3D } from "../model"
-import { TransformMatrix } from "../matrix/transform-matrix"
+import { TransformMatrix } from "../transform/transform-matrix"
 
 const sizes: { [name: string]: number } = {
   SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16

@@ -2,9 +2,10 @@ import * as PIXI from "pixi.js"
 
 import { Container3D } from "../container"
 import { Mat4 } from "../math/mat4"
+import { Vec3 } from "../math/vec3"
 import { Vec4 } from "../math/vec4"
-import { MatrixComponent } from "../matrix/matrix-component"
-import { ObservablePoint3D } from "../point"
+import { MatrixComponent } from "../transform/matrix-component"
+import { ObservablePoint3D } from "../transform/observable-point"
 
 const mat4 = new Float32Array(16)
 const vec4 = new Float32Array(4)
@@ -22,6 +23,7 @@ export class Camera3D extends Container3D {
   private _projection?: MatrixComponent
   private _view?: MatrixComponent
   private _viewProjection?: MatrixComponent
+  private _target?: MatrixComponent
 
   /** Main camera which is used by default. */
   static main: Camera3D
@@ -114,7 +116,7 @@ export class Camera3D extends Container3D {
   private _aspect?: number
 
   /**
-   * Aspect ratio (width divided by height). If not set, the aspect ratio of 
+   * The aspect ratio (width divided by height). If not set, the aspect ratio of 
    * the renderer will be used by default.
    */
   get aspect() {
@@ -127,7 +129,7 @@ export class Camera3D extends Container3D {
     }
   }
 
-  /** Vertical field of view in degrees, 60 is the default value. */
+  /** The vertical field of view in degrees, 60 is the default value. */
   get fieldOfView() {
     return this._fieldOfView
   }
@@ -138,7 +140,7 @@ export class Camera3D extends Container3D {
     }
   }
 
-  /** Near clipping plane distance, 0.1 is the default value. */
+  /** The near clipping plane distance, 0.1 is the default value. */
   get near() {
     return this._near
   }
@@ -149,7 +151,7 @@ export class Camera3D extends Container3D {
     }
   }
 
-  /** Far clipping plane distance, 1000 is the default value. */
+  /** The far clipping plane distance, 1000 is the default value. */
   get far() {
     return this._far
   }
@@ -160,29 +162,37 @@ export class Camera3D extends Container3D {
     }
   }
 
-  /** Projection matrix */
+  /** Returns the projection matrix. */
   get projection() {
     if (!this._projection) {
       this._projection = new MatrixComponent(this, 16, data => {
-        let aspect = this._aspect || this.renderer.width / this.renderer.height
-        let fovy = this._fieldOfView * (Math.PI / 180)
-        Mat4.perspective(fovy, aspect, this._near, this._far, data)
+        Mat4.perspective(this._fieldOfView * (Math.PI / 180), this._aspect || this.renderer.width / this.renderer.height, this._near, this._far, data)
       })
     }
     return this._projection.array
   }
 
-  /** View matrix */
+  /** Returns the target position. */
+  get target() {
+    if (!this._target) {
+      this._target = new MatrixComponent(this, 3, data => {
+        Vec3.add(this.worldTransform.position, this.worldTransform.forward, data)
+      })
+    }
+    return this._target.array
+  }
+
+  /** Returns the view matrix. */
   get view() {
     if (!this._view) {
       this._view = new MatrixComponent(this, 16, data => {
-        Mat4.lookAt(this.transform.worldTransform.position, this.transform.worldTransform.direction, this.transform.worldTransform.up, data)
+        Mat4.lookAt(this.worldTransform.position, this.target, this.worldTransform.up, data)
       })
     }
     return this._view.array
   }
 
-  /** View projection matrix */
+  /** Returns the view projection matrix. */
   get viewProjection() {
     if (!this._viewProjection) {
       this._viewProjection = new MatrixComponent(this, 16, data => {

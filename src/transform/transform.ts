@@ -1,27 +1,27 @@
 import * as PIXI from "pixi.js"
 
-import { TransformMatrix } from "./matrix/transform-matrix"
-import { ObservablePoint3D } from "./point"
-import { ObservableQuaternion } from "./quaternion"
+import { TransformMatrix } from "./transform-matrix"
+import { ObservablePoint3D } from "./observable-point"
+import { ObservableQuaternion } from "./observable-quaternion"
 
 /**
  * Handles position, scaling and rotation.
  */
 export class Transform3D extends PIXI.Transform {
   
-  /** Position in local space. */
+  /** The position in local space. */
   position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
 
-  /** Scale in local space. */
+  /** The scale in local space. */
   scale = new ObservablePoint3D(this.onChange, this, 1, 1, 1)
 
-  /** Rotation in local space. */
+  /** The rotation in local space. */
   rotationQuaternion = new ObservableQuaternion(this.onChange, this, 0, 0, 0, 1)
 
-  /** Transformation matrix in world space. */
+  /** The transformation matrix in world space. */
   worldTransform = new TransformMatrix()
 
-  /** Transformation matrix in local space. */
+  /** The transformation matrix in local space. */
   localTransform = new TransformMatrix()
 
   /**
@@ -52,7 +52,7 @@ export class Transform3D extends PIXI.Transform {
 
   /**
    * Updates the world transformation matrix.
-   * @param parentTransform Parent transform.
+   * @param parentTransform The parent transform.
    */
   updateTransform(parentTransform?: PIXI.Transform) {
     this.updateLocalTransform()

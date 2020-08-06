@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js"
 
-import { ObservablePoint3D } from "../point"
-import { ObservableQuaternion } from "../quaternion"
+import { ObservablePoint3D } from "./observable-point"
+import { ObservableQuaternion } from "./observable-quaternion"
 import { Mat4 } from "../math/mat4"
 import { Vec3 } from "../math/vec3"
 import { Vec4 } from "../math/vec4"
@@ -11,9 +11,19 @@ import { MatrixComponent } from "./matrix-component"
  * Represents the matrix for a transform.
  */
 export class TransformMatrix extends PIXI.Matrix {
-  private _array: Float32Array
   private _id = 0
+  private _position?: MatrixComponent
+  private _scaling?: MatrixComponent
+  private _rotation?: MatrixComponent
+  private _up?: MatrixComponent
+  private _forward?: MatrixComponent
+  private _array: Float32Array
 
+  /**
+   * Creates a new transform matrix using the specified matrix array.
+   * @param array The matrix array, expected length is 16. If empty, an identity 
+   * matrix is used as default.
+   */
   constructor(array?: ArrayLike<number>) {
     super()
     if (array) {
@@ -39,19 +49,12 @@ export class TransformMatrix extends PIXI.Matrix {
     return <number[]><unknown>_array
   }
 
-  /** Current version id. */
+  /** Returns the current version id. */
   get id() {
     return this._id
   }
 
-  private _position?: MatrixComponent
-  private _scaling?: MatrixComponent
-  private _rotation?: MatrixComponent
-  private _up?: MatrixComponent
-  private _forward?: MatrixComponent
-  private _direction?: MatrixComponent
-
-  /** Position component of the matrix. */
+  /** Returns the position component of the matrix. */
   get position() {
     if (!this._position) {
       this._position = new MatrixComponent(this, 3, data => {
@@ -61,7 +64,7 @@ export class TransformMatrix extends PIXI.Matrix {
     return this._position.array
   }
 
-  /** Scaling component of the matrix. */
+  /** Returns the scaling component of the matrix. */
   get scaling() {
     if (!this._scaling) {
       this._scaling = new MatrixComponent(this, 3, data => {
@@ -71,7 +74,7 @@ export class TransformMatrix extends PIXI.Matrix {
     return this._scaling.array
   }
 
-  /** Rotation component of the matrix. */
+  /** Returns the rotation quaternion of the matrix. */
   get rotation() {
     if (!this._rotation) {
       this._rotation = new MatrixComponent(this, 4, data => {
@@ -81,40 +84,26 @@ export class TransformMatrix extends PIXI.Matrix {
     return this._rotation.array
   }
 
-  /** Up component of the matrix. */
+  /** Returns the up vector of the matrix. */
   get up() {
     if (!this._up) {
       this._up = new MatrixComponent(this, 3, data => {
-        Vec3.set(this._array[4], this._array[5], this._array[6], data)
+        Vec3.normalize(Vec3.set(this._array[4], this._array[5], this._array[6], data), data)
       })
     }
     return this._up.array
   }
 
-  /** Forward component of the matrix. */
+  /** Returns the forward vector of the matrix. */
   get forward() {
     if (!this._forward) {
       this._forward = new MatrixComponent(this, 3, data => {
-        Vec3.set(this._array[8], this._array[9], this._array[10], data)
+        Vec3.normalize(Vec3.set(this._array[8], this._array[9], this._array[10], data), data)
       })
     }
     return this._forward.array
   }
 
-  /** Direction component of the matrix. */
-  get direction() {
-    if (!this._direction) {
-      this._direction = new MatrixComponent(this, 3, data => {
-        Vec3.add(this.position, this.forward, data)
-      })
-    }
-    return this._direction.array
-  }
-
-  /**
-   * Copies values from the given matrix.
-   * @param matrix The matrix to copy from.
-   */
   copyFrom(matrix: TransformMatrix) {
     if (matrix instanceof TransformMatrix) {
       Mat4.copy(matrix._array, this._array); this._id++
@@ -123,10 +112,10 @@ export class TransformMatrix extends PIXI.Matrix {
   }
 
   /**
-   * Set values from rotation, position and scale. 
-   * @param rotation Rotation to set.
-   * @param position Position to set.
-   * @param scaling Scale to set.
+   * Sets the rotation, position and scale components. 
+   * @param rotation The rotation to set.
+   * @param position The position to set.
+   * @param scaling The scale to set.
    */
   setFromRotationPositionScale(rotation: ObservableQuaternion, position: ObservablePoint3D, scaling: ObservablePoint3D) {
     Vec4.set(rotation.x, rotation.y, rotation.z, rotation.w, this.rotation)
@@ -136,7 +125,7 @@ export class TransformMatrix extends PIXI.Matrix {
   }
 
   /**
-   * Set from multiplication result of world and local matrices.
+   * Sets the multiplication result of world and local matrices.
    * @param world World transform matrix.
    * @param local Local transform matrix.
    */
