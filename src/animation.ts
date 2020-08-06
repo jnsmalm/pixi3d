@@ -5,6 +5,7 @@ import * as PIXI from "pixi.js"
  */
 export abstract class Animation {
   private _ticker?: PIXI.Ticker
+  private _update?: (...params: any[]) => void
 
   /** The speed that the animation will play at. */
   speed = 1
@@ -17,15 +18,16 @@ export abstract class Animation {
   }
 
   /**
-   * Starts playing the animation using the shared ticker.
+   * Starts playing the animation using the specified ticker.
+   * @param ticker The ticker to use for updating the animation. If a ticker 
+   * is not given, the shared ticker will be used.
    */
-  play() {
+  play(ticker = PIXI.Ticker.shared) {
     if (!this._ticker) {
-      this._ticker = PIXI.Ticker.shared.add(() => {
-        if (this._ticker) {
-          this.update(this._ticker.deltaMS / 1000 * this.speed)
-        }
-      })
+      this._update = () => {
+        this.update(ticker.deltaMS / 1000 * this.speed)
+      }
+      this._ticker = ticker.add(this._update)
     }
   }
 
@@ -33,7 +35,10 @@ export abstract class Animation {
    * Stops playing the animation.
    */
   stop() {
-    if (this._ticker) { this._ticker.stop() }
+    if (this._ticker && this._update) {
+      this._ticker.remove(this._update)
+      this._ticker = this._update = undefined
+    }
   }
 
   /**
