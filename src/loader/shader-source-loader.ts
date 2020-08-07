@@ -7,7 +7,6 @@ export const ShaderSourceLoader = {
     if (!EXTENSIONS.includes(resource.extension)) {
       return next()
     }
-    resource.source = resource.data
     next()
   },
   add: () => {

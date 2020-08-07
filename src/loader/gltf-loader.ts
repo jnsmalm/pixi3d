@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { glTFAsset, glTFAssetResourceLoader } from "./gltf-asset"
+import { glTFAsset, glTFAssetResourceLoader } from "../gltf/gltf-asset"
 
 export const glTFLoader = {
   use: function (resource: PIXI.LoaderResource, next: () => void) {

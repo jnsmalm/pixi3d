@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { CubeMipmapTexture } from "./cube-mipmap-texture"
+import { CubeMipmapTexture } from "../cubemap/cube-mipmap-texture"
 
 export const CubeMipmapLoader = {
   use: function (resource: any, next: () => void) {
