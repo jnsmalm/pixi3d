@@ -6,9 +6,9 @@ import { Animation } from "./animation"
 import { Container3D } from "./container"
 
 /**
- * Represents a 3D model which includes a hierarchy of meshes and animations.
+ * Represents a model which includes a hierarchy of meshes and animations.
  */
-export class Model3D extends Container3D {
+export class Model extends Container3D {
   /** The animations included in the model. */
   animations: Animation[] = []
 

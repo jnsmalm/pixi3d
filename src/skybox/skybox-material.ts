@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-import { Camera3D } from "../camera/camera"
+import { Camera } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
 import { Material } from "../material/material"
 import { CubeMipmapTexture } from "../cubemap/cube-mipmap-texture"
@@ -27,14 +27,14 @@ export class SkyboxMaterial extends Material {
     }
   }
 
-  camera?: Camera3D
+  camera?: Camera
 
   constructor(private _texture: CubeMipmapTexture) {
     super()
   }
 
   updateUniforms(mesh: Mesh3D, shader: MeshShader) {
-    let camera = this.camera || Camera3D.main
+    let camera = this.camera || Camera.main
 
     shader.uniforms.u_ModelMatrix = mesh.worldTransform.toArray()
     shader.uniforms.u_View = camera.view

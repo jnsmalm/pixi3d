@@ -4,7 +4,7 @@ import { LightType } from "../../lighting/light-type"
 import { StandardMaterialFeatureSet } from "./standard-material-feature-set"
 import { StandardShader } from "./standard-shader"
 import { Material } from "../material"
-import { Camera3D } from "../../camera/camera"
+import { Camera } from "../../camera/camera"
 import { glTFMaterial } from "../../gltf/gltf-material"
 import { LightingEnvironment } from "../../lighting/lighting-environment"
 import { Mesh3D } from "../../mesh/mesh"
@@ -152,7 +152,7 @@ export class StandardMaterial extends Material {
    * The camera used when rendering a mesh. If this value is not set, the main 
    * camera will be used by default.
    */
-  camera?: Camera3D
+  camera?: Camera
 
   /**
    * Lighting environment used when rendering a mesh. If this value is not set, 
@@ -260,7 +260,7 @@ export class StandardMaterial extends Material {
   }
 
   updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
-    let camera = this.camera || Camera3D.main
+    let camera = this.camera || Camera.main
 
     shader.uniforms.u_Camera = camera.worldTransform.position
     shader.uniforms.u_ViewProjectionMatrix = camera.viewProjection

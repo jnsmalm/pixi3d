@@ -1,4 +1,4 @@
-import { Camera3D } from "./camera"
+import { Camera } from "./camera"
 import { Quat } from "../math/quat"
 import { Vec3 } from "../math/vec3"
 
@@ -32,7 +32,7 @@ export class CameraOrbitControl {
    * @param camera Camera to control. If not set, the main camera will be used 
    * by default.
    */
-  constructor(canvas: HTMLCanvasElement, public camera = Camera3D.main) {
+  constructor(canvas: HTMLCanvasElement, public camera = Camera.main) {
     this.camera.renderer.on("prerender", () => {
       this.updateCamera()
     })

@@ -9,7 +9,7 @@ import { Material } from "../material/material"
 import { MaterialFactory } from "../material/material-factory"
 import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
-import { Model3D } from "../model"
+import { Model } from "../model"
 import { TransformMatrix } from "../transform/transform-matrix"
 
 const sizes: { [name: string]: number } = {
@@ -266,7 +266,7 @@ export class glTFParser {
       return this.parseNode(n)
     })
     let scene = this._descriptor.scenes[this._asset.descriptor.scene || 0]
-    let model = new Model3D()
+    let model = new Model()
 
     let createHierarchy = (parent: Container3D, node: number) => {
       let mesh = this._asset.descriptor.nodes[node].mesh

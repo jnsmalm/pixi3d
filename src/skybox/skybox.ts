@@ -2,7 +2,7 @@ import { SkyboxMaterial } from "./skybox-material"
 import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
 import { CubeMipmapTexture } from "../cubemap/cube-mipmap-texture"
-import { Camera3D } from "../camera/camera"
+import { Camera } from "../camera/camera"
 
 /**
  * A skybox is a method of creating backgrounds in a 3D scene. It consists of
@@ -29,7 +29,7 @@ export class Skybox extends Container3D {
     return (<SkyboxMaterial>this._mesh.material).camera
   }
 
-  set camera(value: Camera3D | undefined) {
+  set camera(value: Camera | undefined) {
     (<SkyboxMaterial>this._mesh.material).camera = value
   }
 

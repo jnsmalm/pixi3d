@@ -13,7 +13,7 @@ const vec4 = new Float32Array(4)
 /**
  * Camera is a device from which the world is viewed.
  */
-export class Camera3D extends Container3D {
+export class Camera extends Container3D {
   private _id = 0
 
   get id() {
@@ -26,7 +26,7 @@ export class Camera3D extends Container3D {
   private _target?: MatrixComponent
 
   /** Main camera which is used by default. */
-  static main: Camera3D
+  static main: Camera
 
   /**
    * Creates a new camera using the specified renderer. By default the camera
@@ -49,8 +49,8 @@ export class Camera3D extends Container3D {
         this.transform.updateTransform()
       }
     })
-    if (!Camera3D.main) {
-      Camera3D.main = this
+    if (!Camera.main) {
+      Camera.main = this
     }
     this.transform.position.z = 5
     this.transform.rotationQuaternion.setEulerAngles(0, 180, 0)
@@ -203,4 +203,4 @@ export class Camera3D extends Container3D {
   }
 }
 
-PIXI.Renderer.registerPlugin("camera", <any>Camera3D)
+PIXI.Renderer.registerPlugin("camera", <any>Camera)
