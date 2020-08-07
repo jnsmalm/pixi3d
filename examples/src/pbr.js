@@ -15,7 +15,7 @@ app.loader.load((loader, resources) => {
     new PIXI3D.Skybox(resources["skybox.cubemap"].texture))
 
   let model = app.stage.addChild(
-    PIXI3D.Model3D.from(resources["waterbottle.gltf"].gltf))
+    PIXI3D.Model.from(resources["waterbottle.gltf"].gltf))
   model.scale.set(15)
   model.rotationQuaternion.setEulerAngles(0, -30, 20)
 

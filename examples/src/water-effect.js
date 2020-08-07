@@ -25,7 +25,6 @@ app.renderer.plugins.standard3d.renderPasses.push(waterPass)
 
 app.loader.load((loader, resources) => {
   let cube = app.stage.addChild(PIXI3D.Mesh3D.createCube())
-
   cube.material.roughness = 0.95
   
   // Create the plane used as water. It will be rendered using the water pass
@@ -83,7 +82,7 @@ class WaterMaterial extends PIXI3D.Material {
 
   updateUniforms(mesh, shader) {
     shader.uniforms.u_World = mesh.worldTransform.toArray()
-    shader.uniforms.u_ViewProjection = PIXI3D.Camera3D.main.viewProjection
+    shader.uniforms.u_ViewProjection = PIXI3D.Camera.main.viewProjection
     shader.uniforms.u_Scene = this.sceneColorTexture
     shader.uniforms.u_SceneDepth = this.sceneDepthTexture
     shader.uniforms.u_WaterDUDV = this.waterTexture
@@ -95,7 +94,7 @@ class WaterMaterial extends PIXI3D.Material {
 
   createShader() {
     let program = PIXI.Program.from(
-      app.loader.resources["water.vert"].source, app.loader.resources["water.frag"].source)
+      app.loader.resources["water.vert"].data, app.loader.resources["water.frag"].data)
     return new PIXI3D.MeshShader(program)
   }
 }

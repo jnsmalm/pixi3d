@@ -96,8 +96,8 @@ let model, resourceLoader = new glTFLocalResourceLoader((descriptor) => {
   let asset = new PIXI3D.glTFAsset.load(descriptor, resourceLoader)
   resourceLoader.clear()
   app.stage.removeChildren()
-  model = app.stage.addChild(PIXI3D.Model3D.from(
-    asset, PIXI3D.PhysicallyBasedMaterial.factory(material)))
+  model = app.stage.addChild(PIXI3D.Model.from(
+    asset, PIXI3D.StandardMaterial.factory(material)))
 
   for (let animation of model.animations) {
     animation.play()

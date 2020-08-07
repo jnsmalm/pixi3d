@@ -32,7 +32,7 @@ class ColorMaterial extends PIXI3D.Material {
   updateUniforms(mesh, shader) {
     // Updates the shader uniforms before rendering with this material.
     shader.uniforms.u_World = mesh.worldTransform.toArray()
-    shader.uniforms.u_ViewProjection = PIXI3D.Camera3D.main.viewProjection
+    shader.uniforms.u_ViewProjection = PIXI3D.Camera.main.viewProjection
     shader.uniforms.u_Color = this.color.map(c => c / 255)
   }
 
@@ -40,8 +40,8 @@ class ColorMaterial extends PIXI3D.Material {
     // Create the shader used when rendering with this material. In this case
     // just take the shader source which was loaded from file.
     let program = PIXI.Program.from(
-      app.loader.resources["assets/shaders/color/color.vert"].source,
-      app.loader.resources["assets/shaders/color/color.frag"].source)
+      app.loader.resources["assets/shaders/color/color.vert"].data,
+      app.loader.resources["assets/shaders/color/color.frag"].data)
     return new PIXI3D.MeshShader(program)
   }
 }
