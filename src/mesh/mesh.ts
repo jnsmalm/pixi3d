@@ -6,6 +6,7 @@ import { MeshGeometry3D } from "./geometry/mesh-geometry"
 import { Material } from "../material/material"
 import { StandardMaterial } from "../material/standard/standard-material"
 import { Container3D } from "../container"
+import { QuadGeometry } from "./geometry/quad-geometry"
 
 /**
  * Represents a mesh which contains geometry and has a material.
@@ -41,18 +42,26 @@ export class Mesh3D extends Container3D {
   }
 
   /**
-   * Creates a new plane (flat square, one unit long) mesh with the specified material.
+   * Creates a new quad (flat square) mesh with the specified material.
    * @param material The material to use.
    */
-  static createPlane(material: Material = new StandardMaterial()) {
-    return new Mesh3D(PlaneGeometry.create(), material)
+  static createQuad(material: Material = new StandardMaterial()) {
+    return new Mesh3D(QuadGeometry.create(), material)
   }
 
   /**
-   * Creates a new cube (six faces, one unit long) mesh with the specified material.
+   * Creates a new cube (six faces) mesh with the specified material.
    * @param material The material to use.
    */
   static createCube(material: Material = new StandardMaterial()) {
     return new Mesh3D(CubeGeometry.create(), material)
+  }
+
+  /**
+   * Creates a new plane (flat square) mesh with the specified material.
+   * @param material The material to use.
+   */
+  static createPlane(material: Material = new StandardMaterial()) {
+    return new Mesh3D(PlaneGeometry.create(), material)
   }
 }
