@@ -8,10 +8,15 @@ export const CubeMipmapLoader = {
       return next()
     }
     let loader = <PIXI.Loader>this
+
+    // The urls in the cubemap file is relative to where the cubemap file is 
+    // located, we this is needed to get the complete urls.
+    let source = (<string[]>resource.data).map((value) =>
+      resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + value
+    )
+    // Unpack all the mipmap faces.
     let faces = CubeMipmapTexture.faces.map((face) => {
-      return (<string[]>resource.data).map((mipmap) => {
-        return mipmap.replace("{{face}}", face)
-      })
+      return source.map((mipmap) => mipmap.replace("{{face}}", face))
     })
     // The list of urls (faces and mipmaps) which needs to be loaded before the 
     // cubemap should be created.
@@ -27,7 +32,7 @@ export const CubeMipmapLoader = {
       if (urls.includes(res.url)) {
         if (++completed === urls.length) {
           // All resources used by cubemap has been loaded.
-          resource.texture = CubeMipmapTexture.fromSource(resource.data)
+          resource.texture = CubeMipmapTexture.fromSource(source)
           binding.detach()
         }
       }

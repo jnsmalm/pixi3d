@@ -1,3 +1,3 @@
 [
-  "assets/environments/autumn/diffuse_{{face}}.jpg"
+  "diffuse_{{face}}.jpg"
 ]

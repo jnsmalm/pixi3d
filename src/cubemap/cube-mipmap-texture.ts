@@ -8,19 +8,19 @@ import { CubeMipmapResource } from "./cube-mipmap-resource"
  */
 export class CubeMipmapTexture extends PIXI.BaseTexture {
   
-  /** Gets an array of faces. */
+  /** Returns an array of faces. */
   static get faces() {
     return ["posx", "negx", "posy", "negy", "posz", "negz"]
   }
 
-  /** Gets the number of mipmap levels. */
+  /** Returns the number of mipmap levels. */
   get levels() {
     return (<CubeMipmapResource>this.resource).levels
   }
 
   /**
-   * Creates a cubemap texture from the specified source.
-   * @param source Array of mipmap sources. The format of the mipmap source 
+   * Creates a new cubemap texture from the specified source.
+   * @param source The array of mipmap sources. The format of the mipmap source 
    * should be "cubemap_{{face}}.jpg". "{{face}}" will automatically be
    * replaced with the faces (posx, negx, posy, negy, posz, negz). 
    */
