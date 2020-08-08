@@ -33,14 +33,6 @@ export class TransformMatrix extends PIXI.Matrix {
     }
   }
 
-  applyInverse(pos: PIXI.Point, newPos?: PIXI.Point) {
-    // For now, this is just to support mesh picking. PIXI expects this method 
-    // to exist and to return the position with the inverse of the current 
-    // transformation applied. We want the global position at all times for the 
-    // picking to work. So this is a hack to make PIXI happy.
-    return <PIXI.Point>pos.copyTo(newPos || new PIXI.Point())
-  }
-
   toArray(transpose?: boolean, out?: Float32Array) {
     let _array = out
     if (!out) {
