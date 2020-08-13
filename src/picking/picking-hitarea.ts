@@ -1,5 +1,6 @@
 import { PickingManager } from "./picking-manager"
 import { Mesh3D } from "../mesh/mesh"
+import { Model } from "../model"
 import { PickingId } from "./picking-id"
 
 /**
@@ -15,9 +16,9 @@ export class PickingHitArea implements PIXI.IHitArea {
   /**
    * Creates a new hitarea using the specified mesh.
    * @param renderer The renderer which has the picking manager plugin.
-   * @param mesh The mesh to test for interaction.
+   * @param object The model or mesh to test for interaction.
    */
-  constructor(renderer: PIXI.Renderer, public mesh: Mesh3D) {
+  constructor(renderer: PIXI.Renderer, public object: Mesh3D | Model) {
     this._manager = (<any>renderer.plugins).picking
   }
 

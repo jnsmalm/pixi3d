@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js"
 
 import { PickingHitArea } from "./picking-hitarea"
 import { Camera } from "../camera/camera"
+import { Mesh3D } from "../mesh/mesh"
 import { MeshShader } from "../mesh/mesh-shader"
 
 export class PickingMap {
@@ -37,7 +38,7 @@ export class PickingMap {
   }
 
   get width() { return this._output.width }
-  
+
   get height() { return this._output.height }
 
   update(hitAreas: PickingHitArea[]) {
@@ -47,10 +48,13 @@ export class PickingMap {
       // the meshes and reading the pixels from the rendered texture.
       this._renderer.renderTexture.clear()
       for (let hitArea of hitAreas) {
-        this._shader.uniforms.u_ViewProjection = Camera.main.viewProjection
-        this._shader.uniforms.u_World = hitArea.mesh.transform.worldTransform.toArray()
-        this._shader.uniforms.u_Id = hitArea.id
-        this._shader.render(hitArea.mesh, this._renderer)
+        let meshes = hitArea.object instanceof Mesh3D ? [hitArea.object] : hitArea.object.meshes
+        for (let mesh of meshes) {
+          this._shader.uniforms.u_World = mesh.transform.worldTransform.toArray()
+          this._shader.uniforms.u_Id = hitArea.id
+          this._shader.uniforms.u_ViewProjection = Camera.main.viewProjection
+          this._shader.render(mesh, this._renderer)
+        }
       }
     } else {
       const gl = this._renderer.gl
