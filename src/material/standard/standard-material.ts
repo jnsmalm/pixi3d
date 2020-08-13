@@ -261,7 +261,12 @@ export class StandardMaterial extends Material {
 
   updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
     let camera = this.camera || Camera.main
-
+    if (mesh.skin) {
+      let { jointVertexMatrices, jointNormalMatrices } = mesh.skin.calculateJointMatrices()
+      Object.assign(shader.uniforms, {
+        u_jointMatrix: jointVertexMatrices, u_jointNormalMatrix: jointNormalMatrices
+      })
+    }
     shader.uniforms.u_Camera = camera.worldTransform.position
     shader.uniforms.u_ViewProjectionMatrix = camera.viewProjection
     shader.uniforms.u_Exposure = this.exposure
@@ -270,7 +275,7 @@ export class StandardMaterial extends Material {
     shader.uniforms.u_BaseColorFactor = this.baseColor
     shader.uniforms.u_EmissiveFactor = this.emissive
     shader.uniforms.u_ModelMatrix = mesh.worldTransform.toArray()
-    shader.uniforms.u_NormalMatrix = mesh.worldTransform.toArray()
+    shader.uniforms.u_NormalMatrix = mesh.transform.normalTransform.toArray()
 
     if (this._alphaMode === StandardMaterialAlphaMode.mask) {
       shader.uniforms.u_AlphaCutoff = this.alphaCutoff

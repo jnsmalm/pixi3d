@@ -3,12 +3,13 @@ import * as PIXI from "pixi.js"
 import { TransformMatrix } from "./transform-matrix"
 import { ObservablePoint3D } from "./observable-point"
 import { ObservableQuaternion } from "./observable-quaternion"
+import { Mat4 } from "../math/mat4"
 
 /**
  * Handles position, scaling and rotation.
  */
 export class Transform3D extends PIXI.Transform {
-  
+
   /** The position in local space. */
   position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
 
@@ -23,6 +24,12 @@ export class Transform3D extends PIXI.Transform {
 
   /** The transformation matrix in local space. */
   localTransform = new TransformMatrix()
+
+  /** The inverse transformation matrix in world space. */
+  inverseWorldTransform = new TransformMatrix();
+
+  /** The normal transformation matrix. */
+  normalTransform = new TransformMatrix();
 
   /**
    * Updates the local transformation matrix.
@@ -65,6 +72,10 @@ export class Transform3D extends PIXI.Transform {
     } else {
       this.worldTransform.copyFrom(this.localTransform)
     }
+    Mat4.invert(<Float32Array><unknown>this.worldTransform.toArray(),
+      <Float32Array><unknown>this.inverseWorldTransform.toArray())
+    Mat4.transpose(<Float32Array><unknown>this.inverseWorldTransform.toArray(),
+      <Float32Array><unknown>this.normalTransform.toArray())
     this._worldID++
     if (parentTransform) {
       this._parentID = (<any>parentTransform)._worldID

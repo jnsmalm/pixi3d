@@ -16,6 +16,8 @@ export class MeshGeometry3D extends PIXI.Geometry {
   normals?: MeshGeometryAttribute
   tangents?: MeshGeometryAttribute
   targets?: MeshGeometryTarget[]
+  joints?: MeshGeometryAttribute
+  weights?: MeshGeometryAttribute
 
   addAttribute(id: string, buffer?: PIXI.Buffer | number[], size?: number, normalized?: boolean, type?: number, stride?: number, start?: number): MeshGeometry3D {
     if (this.getAttribute(id)) {

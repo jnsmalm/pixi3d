@@ -27,20 +27,28 @@ export class StandardShader extends MeshShader {
       for (let i = 0; i < geometry.targets.length; i++) {
         let positions = geometry.targets[i].positions
         if (positions) {
-          let buffer = new PIXI.Buffer(positions.buffer)
-          geometry.addAttribute(`a_Target_Position${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, positions.stride)
+          geometry.addAttribute(`a_Target_Position${i}`, new PIXI.Buffer(positions.buffer),
+            3, false, positions.componentType, positions.stride)
         }
         let normals = geometry.targets[i].normals
         if (normals) {
-          let buffer = new PIXI.Buffer(normals.buffer)
-          geometry.addAttribute(`a_Target_Normal${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, normals.stride)
+          geometry.addAttribute(`a_Target_Normal${i}`, new PIXI.Buffer(normals.buffer),
+            3, false, normals.componentType, normals.stride)
         }
         let tangents = geometry.targets[i].tangents
         if (tangents) {
-          let buffer = new PIXI.Buffer(tangents.buffer)
-          geometry.addAttribute(`a_Target_Tangent${i}`, buffer, 3, false, PIXI.TYPES.FLOAT, tangents.stride)
+          geometry.addAttribute(`a_Target_Tangent${i}`, new PIXI.Buffer(tangents.buffer),
+            3, false, tangents.componentType, tangents.stride)
         }
       }
+    }
+    if (geometry.joints) {
+      geometry.addAttribute("a_Joint1", new PIXI.Buffer(geometry.joints.buffer),
+        4, false, geometry.joints.componentType, geometry.joints.stride)
+    }
+    if (geometry.weights) {
+      geometry.addAttribute("a_Weight1", new PIXI.Buffer(geometry.weights.buffer),
+        4, false, geometry.weights.componentType, geometry.weights.stride)
     }
   }
 }

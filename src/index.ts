@@ -27,3 +27,5 @@ export { StandardMaterialAlphaMode } from "./material/standard/standard-material
 export { StandardMaterialDebugMode } from "./material/standard/standard-material-debug-mode"
 export { PickingHitArea } from "./picking/picking-hitarea"
 export { PickingManager } from "./picking/picking-manager"
+export { Skin } from "./skinning/skin"
+export { Joint } from "./skinning/joint"

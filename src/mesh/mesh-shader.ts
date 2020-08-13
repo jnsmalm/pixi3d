@@ -33,19 +33,19 @@ export class MeshShader extends PIXI.Shader {
     }
     if (geometry.positions) {
       geometry.addAttribute("a_Position", new PIXI.Buffer(geometry.positions.buffer),
-        3, false, PIXI.TYPES.FLOAT, geometry.positions.stride)
+        3, false, geometry.positions.componentType, geometry.positions.stride)
     }
     if (geometry.uvs && geometry.uvs[0]) {
       geometry.addAttribute("a_UV1", new PIXI.Buffer(geometry.uvs[0].buffer),
-        2, false, PIXI.TYPES.FLOAT, geometry.uvs[0].stride)
+        2, false, geometry.uvs[0].componentType, geometry.uvs[0].stride)
     }
     if (geometry.normals) {
       geometry.addAttribute("a_Normal", new PIXI.Buffer(geometry.normals.buffer),
-        3, false, PIXI.TYPES.FLOAT, geometry.normals.stride)
+        3, false, geometry.normals.componentType, geometry.normals.stride)
     }
     if (geometry.tangents) {
       geometry.addAttribute("a_Tangent", new PIXI.Buffer(geometry.tangents.buffer),
-        4, false, PIXI.TYPES.FLOAT, geometry.tangents.stride)
+        4, false, geometry.tangents.componentType, geometry.tangents.stride)
     }
   }
 

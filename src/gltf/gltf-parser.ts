@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { glTFChannel } from "./animation/gltf-channel"
 import { glTFAsset } from "./gltf-asset"
 import { glTFAnimation } from "./animation/gltf-animation"
@@ -11,10 +13,8 @@ import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { Model } from "../model"
 import { TransformMatrix } from "../transform/transform-matrix"
-
-const sizes: { [name: string]: number } = {
-  SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
-}
+import { Skin } from "../skinning/skin"
+import { Joint } from "../skinning/joint"
 
 /**
  * Parses glTF assets and creates models and meshes.
@@ -68,9 +68,9 @@ export class glTFParser {
     if (bufferView.byteOffset !== undefined) {
       offset += bufferView.byteOffset
     }
-    let size = accessor.count * sizes[accessor.type]
+    let size = accessor.count * componentCount[accessor.type]
     if (bufferView.byteStride !== undefined) {
-      size *= bufferView.byteStride / 4 / sizes[accessor.type]
+      size *= bufferView.byteStride / componentSize[accessor.componentType] / componentCount[accessor.type]
     }
     let buffer = this._asset.buffers[bufferView.buffer]
 
@@ -109,7 +109,7 @@ export class glTFParser {
   }
 
   /**
-   * Creates a material from the specified material.
+   * Creates a material from the specified source.
    * @param material The source material object or index.
    */
   parseMaterial(material?: any) {
@@ -191,6 +191,27 @@ export class glTFParser {
   }
 
   /**
+   * Creates a skin from the specified source.
+   * @param skin The source skin object or index.
+   * @param target The target container for the skin.
+   * @param nodes The array of nodes which are potential targets for the animation.
+   */
+  parseSkin(skin: any, target: Container3D, nodes: Container3D[]) {
+    if (typeof skin === "number") {
+      skin = this._asset.descriptor.skins[skin]
+    }
+    let inverseBindMatrices = this.parseBuffer(skin.inverseBindMatrices)
+    let joints: Joint[] = []
+    if (inverseBindMatrices) {
+      for (let i = 0; i < skin.joints.length; i++) {
+        joints.push(new Joint(nodes[skin.joints[i]],
+          <Float32Array>inverseBindMatrices.buffer.slice(i * 16, i * 16 + 16)))
+      }
+    }
+    return new Skin(target, joints)
+  }
+
+  /**
    * Creates a mesh from the specified primitive.
    * @param primitive The source primitive object.
    */
@@ -202,6 +223,8 @@ export class glTFParser {
       positions: this.parseBuffer(attributes["POSITION"]),
       normals: this.parseBuffer(attributes["NORMAL"]),
       tangents: this.parseBuffer(attributes["TANGENT"]),
+      joints: this.parseBuffer(attributes["JOINTS_0"]),
+      weights: this.parseBuffer(attributes["WEIGHTS_0"]),
     })
     for (let i = 0; true; i++) {
       let buffer = this.parseBuffer(attributes[`TEXCOORD_${i}`])
@@ -270,9 +293,15 @@ export class glTFParser {
 
     let createHierarchy = (parent: Container3D, node: number) => {
       let mesh = this._asset.descriptor.nodes[node].mesh
+      let skin: Skin | undefined
+      if (this._asset.descriptor.nodes[node].skin !== undefined) {
+        skin = this.parseSkin(this._asset.descriptor.nodes[node].skin, nodes[node], nodes)
+      }
+
       if (mesh !== undefined) {
         for (let primitive of this.parseMesh(mesh)) {
           model.meshes.push(nodes[node].addChild(primitive))
+          model.meshes[model.meshes.length - 1].skin = skin
         }
       }
       parent.addChild(nodes[node])
@@ -293,4 +322,12 @@ export class glTFParser {
     }
     return model
   }
+}
+
+const componentCount: { [name: string]: number } = {
+  SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16
+}
+
+const componentSize: { [name: number]: number } = {
+  [5120]: 1, [5121]: 1, [5122]: 2, [5123]: 2, [5125]: 4, [5126]: 4
 }

@@ -35,6 +35,16 @@ export namespace StandardMaterialFeatureSet {
         features.push("USE_MORPHING 1")
       }
     }
+    if (geometry.joints) {
+      features.push("HAS_JOINT_SET1 1")
+    }
+    if (geometry.weights) {
+      features.push("HAS_WEIGHT_SET1 1")
+    }
+    if (mesh.skin) {
+      features.push("USE_SKINNING 1")
+      features.push(`JOINT_COUNT ${mesh.skin.joints.length}`)
+    }
     if (material.unlit) {
       features.push("MATERIAL_UNLIT 1")
     }

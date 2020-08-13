@@ -7,6 +7,7 @@ import { Material } from "../material/material"
 import { StandardMaterial } from "../material/standard/standard-material"
 import { Container3D } from "../container"
 import { QuadGeometry } from "./geometry/quad-geometry"
+import { Skin } from "../skinning/skin"
 
 /**
  * Represents a mesh which contains geometry and has a material.
@@ -18,6 +19,9 @@ export class Mesh3D extends Container3D {
 
   /** Array of weights used for morphing between geometry targets. */
   morphWeights?: number[]
+
+  /** The skin used for vertex skinning. */
+  skin?: Skin
 
   /** Names of the passes used for rendering the mesh. */
   renderPasses = ["standard"]
