@@ -58,7 +58,7 @@ The *serve* script can also be used for trying out Pixi3D without having to do a
 `npm run serve -- --env.example=testing-feature`
 
 ## Quick guide
-The overall goal of Pixi3D is to make it easy to render 3D graphics on the web. It's built on top of PixiJS, which is at it's core, an established 2D rendering library. Even though Pixi3D targets developers already familiar and productive using PixiJS, it's easy to get started without any previous knowledge of PixiJS. PixiJS contains many features which makes it easier to create interactable graphic intense applications. For example: loading assets, managing a scene graph or handling user interaction. Because Pixi3D is built on top of PixiJS, all of those features are available in Pixi3D as well. Learn more about PixiJS at https://www.pixijs.com
+The overall goal of Pixi3D is to make it easy to render 3D graphics on the web. It's built on top of PixiJS, which is at it's core, an established 2D rendering library. Even though Pixi3D targets developers already familiar and productive using PixiJS, it's easy to get started without any previous knowledge of PixiJS. PixiJS contains many features which makes it easier to create interactive graphic intense applications. For example: loading assets, managing a scene graph or handling user interaction. Because Pixi3D is built on top of PixiJS, all of those features are available in Pixi3D as well. Learn more about PixiJS at https://www.pixijs.com
 
 The source code for the scene in this guide is available at [examples/src/quick-guide.js](examples/src/quick-guide.js) and assets can be found in the examples/assets folder.
 
