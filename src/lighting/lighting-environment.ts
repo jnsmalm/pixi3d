@@ -8,15 +8,15 @@ import { Light } from "./light"
 export class LightingEnvironment {
   private _imageBasedLighting?: ImageBasedLighting
 
-  /** Lights affecting this lighting environment. */
+  /** The lights affecting this lighting environment. */
   lights: Light[] = []
 
-  /** Main lighting environment which is used by default. */
+  /** The main lighting environment which is used by default. */
   static main: LightingEnvironment
 
   /**
    * Creates a new lighting environment using the specified renderer.
-   * @param renderer Renderer to use.
+   * @param renderer The renderer to use.
    */
   constructor(public renderer: PIXI.Renderer, imageBasedLighting?: ImageBasedLighting) {
     this.renderer.on("prerender", () => {
