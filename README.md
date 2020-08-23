@@ -60,7 +60,7 @@ The *serve* script can also be used for trying out Pixi3D without having to do a
 ## Quick guide
 The overall goal of Pixi3D is to make it easy to render 3D graphics on the web. It's built on top of PixiJS, which is at it's core, an established 2D rendering library. Even though Pixi3D targets developers already familiar and productive using PixiJS, it's easy to get started without any previous knowledge of PixiJS. PixiJS contains many features which makes it easier to create interactive graphic intense applications. For example: loading assets, managing a scene graph or handling user interaction. Because Pixi3D is built on top of PixiJS, all of those features are available in Pixi3D as well. Learn more about PixiJS at https://www.pixijs.com
 
-The source code for the scene in this guide is available at [examples/src/quick-guide.js](examples/src/quick-guide.js) and assets can be found in the examples/assets folder.
+Go to https://pixi3d.org/demo/drone/ to view a real-time demo of the scene created in this guide. The source code is available at [examples/src/quick-guide.js](examples/src/quick-guide.js) and assets used can be found in the examples/assets folder.
 
 ### Creating an application
 The quickest way to get started is by creating an PixiJS application object. The application object creates a renderer and automatically starts the render loop. It also creates a canvas element which should be added to the HTML document.
