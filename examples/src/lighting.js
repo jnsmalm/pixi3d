@@ -1,7 +1,6 @@
 let app = new PIXI.Application({
   backgroundColor: 0xdddddd, resizeTo: window, antialias: true
 })
-
 document.body.appendChild(app.view)
 
 let mesh = app.stage.addChild(PIXI3D.Mesh3D.createCube())
@@ -9,10 +8,7 @@ mesh.rotationQuaternion.setEulerAngles(0, 30, 0)
 
 // A light that is located at a point and emits light in all directions equally.
 let pointLight = Object.assign(new PIXI3D.Light(), {
-  color: [1, 0, 0],
-  intensity: 40,
-  x: 1.1, y: 0.2, z: 2.0,
-  type: PIXI3D.LightType.point,
+  x: 1.1, y: 0.2, z: 2.0, color: [1, 0, 0], intensity: 10, type: PIXI3D.LightType.point,
 })
 
 // Add the point light to the lighting environment.
@@ -21,17 +17,12 @@ PIXI3D.LightingEnvironment.main.lights.push(pointLight)
 // A light that, which is located infinitely far away, and emits light in 
 // one direction only.
 let directionalLight = Object.assign(new PIXI3D.Light(), {
-  x: 0.2, y: 0.8, z: 2.0,
-  type: PIXI3D.LightType.directional,
+  x: 0.2, y: 0.8, z: 2.0, intensity: 2, type: PIXI3D.LightType.directional,
 })
 
 // A light that is located at a point and emits light in a cone shape.
 let spotLight = Object.assign(new PIXI3D.Light(), {
-  outerConeAngle: Math.PI / 8,
-  color: [0, 0, 1],
-  intensity: 30,
-  x: -0.7, y: 0.4, z: 2.0,
-  type: PIXI3D.LightType.spot,
+  x: -0.7, y: 0.4, z: 2.0, color: [0, 0, 1], intensity: 20, outerConeAngle: Math.PI / 8, type: PIXI3D.LightType.spot,
 })
 
 createDraggableLightElement("Point light", pointLight)
