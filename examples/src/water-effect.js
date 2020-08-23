@@ -14,14 +14,14 @@ app.loader.add("water_dudv.jpg", "assets/textures/water_dudv.jpg")
 
 // Enable render to texture with depth for the standard render pass. This is
 // being done to be able to use the rendered output in the water render pass.
-let standardPass = app.renderer.plugins.standard3d.renderPasses
+let standardPass = app.renderer.plugins.mesh3d.renderPasses
   .find((pass) => pass.name === "standard")
 standardPass.enableRenderToTexture({ depth: true })
 
 // Create a new water render pass and enable render to texture
 let waterPass = new PIXI3D.MaterialRenderPass(app.renderer, "water")
 waterPass.enableRenderToTexture()
-app.renderer.plugins.standard3d.renderPasses.push(waterPass)
+app.renderer.plugins.mesh3d.renderPasses.push(waterPass)
 
 app.loader.load((loader, resources) => {
   let cube = app.stage.addChild(PIXI3D.Mesh3D.createCube())

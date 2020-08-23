@@ -15,7 +15,7 @@ import { Skin } from "../skinning/skin"
 export class Mesh3D extends Container3D {
 
   /** The name of the plugin used for rendering the mesh. */
-  pluginName = "standard3d"
+  pluginName = "mesh3d"
 
   /** Array of weights used for morphing between geometry targets. */
   morphWeights?: number[]

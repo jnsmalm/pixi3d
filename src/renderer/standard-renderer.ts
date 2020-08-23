@@ -64,4 +64,4 @@ export class StandardRenderer extends PIXI.ObjectRenderer {
   }
 }
 
-PIXI.Renderer.registerPlugin("standard3d", <any>StandardRenderer)
+PIXI.Renderer.registerPlugin("mesh3d", <any>StandardRenderer)
