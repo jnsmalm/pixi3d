@@ -151,6 +151,9 @@ let control = new PIXI3D.CameraOrbitControl(app.view)
 ```
 *Gives the user orbit control over the main camera using mouse/trackpad. Hold left mouse button and drag to orbit, use scroll wheel to zoom in/out.*
 
+## API
+The API documentation is available at https://pixi3d.org/docs/
+
 ## Building
 Build *pixi3d.js* to *dist* folder with production settings.
 ```
