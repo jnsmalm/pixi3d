@@ -1,0 +1,6 @@
+{
+  "mode": "library",
+  "out": "docs",
+  "name": "Pixi3D",
+  "includeVersion": true
+}

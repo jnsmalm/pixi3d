@@ -11,7 +11,8 @@
   "scripts": {
     "build": "webpack --env.production",
     "prepare": "npm run build",
-    "serve": "webpack-dev-server --open --config examples/example.config.js"
+    "serve": "webpack-dev-server --open --config examples/example.config.js",
+    "docs": "typedoc src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "pixi.js": "^5.2.1",
     "raw-loader": "^3.1.0",
     "ts-loader": "^6.2.0",
+    "typedoc": "^0.17.0-3",
     "typescript": "^3.8.3",
     "url-loader": "^3.0.0",
     "webpack": "^4.41.0",
