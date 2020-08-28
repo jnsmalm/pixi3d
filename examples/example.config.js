@@ -6,6 +6,7 @@ module.exports = env => {
     devtool: "source-map",
     mode: "development",
     devServer: {
+      host: "0.0.0.0",
       contentBase: "./examples"
     },
     module: {

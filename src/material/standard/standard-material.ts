@@ -10,6 +10,7 @@ import { LightingEnvironment } from "../../lighting/lighting-environment"
 import { Mesh3D } from "../../mesh/mesh"
 import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
+import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -29,6 +30,7 @@ export class StandardMaterial extends Material {
   private _emissiveTexture?: PIXI.Texture
   private _metallicRoughnessTexture?: PIXI.Texture
   private _transparent = false
+  private _shadowCastingLight?: ShadowCastingLight
 
   /** The roughness of the material. */
   roughness = 1
@@ -122,6 +124,18 @@ export class StandardMaterial extends Material {
         this._transparent = true
       }
       this.invalidateShader()
+    }
+  }
+
+  /** The shadow casting light of the material. */
+  get shadowCastingLight() {
+    return this._shadowCastingLight
+  }
+
+  set shadowCastingLight(value: ShadowCastingLight | undefined) {
+    if (value !== this._shadowCastingLight) {
+      this.invalidateShader()
+      this._shadowCastingLight = value
     }
   }
 
@@ -276,7 +290,10 @@ export class StandardMaterial extends Material {
     shader.uniforms.u_EmissiveFactor = this.emissive
     shader.uniforms.u_ModelMatrix = mesh.worldTransform.toArray()
     shader.uniforms.u_NormalMatrix = mesh.transform.normalTransform.toArray()
-
+    if (this._shadowCastingLight) {
+      shader.uniforms.u_ShadowSampler = this._shadowCastingLight.shadowTexture
+      shader.uniforms.u_LightViewProjectionMatrix = this._shadowCastingLight.lightViewProjection
+    }
     if (this._alphaMode === StandardMaterialAlphaMode.mask) {
       shader.uniforms.u_AlphaCutoff = this.alphaCutoff
     }
@@ -298,12 +315,12 @@ export class StandardMaterial extends Material {
       }
       shader.uniforms[`u_Lights[${i}].type`] = type
       shader.uniforms[`u_Lights[${i}].position`] = light.worldTransform.position
-      shader.uniforms[`u_Lights[${i}].direction`] = light.direction
+      shader.uniforms[`u_Lights[${i}].direction`] = light.worldTransform.forward
       shader.uniforms[`u_Lights[${i}].range`] = light.range
       shader.uniforms[`u_Lights[${i}].color`] = light.color
       shader.uniforms[`u_Lights[${i}].intensity`] = light.intensity
-      shader.uniforms[`u_Lights[${i}].innerConeCos`] = Math.cos(light.innerConeAngle)
-      shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle)
+      shader.uniforms[`u_Lights[${i}].innerConeCos`] = Math.cos(light.innerConeAngle * PIXI.DEG_TO_RAD)
+      shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle * PIXI.DEG_TO_RAD)
     }
     let imageBasedLighting = lighting.imageBasedLighting
     if (imageBasedLighting?.valid) {

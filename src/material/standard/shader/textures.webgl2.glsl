@@ -56,6 +56,10 @@ uniform samplerCube u_SpecularEnvSampler;
 uniform sampler2D u_brdfLUT;
 #endif
 
+#ifdef USE_SHADOW_MAPPING
+uniform sampler2D u_ShadowSampler;
+#endif
+
 vec2 getNormalUV()
 {
     vec3 uv = vec3(v_UVCoord1, 1.0);

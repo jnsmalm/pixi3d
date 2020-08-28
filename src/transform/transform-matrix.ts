@@ -17,6 +17,7 @@ export class TransformMatrix extends PIXI.Matrix {
   private _rotation?: MatrixComponent
   private _up?: MatrixComponent
   private _forward?: MatrixComponent
+  private _target?: MatrixComponent
   private _array: Float32Array
 
   /**
@@ -94,6 +95,16 @@ export class TransformMatrix extends PIXI.Matrix {
       })
     }
     return this._forward.array
+  }
+
+  /** Returns the target (position + forward) vector of the matrix. */
+  get target() {
+    if (!this._target) {
+      this._target = new MatrixComponent(this, 3, data => {
+        Vec3.add(this.position, this.forward, data)
+      })
+    }
+    return this._target.array
   }
 
   copyFrom(matrix: TransformMatrix) {

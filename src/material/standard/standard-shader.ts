@@ -20,6 +20,10 @@ export class StandardShader extends MeshShader {
     return new StandardShader(program)
   }
 
+  get name() {
+    return "standard-shader"
+  }
+
   addGeometryAttributes(geometry: MeshGeometry3D) {
     super.addGeometryAttributes(geometry)
 

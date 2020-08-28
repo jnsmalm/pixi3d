@@ -4,7 +4,7 @@ import { RenderPass } from "./render-pass"
 import { Mesh3D } from "../mesh/mesh"
 
 /**
- * Pass used for rendering mesh materials.
+ * Pass used for rendering materials.
  */
 export class MaterialRenderPass implements RenderPass {
   private _colorTexture?: PIXI.RenderTexture

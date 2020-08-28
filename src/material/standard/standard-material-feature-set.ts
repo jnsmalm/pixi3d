@@ -61,6 +61,9 @@ export namespace StandardMaterialFeatureSet {
       }
       features.push("USE_IBL 1")
     }
+    if (material.shadowCastingLight) {
+      features.push("USE_SHADOW_MAPPING 1")
+    }
     if (material.baseColorTexture) {
       if (!material.baseColorTexture.valid) {
         return undefined

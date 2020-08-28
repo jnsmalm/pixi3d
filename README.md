@@ -2,7 +2,8 @@
 Pixi3D is a JavaScript library which makes it easy to render 3D graphics on the web. It works for both desktop and mobile web browsers and includes several components which makes it easy to create nice looking 3D scenes out-of-the-box:
 
 * Load models from file or create procedural generated meshes
-* Supports physically-based rendering (PBR) and image-based lighting (IBL)
+* Physically-based rendering (PBR) and image-based lighting (IBL)
+* Dynamic shadows
 * Transformation, morphing and skeletal animations
 * Customized materials and shaders
 * Built on top of the widely used PixiJS library which makes it simple to combine 2D and 3D
@@ -93,21 +94,8 @@ app.loader.load((loader, resources) => {
 ```
 *Loads a glTF 2.0 file and creates a model. The silhouette of a drone should appear. For now, it will be rendered black because there is no lighting.*
 
-### Lighting environment
-Lights are needed to illuminate the objects in the scene, otherwise they may be rendered completely black (depending on the material being used). A lighting environment contains the different components used for lighting a scene. The lighting environment can be shared across objects, or each object can have it's own. The main lighting environment is created and used by default.
-
-There are two different kinds of lights which can be used, and punctual lights is one of them. There are a few types of punctual lights available. The "point" type is a light that is located at a point and emits light in all directions equally. The "directional" type is a light that is located infinitely far away, and emits light in one direction only. The "spot" type is a light that is located at a point and emits light in a cone shape. Lights have a transform and can be attached to other objects.
-
-```javascript
-let light = Object.assign(new PIXI3D.Light(), { 
-  type: "point", x: -1, y: 0, z: 3, range: 10, intensity: 10
-})
-PIXI3D.LightingEnvironment.main.lights.push(light)
-```
-*Adds a point light to the main lighting environment. The drone should now be illuminated by the light.*
-
 ### Position, rotation and scale
-All objects have a transform which is used for setting the position, rotation and scale of that object. The transform of an object is always relative to it's parent transform. So when changing the transform of the parent object, all of it's childrens transforms will be affected as well.
+All objects in a scene have a transform which is used for setting the position, rotation and scale of that object. The transform of an object is always relative to it's parent transform. So when changing the transform of the parent object, all of it's childrens transforms will be affected as well.
 
 Both position and scale is represented by a vector with three components (x, y, z), one for each axis. Rotation is represented by a quaternion and has four components (x, y, z, w). A quaternion is not as straight forward to use as a vector, because of that there is a method *setEulerAngles* used for changing the rotation.
 
@@ -118,6 +106,25 @@ model.rotationQuaternion.setEulerAngles(0, 25, 0)
 ```
 *Moves the model to 0.3 on the y-axis. Rotates it to 25 degrees on the y-axis and scales it on all axes.*
 
+### Lighting environment
+Lights are needed to illuminate the objects in the scene, otherwise they may be rendered completely black (depending on the material being used). A lighting environment contains the different components used for lighting a scene. The lighting environment can be shared across objects, or each object can have it's own. The main lighting environment is created and used by default.
+
+There are two different kinds of lights which can be used, and punctual lights is one of them. There are a few types of punctual lights available. The "point" type is a light that is located at a point and emits light in all directions equally. The "directional" type is a light that is located infinitely far away, and emits light in one direction only. The "spot" type is a light that is located at a point and emits light in a cone shape. Lights have a transform and can be attached to other objects.
+
+```javascript
+let dirLight = Object.assign(new PIXI3D.Light(), {
+  type: "directional", intensity: 0.5, x: -4, y: 7, z: -4
+})
+dirLight.rotationQuaternion.setEulerAngles(45, 45, 0)
+PIXI3D.LightingEnvironment.main.lights.push(dirLight)
+
+let pointLight = Object.assign(new PIXI3D.Light(), { 
+  type: "point", x: -1, y: 0, z: 3, range: 10, intensity: 10
+})
+PIXI3D.LightingEnvironment.main.lights.push(pointLight)
+```
+*Adds a directional light and a point light to the main lighting environment. The drone should now be illuminated by the light.*
+
 ### Playing animations
 Models can contain animations which has been created in a 3D modeling tool. There are three different kinds of animations: skeletal, morphing and transformation. Skeletal animation is often used for animating characters, but it can also be used to animate anything else as well. Morphing is used to animate per-vertex, for example to create a waving flag. Transformation animations are used for moving, rotating and scaling entire objects.
 
@@ -125,6 +132,21 @@ Models can contain animations which has been created in a 3D modeling tool. Ther
 model.animations[0].play()
 ```
 *Starts playing the first animation in the model.*
+
+### Casting shadows
+To enable lights to cast shadows, there are two different components needed. First is a shadow casting light, which wraps the normal light and gives it the ability to cast shadows. It has multiple settings for controlling the quality of the shadow, for example the size of the shadow texture and the softness of the shadow. Both directional and spot light types have support for casting shadows.
+
+The second component needed, is the shadow render pass, which renders shadows using the shadow casting light. Finally, shadows must be enabled for an object to both receive and cast shadows.
+
+```javascript
+let shadowCastingLight = new PIXI3D.ShadowCastingLight(
+  app.renderer, dirLight, 512, 15, 1, PIXI3D.ShadowQuality.medium)
+
+let shadowPass = PIXI3D.ShadowRenderPass.addAsRenderPass(app.renderer)
+shadowPass.lights.push(shadowCastingLight)
+shadowPass.enableShadows(model, shadowCastingLight)
+```
+*Creates a shadow casting light. Also creates the shadow render pass, adds the casting light and enables shadows for the drone model.*
 
 ### 2D and 3D
 Compositing 2D (PixiJS) and 3D (Pixi3D) containers is simple and can be combined in many ways. 2D containers can be added on top of 3D containers, and the other way around. Although the containers can be combined, the transforms used by 2D and 3D works differently from each other and are not compatible. The transforms won't be affected by each other, even if they have a parent-child relation.

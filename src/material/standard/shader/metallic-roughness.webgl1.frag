@@ -31,6 +31,7 @@ precision highp float;
 #include <tonemapping.glsl>
 #include <textures.webgl1.glsl>
 #include <functions.webgl1.glsl>
+#include <shadow.webgl1.glsl>
 
 // KHR_lights_punctual extension.
 // see https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_lights_punctual
@@ -225,10 +226,10 @@ float getSpotAttenuation(vec3 pointToLight, vec3 spotDirection, float outerConeC
     return 0.0;
 }
 
-vec3 applyDirectionalLight(Light light, MaterialInfo materialInfo, vec3 normal, vec3 view)
+vec3 applyDirectionalLight(Light light, MaterialInfo materialInfo, vec3 normal, vec3 view, float shadow)
 {
     vec3 pointToLight = -light.direction;
-    vec3 shade = getPointShade(pointToLight, materialInfo, normal, view);
+    vec3 shade = getPointShade(pointToLight, materialInfo, normal, view) * shadow;
     return light.intensity * light.color * shade;
 }
 
@@ -241,13 +242,13 @@ vec3 applyPointLight(Light light, MaterialInfo materialInfo, vec3 normal, vec3 v
     return attenuation * light.intensity * light.color * shade;
 }
 
-vec3 applySpotLight(Light light, MaterialInfo materialInfo, vec3 normal, vec3 view)
+vec3 applySpotLight(Light light, MaterialInfo materialInfo, vec3 normal, vec3 view, float shadow)
 {
     vec3 pointToLight = light.position - v_Position;
     float distance = length(pointToLight);
     float rangeAttenuation = getRangeAttenuation(light.range, distance);
     float spotAttenuation = getSpotAttenuation(pointToLight, light.direction, light.outerConeCos, light.innerConeCos);
-    vec3 shade = getPointShade(pointToLight, materialInfo, normal, view);
+    vec3 shade = getPointShade(pointToLight, materialInfo, normal, view) * shadow;
     return rangeAttenuation * spotAttenuation * light.intensity * light.color * shade;
 }
 
@@ -368,13 +369,18 @@ void main()
     vec3 normal = getNormal();
     vec3 view = normalize(u_Camera - v_Position);
 
+    float shadow = 1.0;
+    #ifdef USE_SHADOW_MAPPING
+        shadow = getShadowContribution();
+    #endif
+
 #ifdef USE_PUNCTUAL
     for (int i = 0; i < LIGHT_COUNT; ++i)
     {
         Light light = u_Lights[i];
         if (light.type == LightType_Directional)
         {
-            color += applyDirectionalLight(light, materialInfo, normal, view);
+            color += applyDirectionalLight(light, materialInfo, normal, view, shadow);
         }
         else if (light.type == LightType_Point)
         {
@@ -382,7 +388,7 @@ void main()
         }
         else if (light.type == LightType_Spot)
         {
-            color += applySpotLight(light, materialInfo, normal, view);
+            color += applySpotLight(light, materialInfo, normal, view, shadow);
         }
     }
 #endif

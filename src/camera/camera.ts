@@ -166,27 +166,18 @@ export class Camera extends Container3D {
   get projection() {
     if (!this._projection) {
       this._projection = new MatrixComponent(this, 16, data => {
-        Mat4.perspective(this._fieldOfView * (Math.PI / 180), this._aspect || this.renderer.width / this.renderer.height, this._near, this._far, data)
+        Mat4.perspective(this._fieldOfView * PIXI.DEG_TO_RAD, this._aspect || this.renderer.width / this.renderer.height, this._near, this._far, data)
       })
     }
     return this._projection.array
-  }
-
-  /** Returns the target position. */
-  get target() {
-    if (!this._target) {
-      this._target = new MatrixComponent(this, 3, data => {
-        Vec3.add(this.worldTransform.position, this.worldTransform.forward, data)
-      })
-    }
-    return this._target.array
   }
 
   /** Returns the view matrix. */
   get view() {
     if (!this._view) {
       this._view = new MatrixComponent(this, 16, data => {
-        Mat4.lookAt(this.worldTransform.position, this.target, this.worldTransform.up, data)
+        Mat4.lookAt(this.worldTransform.position,
+          this.worldTransform.target, this.worldTransform.up, data)
       })
     }
     return this._view.array

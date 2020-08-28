@@ -100,7 +100,7 @@ export class glTFParser {
         continue
       }
       let animationChannel = glTFChannel.from(
-        input.buffer, output.buffer, sampler.interpolation, channel.target.path, nodes[channel.target.node])
+        input.buffer, output.buffer, sampler.interpolation || "LINEAR", channel.target.path, nodes[channel.target.node])
       if (animationChannel) {
         result.channels.push(animationChannel)
       }

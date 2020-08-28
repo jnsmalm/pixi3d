@@ -48,6 +48,11 @@ uniform mat4 u_ViewProjectionMatrix;
 uniform mat4 u_ModelMatrix;
 uniform mat4 u_NormalMatrix;
 
+#ifdef USE_SHADOW_MAPPING
+uniform mat4 u_LightViewProjectionMatrix;
+varying vec4 v_PositionLightSpace;
+#endif
+
 vec4 getPosition()
 {
     vec4 pos = a_Position;
@@ -127,6 +132,10 @@ void main()
 
     #if defined(HAS_VERTEX_COLOR_VEC3) || defined(HAS_VERTEX_COLOR_VEC4)
     v_Color = a_Color;
+    #endif
+
+    #ifdef USE_SHADOW_MAPPING
+    v_PositionLightSpace = u_LightViewProjectionMatrix * pos;
     #endif
 
     gl_Position = u_ViewProjectionMatrix * pos;
