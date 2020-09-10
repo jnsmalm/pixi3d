@@ -20,7 +20,7 @@ const shaders: { [features: string]: StandardShader } = {}
  * material when loading models from file.
  */
 export class StandardMaterial extends Material {
-  private _lighting?: LightingEnvironment
+  private _lightingEnvironment?: LightingEnvironment
   private _unlit = false
   private _alphaMode = StandardMaterialAlphaMode.opaque
   private _debugMode?: StandardMaterialDebugMode
@@ -172,14 +172,14 @@ export class StandardMaterial extends Material {
    * Lighting environment used when rendering a mesh. If this value is not set, 
    * the main lighting environment will be used by default.
    */
-  get lighting() {
-    return this._lighting
+  get lightingEnvironment() {
+    return this._lightingEnvironment
   }
 
-  set lighting(value: LightingEnvironment | undefined) {
-    if (value !== this._lighting) {
+  set lightingEnvironment(value: LightingEnvironment | undefined) {
+    if (value !== this._lightingEnvironment) {
       this.invalidateShader()
-      this._lighting = value
+      this._lightingEnvironment = value
     }
   }
 
@@ -259,7 +259,7 @@ export class StandardMaterial extends Material {
         }
       }
     }
-    let lighting = this.lighting || LightingEnvironment.main
+    let lighting = this.lightingEnvironment || LightingEnvironment.main
     let features = StandardMaterialFeatureSet.build(mesh, mesh.geometry, this, lighting)
     if (!features) {
       // The shader features couldn't be built, some resources may still be 
@@ -304,7 +304,7 @@ export class StandardMaterial extends Material {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture
       shader.uniforms.u_BaseColorUVSet = 0
     }
-    let lighting = this.lighting || LightingEnvironment.main
+    let lighting = this.lightingEnvironment || LightingEnvironment.main
     for (let i = 0; i < lighting.lights.length; i++) {
       let light = lighting.lights[i]
       let type = 0
