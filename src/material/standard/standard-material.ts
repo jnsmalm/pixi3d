@@ -11,6 +11,7 @@ import { Mesh3D } from "../../mesh/mesh"
 import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
+import { Platform } from "../../platform"
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -206,6 +207,15 @@ export class StandardMaterial extends Material {
   }
 
   /**
+   * Returns a value indicating if specular mipmap is supported by current 
+   * platform when using image based lighting.
+   * @param renderer The renderer to use.
+   */
+  static isImageBasedLightingSpecularMipmapSupported(renderer: PIXI.Renderer) {
+    return Platform.isShaderTextureLodSupported(renderer)
+  }
+
+  /**
    * Creates a standard material factory which can be used when loading models.
    * @param properties Properties to set on the material when created.
    */
@@ -255,12 +265,12 @@ export class StandardMaterial extends Material {
       let extensions = ["EXT_shader_texture_lod", "OES_standard_derivatives"]
       for (let ext of extensions) {
         if (!renderer.gl.getExtension(ext)) {
-          console.warn(`PIXI3D: Extension "${ext}" is not supported.`)
+          console.warn(`PIXI3D: Extension "${ext}" is not supported by current platform, the material may not be displayed correctly.`)
         }
       }
     }
-    let lighting = this.lightingEnvironment || LightingEnvironment.main
-    let features = StandardMaterialFeatureSet.build(mesh, mesh.geometry, this, lighting)
+    let lightingEnvironment = this.lightingEnvironment || LightingEnvironment.main
+    let features = StandardMaterialFeatureSet.build(renderer, mesh, mesh.geometry, this, lightingEnvironment)
     if (!features) {
       // The shader features couldn't be built, some resources may still be 
       // loading. Don't worry, we will retry creating shader at next render.
@@ -304,9 +314,9 @@ export class StandardMaterial extends Material {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture
       shader.uniforms.u_BaseColorUVSet = 0
     }
-    let lighting = this.lightingEnvironment || LightingEnvironment.main
-    for (let i = 0; i < lighting.lights.length; i++) {
-      let light = lighting.lights[i]
+    let lightingEnvironment = this.lightingEnvironment || LightingEnvironment.main
+    for (let i = 0; i < lightingEnvironment.lights.length; i++) {
+      let light = lightingEnvironment.lights[i]
       let type = 0
       switch (light.type) {
         case LightType.point: type = 1; break
@@ -322,7 +332,7 @@ export class StandardMaterial extends Material {
       shader.uniforms[`u_Lights[${i}].innerConeCos`] = Math.cos(light.innerConeAngle * PIXI.DEG_TO_RAD)
       shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle * PIXI.DEG_TO_RAD)
     }
-    let imageBasedLighting = lighting.imageBasedLighting
+    let imageBasedLighting = lightingEnvironment.imageBasedLighting
     if (imageBasedLighting?.valid) {
       shader.uniforms.u_DiffuseEnvSampler = imageBasedLighting.diffuse
       shader.uniforms.u_SpecularEnvSampler = imageBasedLighting.specular

@@ -14,6 +14,7 @@ vec3 _dFdy(vec3 coord)
     return vec3(0.0);
 }
 
+#ifdef USE_TEX_LOD
 vec4 _textureCubeLodEXT(samplerCube sampler, vec3 coord, float lod)
 {
 #ifdef GL_EXT_shader_texture_lod
@@ -21,3 +22,4 @@ vec4 _textureCubeLodEXT(samplerCube sampler, vec3 coord, float lod)
 #endif
     return vec4(0.0);
 }
+#endif

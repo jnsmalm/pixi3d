@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { MeshGeometry3D } from "../../mesh/geometry/mesh-geometry"
 import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
@@ -6,7 +8,7 @@ import { LightingEnvironment } from "../../lighting/lighting-environment"
 import { Mesh3D } from "../../mesh/mesh"
 
 export namespace StandardMaterialFeatureSet {
-  export function build(mesh: Mesh3D, geometry: MeshGeometry3D, material: StandardMaterial, lightingEnvironment: LightingEnvironment) {
+  export function build(renderer: PIXI.Renderer, mesh: Mesh3D, geometry: MeshGeometry3D, material: StandardMaterial, lightingEnvironment: LightingEnvironment) {
     let features: string[] = []
 
     if (geometry.normals) {
@@ -49,8 +51,6 @@ export namespace StandardMaterialFeatureSet {
       features.push("MATERIAL_UNLIT 1")
     }
     features.push("MATERIAL_METALLICROUGHNESS 1")
-    features.push("USE_TEX_LOD 1")
-
     if (lightingEnvironment.lights.length > 0) {
       features.push(`LIGHT_COUNT ${lightingEnvironment.lights.length}`)
       features.push("USE_PUNCTUAL 1")
@@ -58,6 +58,9 @@ export namespace StandardMaterialFeatureSet {
     if (lightingEnvironment.imageBasedLighting) {
       if (!lightingEnvironment.imageBasedLighting.valid) {
         return undefined
+      }
+      if (StandardMaterial.isImageBasedLightingSpecularMipmapSupported(renderer)) {
+        features.push("USE_TEX_LOD 1")
       }
       features.push("USE_IBL 1")
     }

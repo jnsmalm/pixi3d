@@ -56,7 +56,14 @@ export namespace Platform {
       return _isFloatLinearSupported
     }
     const gl = renderer.gl
-    _isFloatLinearSupported = gl.getExtension("OES_texture_float_linear") !== undefined
+    _isFloatLinearSupported = gl.getExtension("OES_texture_float_linear") !== null
     return _isFloatLinearSupported
+  }
+
+  export function isShaderTextureLodSupported(renderer: PIXI.Renderer) {
+    if (renderer.context.webGLVersion === 2) {
+      return true
+    }
+    return renderer.gl.getExtension("EXT_shader_texture_lod") !== null
   }
 }
