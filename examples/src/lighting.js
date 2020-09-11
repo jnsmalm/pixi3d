@@ -22,7 +22,7 @@ let directionalLight = Object.assign(new PIXI3D.Light(), {
 
 // A light that is located at a point and emits light in a cone shape.
 let spotLight = Object.assign(new PIXI3D.Light(), {
-  x: -0.7, y: 0.4, z: 2.0, color: [0, 0, 1], intensity: 20, outerConeAngle: Math.PI / 8, type: PIXI3D.LightType.spot,
+  x: -0.7, y: 0.4, z: 2.0, color: [0, 0, 1], intensity: 20, outerConeAngle: 25, type: PIXI3D.LightType.spot,
 })
 
 createDraggableLightElement("Point light", pointLight)
@@ -70,15 +70,19 @@ function updateLightFromElement(light, element) {
   // The distance from the camera where we want the light to be.
   let distance = 2
 
+  let { vec3, quat, mat3, mat4 } = glMatrix
+
   // Transform screen position of the element to world coordinates and 
   // calculate the light direction (only needed for point and spot).
-  let position = PIXI3D.Camera.main.screenToWorld(bounds.x, bounds.y, distance)
-  let direction = glMatrix.vec3.subtract(glMatrix.vec3.create(),
-    glMatrix.vec3.create(), glMatrix.vec3.set(
-      glMatrix.vec3.create(), position.x, position.y, position.z))
+  let position = PIXI3D.Camera.main.screenToWorld(
+    bounds.x, bounds.y, distance, light.position)
 
-  light.position.set(position.x, position.y, position.z)
-  light.direction = glMatrix.vec3.normalize(direction, direction)
+  let look = mat4.targetTo(mat4.create(), vec3.create(),
+    vec3.fromValues(position.x, position.y, position.z), vec3.fromValues(0, 1, 0))
+  look = mat3.fromMat4(mat3.create(), look)
+  look = quat.fromMat3(quat.create(), look)
+
+  light.rotationQuaternion.set(look[0], look[1], look[2], look[3])
 }
 
 function updateElementFromLight(light, element) {
