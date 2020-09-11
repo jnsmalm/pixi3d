@@ -6,6 +6,7 @@ import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { StandardMaterial } from "./standard-material"
 import { LightingEnvironment } from "../../lighting/lighting-environment"
 import { Mesh3D } from "../../mesh/mesh"
+import { Platform } from "../../platform"
 
 export namespace StandardMaterialFeatureSet {
   export function build(renderer: PIXI.Renderer, mesh: Mesh3D, geometry: MeshGeometry3D, material: StandardMaterial, lightingEnvironment: LightingEnvironment) {
@@ -59,7 +60,7 @@ export namespace StandardMaterialFeatureSet {
       if (!lightingEnvironment.imageBasedLighting.valid) {
         return undefined
       }
-      if (StandardMaterial.isImageBasedLightingSpecularMipmapSupported(renderer)) {
+      if (Platform.isShaderTextureLodSupported(renderer)) {
         features.push("USE_TEX_LOD 1")
       }
       features.push("USE_IBL 1")

@@ -207,15 +207,6 @@ export class StandardMaterial extends Material {
   }
 
   /**
-   * Returns a value indicating if specular mipmap is supported by current 
-   * platform when using image based lighting.
-   * @param renderer The renderer to use.
-   */
-  static isImageBasedLightingSpecularMipmapSupported(renderer: PIXI.Renderer) {
-    return Platform.isShaderTextureLodSupported(renderer)
-  }
-
-  /**
    * Creates a standard material factory which can be used when loading models.
    * @param properties Properties to set on the material when created.
    */
