@@ -1,12 +1,13 @@
 import * as PIXI from "pixi.js"
 
-import { RenderPass } from "../renderer/render-pass"
+import { RenderPass } from "../pipeline/render-pass"
 import { Mesh3D } from "../mesh/mesh"
 import { MeshShader } from "../mesh/mesh-shader"
 import { ShadowFilter } from "./shadow-filter"
 import { ShadowCastingLight } from "./shadow-casting-light"
 import { Model } from "../model"
 import { StandardMaterial } from "../material/standard/standard-material"
+import { StandardPipeline } from "../pipeline/standard-pipeline"
 
 /**
  * Pass used for rendering shadows.
@@ -29,8 +30,8 @@ export class ShadowRenderPass implements RenderPass {
    */
   static addAsRenderPass(renderer: PIXI.Renderer, name = "shadow") {
     let shadowRenderPass = new ShadowRenderPass(renderer, name)
-    // @ts-ignore
-    renderer.plugins.mesh3d.renderPasses.splice(0, 0, shadowRenderPass)
+    let pipeline = StandardPipeline.from(renderer)
+    pipeline.renderPasses.splice(0, 0, shadowRenderPass)
     return shadowRenderPass
   }
 

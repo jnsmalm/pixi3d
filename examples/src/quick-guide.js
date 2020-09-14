@@ -31,14 +31,14 @@ app.loader.load((loader, resources) => {
   /* Starts playing the first animation in the model.*/
   model.animations[0].play()
 
-  /* Creates a shadow casting light. Also creates the shadow render pass, adds 
-  the casting light and enables shadows for the model.*/
+  /* Creates a shadow casting light and adds it to the shadow render pass. Also 
+  enables shadows for the model to both receive and cast shadows. */
   let shadowCastingLight = new PIXI3D.ShadowCastingLight(
     app.renderer, dirLight, 512, 15, 1, PIXI3D.ShadowQuality.medium)
 
-  let shadowPass = PIXI3D.ShadowRenderPass.addAsRenderPass(app.renderer)
-  shadowPass.lights.push(shadowCastingLight)
-  shadowPass.enableShadows(model, shadowCastingLight)
+  let pipeline = PIXI3D.StandardPipeline.from(app.renderer)
+  pipeline.shadowRenderPass.lights.push(shadowCastingLight)
+  pipeline.shadowRenderPass.enableShadows(model, shadowCastingLight)
 
   /* Adds a 2D vignette layer on top of the 3D scene to give it a more cinematic 
   effect. Resizes the vignette to the size of the renderer.*/
