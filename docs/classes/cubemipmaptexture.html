@@ -1,0 +1,1629 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>CubeMipmapTexture | Pixi3D - v0.7.1</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">Pixi3D - v0.7.1</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="cubemipmaptexture.html">CubeMipmapTexture</a>
+				</li>
+			</ul>
+			<h1>Class CubeMipmapTexture</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Cubemap texture which supports multiple user specified mipmaps.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="tsd-signature-type">BaseTexture</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">CubeMipmapTexture</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#_batchenabled" class="tsd-kind-icon">_batch<wbr>Enabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#_batchlocation" class="tsd-kind-icon">_batch<wbr>Location</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#alphamode" class="tsd-kind-icon">alpha<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#anisotropiclevel" class="tsd-kind-icon">anisotropic<wbr>Level</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#cacheid" class="tsd-kind-icon">cache<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#destroyed" class="tsd-kind-icon">destroyed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#dirtyid" class="tsd-kind-icon">dirty<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="cubemipmaptexture.html#dirtystyleid" class="tsd-kind-icon">dirty<wbr>Style<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#format" class="tsd-kind-icon">format</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#height" class="tsd-kind-icon">height</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#ispoweroftwo" class="tsd-kind-icon">is<wbr>Power<wbr>OfTwo</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#mipmap" class="tsd-kind-icon">mipmap</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#realheight" class="tsd-kind-icon">real<wbr>Height</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#realwidth" class="tsd-kind-icon">real<wbr>Width</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#resolution" class="tsd-kind-icon">resolution</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#resource" class="tsd-kind-icon">resource</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#scalemode" class="tsd-kind-icon">scale<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#target" class="tsd-kind-icon">target</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#texturecacheids" class="tsd-kind-icon">texture<wbr>Cache<wbr>Ids</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="cubemipmaptexture.html#touched" class="tsd-kind-icon">touched</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="cubemipmaptexture.html#uid" class="tsd-kind-icon">uid</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#valid" class="tsd-kind-icon">valid</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#width" class="tsd-kind-icon">width</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#wrapmode" class="tsd-kind-icon">wrap<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="cubemipmaptexture.html#_globalbatch" class="tsd-kind-icon">_global<wbr>Batch</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="cubemipmaptexture.html#levels" class="tsd-kind-icon">levels</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-static"><a href="cubemipmaptexture.html#faces" class="tsd-kind-icon">faces</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#destroy" class="tsd-kind-icon">destroy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#dispose" class="tsd-kind-icon">dispose</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#setrealsize" class="tsd-kind-icon">set<wbr>Real<wbr>Size</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#setresolution" class="tsd-kind-icon">set<wbr>Resolution</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#setresource" class="tsd-kind-icon">set<wbr>Resource</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#setsize" class="tsd-kind-icon">set<wbr>Size</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#setstyle" class="tsd-kind-icon">set<wbr>Style</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="cubemipmaptexture.html#update" class="tsd-kind-icon">update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="cubemipmaptexture.html#addtocache" class="tsd-kind-icon">add<wbr>ToCache</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="cubemipmaptexture.html#from" class="tsd-kind-icon">from</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="cubemipmaptexture.html#frombuffer" class="tsd-kind-icon">from<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="cubemipmaptexture.html#fromsource" class="tsd-kind-icon">from<wbr>Source</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="cubemipmaptexture.html#removefromcache" class="tsd-kind-icon">remove<wbr>From<wbr>Cache</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Cube<wbr>Mipmap<wbr>Texture<span class="tsd-signature-symbol">(</span>resource<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Resource</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>alphaMode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.ALPHA_MODES</span><span class="tsd-signature-symbol">; </span>anisotropicLevel<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>format<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.FORMATS</span><span class="tsd-signature-symbol">; </span>height<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>mipmap<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.MIPMAP_MODES</span><span class="tsd-signature-symbol">; </span>resolution<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>resourceOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>scaleMode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.SCALE_MODES</span><span class="tsd-signature-symbol">; </span>target<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.TARGETS</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.TYPES</span><span class="tsd-signature-symbol">; </span>width<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>wrapMode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.WRAP_MODES</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="cubemipmaptexture.html" class="tsd-signature-type">CubeMipmapTexture</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5251</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> resource: <span class="tsd-signature-type">Resource</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>alphaMode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.ALPHA_MODES</span><span class="tsd-signature-symbol">; </span>anisotropicLevel<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>format<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.FORMATS</span><span class="tsd-signature-symbol">; </span>height<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>mipmap<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.MIPMAP_MODES</span><span class="tsd-signature-symbol">; </span>resolution<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>resourceOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>scaleMode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.SCALE_MODES</span><span class="tsd-signature-symbol">; </span>target<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.TARGETS</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.TYPES</span><span class="tsd-signature-symbol">; </span>width<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>wrapMode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.WRAP_MODES</span><span class="tsd-signature-symbol"> }</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="cubemipmaptexture.html" class="tsd-signature-type">CubeMipmapTexture</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="_batchenabled" class="tsd-anchor"></a>
+					<h3>_batch<wbr>Enabled</h3>
+					<div class="tsd-signature tsd-kind-icon">_batch<wbr>Enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#_batchenabled">_batchEnabled</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5420</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Number of the texture batch, used by multi-texture renderers</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#_batchEnabled</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="_batchlocation" class="tsd-anchor"></a>
+					<h3>_batch<wbr>Location</h3>
+					<div class="tsd-signature tsd-kind-icon">_batch<wbr>Location<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#_batchlocation">_batchLocation</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5426</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Location inside texture batch, used by multi-texture renderers</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#_batchLocation</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="alphamode" class="tsd-anchor"></a>
+					<h3>alpha<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">alpha<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ALPHA_MODES</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#alphamode">alphaMode</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5340</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>How to treat premultiplied alpha, see {@link PIXI.ALPHA_MODES}.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{PIXI.ALPHA_MODES} PIXI.BaseTexture#alphaMode</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>PIXI.ALPHA_MODES.UNPACK</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="anisotropiclevel" class="tsd-anchor"></a>
+					<h3>anisotropic<wbr>Level</h3>
+					<div class="tsd-signature tsd-kind-icon">anisotropic<wbr>Level<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#anisotropiclevel">anisotropicLevel</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5300</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Anisotropic filtering level of texture</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#anisotropicLevel</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>PIXI.settings.ANISOTROPIC_LEVEL</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="cacheid" class="tsd-anchor"></a>
+					<h3>cache<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">cache<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#cacheid">cacheId</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5384</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Currently default cache ID.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{string} PIXI.BaseTexture#cacheId</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="destroyed" class="tsd-anchor"></a>
+					<h3>destroyed</h3>
+					<div class="tsd-signature tsd-kind-icon">destroyed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#destroyed">destroyed</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5405</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Flag if BaseTexture has been destroyed.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{boolean} PIXI.BaseTexture#destroyed</p>
+							</dd>
+							<dt>readonly</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="dirtyid" class="tsd-anchor"></a>
+					<h3>dirty<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">dirty<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#dirtyid">dirtyId</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5371</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Used by TextureSystem to only update texture to the GPU when needed.
+							Please call <code>update()</code> to increment it.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>readonly</dt>
+							<dd></dd>
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#dirtyId</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="dirtystyleid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> dirty<wbr>Style<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">dirty<wbr>Style<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#dirtystyleid">dirtyStyleId</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5378</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Used by TextureSystem to only update texture style when needed.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#dirtyStyleId</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="format" class="tsd-anchor"></a>
+					<h3>format</h3>
+					<div class="tsd-signature tsd-kind-icon">format<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FORMATS</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#format">format</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5319</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The pixel format of the texture</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{PIXI.FORMATS} PIXI.BaseTexture#format</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>PIXI.FORMATS.RGBA</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="height" class="tsd-anchor"></a>
+					<h3>height</h3>
+					<div class="tsd-signature tsd-kind-icon">height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#height">height</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5279</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The height of the base texture set when the image has loaded</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>readonly</dt>
+							<dd></dd>
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#height</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="ispoweroftwo" class="tsd-anchor"></a>
+					<h3>is<wbr>Power<wbr>OfTwo</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Power<wbr>OfTwo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#ispoweroftwo">isPowerOfTwo</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5363</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether or not the texture is a power of two, try to use power of two textures as much
+							as you can</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>readonly</dt>
+							<dd></dd>
+							<dt>member</dt>
+							<dd><p>{boolean} PIXI.BaseTexture#isPowerOfTwo</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>false</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="mipmap" class="tsd-anchor"></a>
+					<h3>mipmap</h3>
+					<div class="tsd-signature tsd-kind-icon">mipmap<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MIPMAP_MODES</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#mipmap">mipmap</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5293</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Mipmap mode of the texture, affects downscaled images</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{PIXI.MIPMAP_MODES} PIXI.BaseTexture#mipmap</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>PIXI.settings.MIPMAP_TEXTURES</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="realheight" class="tsd-anchor"></a>
+					<h3>real<wbr>Height</h3>
+					<div class="tsd-signature tsd-kind-icon">real<wbr>Height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#realheight">realHeight</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5440</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Pixel height of the source of this texture</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>readonly</dt>
+							<dd></dd>
+							<dt>member</dt>
+							<dd><p>{number}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="realwidth" class="tsd-anchor"></a>
+					<h3>real<wbr>Width</h3>
+					<div class="tsd-signature tsd-kind-icon">real<wbr>Width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#realwidth">realWidth</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5433</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Pixel width of the source of this texture</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>readonly</dt>
+							<dd></dd>
+							<dt>member</dt>
+							<dd><p>{number}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="resolution" class="tsd-anchor"></a>
+					<h3>resolution</h3>
+					<div class="tsd-signature tsd-kind-icon">resolution<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#resolution">resolution</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5286</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The resolution / device pixel ratio of the texture</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#resolution</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>PIXI.settings.RESOLUTION</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="resource" class="tsd-anchor"></a>
+					<h3>resource</h3>
+					<div class="tsd-signature tsd-kind-icon">resource<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Resource</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#resource">resource</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5414</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The resource used by this BaseTexture, there can only
+								be one resource per BaseTexture, but textures can share
+							resources.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{PIXI.resources.Resource} PIXI.BaseTexture#resource</p>
+							</dd>
+							<dt>readonly</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="scalemode" class="tsd-anchor"></a>
+					<h3>scale<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">scale<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SCALE_MODES</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#scalemode">scaleMode</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5312</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The scale mode to apply when scaling this texture</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{PIXI.SCALE_MODES} PIXI.BaseTexture#scaleMode</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>PIXI.settings.SCALE_MODE</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="target" class="tsd-anchor"></a>
+					<h3>target</h3>
+					<div class="tsd-signature tsd-kind-icon">target<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TARGETS</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#target">target</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5333</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The target type</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{PIXI.TARGETS} PIXI.BaseTexture#target</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>PIXI.TARGETS.TEXTURE_2D</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="texturecacheids" class="tsd-anchor"></a>
+					<h3>texture<wbr>Cache<wbr>Ids</h3>
+					<div class="tsd-signature tsd-kind-icon">texture<wbr>Cache<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#texturecacheids">textureCacheIds</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5398</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The collection of alternative cache ids, since some BaseTextures
+							can have more than one ID, short name and longer full URL</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{Array<string>} PIXI.BaseTexture#textureCacheIds</p>
+							</dd>
+							<dt>readonly</dt>
+							<dd></dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="touched" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> touched</h3>
+					<div class="tsd-signature tsd-kind-icon">touched<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#touched">touched</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5354</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Used by automatic texture Garbage Collection, stores last GC tick when it was bound</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#touched</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TYPES</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#type">type</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5326</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The type of resource data</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{PIXI.TYPES} PIXI.BaseTexture#type</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>PIXI.TYPES.UNSIGNED_BYTE</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="uid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> uid</h3>
+					<div class="tsd-signature tsd-kind-icon">uid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#uid">uid</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5347</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Global unique identifier for this BaseTexture</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{string} PIXI.BaseTexture#uid</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="valid" class="tsd-anchor"></a>
+					<h3>valid</h3>
+					<div class="tsd-signature tsd-kind-icon">valid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#valid">valid</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5390</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Generally speaking means when resource is loaded.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>readonly</dt>
+							<dd></dd>
+							<dt>member</dt>
+							<dd><p>{boolean} PIXI.BaseTexture#valid</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="width" class="tsd-anchor"></a>
+					<h3>width</h3>
+					<div class="tsd-signature tsd-kind-icon">width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#width">width</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5272</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The width of the base texture set when the image has loaded</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>readonly</dt>
+							<dd></dd>
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#width</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="wrapmode" class="tsd-anchor"></a>
+					<h3>wrap<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">wrap<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#wrapmode">wrapMode</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5305</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>How the texture wraps</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>member</dt>
+							<dd><p>{number} PIXI.BaseTexture#wrapMode</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="_globalbatch" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> _global<wbr>Batch</h3>
+					<div class="tsd-signature tsd-kind-icon">_global<wbr>Batch<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#_globalbatch">_globalBatch</a></p>
+						<ul>
+							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5547</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Global number of the texture batch, used by multi-texture renderers</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>static</dt>
+							<dd></dd>
+							<dt>member</dt>
+							<dd><p>{number}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="levels" class="tsd-anchor"></a>
+					<h3>levels</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> levels<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/cubemap/cube-mipmap-texture.ts#L17">src/cubemap/cube-mipmap-texture.ts:17</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the number of mipmap levels.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+					<a name="faces" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> faces</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> faces<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/cubemap/cube-mipmap-texture.ts#L12">src/cubemap/cube-mipmap-texture.ts:12</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns an array of faces.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="destroy" class="tsd-anchor"></a>
+					<h3>destroy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#destroy">destroy</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5490</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Destroys this base texture.
+										The method stops if resource doesn&#39;t want this texture to be destroyed.
+									Removes texture from all caches.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="dispose" class="tsd-anchor"></a>
+					<h3>dispose</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">dispose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#dispose">dispose</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5498</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Frees the texture from WebGL memory without destroying this texture object.
+										This means you can still use the texture later which will upload it to GPU
+									memory again.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>fires</dt>
+									<dd><p>PIXI.BaseTexture#dispose</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="setrealsize" class="tsd-anchor"></a>
+					<h3>set<wbr>Real<wbr>Size</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Real<wbr>Size<span class="tsd-signature-symbol">(</span>realWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, realHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, resolution<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BaseTexture</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#setrealsize">setRealSize</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5466</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets real size of baseTexture, preserves current resolution.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>realWidth: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Full rendered width</p>
+									</div>
+								</li>
+								<li>
+									<h5>realHeight: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Full rendered height</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> resolution: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BaseTexture</span></h4>
+							<p>this</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="setresolution" class="tsd-anchor"></a>
+					<h3>set<wbr>Resolution</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Resolution<span class="tsd-signature-symbol">(</span>resolution<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BaseTexture</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#setresolution">setResolution</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5473</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Changes resolution</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> resolution: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BaseTexture</span></h4>
+							<p>this</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="setresource" class="tsd-anchor"></a>
+					<h3>set<wbr>Resource</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Resource<span class="tsd-signature-symbol">(</span>resource<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Resource</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BaseTexture</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#setresource">setResource</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5480</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the resource if it wasn&#39;t set. Throws error if resource already present</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>resource: <span class="tsd-signature-type">Resource</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>that is managing this BaseTexture</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BaseTexture</span></h4>
+							<p>this</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="setsize" class="tsd-anchor"></a>
+					<h3>set<wbr>Size</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Size<span class="tsd-signature-symbol">(</span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, resolution<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BaseTexture</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#setsize">setSize</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5457</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Changes w/h/resolution. Texture becomes valid if width and height are greater than zero.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Visual width</p>
+									</div>
+								</li>
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Visual height</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> resolution: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BaseTexture</span></h4>
+							<p>this</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="setstyle" class="tsd-anchor"></a>
+					<h3>set<wbr>Style</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Style<span class="tsd-signature-symbol">(</span>scaleMode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.SCALE_MODES</span>, mipmap<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.MIPMAP_MODES</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BaseTexture</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#setstyle">setStyle</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5448</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Changes style options of BaseTexture</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> scaleMode: <span class="tsd-signature-type">PIXI.SCALE_MODES</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> mipmap: <span class="tsd-signature-type">PIXI.MIPMAP_MODES</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BaseTexture</span></h4>
+							<p>this</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="update" class="tsd-anchor"></a>
+					<h3>update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#update">update</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5484</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Invalidates the object. Texture becomes valid if width and height are greater than zero.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="addtocache" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> add<wbr>ToCache</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>ToCache<span class="tsd-signature-symbol">(</span>baseTexture<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BaseTexture</span>, id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#addtocache">addToCache</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5532</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds a BaseTexture to the global BaseTextureCache. This cache is shared across the whole PIXI object.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>static</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>baseTexture: <span class="tsd-signature-type">BaseTexture</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The BaseTexture to add to the cache.</p>
+									</div>
+								</li>
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The id that the BaseTexture will be stored against.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="from" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">SVGElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, strict<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BaseTexture</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#from">from</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5512</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Helper function that creates a base texture based on the source you provide.
+										The source can be - image url, image element, canvas element. If the
+										source is an image url or an image element and not in the base texture
+									cache, it will be created and loaded.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>static</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>source: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">SVGElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The
+										source to create base texture from.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> strict: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BaseTexture</span></h4>
+							<p>The new base texture.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="frombuffer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Buffer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Buffer<span class="tsd-signature-symbol">(</span>buffer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BaseTexture</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#frombuffer">fromBuffer</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5524</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a new BaseTexture with a BufferResource from a Float32Array.
+									RGBA values are floats from 0 to 1.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>static</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>buffer: <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The optional array to use, if no data
+										is provided, a new Float32Array is created.</p>
+									</div>
+								</li>
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Width of the resource</p>
+									</div>
+								</li>
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Height of the resource</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BaseTexture</span></h4>
+							<p>The resulting new BaseTexture</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="fromsource" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Source</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Source<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="cubemipmaptexture.html" class="tsd-signature-type">CubeMipmapTexture</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/cubemap/cube-mipmap-texture.ts#L27">src/cubemap/cube-mipmap-texture.ts:27</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a new cubemap texture from the specified source.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>source: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The array of mipmap sources. The format of the mipmap source
+											should be &quot;cubemap_{{face}}.jpg&quot;. &quot;{{face}}&quot; will automatically be
+										replaced with the faces (posx, negx, posy, negy, posz, negz).</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="cubemipmaptexture.html" class="tsd-signature-type">CubeMipmapTexture</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="removefromcache" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> remove<wbr>From<wbr>Cache</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>From<wbr>Cache<span class="tsd-signature-symbol">(</span>baseTexture<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BaseTexture</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BaseTexture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="cubemipmaptexture.html">CubeMipmapTexture</a>.<a href="cubemipmaptexture.html#removefromcache">removeFromCache</a></p>
+								<ul>
+									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:5540</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Remove a BaseTexture from the global BaseTextureCache.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>static</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>baseTexture: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BaseTexture</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>id of a BaseTexture to be removed, or a BaseTexture instance itself.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BaseTexture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h4>
+							<p>The BaseTexture that was removed.</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="../enums/lighttype.html" class="tsd-kind-icon">Light<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/shadowquality.html" class="tsd-kind-icon">Shadow<wbr>Quality</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/standardmaterialalphamode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Alpha<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/standardmaterialdebugmode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Debug<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="animation.html" class="tsd-kind-icon">Animation</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="camera.html" class="tsd-kind-icon">Camera</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="cameraorbitcontrol.html" class="tsd-kind-icon">Camera<wbr>Orbit<wbr>Control</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="container3d.html" class="tsd-kind-icon">Container3D</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
+						<a href="cubemipmaptexture.html" class="tsd-kind-icon">Cube<wbr>Mipmap<wbr>Texture</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#_batchenabled" class="tsd-kind-icon">_batch<wbr>Enabled</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#_batchlocation" class="tsd-kind-icon">_batch<wbr>Location</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#alphamode" class="tsd-kind-icon">alpha<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#anisotropiclevel" class="tsd-kind-icon">anisotropic<wbr>Level</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#cacheid" class="tsd-kind-icon">cache<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#destroyed" class="tsd-kind-icon">destroyed</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#dirtyid" class="tsd-kind-icon">dirty<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="cubemipmaptexture.html#dirtystyleid" class="tsd-kind-icon">dirty<wbr>Style<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#format" class="tsd-kind-icon">format</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#height" class="tsd-kind-icon">height</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#ispoweroftwo" class="tsd-kind-icon">is<wbr>Power<wbr>OfTwo</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#mipmap" class="tsd-kind-icon">mipmap</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#realheight" class="tsd-kind-icon">real<wbr>Height</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#realwidth" class="tsd-kind-icon">real<wbr>Width</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#resolution" class="tsd-kind-icon">resolution</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#resource" class="tsd-kind-icon">resource</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#scalemode" class="tsd-kind-icon">scale<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#target" class="tsd-kind-icon">target</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#texturecacheids" class="tsd-kind-icon">texture<wbr>Cache<wbr>Ids</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="cubemipmaptexture.html#touched" class="tsd-kind-icon">touched</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#type" class="tsd-kind-icon">type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="cubemipmaptexture.html#uid" class="tsd-kind-icon">uid</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#valid" class="tsd-kind-icon">valid</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#width" class="tsd-kind-icon">width</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#wrapmode" class="tsd-kind-icon">wrap<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="cubemipmaptexture.html#_globalbatch" class="tsd-kind-icon">_global<wbr>Batch</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="cubemipmaptexture.html#levels" class="tsd-kind-icon">levels</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+								<a href="cubemipmaptexture.html#faces" class="tsd-kind-icon">faces</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#destroy" class="tsd-kind-icon">destroy</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#dispose" class="tsd-kind-icon">dispose</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#setrealsize" class="tsd-kind-icon">set<wbr>Real<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#setresolution" class="tsd-kind-icon">set<wbr>Resolution</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#setresource" class="tsd-kind-icon">set<wbr>Resource</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#setsize" class="tsd-kind-icon">set<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#setstyle" class="tsd-kind-icon">set<wbr>Style</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="cubemipmaptexture.html#update" class="tsd-kind-icon">update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="cubemipmaptexture.html#addtocache" class="tsd-kind-icon">add<wbr>ToCache</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="cubemipmaptexture.html#from" class="tsd-kind-icon">from</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="cubemipmaptexture.html#frombuffer" class="tsd-kind-icon">from<wbr>Buffer</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="cubemipmaptexture.html#fromsource" class="tsd-kind-icon">from<wbr>Source</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="cubemipmaptexture.html#removefromcache" class="tsd-kind-icon">remove<wbr>From<wbr>Cache</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="imagebasedlighting.html" class="tsd-kind-icon">Image<wbr>Based<wbr>Lighting</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="joint.html" class="tsd-kind-icon">Joint</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="light.html" class="tsd-kind-icon">Light</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="lightingenvironment.html" class="tsd-kind-icon">Lighting<wbr>Environment</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="material.html" class="tsd-kind-icon">Material</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="materialrenderpass.html" class="tsd-kind-icon">Material<wbr>Render<wbr>Pass</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="mesh3d.html" class="tsd-kind-icon">Mesh3D</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="meshgeometry3d.html" class="tsd-kind-icon">Mesh<wbr>Geometry3D</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="meshshader.html" class="tsd-kind-icon">Mesh<wbr>Shader</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="model.html" class="tsd-kind-icon">Model</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="observablepoint3d.html" class="tsd-kind-icon">Observable<wbr>Point3D</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="observablequaternion.html" class="tsd-kind-icon">Observable<wbr>Quaternion</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="pickinghitarea.html" class="tsd-kind-icon">Picking<wbr>Hit<wbr>Area</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="pickingmanager.html" class="tsd-kind-icon">Picking<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="shadowcastinglight.html" class="tsd-kind-icon">Shadow<wbr>Casting<wbr>Light</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="shadowrenderpass.html" class="tsd-kind-icon">Shadow<wbr>Render<wbr>Pass</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="skin.html" class="tsd-kind-icon">Skin</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="skybox.html" class="tsd-kind-icon">Skybox</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="standardmaterial.html" class="tsd-kind-icon">Standard<wbr>Material</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="standardrenderer.html" class="tsd-kind-icon">Standard<wbr>Renderer</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="transform3d.html" class="tsd-kind-icon">Transform3D</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="gltfasset.html" class="tsd-kind-icon">glTFAsset</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="../globals.html#cubemipmaploader" class="tsd-kind-icon">Cube<wbr>Mipmap<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="../globals.html#shadersourceloader" class="tsd-kind-icon">Shader<wbr>Source<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="../globals.html#gltfloader" class="tsd-kind-icon">glTFLoader</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
