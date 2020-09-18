@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { MipmapResource } from "./mipmap-resource"
 
 export class CubeMipmapResource extends PIXI.resources.CubeResource {

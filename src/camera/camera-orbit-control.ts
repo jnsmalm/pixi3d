@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { Camera } from "./camera"
 import { Quat } from "../math/quat"
 import { Vec3 } from "../math/vec3"

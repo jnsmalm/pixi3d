@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { ImageBasedLighting } from "./image-based-lighting"
 import { Light } from "./light"
 
