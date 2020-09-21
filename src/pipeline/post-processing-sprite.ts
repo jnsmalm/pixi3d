@@ -21,6 +21,13 @@ export class PostProcessingSprite extends PIXI.Sprite {
     }
   }
 
+  private _fxaa = new PIXI.filters.FXAAFilter()
+
+  /** The FXAA (Fast approximate anti-aliasing) filter.*/
+  get fxaa() {
+    return this._fxaa
+  }
+
   /**
    * Creates a new post processing sprite using the specified options.
    * @param renderer The renderer to use.
@@ -28,17 +35,21 @@ export class PostProcessingSprite extends PIXI.Sprite {
    * has not been set, it will automatically be resized to the renderer size.
    */
   constructor(renderer: PIXI.Renderer, options?: PostProcessingSpriteOptions) {
-    let { width = 512, height = 512 } = options || {}
-    let renderTexture = PIXI.RenderTexture.create({ width, height })
+    super()
 
+    let { width = 512, height = 512 } = options || {}
+
+    this._renderTexture = PIXI.RenderTexture.create({ width, height })
     /* When rendering to a texture, it's flipped vertically for some reason. 
     This will flip it back to it's expected orientation. */
-    renderTexture.rotate = 8
-
+    this._renderTexture.rotate = 8
     // @ts-ignore
-    renderTexture.baseTexture.framebuffer.addDepthTexture()
-    super(renderTexture)
-    this._renderTexture = renderTexture
+    this._renderTexture.baseTexture.framebuffer.addDepthTexture()
+
+    this._fxaa.enabled = false
+
+    this.texture = this._renderTexture
+    this.filters = [this._fxaa]
 
     if (!options || !options.width || !options.height) {
       renderer.on("prerender", () => {

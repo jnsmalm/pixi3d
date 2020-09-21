@@ -27,7 +27,10 @@ export class MaterialRenderPass implements RenderPass {
     culling: false, clockwiseFrontFace: true, depthTest: true
   })
 
-  /** Returns the texture used when rendering to a texture.*/
+  /** The color (r,g,b,a) used for clearing the render texture. If this value is empty, the render texture will not be cleared. */
+  clearColor? = [0, 0, 0, 0]
+
+  /** The texture used when rendering to a texture. */
   get renderTexture() {
     return this._renderTexture
   }
@@ -58,9 +61,9 @@ export class MaterialRenderPass implements RenderPass {
   }
 
   clear() {
-    if (this._renderTexture) {
+    if (this._renderTexture && this.clearColor) {
       this.renderer.renderTexture.bind(this._renderTexture)
-      this.renderer.renderTexture.clear()
+      this.renderer.renderTexture.clear(this.clearColor)
       this.renderer.renderTexture.bind(undefined)
     }
   }
