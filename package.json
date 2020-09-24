@@ -1,6 +1,6 @@
 {
   "name": "pixi3d",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "The 3D rendering library which makes it simple to composite both 3D and 2D content on the web",
   "main": "dist/pixi3d.js",
   "files": [
