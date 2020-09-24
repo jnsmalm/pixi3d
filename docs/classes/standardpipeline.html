@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>StandardRenderer | Pixi3D - v0.7.1</title>
+	<title>StandardPipeline | Pixi3D - v0.7.1</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="standardrenderer.html">StandardRenderer</a>
+					<a href="standardpipeline.html">StandardPipeline</a>
 				</li>
 			</ul>
-			<h1>Class StandardRenderer</h1>
+			<h1>Class StandardPipeline</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Renders 3d meshes using the specified render passes.</p>
+						<p>The standard pipeline renders meshes using the specified render passes. The
+						standard pipeline is created and used by default.</p>
 					</div>
 				</div>
 			</section>
@@ -80,7 +81,7 @@
 						<span class="tsd-signature-type">ObjectRenderer</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">StandardRenderer</span>
+								<span class="target">StandardPipeline</span>
 							</li>
 						</ul>
 					</li>
@@ -93,26 +94,36 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="standardrenderer.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="standardpipeline.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="standardrenderer.html#_meshes" class="tsd-kind-icon">_meshes</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="standardrenderer.html#renderpasses" class="tsd-kind-icon">render<wbr>Passes</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="standardrenderer.html#renderer" class="tsd-kind-icon">renderer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="standardpipeline.html#_materialrenderpass" class="tsd-kind-icon">_material<wbr>Render<wbr>Pass</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="standardpipeline.html#_meshes" class="tsd-kind-icon">_meshes</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="standardpipeline.html#_shadowrenderpass" class="tsd-kind-icon">_shadow<wbr>Render<wbr>Pass</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="standardpipeline.html#renderpasses" class="tsd-kind-icon">render<wbr>Passes</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="standardpipeline.html#renderer" class="tsd-kind-icon">renderer</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="standardpipeline.html#materialrenderpass" class="tsd-kind-icon">material<wbr>Render<wbr>Pass</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="standardpipeline.html#shadowrenderpass" class="tsd-kind-icon">shadow<wbr>Render<wbr>Pass</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="standardrenderer.html#destroy" class="tsd-kind-icon">destroy</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="standardrenderer.html#flush" class="tsd-kind-icon">flush</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="standardrenderer.html#render" class="tsd-kind-icon">render</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="standardrenderer.html#sort" class="tsd-kind-icon">sort</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="standardrenderer.html#start" class="tsd-kind-icon">start</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="standardrenderer.html#stop" class="tsd-kind-icon">stop</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="standardpipeline.html#destroy" class="tsd-kind-icon">destroy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="standardpipeline.html#flush" class="tsd-kind-icon">flush</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="standardpipeline.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="standardpipeline.html#sort" class="tsd-kind-icon">sort</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="standardpipeline.html#start" class="tsd-kind-icon">start</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="standardpipeline.html#stop" class="tsd-kind-icon">stop</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="standardpipeline.html#from" class="tsd-kind-icon">from</a></li>
 							</ul>
 						</section>
 					</div>
@@ -124,19 +135,19 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Standard<wbr>Renderer<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Renderer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="standardrenderer.html" class="tsd-signature-type">StandardRenderer</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Standard<wbr>Pipeline<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Renderer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="standardpipeline.html" class="tsd-signature-type">StandardPipeline</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides ObjectRenderer.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/standard-renderer.ts#L14">src/renderer/standard-renderer.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L36">src/pipeline/standard-pipeline.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates a new mesh renderer.</p>
+									<p>Creates a new standard pipeline using the specified renderer.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -145,12 +156,12 @@
 									<h5>renderer: <span class="tsd-signature-type">Renderer</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>Renderer to use.</p>
+											<p>The renderer to use.</p>
 										</div>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="standardrenderer.html" class="tsd-signature-type">StandardRenderer</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="standardpipeline.html" class="tsd-signature-type">StandardPipeline</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -158,12 +169,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_materialrenderpass" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _material<wbr>Render<wbr>Pass</h3>
+					<div class="tsd-signature tsd-kind-icon">_material<wbr>Render<wbr>Pass<span class="tsd-signature-symbol">:</span> <a href="materialrenderpass.html" class="tsd-signature-type">MaterialRenderPass</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L13">src/pipeline/standard-pipeline.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_meshes" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _meshes</h3>
 					<div class="tsd-signature tsd-kind-icon">_meshes<span class="tsd-signature-symbol">:</span> <a href="mesh3d.html" class="tsd-signature-type">Mesh3D</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/standard-renderer.ts#L11">src/renderer/standard-renderer.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L14">src/pipeline/standard-pipeline.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_shadowrenderpass" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _shadow<wbr>Render<wbr>Pass</h3>
+					<div class="tsd-signature tsd-kind-icon">_shadow<wbr>Render<wbr>Pass<span class="tsd-signature-symbol">:</span> <a href="shadowrenderpass.html" class="tsd-signature-type">ShadowRenderPass</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L15">src/pipeline/standard-pipeline.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,12 +204,12 @@
 					<div class="tsd-signature tsd-kind-icon">render<wbr>Passes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RenderPass</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/standard-renderer.ts#L14">src/renderer/standard-renderer.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L28">src/pipeline/standard-pipeline.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Passes used for rendering the meshes.</p>
+							<p>The passes used for rendering the meshes.</p>
 						</div>
 					</div>
 				</section>
@@ -189,14 +220,61 @@
 					<aside class="tsd-sources">
 						<p>Overrides ObjectRenderer.renderer</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/standard-renderer.ts#L20">src/renderer/standard-renderer.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L42">src/pipeline/standard-pipeline.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Renderer to use.</p>
+							<p>The renderer to use.</p>
 						</div>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="materialrenderpass" class="tsd-anchor"></a>
+					<h3>material<wbr>Render<wbr>Pass</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> materialRenderPass<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="materialrenderpass.html" class="tsd-signature-type">MaterialRenderPass</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L23">src/pipeline/standard-pipeline.ts:23</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The pass used for rendering materials.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="materialrenderpass.html" class="tsd-signature-type">MaterialRenderPass</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="shadowrenderpass" class="tsd-anchor"></a>
+					<h3>shadow<wbr>Render<wbr>Pass</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> shadowRenderPass<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="shadowrenderpass.html" class="tsd-signature-type">ShadowRenderPass</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L18">src/pipeline/standard-pipeline.ts:18</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The pass used for rendering shadows.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="shadowrenderpass.html" class="tsd-signature-type">ShadowRenderPass</a></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -210,7 +288,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="standardrenderer.html">StandardRenderer</a>.<a href="standardrenderer.html#destroy">destroy</a></p>
+								<p>Inherited from <a href="standardpipeline.html">StandardPipeline</a>.<a href="standardpipeline.html#destroy">destroy</a></p>
 								<p>Overrides System.destroy</p>
 								<ul>
 									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2432</li>
@@ -237,12 +315,12 @@
 							<aside class="tsd-sources">
 								<p>Overrides ObjectRenderer.flush</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/standard-renderer.ts#L41">src/renderer/standard-renderer.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L67">src/pipeline/standard-pipeline.ts:67</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Renders added meshes using specified render passes.</p>
+									<p>Renders the added meshes using the specified render passes.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -260,7 +338,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides ObjectRenderer.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/standard-renderer.ts#L34">src/renderer/standard-renderer.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L60">src/pipeline/standard-pipeline.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -291,12 +369,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/standard-renderer.ts#L54">src/renderer/standard-renderer.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L80">src/pipeline/standard-pipeline.ts:80</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Sorts all meshes by material transparency.</p>
+									<p>Sorts the meshes for rendering order.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -312,7 +390,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="standardrenderer.html">StandardRenderer</a>.<a href="standardrenderer.html#start">start</a></p>
+								<p>Inherited from <a href="standardpipeline.html">StandardPipeline</a>.<a href="standardpipeline.html#start">start</a></p>
 								<ul>
 									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2439</li>
 								</ul>
@@ -338,7 +416,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="standardrenderer.html">StandardRenderer</a>.<a href="standardrenderer.html#stop">stop</a></p>
+								<p>Inherited from <a href="standardpipeline.html">StandardPipeline</a>.<a href="standardpipeline.html#stop">stop</a></p>
 								<ul>
 									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2444</li>
 								</ul>
@@ -350,6 +428,37 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="from" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Renderer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="standardpipeline.html" class="tsd-signature-type">StandardPipeline</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/standard-pipeline.ts#L34">src/pipeline/standard-pipeline.ts:34</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the standard pipeline from the specified renderer.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>renderer: <span class="tsd-signature-type">Renderer</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The renderer to use.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="standardpipeline.html" class="tsd-signature-type">StandardPipeline</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -435,6 +544,9 @@
 						<a href="pickingmanager.html" class="tsd-kind-icon">Picking<wbr>Manager</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="postprocessingsprite.html" class="tsd-kind-icon">Post<wbr>Processing<wbr>Sprite</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="shadowcastinglight.html" class="tsd-kind-icon">Shadow<wbr>Casting<wbr>Light</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -452,37 +564,52 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="standardrenderer.html" class="tsd-kind-icon">Standard<wbr>Renderer</a>
+						<a href="standardpipeline.html" class="tsd-kind-icon">Standard<wbr>Pipeline</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="standardrenderer.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="standardpipeline.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="standardrenderer.html#_meshes" class="tsd-kind-icon">_meshes</a>
+								<a href="standardpipeline.html#_materialrenderpass" class="tsd-kind-icon">_material<wbr>Render<wbr>Pass</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="standardpipeline.html#_meshes" class="tsd-kind-icon">_meshes</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="standardpipeline.html#_shadowrenderpass" class="tsd-kind-icon">_shadow<wbr>Render<wbr>Pass</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="standardrenderer.html#renderpasses" class="tsd-kind-icon">render<wbr>Passes</a>
+								<a href="standardpipeline.html#renderpasses" class="tsd-kind-icon">render<wbr>Passes</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
-								<a href="standardrenderer.html#renderer" class="tsd-kind-icon">renderer</a>
+								<a href="standardpipeline.html#renderer" class="tsd-kind-icon">renderer</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="standardpipeline.html#materialrenderpass" class="tsd-kind-icon">material<wbr>Render<wbr>Pass</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="standardpipeline.html#shadowrenderpass" class="tsd-kind-icon">shadow<wbr>Render<wbr>Pass</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="standardrenderer.html#destroy" class="tsd-kind-icon">destroy</a>
+								<a href="standardpipeline.html#destroy" class="tsd-kind-icon">destroy</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="standardrenderer.html#flush" class="tsd-kind-icon">flush</a>
+								<a href="standardpipeline.html#flush" class="tsd-kind-icon">flush</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="standardrenderer.html#render" class="tsd-kind-icon">render</a>
+								<a href="standardpipeline.html#render" class="tsd-kind-icon">render</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="standardrenderer.html#sort" class="tsd-kind-icon">sort</a>
+								<a href="standardpipeline.html#sort" class="tsd-kind-icon">sort</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="standardrenderer.html#start" class="tsd-kind-icon">start</a>
+								<a href="standardpipeline.html#start" class="tsd-kind-icon">start</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="standardrenderer.html#stop" class="tsd-kind-icon">stop</a>
+								<a href="standardpipeline.html#stop" class="tsd-kind-icon">stop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="standardpipeline.html#from" class="tsd-kind-icon">from</a>
 							</li>
 						</ul>
 					</li>

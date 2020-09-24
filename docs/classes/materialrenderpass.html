@@ -100,11 +100,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="materialrenderpass.html#_colortexture" class="tsd-kind-icon">_color<wbr>Texture</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="materialrenderpass.html#_colortextureautoresize" class="tsd-kind-icon">_color<wbr>Texture<wbr>Auto<wbr>Resize</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="materialrenderpass.html#_default" class="tsd-kind-icon">_default</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="materialrenderpass.html#_doublesided" class="tsd-kind-icon">_double<wbr>Sided</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="materialrenderpass.html#_rendertexture" class="tsd-kind-icon">_render<wbr>Texture</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="materialrenderpass.html#_transparent" class="tsd-kind-icon">_transparent</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="materialrenderpass.html#clearcolor" class="tsd-kind-icon">clear<wbr>Color</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="materialrenderpass.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="materialrenderpass.html#renderer" class="tsd-kind-icon">renderer</a></li>
 							</ul>
@@ -112,16 +112,15 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="materialrenderpass.html#colortexture" class="tsd-kind-icon">color<wbr>Texture</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="materialrenderpass.html#depthtexture" class="tsd-kind-icon">depth<wbr>Texture</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="materialrenderpass.html#rendertexture" class="tsd-kind-icon">render<wbr>Texture</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="materialrenderpass.html#clear" class="tsd-kind-icon">clear</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="materialrenderpass.html#enablerendertotexture" class="tsd-kind-icon">enable<wbr>Render<wbr>ToTexture</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="materialrenderpass.html#render" class="tsd-kind-icon">render</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="materialrenderpass.html#addasrenderpass" class="tsd-kind-icon">add<wbr>AsRender<wbr>Pass</a></li>
 							</ul>
 						</section>
 					</div>
@@ -139,7 +138,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L41">src/renderer/material-render-pass.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L40">src/pipeline/material-render-pass.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -174,32 +173,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_colortexture" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> _color<wbr>Texture</h3>
-					<div class="tsd-signature tsd-kind-icon">_color<wbr>Texture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PIXI.RenderTexture</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L10">src/renderer/material-render-pass.ts:10</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_colortextureautoresize" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _color<wbr>Texture<wbr>Auto<wbr>Resize</h3>
-					<div class="tsd-signature tsd-kind-icon">_color<wbr>Texture<wbr>Auto<wbr>Resize<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L11">src/renderer/material-render-pass.ts:11</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_default" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _default</h3>
 					<div class="tsd-signature tsd-kind-icon">_default<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">State</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>clockwiseFrontFace<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">; </span>culling<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>depthTest<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = Object.assign(new PIXI.State(), {culling: true, clockwiseFrontFace: false, depthTest: true})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L22">src/renderer/material-render-pass.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L22">src/pipeline/material-render-pass.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -209,7 +188,17 @@
 					<div class="tsd-signature tsd-kind-icon">_double<wbr>Sided<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">State</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>clockwiseFrontFace<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>culling<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">; </span>depthTest<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = Object.assign(new PIXI.State(), {culling: false, clockwiseFrontFace: true, depthTest: true})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L26">src/renderer/material-render-pass.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L26">src/pipeline/material-render-pass.ts:26</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_rendertexture" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> _render<wbr>Texture</h3>
+					<div class="tsd-signature tsd-kind-icon">_render<wbr>Texture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PIXI.RenderTexture</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L11">src/pipeline/material-render-pass.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -219,9 +208,24 @@
 					<div class="tsd-signature tsd-kind-icon">_transparent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">State</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>clockwiseFrontFace<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>culling<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>depthTest<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [Object.assign(new PIXI.State(), {culling: true, clockwiseFrontFace: true, depthTest: true}),Object.assign(new PIXI.State(), {culling: true, clockwiseFrontFace: false, depthTest: true})]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L13">src/renderer/material-render-pass.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L13">src/pipeline/material-render-pass.ts:13</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="clearcolor" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> clear<wbr>Color</h3>
+					<div class="tsd-signature tsd-kind-icon">clear<wbr>Color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [0, 0, 0, 0]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L31">src/pipeline/material-render-pass.ts:31</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The color (r,g,b,a) used for clearing the render texture. If this value is empty, the render texture will not be cleared.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="name" class="tsd-anchor"></a>
@@ -229,7 +233,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L48">src/renderer/material-render-pass.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L47">src/pipeline/material-render-pass.ts:47</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -244,7 +248,7 @@
 					<div class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Renderer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L48">src/renderer/material-render-pass.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L47">src/pipeline/material-render-pass.ts:47</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -256,47 +260,45 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="colortexture" class="tsd-anchor"></a>
-					<h3>color<wbr>Texture</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> colorTexture<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RenderTexture</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="rendertexture" class="tsd-anchor"></a>
+					<h3>render<wbr>Texture</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> renderTexture<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RenderTexture</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> renderTexture<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RenderTexture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L31">src/renderer/material-render-pass.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L34">src/pipeline/material-render-pass.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns the color texture used when rendering to a texture.</p>
+									<p>The texture used when rendering to a texture.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RenderTexture</span></h4>
 						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="depthtexture" class="tsd-anchor"></a>
-					<h3>depth<wbr>Texture</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> depthTexture<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BaseTexture</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L36">src/renderer/material-render-pass.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L38">src/pipeline/material-render-pass.ts:38</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns the depth texture used when rendering to a texture.</p>
+									<p>The texture used when rendering to a texture.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BaseTexture</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">RenderTexture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -313,47 +315,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L71">src/renderer/material-render-pass.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L63">src/pipeline/material-render-pass.ts:63</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="enablerendertotexture" class="tsd-anchor"></a>
-					<h3>enable<wbr>Render<wbr>ToTexture</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">enable<wbr>Render<wbr>ToTexture<span class="tsd-signature-symbol">(</span>width<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L62">src/renderer/material-render-pass.ts:62</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Enables rendering to a texture using the specified width/height. If the
-									width or height is empty, the texture will have the same size as the renderer.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> width: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The width of the texture.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> height: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The height of the texture.</p>
-									</div>
-								</li>
-							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -368,7 +332,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/e570d4c/src/renderer/material-render-pass.ts#L79">src/renderer/material-render-pass.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L71">src/pipeline/material-render-pass.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -378,6 +342,44 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="addasrenderpass" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> add<wbr>AsRender<wbr>Pass</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>AsRender<wbr>Pass<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Renderer</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="materialrenderpass.html" class="tsd-signature-type">MaterialRenderPass</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/2a95afe/src/pipeline/material-render-pass.ts#L56">src/pipeline/material-render-pass.ts:56</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a new material render pass using the specified renderer and adds it
+									to the standard pipeline.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>renderer: <span class="tsd-signature-type">Renderer</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The renderer to use.</p>
+									</div>
+								</li>
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The name for the render pass.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="materialrenderpass.html" class="tsd-signature-type">MaterialRenderPass</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -444,19 +446,19 @@
 								<a href="materialrenderpass.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="materialrenderpass.html#_colortexture" class="tsd-kind-icon">_color<wbr>Texture</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="materialrenderpass.html#_colortextureautoresize" class="tsd-kind-icon">_color<wbr>Texture<wbr>Auto<wbr>Resize</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="materialrenderpass.html#_default" class="tsd-kind-icon">_default</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="materialrenderpass.html#_doublesided" class="tsd-kind-icon">_double<wbr>Sided</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="materialrenderpass.html#_rendertexture" class="tsd-kind-icon">_render<wbr>Texture</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="materialrenderpass.html#_transparent" class="tsd-kind-icon">_transparent</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="materialrenderpass.html#clearcolor" class="tsd-kind-icon">clear<wbr>Color</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="materialrenderpass.html#name" class="tsd-kind-icon">name</a>
@@ -464,20 +466,17 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="materialrenderpass.html#renderer" class="tsd-kind-icon">renderer</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="materialrenderpass.html#colortexture" class="tsd-kind-icon">color<wbr>Texture</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="materialrenderpass.html#depthtexture" class="tsd-kind-icon">depth<wbr>Texture</a>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="materialrenderpass.html#rendertexture" class="tsd-kind-icon">render<wbr>Texture</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="materialrenderpass.html#clear" class="tsd-kind-icon">clear</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="materialrenderpass.html#enablerendertotexture" class="tsd-kind-icon">enable<wbr>Render<wbr>ToTexture</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="materialrenderpass.html#render" class="tsd-kind-icon">render</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="materialrenderpass.html#addasrenderpass" class="tsd-kind-icon">add<wbr>AsRender<wbr>Pass</a>
 							</li>
 						</ul>
 					</li>
@@ -508,6 +507,9 @@
 						<a href="pickingmanager.html" class="tsd-kind-icon">Picking<wbr>Manager</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="postprocessingsprite.html" class="tsd-kind-icon">Post<wbr>Processing<wbr>Sprite</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="shadowcastinglight.html" class="tsd-kind-icon">Shadow<wbr>Casting<wbr>Light</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -523,7 +525,7 @@
 						<a href="standardmaterial.html" class="tsd-kind-icon">Standard<wbr>Material</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="standardrenderer.html" class="tsd-kind-icon">Standard<wbr>Renderer</a>
+						<a href="standardpipeline.html" class="tsd-kind-icon">Standard<wbr>Pipeline</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="transform3d.html" class="tsd-kind-icon">Transform3D</a>

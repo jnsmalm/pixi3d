@@ -182,15 +182,15 @@ PIXI3D.LightingEnvironment.main.lights.push(pointLight)</code></pre>
 				<a href="#casting-shadows" id="casting-shadows" style="color: inherit; text-decoration: none;">
 					<h3>Casting shadows</h3>
 				</a>
-				<p>To enable lights to cast shadows, there are two different components needed. First is a shadow casting light, which wraps the normal light and gives it the ability to cast shadows. It has multiple settings for controlling the quality of the shadow, for example the size of the shadow texture and the softness of the shadow. Both directional and spot light types have support for casting shadows.</p>
-				<p>The second component needed, is the shadow render pass, which renders shadows using the shadow casting light. Finally, shadows must be enabled for an object to both receive and cast shadows.</p>
+				<p>To enable lights to cast shadows, there are two different components needed. First is a shadow casting light, which wraps a light and gives it the ability to cast shadows. It has multiple settings for controlling the quality of the shadow, for example the size of the shadow texture and the softness of the shadow. Both directional and spot light types have support for casting shadows.</p>
+				<p>The second component needed, is the shadow render pass, which renders shadows using the shadow casting light. The shadow render pass is available on the standard pipeline (which is created and used by default). Finally, shadows must be enabled for an object to both receive and cast shadows.</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> shadowCastingLight = <span class="hljs-keyword">new</span> PIXI3D.ShadowCastingLight(
   app.renderer, dirLight, <span class="hljs-number">512</span>, <span class="hljs-number">15</span>, <span class="hljs-number">1</span>, PIXI3D.ShadowQuality.medium)
 
-<span class="hljs-keyword">let</span> shadowPass = PIXI3D.ShadowRenderPass.addAsRenderPass(app.renderer)
-shadowPass.lights.push(shadowCastingLight)
-shadowPass.enableShadows(model, shadowCastingLight)</code></pre>
-				<p><em>Creates a shadow casting light. Also creates the shadow render pass, adds the casting light and enables shadows for the drone model.</em></p>
+<span class="hljs-keyword">let</span> pipeline = PIXI3D.StandardPipeline.from(app.renderer)
+pipeline.shadowRenderPass.lights.push(shadowCastingLight)
+pipeline.shadowRenderPass.enableShadows(model, shadowCastingLight)</code></pre>
+				<p><em>Creates a shadow casting light and adds it to the shadow render pass. Also enables shadows for the model to both receive and cast shadows.</em></p>
 				<a href="#2d-and-3d" id="2d-and-3d" style="color: inherit; text-decoration: none;">
 					<h3>2D and 3D</h3>
 				</a>
@@ -214,7 +214,7 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
 					<h2>API</h2>
 				</a>
-				<p>The API documentation is available at <a href="https://pixi3d.org/docs/">https://pixi3d.org/docs/</a></p>
+				<p>The API documentation is available at <a href="https://api.pixi3d.org">https://api.pixi3d.org</a></p>
 				<a href="#building" id="building" style="color: inherit; text-decoration: none;">
 					<h2>Building</h2>
 				</a>
@@ -302,6 +302,9 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 						<a href="classes/pickingmanager.html" class="tsd-kind-icon">Picking<wbr>Manager</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/postprocessingsprite.html" class="tsd-kind-icon">Post<wbr>Processing<wbr>Sprite</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/shadowcastinglight.html" class="tsd-kind-icon">Shadow<wbr>Casting<wbr>Light</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -317,7 +320,7 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 						<a href="classes/standardmaterial.html" class="tsd-kind-icon">Standard<wbr>Material</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/standardrenderer.html" class="tsd-kind-icon">Standard<wbr>Renderer</a>
+						<a href="classes/standardpipeline.html" class="tsd-kind-icon">Standard<wbr>Pipeline</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/transform3d.html" class="tsd-kind-icon">Transform3D</a>
