@@ -15,6 +15,9 @@ export class glTFSphericalLinear extends glTFInterpolation {
     let a = Quat.set(
       this._output[pos1], this._output[pos1 + 1], this._output[pos1 + 2], this._output[pos1 + 3], new Float32Array(4)
     )
+    if (this._output.length <= pos2) {
+      return Quat.normalize(a, this._data)
+    }
     let b = Quat.set(
       this._output[pos2], this._output[pos2 + 1], this._output[pos2 + 2], this._output[pos2 + 3], new Float32Array(4)
     )

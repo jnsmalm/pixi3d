@@ -6,6 +6,7 @@ import { Mat4 } from "../math/mat4"
 import { Vec3 } from "../math/vec3"
 import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "./matrix-component"
+import { Quat } from "../math/quat"
 
 /**
  * Represents the matrix for a transform.
@@ -70,8 +71,15 @@ export class TransformMatrix extends PIXI.Matrix {
   /** Returns the rotation quaternion of the matrix. */
   get rotation() {
     if (!this._rotation) {
+      let matrix = new Float32Array(16)
       this._rotation = new MatrixComponent(this, 4, data => {
-        Mat4.getRotation(this._array, data)
+        // To extract a correct rotation, the scaling component must be eliminated.
+        for (let col of [0, 1, 2]) {
+          matrix[col + 0] = this._array[col + 0] / this.scaling[0]
+          matrix[col + 4] = this._array[col + 4] / this.scaling[1]
+          matrix[col + 8] = this._array[col + 8] / this.scaling[2]
+        }
+        Quat.normalize(Mat4.getRotation(matrix, data), data)
       })
     }
     return this._rotation.array
