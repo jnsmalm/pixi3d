@@ -32,6 +32,7 @@ export class StandardMaterial extends Material {
   private _metallicRoughnessTexture?: PIXI.Texture
   private _transparent = false
   private _shadowCastingLight?: ShadowCastingLight
+  private _lightsCount?: number
 
   /** The roughness of the material. */
   roughness = 1
@@ -249,6 +250,16 @@ export class StandardMaterial extends Material {
       material.alphaCutoff = source.alphaCutoff
     }
     return material
+  }
+
+  render(mesh: Mesh3D, renderer: PIXI.Renderer, state?: PIXI.State) {
+    let lightingEnvironment = this.lightingEnvironment || LightingEnvironment.main
+    if (lightingEnvironment.lights.length !== this._lightsCount) {
+      // Invalidate shader when the number of punctual lights has changed.
+      this.invalidateShader()
+      this._lightsCount = lightingEnvironment.lights.length
+    }
+    super.render(mesh, renderer, state)
   }
 
   createShader(mesh: Mesh3D, renderer: PIXI.Renderer) {
