@@ -30,6 +30,7 @@ app.loader.load((loader, resources) => {
 
   /* Starts playing the first animation in the model.*/
   model.animations[0].play()
+  model.animations[0].loop = true
 
   /* Creates a shadow casting light and adds it to the shadow render pass. Also 
   enables shadows for the model to both receive and cast shadows. */

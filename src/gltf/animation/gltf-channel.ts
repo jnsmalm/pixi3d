@@ -46,9 +46,6 @@ export abstract class glTFChannel {
    * @param position The position to set for this channel.
    */
   setPosition(position: number) {
-    if (position > this.duration) {
-      position = position % this.duration
-    }
     this._position = position
     this._frame = this.calculateFrame(this._position)
     this.updateTarget(

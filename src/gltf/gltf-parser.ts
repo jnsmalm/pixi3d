@@ -87,8 +87,7 @@ export class glTFParser {
     if (typeof animation === "number") {
       animation = this._asset.descriptor.animations[animation]
     }
-    let result = new glTFAnimation(animation.name)
-
+    let channels: glTFChannel[] = []
     for (let channel of animation.channels) {
       let sampler = animation.samplers[channel.sampler]
       let input = this.parseBuffer(sampler.input)
@@ -102,10 +101,10 @@ export class glTFParser {
       let animationChannel = glTFChannel.from(
         input.buffer, output.buffer, sampler.interpolation || "LINEAR", channel.target.path, nodes[channel.target.node])
       if (animationChannel) {
-        result.channels.push(animationChannel)
+        channels.push(animationChannel)
       }
     }
-    return result
+    return new glTFAnimation(channels, animation.name)
   }
 
   /**
