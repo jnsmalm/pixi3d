@@ -38,6 +38,17 @@ export class Mesh3D extends Container3D {
     }
   }
 
+  /**
+   * Destroys the mesh and it's used resources.
+   */
+  destroy() {
+    this.geometry.destroy()
+    if (this.material) {
+      this.material.destroy()
+    }
+    super.destroy()
+  }
+
   _render(renderer: PIXI.Renderer) {
     renderer.batch.setObjectRenderer(
       <PIXI.ObjectRenderer>(<any>renderer.plugins)[this.pluginName]

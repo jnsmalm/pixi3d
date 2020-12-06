@@ -33,6 +33,11 @@ export abstract class Material {
   abstract updateUniforms?(mesh: Mesh3D, shader: MeshShader): void
 
   /**
+   * Destroys the material and it's used resources.
+   */
+  destroy() { }
+
+  /**
    * Renders the specified mesh.
    * @param mesh The mesh to render.
    * @param renderer The renderer to use.

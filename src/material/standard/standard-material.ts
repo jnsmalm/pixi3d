@@ -11,7 +11,6 @@ import { Mesh3D } from "../../mesh/mesh"
 import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
-import { Platform } from "../../platform"
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -198,6 +197,14 @@ export class StandardMaterial extends Material {
       this._unlit = value
       this.invalidateShader()
     }
+  }
+
+  destroy() {
+    this._baseColorTexture?.destroy(true)
+    this._normalTexture?.destroy(true)
+    this._metallicRoughnessTexture?.destroy(true)
+    this._emissiveTexture?.destroy(true)
+    this._occlusionTexture?.destroy(true)
   }
 
   /**
