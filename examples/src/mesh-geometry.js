@@ -54,11 +54,13 @@ class MeshGeometryMaterial extends PIXI3D.Material {
 }
 
 class ColorShader extends PIXI3D.MeshShader {
-  addGeometryAttributes(geometry) {
+  createShaderGeometry(geometry) {
+    let result = new PIXI.Geometry()
     // Add the attributes used when rendering with the specified shader. This
     // geometry has two attributes: position and color. The number of components
     // for the attribute is also specified, both have three (z,y,z and r,g,b).
-    geometry.addAttribute("a_Position", geometry.positions.buffer, 3)
-    geometry.addAttribute("a_Color", geometry.colors.buffer, 3)
+    result.addAttribute("a_Position", geometry.positions.buffer, 3)
+    result.addAttribute("a_Color", geometry.colors.buffer, 3)
+    return result
   }
 }

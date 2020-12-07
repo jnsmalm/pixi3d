@@ -5,10 +5,10 @@ import { MeshGeometryAttribute } from "./mesh-geometry-attribute"
 import { MeshGeometryTarget } from "./mesh-geometry-target"
 
 /**
- * Geometry which can add the required attributes for a specific shader.
+ * Geometry with mesh data (i.e. positions, normals, uvs).
  */
-export class MeshGeometry3D extends PIXI.Geometry {
-  private _shaders: string[] = []
+export class MeshGeometry3D {
+  private _shaderGeometry: { [id: string]: PIXI.Geometry } = {}
 
   indices?: MeshGeometryAttribute
   positions?: MeshGeometryAttribute
@@ -19,35 +19,37 @@ export class MeshGeometry3D extends PIXI.Geometry {
   joints?: MeshGeometryAttribute
   weights?: MeshGeometryAttribute
 
-  addAttribute(id: string, buffer?: PIXI.Buffer | number[], size?: number, normalized?: boolean, type?: number, stride?: number, start?: number): MeshGeometry3D {
-    if (this.getAttribute(id)) {
-      return this
-    }
-    return <MeshGeometry3D>super.addAttribute(
-      id, buffer, size, normalized, type, stride, start)
-  }
-
-  addIndex(buffer?: PIXI.Buffer | number[]) {
-    if (this.getIndex()) {
-      return this
-    }
-    return <MeshGeometry3D>super.addIndex(buffer)
-  }
-
   /**
-   * Adds the attributes required by the specified shader.
+   * Returns geometry with attributes required by the specified shader.
    * @param shader The shader to use.
    */
-  addShaderAttributes(shader: MeshShader) {
-    shader.addGeometryAttributes(this)
-    this._shaders.push(shader.name)
+  getShaderGeometry(shader: MeshShader) {
+    return this._shaderGeometry[shader.name]
   }
 
   /**
-   * Returns a value indicating if attributes are compatible with the specified shader.
-   * @param shader The shader to test for compatibility.
+   * Creates geometry with attributes required by the specified shader.
+   * @param shader The shader to use.
    */
-  hasShaderAttributes(shader: MeshShader) {
-    return this._shaders.indexOf(shader.name) >= 0
+  addShaderGeometry(shader: MeshShader) {
+    this._shaderGeometry[shader.name] = shader.createShaderGeometry(this)
+  }
+
+  /**
+   * Returns a value indicating if geometry with required attributes has been created the specified shader.
+   * @param shader The shader to test.
+   */
+  hasShaderGeometry(shader: MeshShader) {
+    return !!this._shaderGeometry[shader.name]
+  }
+
+  /**
+   * Destroys the geometry and it's used resources.
+   */
+  destroy() {
+    for (let name in this._shaderGeometry) {
+      this._shaderGeometry[name].destroy()
+    }
+    this._shaderGeometry = {}
   }
 }
