@@ -200,11 +200,11 @@ export class StandardMaterial extends Material {
   }
 
   destroy() {
-    this._baseColorTexture?.destroy(true)
-    this._normalTexture?.destroy(true)
-    this._metallicRoughnessTexture?.destroy(true)
-    this._emissiveTexture?.destroy(true)
-    this._occlusionTexture?.destroy(true)
+    this._baseColorTexture?.destroy()
+    this._normalTexture?.destroy()
+    this._metallicRoughnessTexture?.destroy()
+    this._emissiveTexture?.destroy()
+    this._occlusionTexture?.destroy()
   }
 
   /**

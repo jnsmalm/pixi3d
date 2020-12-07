@@ -66,6 +66,14 @@ export class ShadowCastingLight {
   }
 
   /**
+   * Destroys the shadow casting light and it's used resources.
+   */
+  destroy() {
+    this._shadowTexture.destroy(true)
+    this._filterTexture.destroy(true)
+  }
+
+  /**
    * Clears the rendered shadow texture.
    */
   clear() {
