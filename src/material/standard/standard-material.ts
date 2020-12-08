@@ -234,10 +234,10 @@ export class StandardMaterial extends Material {
     let material = new StandardMaterial()
     if (source instanceof glTFMaterial) {
       material.baseColor = source.baseColor
-      material.baseColorTexture = source.baseColorTexture
+      material.baseColorTexture = source.baseColorTexture?.clone()
       material.metallic = source.metallic
       material.roughness = source.roughness
-      material.metallicRoughnessTexture = source.metallicRoughnessTexture
+      material.metallicRoughnessTexture = source.metallicRoughnessTexture?.clone()
       switch (source.alphaMode) {
         case "BLEND": {
           material.alphaMode = StandardMaterialAlphaMode.blend
@@ -249,10 +249,10 @@ export class StandardMaterial extends Material {
         }
       }
       material.unlit = source.unlit
-      material.emissiveTexture = source.emissiveTexture
+      material.emissiveTexture = source.emissiveTexture?.clone()
       material.emissive = source.emissive
-      material.normalTexture = source.normalTexture
-      material.occlusionTexture = source.occlusionTexture
+      material.normalTexture = source.normalTexture?.clone()
+      material.occlusionTexture = source.occlusionTexture?.clone()
       material.doubleSided = source.doubleSided
       material.alphaCutoff = source.alphaCutoff
     }
