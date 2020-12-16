@@ -11,6 +11,8 @@ import { Mesh3D } from "../../mesh/mesh"
 import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
+import { StandardMaterialSkinUniforms } from "./standard-material-skin-uniforms"
+import { StandardMaterialMatrixTexture } from "./standard-material-matrix-texture"
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -32,6 +34,8 @@ export class StandardMaterial extends Material {
   private _transparent = false
   private _shadowCastingLight?: ShadowCastingLight
   private _lightsCount?: number
+
+  private _skinUniforms = new StandardMaterialSkinUniforms()
 
   /** The roughness of the material. */
   roughness = 1
@@ -202,9 +206,10 @@ export class StandardMaterial extends Material {
   destroy() {
     this._baseColorTexture?.destroy()
     this._normalTexture?.destroy()
-    this._metallicRoughnessTexture?.destroy()
     this._emissiveTexture?.destroy()
     this._occlusionTexture?.destroy()
+    this._metallicRoughnessTexture?.destroy()
+    this._skinUniforms.destroy()
   }
 
   /**
@@ -285,6 +290,9 @@ export class StandardMaterial extends Material {
       // loading. Don't worry, we will retry creating shader at next render.
       return undefined
     }
+    if (mesh.skin && StandardMaterialFeatureSet.hasSkinningTextureFeature(features)) {
+      this._skinUniforms.enableJointMatrixTextures(mesh.skin.joints.length)
+    }
     let checksum = features.join(",")
     if (!shaders[checksum]) {
       shaders[checksum] = StandardShader.build(renderer, features)
@@ -295,10 +303,7 @@ export class StandardMaterial extends Material {
   updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
     let camera = this.camera || Camera.main
     if (mesh.skin) {
-      let { jointVertexMatrices, jointNormalMatrices } = mesh.skin.calculateJointMatrices()
-      Object.assign(shader.uniforms, {
-        u_jointMatrix: jointVertexMatrices, u_jointNormalMatrix: jointNormalMatrices
-      })
+      this._skinUniforms.update(mesh, shader)
     }
     shader.uniforms.u_Camera = camera.worldTransform.position
     shader.uniforms.u_ViewProjectionMatrix = camera.viewProjection

@@ -7,6 +7,8 @@ import { StandardMaterial } from "./standard-material"
 import { LightingEnvironment } from "../../lighting/lighting-environment"
 import { Mesh3D } from "../../mesh/mesh"
 import { Platform } from "../../platform"
+import { StandardMaterialMatrixTexture } from "./standard-material-matrix-texture"
+import { Console } from "../../console"
 
 export namespace StandardMaterialFeatureSet {
   export function build(renderer: PIXI.Renderer, mesh: Mesh3D, geometry: MeshGeometry3D, material: StandardMaterial, lightingEnvironment: LightingEnvironment) {
@@ -45,7 +47,16 @@ export namespace StandardMaterialFeatureSet {
       features.push("HAS_WEIGHT_SET1 1")
     }
     if (mesh.skin) {
-      features.push("USE_SKINNING 1")
+      if (isJointMatrixTextureRequired(mesh.skin.joints.length, renderer)) {
+        if (StandardMaterialMatrixTexture.isSupported(renderer)) {
+          features.push("USE_SKINNING 1")
+          features.push("USE_SKINNING_TEXTURE 1")
+        } else {
+          Console.error(`PIXI3D: Mesh contains ${mesh.skin.joints.length} joints, which is more than supported on this device. Skinning will be disabled and result may not be as expected.`)
+        }
+      } else {
+        features.push("USE_SKINNING 1")
+      }
       features.push(`JOINT_COUNT ${mesh.skin.joints.length}`)
     }
     if (material.unlit) {
@@ -142,5 +153,17 @@ export namespace StandardMaterialFeatureSet {
       }
     }
     return features
+  }
+
+  function isJointMatrixTextureRequired(jointsCount: number, renderer: PIXI.Renderer) {
+    let uniformsRequiredForMostFeatures = 25
+    let availableJointUniforms =
+      Platform.getMaxVertexUniformVectors(renderer) - uniformsRequiredForMostFeatures
+    let uniformsRequiredPerJoint = 8
+    return jointsCount > Math.floor(availableJointUniforms / uniformsRequiredPerJoint)
+  }
+
+  export function hasSkinningTextureFeature(features: string[]) {
+    return features.includes("USE_SKINNING_TEXTURE 1")
   }
 }

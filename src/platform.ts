@@ -1,4 +1,37 @@
 export namespace Platform {
+  let _maxVertexUniformVectors: number | undefined
+
+  export function getMaxVertexUniformVectors(renderer: PIXI.Renderer) {
+    if (_maxVertexUniformVectors !== undefined) {
+      return _maxVertexUniformVectors
+    }
+    const gl = renderer.gl
+    _maxVertexUniformVectors = <number>gl.getParameter(gl.MAX_VERTEX_UNIFORM_VECTORS)
+    return _maxVertexUniformVectors
+  }
+
+  let _isFloatTextureSupported: boolean | undefined
+
+  export function isFloatTextureSupported(renderer: PIXI.Renderer) {
+    if (renderer.context.webGLVersion === 2) {
+      return true
+    }
+    if (_isFloatTextureSupported !== undefined) {
+      return _isFloatTextureSupported
+    }
+    const gl = renderer.gl
+    const ext = gl.getExtension("OES_texture_float")
+    if (ext) {
+      return true
+    }
+    const texture = gl.createTexture()
+    gl.bindTexture(gl.TEXTURE_2D, texture)
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 8, 8, 0, gl.RGBA, gl.FLOAT, null)
+    _isFloatTextureSupported = gl.getError() === gl.NO_ERROR
+    gl.deleteTexture(texture)
+    return _isFloatTextureSupported
+  }
+
   let _isHalfFloatFramebufferSupported: boolean | undefined
 
   export function isHalfFloatFramebufferSupported(renderer: PIXI.Renderer) {
