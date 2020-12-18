@@ -69,7 +69,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Geometry which can add the required attributes for a specific shader.</p>
+						<p>Geometry with mesh data (i.e. positions, normals, uvs).</p>
 					</div>
 				</div>
 			</section>
@@ -77,12 +77,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">Geometry</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">MeshGeometry3D</span>
-							</li>
-						</ul>
+						<span class="target">MeshGeometry3D</span>
 					</li>
 				</ul>
 			</section>
@@ -90,23 +85,14 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="meshgeometry3d.html#_shaders" class="tsd-kind-icon">_shaders</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="meshgeometry3d.html#glvertexarrayobjects" class="tsd-kind-icon">gl<wbr>Vertex<wbr>Array<wbr>Objects</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="meshgeometry3d.html#_shadergeometry" class="tsd-kind-icon">_shader<wbr>Geometry</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="meshgeometry3d.html#indices" class="tsd-kind-icon">indices</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#instancecount" class="tsd-kind-icon">instance<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="meshgeometry3d.html#joints" class="tsd-kind-icon">joints</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="meshgeometry3d.html#normals" class="tsd-kind-icon">normals</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="meshgeometry3d.html#positions" class="tsd-kind-icon">positions</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#refcount" class="tsd-kind-icon">ref<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="meshgeometry3d.html#tangents" class="tsd-kind-icon">tangents</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="meshgeometry3d.html#targets" class="tsd-kind-icon">targets</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="meshgeometry3d.html#uvs" class="tsd-kind-icon">uvs</a></li>
@@ -116,84 +102,33 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="meshgeometry3d.html#addattribute" class="tsd-kind-icon">add<wbr>Attribute</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="meshgeometry3d.html#addindex" class="tsd-kind-icon">add<wbr>Index</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="meshgeometry3d.html#addshaderattributes" class="tsd-kind-icon">add<wbr>Shader<wbr>Attributes</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#clone" class="tsd-kind-icon">clone</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#destroy" class="tsd-kind-icon">destroy</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#dispose" class="tsd-kind-icon">dispose</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#getattribute" class="tsd-kind-icon">get<wbr>Attribute</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#getbuffer" class="tsd-kind-icon">get<wbr>Buffer</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#getindex" class="tsd-kind-icon">get<wbr>Index</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="meshgeometry3d.html#hasshaderattributes" class="tsd-kind-icon">has<wbr>Shader<wbr>Attributes</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="meshgeometry3d.html#interleave" class="tsd-kind-icon">interleave</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="meshgeometry3d.html#merge" class="tsd-kind-icon">merge</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="meshgeometry3d.html#addshadergeometry" class="tsd-kind-icon">add<wbr>Shader<wbr>Geometry</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="meshgeometry3d.html#destroy" class="tsd-kind-icon">destroy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="meshgeometry3d.html#getshadergeometry" class="tsd-kind-icon">get<wbr>Shader<wbr>Geometry</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="meshgeometry3d.html#hasshadergeometry" class="tsd-kind-icon">has<wbr>Shader<wbr>Geometry</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Mesh<wbr>Geometry3D<span class="tsd-signature-symbol">(</span>buffers<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">[]</span>, attributes<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="meshgeometry3d.html" class="tsd-signature-type">MeshGeometry3D</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#constructor">constructor</a></p>
-								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2920</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> buffers: <span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> attributes: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="meshgeometry3d.html" class="tsd-signature-type">MeshGeometry3D</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_shaders" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _shaders</h3>
-					<div class="tsd-signature tsd-kind-icon">_shaders<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
+					<a name="_shadergeometry" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _shader<wbr>Geometry</h3>
+					<div class="tsd-signature tsd-kind-icon">_shader<wbr>Geometry<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L11">src/mesh/geometry/mesh-geometry.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L11">src/mesh/geometry/mesh-geometry.ts:11</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="glvertexarrayobjects" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> gl<wbr>Vertex<wbr>Array<wbr>Objects</h3>
-					<div class="tsd-signature tsd-kind-icon">gl<wbr>Vertex<wbr>Array<wbr>Objects<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#glvertexarrayobjects">glVertexArrayObjects</a></p>
-						<ul>
-							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2928</li>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>id: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">Geometry</span></h5>
+							</li>
 						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A map of renderer IDs to webgl VAOs</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>type</dt>
-							<dd><p>{object}</p>
-							</dd>
-						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
@@ -202,33 +137,9 @@
 					<div class="tsd-signature tsd-kind-icon">indices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MeshGeometryAttribute</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L13">src/mesh/geometry/mesh-geometry.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L13">src/mesh/geometry/mesh-geometry.ts:13</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="instancecount" class="tsd-anchor"></a>
-					<h3>instance<wbr>Count</h3>
-					<div class="tsd-signature tsd-kind-icon">instance<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#instancecount">instanceCount</a></p>
-						<ul>
-							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2934</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Number of instances in this geometry, pass it to <code>GeometrySystem.draw()</code></p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>member</dt>
-							<dd><p>{number} PIXI.Geometry#instanceCount</p>
-							</dd>
-							<dt>default</dt>
-							<dd><p>1</p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="joints" class="tsd-anchor"></a>
@@ -236,7 +147,7 @@
 					<div class="tsd-signature tsd-kind-icon">joints<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MeshGeometryAttribute</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L19">src/mesh/geometry/mesh-geometry.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L19">src/mesh/geometry/mesh-geometry.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -246,7 +157,7 @@
 					<div class="tsd-signature tsd-kind-icon">normals<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MeshGeometryAttribute</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L16">src/mesh/geometry/mesh-geometry.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L16">src/mesh/geometry/mesh-geometry.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -256,30 +167,9 @@
 					<div class="tsd-signature tsd-kind-icon">positions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MeshGeometryAttribute</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L14">src/mesh/geometry/mesh-geometry.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L14">src/mesh/geometry/mesh-geometry.ts:14</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="refcount" class="tsd-anchor"></a>
-					<h3>ref<wbr>Count</h3>
-					<div class="tsd-signature tsd-kind-icon">ref<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#refcount">refCount</a></p>
-						<ul>
-							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2939</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Count of existing (not destroyed) meshes that reference this geometry</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>member</dt>
-							<dd><p>{number} PIXI.Geometry#refCount</p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="tangents" class="tsd-anchor"></a>
@@ -287,7 +177,7 @@
 					<div class="tsd-signature tsd-kind-icon">tangents<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MeshGeometryAttribute</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L17">src/mesh/geometry/mesh-geometry.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L17">src/mesh/geometry/mesh-geometry.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -297,7 +187,7 @@
 					<div class="tsd-signature tsd-kind-icon">targets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MeshGeometryTarget</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L18">src/mesh/geometry/mesh-geometry.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L18">src/mesh/geometry/mesh-geometry.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -307,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">uvs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MeshGeometryAttribute</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L15">src/mesh/geometry/mesh-geometry.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L15">src/mesh/geometry/mesh-geometry.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -317,95 +207,29 @@
 					<div class="tsd-signature tsd-kind-icon">weights<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MeshGeometryAttribute</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L20">src/mesh/geometry/mesh-geometry.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L20">src/mesh/geometry/mesh-geometry.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<a name="addattribute" class="tsd-anchor"></a>
-					<h3>add<wbr>Attribute</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Attribute<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, buffer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, normalized<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span>, type<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, stride<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="meshgeometry3d.html" class="tsd-signature-type">MeshGeometry3D</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides Geometry.addAttribute</p>
-								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L22">src/mesh/geometry/mesh-geometry.ts:22</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>id: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> buffer: <span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> size: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> normalized: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> stride: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> start: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="meshgeometry3d.html" class="tsd-signature-type">MeshGeometry3D</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<a name="addindex" class="tsd-anchor"></a>
-					<h3>add<wbr>Index</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Index<span class="tsd-signature-symbol">(</span>buffer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="meshgeometry3d.html" class="tsd-signature-type">MeshGeometry3D</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Overrides Geometry.addIndex</p>
-								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L30">src/mesh/geometry/mesh-geometry.ts:30</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> buffer: <span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="meshgeometry3d.html" class="tsd-signature-type">MeshGeometry3D</a></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="addshaderattributes" class="tsd-anchor"></a>
-					<h3>add<wbr>Shader<wbr>Attributes</h3>
+					<a name="addshadergeometry" class="tsd-anchor"></a>
+					<h3>add<wbr>Shader<wbr>Geometry</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Shader<wbr>Attributes<span class="tsd-signature-symbol">(</span>shader<span class="tsd-signature-symbol">: </span><a href="meshshader.html" class="tsd-signature-type">MeshShader</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Shader<wbr>Geometry<span class="tsd-signature-symbol">(</span>shader<span class="tsd-signature-symbol">: </span><a href="meshshader.html" class="tsd-signature-type">MeshShader</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L41">src/mesh/geometry/mesh-geometry.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L34">src/mesh/geometry/mesh-geometry.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Adds the attributes required by the specified shader.</p>
+									<p>Creates geometry with attributes required by the specified shader.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -421,182 +245,44 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="clone" class="tsd-anchor"></a>
-					<h3>clone</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Geometry</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#clone">clone</a></p>
-								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:3004</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>returns a clone of the geometry</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Geometry</span></h4>
-							<p>a new clone of this geometry</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="destroy" class="tsd-anchor"></a>
 					<h3>destroy</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#destroy">destroy</a></p>
 								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2998</li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L49">src/mesh/geometry/mesh-geometry.ts:49</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Destroys the geometry.</p>
+									<p>Destroys the geometry and it&#39;s used resources.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="dispose" class="tsd-anchor"></a>
-					<h3>dispose</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">dispose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#dispose">dispose</a></p>
-								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2994</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>disposes WebGL resources that are connected to this geometry</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="getattribute" class="tsd-anchor"></a>
-					<h3>get<wbr>Attribute</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Attribute<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Attribute</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#getattribute">getAttribute</a></p>
-								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2961</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>returns the requested attribute</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>id: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the name of the attribute required</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Attribute</span></h4>
-							<p>the attribute requested.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="getbuffer" class="tsd-anchor"></a>
-					<h3>get<wbr>Buffer</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Buffer<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#getbuffer">getBuffer</a></p>
-								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2968</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>returns the requested buffer</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>id: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the name of the buffer required</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Buffer</span></h4>
-							<p>the buffer requested.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="getindex" class="tsd-anchor"></a>
-					<h3>get<wbr>Index</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Index<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#getindex">getIndex</a></p>
-								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2983</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>returns the index buffer</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Buffer</span></h4>
-							<p>the index buffer.</p>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="hasshaderattributes" class="tsd-anchor"></a>
-					<h3>has<wbr>Shader<wbr>Attributes</h3>
+					<a name="getshadergeometry" class="tsd-anchor"></a>
+					<h3>get<wbr>Shader<wbr>Geometry</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">has<wbr>Shader<wbr>Attributes<span class="tsd-signature-symbol">(</span>shader<span class="tsd-signature-symbol">: </span><a href="meshshader.html" class="tsd-signature-type">MeshShader</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Shader<wbr>Geometry<span class="tsd-signature-symbol">(</span>shader<span class="tsd-signature-symbol">: </span><a href="meshshader.html" class="tsd-signature-type">MeshShader</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Geometry</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/53489d6/src/mesh/geometry/mesh-geometry.ts#L50">src/mesh/geometry/mesh-geometry.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L26">src/mesh/geometry/mesh-geometry.ts:26</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a value indicating if attributes are compatible with the specified shader.</p>
+									<p>Returns geometry with attributes required by the specified shader.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -604,70 +290,42 @@
 								<li>
 									<h5>shader: <a href="meshshader.html" class="tsd-signature-type">MeshShader</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The shader to test for compatibility.</p>
+										<p>The shader to use.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<a name="interleave" class="tsd-anchor"></a>
-					<h3>interleave</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">interleave<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Geometry</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#interleave">interleave</a></p>
-								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:2990</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>this function modifies the structure so that all current attributes become interleaved into a single buffer
-									This can be useful if your model remains static as it offers a little performance boost</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Geometry</span></h4>
-							<p>returns self, useful for chaining.</p>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="merge" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> merge</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">merge<span class="tsd-signature-symbol">(</span>geometries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Geometry</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Geometry</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="hasshadergeometry" class="tsd-anchor"></a>
+					<h3>has<wbr>Shader<wbr>Geometry</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">has<wbr>Shader<wbr>Geometry<span class="tsd-signature-symbol">(</span>shader<span class="tsd-signature-symbol">: </span><a href="meshshader.html" class="tsd-signature-type">MeshShader</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="meshgeometry3d.html">MeshGeometry3D</a>.<a href="meshgeometry3d.html#merge">merge</a></p>
 								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:3012</li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/a0fd15e/src/mesh/geometry/mesh-geometry.ts#L42">src/mesh/geometry/mesh-geometry.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>merges an array of geometries into a new single one
-									geometry attribute styles must match for this operation to work</p>
+									<p>Returns a value indicating if geometry with required attributes has been created the specified shader.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>geometries: <span class="tsd-signature-type">Geometry</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>shader: <a href="meshshader.html" class="tsd-signature-type">MeshShader</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>array of geometries to merge</p>
+										<p>The shader to test.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Geometry</span></h4>
-							<p>shiny new geometry!</p>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -736,20 +394,11 @@
 					<li class="current tsd-kind-class">
 						<a href="meshgeometry3d.html" class="tsd-kind-icon">Mesh<wbr>Geometry3D</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshgeometry3d.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="meshgeometry3d.html#_shaders" class="tsd-kind-icon">_shaders</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="meshgeometry3d.html#glvertexarrayobjects" class="tsd-kind-icon">gl<wbr>Vertex<wbr>Array<wbr>Objects</a>
+								<a href="meshgeometry3d.html#_shadergeometry" class="tsd-kind-icon">_shader<wbr>Geometry</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="meshgeometry3d.html#indices" class="tsd-kind-icon">indices</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshgeometry3d.html#instancecount" class="tsd-kind-icon">instance<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="meshgeometry3d.html#joints" class="tsd-kind-icon">joints</a>
@@ -759,9 +408,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="meshgeometry3d.html#positions" class="tsd-kind-icon">positions</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshgeometry3d.html#refcount" class="tsd-kind-icon">ref<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="meshgeometry3d.html#tangents" class="tsd-kind-icon">tangents</a>
@@ -775,41 +421,17 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="meshgeometry3d.html#weights" class="tsd-kind-icon">weights</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="meshgeometry3d.html#addattribute" class="tsd-kind-icon">add<wbr>Attribute</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="meshgeometry3d.html#addindex" class="tsd-kind-icon">add<wbr>Index</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="meshgeometry3d.html#addshadergeometry" class="tsd-kind-icon">add<wbr>Shader<wbr>Geometry</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="meshgeometry3d.html#addshaderattributes" class="tsd-kind-icon">add<wbr>Shader<wbr>Attributes</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshgeometry3d.html#clone" class="tsd-kind-icon">clone</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="meshgeometry3d.html#destroy" class="tsd-kind-icon">destroy</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshgeometry3d.html#dispose" class="tsd-kind-icon">dispose</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshgeometry3d.html#getattribute" class="tsd-kind-icon">get<wbr>Attribute</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshgeometry3d.html#getbuffer" class="tsd-kind-icon">get<wbr>Buffer</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshgeometry3d.html#getindex" class="tsd-kind-icon">get<wbr>Index</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="meshgeometry3d.html#getshadergeometry" class="tsd-kind-icon">get<wbr>Shader<wbr>Geometry</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="meshgeometry3d.html#hasshaderattributes" class="tsd-kind-icon">has<wbr>Shader<wbr>Attributes</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshgeometry3d.html#interleave" class="tsd-kind-icon">interleave</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-								<a href="meshgeometry3d.html#merge" class="tsd-kind-icon">merge</a>
+								<a href="meshgeometry3d.html#hasshadergeometry" class="tsd-kind-icon">has<wbr>Shader<wbr>Geometry</a>
 							</li>
 						</ul>
 					</li>
