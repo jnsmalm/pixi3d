@@ -1,10 +1,62 @@
 #version 100
 
+#define FEATURES
+
 attribute vec3 a_Position;
 
-uniform mat4 u_World;
-uniform mat4 u_ViewProjection;
+#ifdef USE_SKINNING
+attribute vec4 a_Joint1;
+attribute vec4 a_Weight1;
+#endif
+
+uniform mat4 u_ViewProjectionMatrix;
+uniform mat4 u_ModelMatrix;
+
+#ifdef USE_SKINNING
+  #ifdef USE_SKINNING_TEXTURE
+    uniform sampler2D u_jointMatrixSampler;
+  #else
+    uniform mat4 u_jointMatrix[MAX_JOINT_COUNT];
+  #endif
+#endif
+
+// these offsets assume the texture is 4 pixels across
+#define ROW0_U ((0.5 + 0.0) / 4.0)
+#define ROW1_U ((0.5 + 1.0) / 4.0)
+#define ROW2_U ((0.5 + 2.0) / 4.0)
+#define ROW3_U ((0.5 + 3.0) / 4.0)
+
+#ifdef USE_SKINNING
+mat4 getJointMatrix(float boneNdx) {
+    #ifdef USE_SKINNING_TEXTURE
+    float v = (boneNdx + 0.5) / float(MAX_JOINT_COUNT);
+    return mat4(
+        texture2D(u_jointMatrixSampler, vec2(ROW0_U, v)) * 2.0 - 1.0,
+        texture2D(u_jointMatrixSampler, vec2(ROW1_U, v)) * 2.0 - 1.0,
+        texture2D(u_jointMatrixSampler, vec2(ROW2_U, v)) * 2.0 - 1.0,
+        texture2D(u_jointMatrixSampler, vec2(ROW3_U, v)) * 2.0 - 1.0
+    );
+    #else
+    return u_jointMatrix[int(boneNdx)];
+    #endif
+}
+
+mat4 getSkinningMatrix()
+{
+    mat4 skin = mat4(0);
+    skin +=
+        a_Weight1.x * getJointMatrix(a_Joint1.x) +
+        a_Weight1.y * getJointMatrix(a_Joint1.y) +
+        a_Weight1.z * getJointMatrix(a_Joint1.z) +
+        a_Weight1.w * getJointMatrix(a_Joint1.w);
+    return skin;
+}
+#endif
 
 void main() {
-  gl_Position = u_ViewProjection * u_World * vec4(a_Position, 1.0);
+  vec4 pos = vec4(a_Position, 1.0);
+  #ifdef USE_SKINNING
+    pos = getSkinningMatrix() * pos;
+  #endif
+  gl_Position = u_ViewProjectionMatrix * u_ModelMatrix * pos;
 }
