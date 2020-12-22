@@ -25,7 +25,11 @@
 #extension GL_OES_texture_float_linear : enable
 #endif
 
-precision highp float;
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+  precision highp float;
+#else
+  precision mediump float;
+#endif
 
 #include <extensions.webgl1.glsl>
 #include <tonemapping.glsl>

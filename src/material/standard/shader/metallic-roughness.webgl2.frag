@@ -16,7 +16,11 @@
 
 #define FEATURES
 
-precision highp float;
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+  precision highp float;
+#else
+  precision mediump float;
+#endif
 
 #include <tonemapping.glsl>
 #include <textures.webgl2.glsl>

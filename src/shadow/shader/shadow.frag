@@ -2,7 +2,11 @@
 
 #extension GL_OES_standard_derivatives : enable
 
-precision highp float;
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+  precision highp float;
+#else
+  precision mediump float;
+#endif
 
 void main() {
   float depth = gl_FragCoord.z;
