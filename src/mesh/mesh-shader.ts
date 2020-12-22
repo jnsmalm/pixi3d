@@ -28,9 +28,11 @@ export class MeshShader extends PIXI.Shader {
   createShaderGeometry(geometry: MeshGeometry3D) {
     let result = new PIXI.Geometry()
     if (geometry.indices) {
-      // PIXI seems to have problems using anything other than 
-      // gl.UNSIGNED_SHORT or gl.UNSIGNED_INT. Let's convert to UNSIGNED_INT.
-      result.addIndex(new PIXI.Buffer(new Uint32Array(geometry.indices.buffer)))
+      if (geometry.indices.buffer.BYTES_PER_ELEMENT === 1) {
+        // PIXI seems to have problems with Uint8Array, let's convert to UNSIGNED_SHORT.
+        geometry.indices.buffer = new Uint16Array(geometry.indices.buffer)
+      }
+      result.addIndex(new PIXI.Buffer(geometry.indices.buffer))
     }
     if (geometry.positions) {
       result.addAttribute("a_Position", new PIXI.Buffer(geometry.positions.buffer),
