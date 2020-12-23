@@ -20,9 +20,10 @@ export class ShadowShader extends MeshShader {
     if (geometry.indices) {
       if (geometry.indices.buffer.BYTES_PER_ELEMENT === 1) {
         // PIXI seems to have problems with Uint8Array, let's convert to UNSIGNED_SHORT.
-        geometry.indices.buffer = new Uint16Array(geometry.indices.buffer)
+        result.addIndex(new PIXI.Buffer(new Uint16Array(geometry.indices.buffer)))
+      } else {
+        result.addIndex(new PIXI.Buffer(geometry.indices.buffer))
       }
-      result.addIndex(new PIXI.Buffer(geometry.indices.buffer))
     }
     if (geometry.positions) {
       result.addAttribute("a_Position", new PIXI.Buffer(geometry.positions.buffer),
