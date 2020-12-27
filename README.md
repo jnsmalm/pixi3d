@@ -1,12 +1,11 @@
 # Pixi3D
 Pixi3D is a JavaScript library which makes it easy to render 3D graphics on the web. It works for both desktop and mobile web browsers and includes several components which makes it easy to create nice looking 3D scenes out-of-the-box:
 
-* Load models from file or create procedural generated meshes
+* Load models from file (glTF) or create procedural generated meshes
 * Physically-based rendering (PBR) and image-based lighting (IBL)
-* Dynamic shadows
 * Transformation, morphing and skeletal animations
 * Customized materials and shaders
-* Built on top of the widely used PixiJS library which makes it simple to combine 2D and 3D
+* Built on top of PixiJS, seamless integration with 2D applications.
 
 ## Getting started
 Let's create a simple application which renders a rotating cube. Start by [getting the latest version of Pixi3D](https://github.com/jnsmalm/pixi3d/releases). Also [get an up-to-date version of PixiJS](https://github.com/pixijs/pixi.js/releases) (v5.3+) which is needed to use Pixi3D.
