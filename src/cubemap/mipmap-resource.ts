@@ -1,6 +1,9 @@
 import * as PIXI from "pixi.js"
 
-export class MipmapResource extends PIXI.resources.ArrayResource {
+// @ts-ignore PIXI.resources.ArrayResource was moved after PixiJS 6.0+
+const ArrayResource: typeof PIXI.resources.ArrayResource = PIXI.ArrayResource || PIXI.resources.ArrayResource
+
+export class MipmapResource extends ArrayResource {
   constructor(source: string[] | PIXI.Texture[], public target: number) {
     super(source)
   }
