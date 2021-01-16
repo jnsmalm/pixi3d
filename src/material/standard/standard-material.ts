@@ -12,7 +12,6 @@ import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
 import { StandardMaterialSkinUniforms } from "./standard-material-skin-uniforms"
-import { StandardMaterialMatrixTexture } from "./standard-material-matrix-texture"
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -336,6 +335,7 @@ export class StandardMaterial extends Material {
         case LightType.point: type = 1; break
         case LightType.directional: type = 0; break
         case LightType.spot: type = 2; break
+        case LightType.ambient: type = 3; break
       }
       shader.uniforms[`u_Lights[${i}].type`] = type
       shader.uniforms[`u_Lights[${i}].position`] = light.worldTransform.position

@@ -14,5 +14,11 @@ export enum LightType {
    * A light that is located at a point and emits light in all directions 
    * equally.
    */
-  point = "point"
+  point = "point",
+
+  /**
+   * A light that is present all around the scene and doesn’t come from 
+   * any specific source object.
+   */
+  ambient = "ambient"
 }
