@@ -90,7 +90,7 @@ vec2 getOcclusionUV()
     vec3 uv = vec3(v_UVCoord1, 1.0);
 #ifdef HAS_OCCLUSION_MAP
     uv.xy = u_OcclusionUVSet < 1 ? v_UVCoord1 : v_UVCoord2;
-    #ifdef HAS_OCCLSION_UV_TRANSFORM
+    #ifdef HAS_OCCLUSION_UV_TRANSFORM
     uv *= u_OcclusionUVTransform;
     #endif
 #endif

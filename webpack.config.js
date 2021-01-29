@@ -3,7 +3,7 @@ const path = require("path")
 module.exports = env => {
   return {
     entry: "./src/index.ts",
-    mode: env.production ? "production" : "development",
+    mode: env.production ? "development" : "development",
     devtool: env.production ? "" : "inline-source-map",
     module: {
       rules: [

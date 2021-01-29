@@ -326,6 +326,9 @@ export class StandardMaterial extends Material {
     if (this.baseColorTexture?.valid) {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture
       shader.uniforms.u_BaseColorUVSet = 0
+      if ((<any>this.baseColorTexture).uvTransform) {
+        shader.uniforms.u_BaseColorUVTransform = (<any>this.baseColorTexture).uvTransform;
+      }
     }
     let lightingEnvironment = this.lightingEnvironment || LightingEnvironment.main
     for (let i = 0; i < lightingEnvironment.lights.length; i++) {
@@ -357,20 +360,32 @@ export class StandardMaterial extends Material {
       shader.uniforms.u_EmissiveSampler = this.emissiveTexture
       shader.uniforms.u_EmissiveUVSet = 0
       shader.uniforms.u_EmissiveFactor = [1, 1, 1]
+      if ((<any>this.emissiveTexture).uvTransform) {
+        shader.uniforms.u_EmissiveUVTransform = (<any>this.emissiveTexture).uvTransform;
+      }
     }
     if (this.normalTexture?.valid) {
       shader.uniforms.u_NormalSampler = this.normalTexture
       shader.uniforms.u_NormalScale = 1
       shader.uniforms.u_NormalUVSet = 0
+      if ((<any>this.normalTexture).uvTransform) {
+        shader.uniforms.u_NormalUVTransform = (<any>this.normalTexture).uvTransform;
+      }
     }
     if (this.metallicRoughnessTexture?.valid) {
       shader.uniforms.u_MetallicRoughnessSampler = this.metallicRoughnessTexture
       shader.uniforms.u_MetallicRoughnessUVSet = 0
+      if ((<any>this.metallicRoughnessTexture).uvTransform) {
+        shader.uniforms.u_MetallicRoughnessUVTransform = (<any>this.metallicRoughnessTexture).uvTransform;
+      }
     }
     if (this.occlusionTexture?.valid) {
       shader.uniforms.u_OcclusionSampler = this.occlusionTexture
       shader.uniforms.u_OcclusionStrength = 1
       shader.uniforms.u_OcclusionUVSet = 0
+      if ((<any>this.occlusionTexture).uvTransform) {
+        shader.uniforms.u_OcclusionUVTransform = (<any>this.occlusionTexture).uvTransform;
+      }
     }
   }
 }
