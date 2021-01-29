@@ -259,6 +259,21 @@ export class StandardMaterial extends Material {
       material.occlusionTexture = source.occlusionTexture?.clone()
       material.doubleSided = source.doubleSided
       material.alphaCutoff = source.alphaCutoff
+      if (source.baseColorTexture && (<any>source.baseColorTexture).uvTransform) {
+        (<any>material.baseColorTexture).uvTransform = (<any>source.baseColorTexture).uvTransform; 
+      }
+      if (source.normalTexture && (<any>source.normalTexture).uvTransform) {
+        (<any>material.normalTexture).uvTransform = (<any>source.normalTexture).uvTransform; 
+      }
+      if (source.emissiveTexture && (<any>source.emissiveTexture).uvTransform) {
+        (<any>material.emissiveTexture).uvTransform = (<any>source.emissiveTexture).uvTransform; 
+      }
+      if (source.occlusionTexture && (<any>source.occlusionTexture).uvTransform) {
+        (<any>material.occlusionTexture).uvTransform = (<any>source.occlusionTexture).uvTransform; 
+      }
+      if (source.metallicRoughnessTexture && (<any>source.metallicRoughnessTexture).uvTransform) {
+        (<any>material.metallicRoughnessTexture).uvTransform = (<any>source.metallicRoughnessTexture).uvTransform; 
+      }
     }
     return material
   }
