@@ -15,7 +15,7 @@ import { Model } from "../model"
 import { TransformMatrix } from "../transform/transform-matrix"
 import { Skin } from "../skinning/skin"
 import { Joint } from "../skinning/joint"
-import { Mat3 } from "../math/mat3"
+import { TextureTransform } from "../texture/textureTransform"
 
 /**
  * Parses glTF assets and creates models and meshes.
@@ -159,36 +159,6 @@ export class glTFParser {
   }
 
   /**
-   * Calculates uv transform matrix based on "offset", "rotation" and "scale" 
-   * parameters from extension data (if any), and attaches it to texture
-   * @param KHR_texture_transform extension data from gltf file
-   * @param texture Texture to attach generated matrix to
-   */
-  calculateUVTransform(KHR_texture_transform: any, texture: PIXI.Texture) {	  
-    let rotation: Float32Array = new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]);
-    let scale: Float32Array = new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]);
-    let translation: Float32Array = new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]);
-	  
-	  if (KHR_texture_transform.rotation !== undefined) {
-	    const s =  Math.sin(KHR_texture_transform.rotation);
-      const c =  Math.cos(KHR_texture_transform.rotation);		
-	    rotation.set([c, s, 0, -s, c, 0, 0, 0, 1], 0);
-	  }	  
-	  if (KHR_texture_transform.scale !== undefined) {
-      scale.set([KHR_texture_transform.scale[0], 0, 0, 0, KHR_texture_transform.scale[1], 0, 0, 0, 1], 0);
-    }
-    if (KHR_texture_transform.offset !== undefined) {
-      translation.set([1, 0, KHR_texture_transform.offset[0], 0, 1, KHR_texture_transform.offset[1], 0, 0, 1], 0);
-    }
-
-    let uvMatrix: Float32Array = new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]);
-    Mat3.multiply(rotation, scale, uvMatrix);
-    Mat3.multiply(uvMatrix, translation, uvMatrix);
-
-    (<any>texture).uvTransform = uvMatrix;
-  }
-
-  /**
    * Returns the texture used by the specified object.
    * @param source The source object or index.
    */
@@ -199,7 +169,7 @@ export class glTFParser {
     }
     let texture = this._asset.images[this._descriptor.textures[source.index].source];
 	  if (source.extensions && source.extensions.KHR_texture_transform) {
-	    this.calculateUVTransform(source.extensions.KHR_texture_transform, texture);
+	    TextureTransform.calculateUVTransform(source.extensions.KHR_texture_transform, texture);
     }    
     return texture;
   }
