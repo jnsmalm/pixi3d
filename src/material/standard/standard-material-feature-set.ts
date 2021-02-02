@@ -83,30 +83,45 @@ export namespace StandardMaterialFeatureSet {
       if (!material.baseColorTexture.valid) {
         return undefined
       }
+	    if ((<any>material.baseColorTexture).uvTransform) {
+		    features.push("HAS_BASECOLOR_UV_TRANSFORM 1");
+	    }
       features.push("HAS_BASE_COLOR_MAP 1")
     }
     if (material.emissiveTexture) {
       if (!material.emissiveTexture.valid) {
         return undefined
       }
+	    if ((<any>material.emissiveTexture).uvTransform) {
+		    features.push("HAS_EMISSIVE_UV_TRANSFORM 1");
+	    }
       features.push("HAS_EMISSIVE_MAP 1")
     }
     if (material.normalTexture) {
       if (!material.normalTexture.valid) {
         return undefined
       }
+	    if ((<any>material.normalTexture).uvTransform) {
+		    features.push("HAS_NORMAL_UV_TRANSFORM 1");
+	    }
       features.push("HAS_NORMAL_MAP 1")
     }
     if (material.metallicRoughnessTexture) {
       if (!material.metallicRoughnessTexture.valid) {
         return undefined
       }
+	    if ((<any>material.metallicRoughnessTexture).uvTransform) {
+		    features.push("HAS_METALLICROUGHNESS_UV_TRANSFORM 1");
+	    }
       features.push("HAS_METALLIC_ROUGHNESS_MAP 1")
     }
     if (material.occlusionTexture) {
       if (!material.occlusionTexture.valid) {
         return undefined
       }
+	    if ((<any>material.occlusionTexture).uvTransform) {
+		    features.push("HAS_OCCLUSION_UV_TRANSFORM 1");
+	    }
       features.push("HAS_OCCLUSION_MAP 1")
     }
     switch (material.alphaMode) {

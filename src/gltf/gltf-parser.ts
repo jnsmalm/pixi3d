@@ -15,6 +15,7 @@ import { Model } from "../model"
 import { TransformMatrix } from "../transform/transform-matrix"
 import { Skin } from "../skinning/skin"
 import { Joint } from "../skinning/joint"
+import { TextureTransform } from "../texture/textureTransform"
 
 /**
  * Parses glTF assets and creates models and meshes.
@@ -166,7 +167,11 @@ export class glTFParser {
     if (typeof source === "number") {
       source = { index: source }
     }
-    return this._asset.images[this._descriptor.textures[source.index].source]
+    let texture = this._asset.images[this._descriptor.textures[source.index].source];
+	  if (source.extensions && source.extensions.KHR_texture_transform) {
+	    TextureTransform.calculateUVTransform(source.extensions.KHR_texture_transform, texture);
+    }    
+    return texture;
   }
 
   /**
