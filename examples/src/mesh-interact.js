@@ -13,9 +13,9 @@ mesh.hitArea = new PIXI3D.PickingHitArea(app.renderer, mesh)
 mesh.interactive = true
 mesh.buttonMode = true
 
-mesh.on("mouseup", () => { mesh.scale.set(1.0) })
-mesh.on("mousedown", () => { mesh.scale.set(1.1) })
-mesh.on("mouseout", () => { mesh.scale.set(1.0) })
+mesh.on("pointerup", () => { mesh.scale.set(1.0) })
+mesh.on("pointerdown", () => { mesh.scale.set(1.1) })
+mesh.on("pointerout", () => { mesh.scale.set(1.0) })
 
 let rotation = 0
 app.ticker.add(() => {
