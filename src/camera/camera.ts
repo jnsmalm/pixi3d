@@ -2,7 +2,6 @@ import * as PIXI from "pixi.js"
 
 import { Container3D } from "../container"
 import { Mat4 } from "../math/mat4"
-import { Vec3 } from "../math/vec3"
 import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "../transform/matrix-component"
 import { ObservablePoint3D } from "../transform/observable-point"
@@ -23,7 +22,8 @@ export class Camera extends Container3D {
   private _projection?: MatrixComponent
   private _view?: MatrixComponent
   private _viewProjection?: MatrixComponent
-  private _target?: MatrixComponent
+  private _orthographic = false
+  private _orthographicSize = 10
 
   /** Main camera which is used by default. */
   static main: Camera
@@ -54,6 +54,34 @@ export class Camera extends Container3D {
     }
     this.transform.position.z = 5
     this.transform.rotationQuaternion.setEulerAngles(0, 180, 0)
+  }
+
+  /**
+   * The camera's half-size when in orthographic mode. The visible area from 
+   * center of the screen to the top.
+   */
+  get orthographicSize() {
+    return this._orthographicSize
+  }
+
+  set orthographicSize(value: number) {
+    if (this._orthographicSize !== value) {
+      this._orthographicSize = value; this._id++
+    }
+  }
+
+
+  /**
+   * Camera will render objects uniformly, with no sense of perspective.
+   */
+  get orthographic() {
+    return this._orthographic
+  }
+
+  set orthographic(value: boolean) {
+    if (this._orthographic !== value) {
+      this._orthographic = value; this._id++
+    }
   }
 
   /**
@@ -166,7 +194,12 @@ export class Camera extends Container3D {
   get projection() {
     if (!this._projection) {
       this._projection = new MatrixComponent(this, 16, data => {
-        Mat4.perspective(this._fieldOfView * PIXI.DEG_TO_RAD, this._aspect || this.renderer.width / this.renderer.height, this._near, this._far, data)
+        const aspect = this._aspect || this.renderer.width / this.renderer.height
+        if (this._orthographic) {
+          Mat4.ortho(-this._orthographicSize * aspect, this._orthographicSize * aspect, -this._orthographicSize, this._orthographicSize, this._near, this._far, data)
+        } else {
+          Mat4.perspective(this._fieldOfView * PIXI.DEG_TO_RAD, aspect, this._near, this._far, data)
+        }
       })
     }
     return this._projection.array
