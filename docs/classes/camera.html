@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Camera | Pixi3D - v0.9.0</title>
+	<title>Camera | Pixi3D - v0.9.2</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.0</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.2</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -110,8 +110,9 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected"><a href="camera.html#_lastsortedindex" class="tsd-kind-icon">_last<wbr>Sorted<wbr>Index</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected"><a href="camera.html#_mask" class="tsd-kind-icon">_mask</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="camera.html#_near" class="tsd-kind-icon">_near</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="camera.html#_orthographic" class="tsd-kind-icon">_orthographic</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="camera.html#_orthographicsize" class="tsd-kind-icon">_orthographic<wbr>Size</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="camera.html#_projection" class="tsd-kind-icon">_projection</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="camera.html#_target" class="tsd-kind-icon">_target</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected"><a href="camera.html#_tempdisplayobjectparent" class="tsd-kind-icon">_temp<wbr>Display<wbr>Object<wbr>Parent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="camera.html#_view" class="tsd-kind-icon">_view</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="camera.html#_viewprojection" class="tsd-kind-icon">_view<wbr>Projection</a></li>
@@ -166,6 +167,8 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="camera.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="camera.html#localtransform" class="tsd-kind-icon">local<wbr>Transform</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="camera.html#near" class="tsd-kind-icon">near</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="camera.html#orthographic" class="tsd-kind-icon">orthographic</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="camera.html#orthographicsize" class="tsd-kind-icon">orthographic<wbr>Size</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="camera.html#position" class="tsd-kind-icon">position</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="camera.html#projection" class="tsd-kind-icon">projection</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="camera.html#rotationquaternion" class="tsd-kind-icon">rotation<wbr>Quaternion</a></li>
@@ -228,7 +231,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="container3d.html">Container3D</a>.<a href="container3d.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L29">src/camera/camera.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L29">src/camera/camera.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -311,7 +314,7 @@
 					<div class="tsd-signature tsd-kind-icon">_aspect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L116">src/camera/camera.ts:116</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L144">src/camera/camera.ts:144</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -365,7 +368,7 @@
 					<div class="tsd-signature tsd-kind-icon">_far<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1000</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L115">src/camera/camera.ts:115</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L143">src/camera/camera.ts:143</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -375,7 +378,7 @@
 					<div class="tsd-signature tsd-kind-icon">_field<wbr>OfView<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 60</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L113">src/camera/camera.ts:113</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L141">src/camera/camera.ts:141</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -385,7 +388,7 @@
 					<div class="tsd-signature tsd-kind-icon">_id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L17">src/camera/camera.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L16">src/camera/camera.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -440,7 +443,27 @@
 					<div class="tsd-signature tsd-kind-icon">_near<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0.1</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L114">src/camera/camera.ts:114</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L142">src/camera/camera.ts:142</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_orthographic" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _orthographic</h3>
+					<div class="tsd-signature tsd-kind-icon">_orthographic<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L25">src/camera/camera.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_orthographicsize" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _orthographic<wbr>Size</h3>
+					<div class="tsd-signature tsd-kind-icon">_orthographic<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 10</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L26">src/camera/camera.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -450,17 +473,7 @@
 					<div class="tsd-signature tsd-kind-icon">_projection<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L23">src/camera/camera.ts:23</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_target" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> _target</h3>
-					<div class="tsd-signature tsd-kind-icon">_target<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L26">src/camera/camera.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L22">src/camera/camera.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -489,7 +502,7 @@
 					<div class="tsd-signature tsd-kind-icon">_view<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L24">src/camera/camera.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L23">src/camera/camera.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -499,7 +512,7 @@
 					<div class="tsd-signature tsd-kind-icon">_view<wbr>Projection<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L25">src/camera/camera.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L24">src/camera/camera.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1196,7 +1209,7 @@
 					<div class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Renderer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L36">src/camera/camera.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L36">src/camera/camera.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1311,7 +1324,7 @@
 						<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#transform">transform</a></p>
 						<p>Overrides Container.transform</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L11">src/container.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L11">src/container.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -1485,7 +1498,7 @@
 					<div class="tsd-signature tsd-kind-icon">main<span class="tsd-signature-symbol">:</span> <a href="camera.html" class="tsd-signature-type">Camera</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L29">src/camera/camera.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L29">src/camera/camera.ts:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1508,7 +1521,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L122">src/camera/camera.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L150">src/camera/camera.ts:150</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1522,7 +1535,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L126">src/camera/camera.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L154">src/camera/camera.ts:154</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1552,7 +1565,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L155">src/camera/camera.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L183">src/camera/camera.ts:183</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1565,7 +1578,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L159">src/camera/camera.ts:159</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L187">src/camera/camera.ts:187</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1594,7 +1607,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L133">src/camera/camera.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L161">src/camera/camera.ts:161</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1607,7 +1620,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L137">src/camera/camera.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L165">src/camera/camera.ts:165</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1635,7 +1648,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L19">src/camera/camera.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L18">src/camera/camera.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -1654,7 +1667,7 @@
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#localtransform">localTransform</a></p>
 								<p>Overrides Container.localTransform</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L48">src/container.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L48">src/container.ts:48</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TransformMatrix</span></h4>
@@ -1672,7 +1685,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L144">src/camera/camera.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L172">src/camera/camera.ts:172</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1685,12 +1698,98 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L148">src/camera/camera.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L176">src/camera/camera.ts:176</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>The near clipping plane distance, 0.1 is the default value.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="orthographic" class="tsd-anchor"></a>
+					<h3>orthographic</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> orthographic<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> orthographic<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L77">src/camera/camera.ts:77</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Camera will render objects uniformly, with no sense of perspective.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L81">src/camera/camera.ts:81</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Camera will render objects uniformly, with no sense of perspective.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="orthographicsize" class="tsd-anchor"></a>
+					<h3>orthographic<wbr>Size</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> orthographicSize<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> orthographicSize<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L63">src/camera/camera.ts:63</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The camera&#39;s half-size when in orthographic mode. The visible area from
+									center of the screen to the top.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L67">src/camera/camera.ts:67</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The camera&#39;s half-size when in orthographic mode. The visible area from
+									center of the screen to the top.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1716,7 +1815,7 @@
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#position">position</a></p>
 								<p>Overrides Container.position</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L17">src/container.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L17">src/container.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="observablepoint3d.html" class="tsd-signature-type">ObservablePoint3D</a></h4>
@@ -1726,7 +1825,7 @@
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#position">position</a></p>
 								<p>Overrides Container.position</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L13">src/container.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L13">src/container.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1749,7 +1848,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L166">src/camera/camera.ts:166</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L194">src/camera/camera.ts:194</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1773,7 +1872,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#rotationquaternion">rotationQuaternion</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L34">src/container.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L34">src/container.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1787,7 +1886,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#rotationquaternion">rotationQuaternion</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L29">src/container.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L29">src/container.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1818,7 +1917,7 @@
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#scale">scale</a></p>
 								<p>Overrides Container.scale</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L25">src/container.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L25">src/container.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="observablepoint3d.html" class="tsd-signature-type">ObservablePoint3D</a></h4>
@@ -1828,7 +1927,7 @@
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#scale">scale</a></p>
 								<p>Overrides Container.scale</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L21">src/container.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L21">src/container.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1851,7 +1950,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L176">src/camera/camera.ts:176</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L209">src/camera/camera.ts:209</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1873,7 +1972,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L187">src/camera/camera.ts:187</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L220">src/camera/camera.ts:220</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1897,7 +1996,7 @@
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#worldtransform">worldTransform</a></p>
 								<p>Overrides Container.worldTransform</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L52">src/container.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L52">src/container.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TransformMatrix</span></h4>
@@ -1916,7 +2015,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#z">z</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L40">src/container.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L40">src/container.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1931,7 +2030,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#z">z</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/container.ts#L44">src/container.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/container.ts#L44">src/container.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2624,7 +2723,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L66">src/camera/camera.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L94">src/camera/camera.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2968,7 +3067,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/0529e82/src/camera/camera.ts#L98">src/camera/camera.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/camera/camera.ts#L126">src/camera/camera.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -3108,10 +3207,13 @@
 								<a href="camera.html#_near" class="tsd-kind-icon">_near</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="camera.html#_projection" class="tsd-kind-icon">_projection</a>
+								<a href="camera.html#_orthographic" class="tsd-kind-icon">_orthographic</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="camera.html#_target" class="tsd-kind-icon">_target</a>
+								<a href="camera.html#_orthographicsize" class="tsd-kind-icon">_orthographic<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="camera.html#_projection" class="tsd-kind-icon">_projection</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-protected">
 								<a href="camera.html#_tempdisplayobjectparent" class="tsd-kind-icon">_temp<wbr>Display<wbr>Object<wbr>Parent</a>
@@ -3259,6 +3361,12 @@
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="camera.html#near" class="tsd-kind-icon">near</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="camera.html#orthographic" class="tsd-kind-icon">orthographic</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="camera.html#orthographicsize" class="tsd-kind-icon">orthographic<wbr>Size</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="camera.html#position" class="tsd-kind-icon">position</a>
