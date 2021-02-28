@@ -47,19 +47,6 @@ export class MaterialRenderPass implements RenderPass {
   constructor(public renderer: PIXI.Renderer, public name: string) {
   }
 
-  /**
-   * Creates a new material render pass using the specified renderer and adds it 
-   * to the standard pipeline.
-   * @param renderer The renderer to use.
-   * @param name The name for the render pass.
-   */
-  static addAsRenderPass(renderer: PIXI.Renderer, name: string) {
-    let materialRenderPass = new MaterialRenderPass(renderer, name)
-    let pipeline = StandardPipeline.from(renderer)
-    pipeline.renderPasses.push(materialRenderPass)
-    return materialRenderPass
-  }
-
   clear() {
     if (this._renderTexture && this.clearColor) {
       this.renderer.renderTexture.bind(this._renderTexture)

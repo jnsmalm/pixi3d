@@ -133,19 +133,17 @@ model.animations[0].play()
 *Starts playing the first animation in the model.*
 
 ### Casting shadows
-To enable lights to cast shadows, there are two different components needed. First is a shadow casting light, which wraps a light and gives it the ability to cast shadows. It has multiple settings for controlling the quality of the shadow, for example the size of the shadow texture and the softness of the shadow. Both directional and spot light types have support for casting shadows.
+To enable lights to cast shadows, a shadow casting light is required. It wraps a light and gives it the ability to cast shadows. It has multiple settings for controlling the quality of the shadow, for example the size of the shadow texture and the softness of the shadow. Both directional and spot light types have support for casting shadows.
 
-The second component needed, is the shadow render pass, which renders shadows using the shadow casting light. The shadow render pass is available on the standard pipeline (which is created and used by default). Finally, shadows must be enabled for an object to both receive and cast shadows.
+The shadows must also be enabled (using the standard pipeline) for an object to both receive and cast shadows.
 
 ```javascript
 let shadowCastingLight = new PIXI3D.ShadowCastingLight(
   app.renderer, dirLight, 512, 15, 1, PIXI3D.ShadowQuality.medium)
-
 let pipeline = PIXI3D.StandardPipeline.from(app.renderer)
-pipeline.shadowRenderPass.lights.push(shadowCastingLight)
-pipeline.shadowRenderPass.enableShadows(model, shadowCastingLight)
+pipeline.enableShadows(model, shadowCastingLight)
 ```
-*Creates a shadow casting light and adds it to the shadow render pass. Also enables shadows for the model to both receive and cast shadows.*
+*Creates a shadow casting light and enables it for the model using the standard pipeline.*
 
 ### 2D and 3D
 Compositing 2D (PixiJS) and 3D (Pixi3D) containers is simple and can be combined in many ways. 2D containers can be added on top of 3D containers, and the other way around. Although the containers can be combined, the transforms used by 2D and 3D works differently from each other and are not compatible. The transforms won't be affected by each other, even if they have a parent-child relation.

@@ -22,10 +22,10 @@ let sprite2 = new PIXI3D.PostProcessingSprite(app.renderer)
 let pipeline = PIXI3D.StandardPipeline.from(app.renderer)
 
 // Set the render texture for the default material render pass.
-pipeline.materialRenderPass.renderTexture = sprite1.renderTexture
+pipeline.materialPass.renderTexture = sprite1.renderTexture
 
 // Create a new water render pass and set the render texture
-let waterPass = PIXI3D.MaterialRenderPass.addAsRenderPass(app.renderer, "water")
+let waterPass = pipeline.addRenderPass(new PIXI3D.MaterialRenderPass(app.renderer, "water"))
 waterPass.renderTexture = sprite2.renderTexture
 
 app.loader.load((loader, resources) => {

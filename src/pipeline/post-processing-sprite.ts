@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js"
 
-interface PostProcessingSpriteOptions { width?: number, height?: number }
+export interface PostProcessingSpriteOptions { width?: number, height?: number }
 
 /**
  * Represents a sprite which has post processing effects.

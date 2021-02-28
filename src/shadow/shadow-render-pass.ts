@@ -4,19 +4,15 @@ import { RenderPass } from "../pipeline/render-pass"
 import { Mesh3D } from "../mesh/mesh"
 import { ShadowFilter } from "./shadow-filter"
 import { ShadowCastingLight } from "./shadow-casting-light"
-import { Model } from "../model"
-import { StandardMaterial } from "../material/standard/standard-material"
 import { ShadowRenderer } from "./shadow-renderer"
 
 /**
  * Pass used for rendering shadows.
  */
 export class ShadowRenderPass implements RenderPass {
+  private _lights: ShadowCastingLight[] = []
   private _filter: ShadowFilter
   private _shadow: ShadowRenderer
-
-  /** An array of shadow casting lights. */
-  lights: ShadowCastingLight[] = []
 
   /**
    * Creates a new shadow render pass using the specified renderer.
@@ -29,32 +25,34 @@ export class ShadowRenderPass implements RenderPass {
   }
 
   /**
-   * Enables shadows for the specified object. Adds the render pass to the 
-   * specified object and enables the standard material to use the casting light.
-   * @param object The mesh or model to enable shadows for.
-   * @param shadowCastingLight The shadow casting light to associate with the 
-   * object when using the standard material.
+   * Adds a shadow casting light.
+   * @param shadowCastingLight The light to add.
    */
-  enableShadows(object: Mesh3D | Model, shadowCastingLight?: ShadowCastingLight) {
-    let meshes = object instanceof Model ? object.meshes : [object]
-    for (let mesh of meshes) {
-      if (shadowCastingLight) {
-        if (mesh.material instanceof StandardMaterial) {
-          mesh.material.shadowCastingLight = shadowCastingLight
-        }
-      }
-      mesh.renderPasses.push(this.name)
+  addShadowCastingLight(shadowCastingLight: ShadowCastingLight) {
+    if (this._lights.indexOf(shadowCastingLight) < 0) {
+      this._lights.push(shadowCastingLight)
+    }
+  }
+
+  /**
+   * Removes a shadow casting light.
+   * @param shadowCastingLight The light to remove.
+   */
+  removeShadowCastingLight(shadowCastingLight: ShadowCastingLight) {
+    const index = this._lights.indexOf(shadowCastingLight)
+    if (index >= 0) {
+      this._lights.splice(index, 1)
     }
   }
 
   clear() {
-    for (let shadowCastingLight of this.lights) {
+    for (let shadowCastingLight of this._lights) {
       shadowCastingLight.clear()
     }
   }
 
   render(meshes: Mesh3D[]) {
-    for (let shadowCastingLight of this.lights) {
+    for (let shadowCastingLight of this._lights) {
       this.renderer.renderTexture.bind(shadowCastingLight.shadowTexture)
       shadowCastingLight.updateLightViewProjection()
       for (let mesh of meshes) {
