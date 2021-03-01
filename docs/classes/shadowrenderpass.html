@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ShadowRenderPass | Pixi3D - v0.9.2</title>
+	<title>ShadowRenderPass | Pixi3D - v0.9.3</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.2</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.3</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -101,8 +101,8 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="shadowrenderpass.html#_filter" class="tsd-kind-icon">_filter</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="shadowrenderpass.html#_lights" class="tsd-kind-icon">_lights</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="shadowrenderpass.html#_shadow" class="tsd-kind-icon">_shadow</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="shadowrenderpass.html#lights" class="tsd-kind-icon">lights</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="shadowrenderpass.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="shadowrenderpass.html#renderer" class="tsd-kind-icon">renderer</a></li>
 							</ul>
@@ -110,8 +110,9 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="shadowrenderpass.html#addshadowcastinglight" class="tsd-kind-icon">add<wbr>Shadow<wbr>Casting<wbr>Light</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="shadowrenderpass.html#clear" class="tsd-kind-icon">clear</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="shadowrenderpass.html#enableshadows" class="tsd-kind-icon">enable<wbr>Shadows</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="shadowrenderpass.html#removeshadowcastinglight" class="tsd-kind-icon">remove<wbr>Shadow<wbr>Casting<wbr>Light</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="shadowrenderpass.html#render" class="tsd-kind-icon">render</a></li>
 							</ul>
 						</section>
@@ -130,7 +131,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/shadow/shadow-render-pass.ts#L19">src/shadow/shadow-render-pass.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L15">src/shadow/shadow-render-pass.ts:15</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -170,7 +171,17 @@
 					<div class="tsd-signature tsd-kind-icon">_filter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ShadowFilter</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/shadow/shadow-render-pass.ts#L15">src/shadow/shadow-render-pass.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L14">src/shadow/shadow-render-pass.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_lights" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _lights</h3>
+					<div class="tsd-signature tsd-kind-icon">_lights<span class="tsd-signature-symbol">:</span> <a href="shadowcastinglight.html" class="tsd-signature-type">ShadowCastingLight</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L13">src/shadow/shadow-render-pass.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -180,24 +191,9 @@
 					<div class="tsd-signature tsd-kind-icon">_shadow<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ShadowRenderer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/shadow/shadow-render-pass.ts#L16">src/shadow/shadow-render-pass.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L15">src/shadow/shadow-render-pass.ts:15</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="lights" class="tsd-anchor"></a>
-					<h3>lights</h3>
-					<div class="tsd-signature tsd-kind-icon">lights<span class="tsd-signature-symbol">:</span> <a href="shadowcastinglight.html" class="tsd-signature-type">ShadowCastingLight</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/shadow/shadow-render-pass.ts#L19">src/shadow/shadow-render-pass.ts:19</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An array of shadow casting lights.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="name" class="tsd-anchor"></a>
@@ -205,7 +201,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/shadow/shadow-render-pass.ts#L26">src/shadow/shadow-render-pass.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L22">src/shadow/shadow-render-pass.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -220,7 +216,7 @@
 					<div class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Renderer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/shadow/shadow-render-pass.ts#L26">src/shadow/shadow-render-pass.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L22">src/shadow/shadow-render-pass.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -233,6 +229,37 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="addshadowcastinglight" class="tsd-anchor"></a>
+					<h3>add<wbr>Shadow<wbr>Casting<wbr>Light</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Shadow<wbr>Casting<wbr>Light<span class="tsd-signature-symbol">(</span>shadowCastingLight<span class="tsd-signature-symbol">: </span><a href="shadowcastinglight.html" class="tsd-signature-type">ShadowCastingLight</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L31">src/shadow/shadow-render-pass.ts:31</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds a shadow casting light.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>shadowCastingLight: <a href="shadowcastinglight.html" class="tsd-signature-type">ShadowCastingLight</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The light to add.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="clear" class="tsd-anchor"></a>
 					<h3>clear</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -242,7 +269,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/shadow/shadow-render-pass.ts#L50">src/shadow/shadow-render-pass.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L48">src/shadow/shadow-render-pass.ts:48</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -250,37 +277,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="enableshadows" class="tsd-anchor"></a>
-					<h3>enable<wbr>Shadows</h3>
+					<a name="removeshadowcastinglight" class="tsd-anchor"></a>
+					<h3>remove<wbr>Shadow<wbr>Casting<wbr>Light</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">enable<wbr>Shadows<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><a href="mesh3d.html" class="tsd-signature-type">Mesh3D</a><span class="tsd-signature-symbol"> | </span><a href="model.html" class="tsd-signature-type">Model</a>, shadowCastingLight<span class="tsd-signature-symbol">?: </span><a href="shadowcastinglight.html" class="tsd-signature-type">ShadowCastingLight</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>Shadow<wbr>Casting<wbr>Light<span class="tsd-signature-symbol">(</span>shadowCastingLight<span class="tsd-signature-symbol">: </span><a href="shadowcastinglight.html" class="tsd-signature-type">ShadowCastingLight</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/shadow/shadow-render-pass.ts#L38">src/shadow/shadow-render-pass.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L41">src/shadow/shadow-render-pass.ts:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Enables shadows for the specified object. Adds the render pass to the
-									specified object and enables the standard material to use the casting light.</p>
+									<p>Removes a shadow casting light.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>object: <a href="mesh3d.html" class="tsd-signature-type">Mesh3D</a><span class="tsd-signature-symbol"> | </span><a href="model.html" class="tsd-signature-type">Model</a></h5>
+									<h5>shadowCastingLight: <a href="shadowcastinglight.html" class="tsd-signature-type">ShadowCastingLight</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The mesh or model to enable shadows for.</p>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> shadowCastingLight: <a href="shadowcastinglight.html" class="tsd-signature-type">ShadowCastingLight</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The shadow casting light to associate with the
-										object when using the standard material.</p>
+										<p>The light to remove.</p>
 									</div>
 								</li>
 							</ul>
@@ -298,7 +317,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/shadow/shadow-render-pass.ts#L56">src/shadow/shadow-render-pass.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/shadow/shadow-render-pass.ts#L54">src/shadow/shadow-render-pass.ts:54</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -410,10 +429,10 @@
 								<a href="shadowrenderpass.html#_filter" class="tsd-kind-icon">_filter</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="shadowrenderpass.html#_shadow" class="tsd-kind-icon">_shadow</a>
+								<a href="shadowrenderpass.html#_lights" class="tsd-kind-icon">_lights</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="shadowrenderpass.html#lights" class="tsd-kind-icon">lights</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="shadowrenderpass.html#_shadow" class="tsd-kind-icon">_shadow</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="shadowrenderpass.html#name" class="tsd-kind-icon">name</a>
@@ -422,10 +441,13 @@
 								<a href="shadowrenderpass.html#renderer" class="tsd-kind-icon">renderer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="shadowrenderpass.html#addshadowcastinglight" class="tsd-kind-icon">add<wbr>Shadow<wbr>Casting<wbr>Light</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="shadowrenderpass.html#clear" class="tsd-kind-icon">clear</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="shadowrenderpass.html#enableshadows" class="tsd-kind-icon">enable<wbr>Shadows</a>
+								<a href="shadowrenderpass.html#removeshadowcastinglight" class="tsd-kind-icon">remove<wbr>Shadow<wbr>Casting<wbr>Light</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="shadowrenderpass.html#render" class="tsd-kind-icon">render</a>

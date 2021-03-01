@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Material | Pixi3D - v0.9.2</title>
+	<title>Material | Pixi3D - v0.9.3</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.2</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.3</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -94,9 +94,16 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="material.html#_shader" class="tsd-kind-icon">_shader</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="material.html#doublesided" class="tsd-kind-icon">double<wbr>Sided</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="material.html#drawmode" class="tsd-kind-icon">draw<wbr>Mode</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="material.html#transparent" class="tsd-kind-icon">transparent</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="material.html#rendertype" class="tsd-kind-icon">render<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="material.html#state" class="tsd-kind-icon">state</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="material.html#blendmode" class="tsd-kind-icon">blend<wbr>Mode</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="material.html#doublesided" class="tsd-kind-icon">double<wbr>Sided</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -119,24 +126,9 @@
 					<div class="tsd-signature tsd-kind-icon">_shader<span class="tsd-signature-symbol">:</span> <a href="meshshader.html" class="tsd-signature-type">MeshShader</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/material/material.ts#L10">src/material/material.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L11">src/material/material.ts:11</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="doublesided" class="tsd-anchor"></a>
-					<h3>double<wbr>Sided</h3>
-					<div class="tsd-signature tsd-kind-icon">double<wbr>Sided<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/material/material.ts#L19">src/material/material.ts:19</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Value indicating if the material is double sided.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="drawmode" class="tsd-anchor"></a>
@@ -144,7 +136,7 @@
 					<div class="tsd-signature tsd-kind-icon">draw<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DRAW_MODES</span><span class="tsd-signature-symbol"> = PIXI.DRAW_MODES.TRIANGLES</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/material/material.ts#L13">src/material/material.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L19">src/material/material.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -154,19 +146,122 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="transparent" class="tsd-anchor"></a>
-					<h3>transparent</h3>
-					<div class="tsd-signature tsd-kind-icon">transparent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<a name="rendertype" class="tsd-anchor"></a>
+					<h3>render<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">render<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MaterialRenderType</span><span class="tsd-signature-symbol"> = MaterialRenderType.opaque</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/material/material.ts#L16">src/material/material.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L23">src/material/material.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Value indicating if the material is transparent.</p>
+							<p>Render type used to render a mesh. This will determine in which order
+							the material is being rendered compared to other materials.</p>
 						</div>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="state" class="tsd-anchor"></a>
+					<h3>state</h3>
+					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">State</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>clockwiseFrontFace<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">; </span>culling<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>depthTest<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = Object.assign(new PIXI.State(), {culling: true, clockwiseFrontFace: false, depthTest: true})</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L14">src/material/material.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>State used to render a mesh.</p>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="blendmode" class="tsd-anchor"></a>
+					<h3>blend<wbr>Mode</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> blendMode<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BLEND_MODES</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> blendMode<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BLEND_MODES</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L35">src/material/material.ts:35</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Blend mode used to render a mesh.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BLEND_MODES</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L39">src/material/material.ts:39</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Blend mode used to render a mesh.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">BLEND_MODES</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="doublesided" class="tsd-anchor"></a>
+					<h3>double<wbr>Sided</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> doubleSided<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> doubleSided<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L26">src/material/material.ts:26</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Value indicating if the material is double sided.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L30">src/material/material.ts:30</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Value indicating if the material is double sided.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -181,7 +276,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/material/material.ts#L26">src/material/material.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L48">src/material/material.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -218,7 +313,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/material/material.ts#L38">src/material/material.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L60">src/material/material.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -234,13 +329,13 @@
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>mesh<span class="tsd-signature-symbol">: </span><a href="mesh3d.html" class="tsd-signature-type">Mesh3D</a>, renderer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Renderer</span>, state<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.State</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>mesh<span class="tsd-signature-symbol">: </span><a href="mesh3d.html" class="tsd-signature-type">Mesh3D</a>, renderer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Renderer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/material/material.ts#L46">src/material/material.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L67">src/material/material.ts:67</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -262,12 +357,6 @@
 										<p>The renderer to use.</p>
 									</div>
 								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> state: <span class="tsd-signature-type">PIXI.State</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The state to use.</p>
-									</div>
-								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -283,7 +372,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/8a1c150/src/material/material.ts#L33">src/material/material.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/material/material.ts#L55">src/material/material.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -370,13 +459,19 @@
 								<a href="material.html#_shader" class="tsd-kind-icon">_shader</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="material.html#doublesided" class="tsd-kind-icon">double<wbr>Sided</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="material.html#drawmode" class="tsd-kind-icon">draw<wbr>Mode</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="material.html#transparent" class="tsd-kind-icon">transparent</a>
+								<a href="material.html#rendertype" class="tsd-kind-icon">render<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="material.html#state" class="tsd-kind-icon">state</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="material.html#blendmode" class="tsd-kind-icon">blend<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="material.html#doublesided" class="tsd-kind-icon">double<wbr>Sided</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="material.html#createshader" class="tsd-kind-icon">create<wbr>Shader</a>
