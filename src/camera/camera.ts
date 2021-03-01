@@ -92,6 +92,10 @@ export class Camera extends Container3D {
    * @param point Point to set.
    */
   screenToWorld(x: number, y: number, distance: number, point = new ObservablePoint3D(() => { }, undefined)) {
+    // Make sure the transform is updated in case something has been changed, 
+    // otherwise it may be using wrong values.
+    this.transform.updateTransform()
+
     let far = this.far
 
     // Before doing the calculations, the far clip plane is changed to the same 
@@ -124,6 +128,10 @@ export class Camera extends Container3D {
    * @param point Point to set.
    */
   worldToScreen(x: number, y: number, z: number, point = new PIXI.Point()) {
+    // Make sure the transform is updated in case something has been changed, 
+    // otherwise it may be using wrong values.
+    this.transform.updateTransform()
+
     let worldSpace = Vec4.set(x, y, z, 1, vec4)
     let clipSpace = Vec4.transformMat4(
       Vec4.transformMat4(worldSpace, this.view, vec4), this.projection, vec4
