@@ -8,6 +8,7 @@ import { Model } from "../model"
 import { ShadowCastingLight } from "../shadow/shadow-casting-light"
 import { RenderPass } from "./render-pass"
 import { StandardMaterial } from "../material/standard/standard-material"
+import { MaterialRenderType } from "../material/material-render-type"
 
 /**
  * The standard pipeline renders meshes using the specified render passes. The 
@@ -105,10 +106,10 @@ export class StandardPipeline extends PIXI.ObjectRenderer {
       if (!a.material || !b.material) {
         return 0
       }
-      if (a.material.transparent === b.material.transparent) {
-        return 0
+      if (a.material.renderType !== b.material.renderType) {
+        return a.material.renderType === MaterialRenderType.transparent ? 1 : -1
       }
-      return a.material.transparent ? 1 : -1
+      return 0
     })
   }
 

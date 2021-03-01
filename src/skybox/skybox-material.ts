@@ -7,10 +7,6 @@ import { CubeMipmapTexture } from "../cubemap/cube-mipmap-texture"
 import { MeshShader } from "../mesh/mesh-shader"
 
 export class SkyboxMaterial extends Material {
-  private _state = Object.assign(new PIXI.State(), {
-    culling: true, clockwiseFrontFace: true, depthTest: true
-  })
-
   get texture() {
     return this._texture
   }
@@ -31,6 +27,9 @@ export class SkyboxMaterial extends Material {
 
   constructor(private _texture: CubeMipmapTexture) {
     super()
+    this.state = Object.assign(new PIXI.State(), {
+      culling: true, clockwiseFrontFace: true, depthTest: true
+    })
   }
 
   updateUniforms(mesh: Mesh3D, shader: MeshShader) {
@@ -46,14 +45,14 @@ export class SkyboxMaterial extends Material {
     // Disable writing to the depth buffer. This is because we want all other 
     // objects to be in-front of the skybox.
     renderer.gl.depthMask(false)
-    super.render(mesh, renderer, this._state)
+    super.render(mesh, renderer)
     renderer.gl.depthMask(true)
   }
 
   createShader() {
     const vert: string = require("./shader/skybox.vert").default
     const frag: string = require("./shader/skybox.frag").default
-    
+
     if (this.texture.valid) {
       return new MeshShader(PIXI.Program.from(vert, frag))
     }

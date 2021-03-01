@@ -2,7 +2,6 @@ import * as PIXI from "pixi.js"
 
 import { RenderPass } from "./render-pass"
 import { Mesh3D } from "../mesh/mesh"
-import { StandardPipeline } from "./standard-pipeline"
 
 /**
  * Pass used for rendering materials.
@@ -10,25 +9,8 @@ import { StandardPipeline } from "./standard-pipeline"
 export class MaterialRenderPass implements RenderPass {
   private _renderTexture?: PIXI.RenderTexture
 
-  private _transparent = [
-    Object.assign(new PIXI.State(), {
-      culling: true, clockwiseFrontFace: true, depthTest: true
-    }),
-    Object.assign(new PIXI.State(), {
-      culling: true, clockwiseFrontFace: false, depthTest: true
-    })
-  ]
-
-  private _default = Object.assign(new PIXI.State(), {
-    culling: true, clockwiseFrontFace: false, depthTest: true
-  })
-
-  private _doubleSided = Object.assign(new PIXI.State(), {
-    culling: false, clockwiseFrontFace: true, depthTest: true
-  })
-
   /** The color (r,g,b,a) used for clearing the render texture. If this value is empty, the render texture will not be cleared. */
-  clearColor? = [0, 0, 0, 0]
+  clearColor?= [0, 0, 0, 0]
 
   /** The texture used when rendering to a texture. */
   get renderTexture() {
@@ -60,14 +42,8 @@ export class MaterialRenderPass implements RenderPass {
       this.renderer.renderTexture.bind(this._renderTexture)
     }
     for (let mesh of meshes) {
-      if (!mesh.material) { return }
-      if (mesh.material.doubleSided && !mesh.material.transparent) {
-        mesh.material.render(mesh, this.renderer, this._doubleSided)
-      } else if (mesh.material.doubleSided) {
-        mesh.material.render(mesh, this.renderer, this._transparent[0])
-        mesh.material.render(mesh, this.renderer, this._transparent[1])
-      } else {
-        mesh.material.render(mesh, this.renderer, this._default)
+      if (mesh.material) {
+        mesh.material.render(mesh, this.renderer)
       }
     }
     if (this._renderTexture) {

@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js"
 
 import { Mesh3D } from "../mesh/mesh"
+import { MaterialRenderType } from "./material-render-type"
 import { MeshShader } from "../mesh/mesh-shader"
 
 /**
@@ -9,14 +10,35 @@ import { MeshShader } from "../mesh/mesh-shader"
 export abstract class Material {
   protected _shader?: MeshShader
 
+  /** State used to render a mesh. */
+  state = Object.assign(new PIXI.State(), {
+    culling: true, clockwiseFrontFace: false, depthTest: true
+  })
+
   /** Draw mode used to render a mesh. */
   drawMode = PIXI.DRAW_MODES.TRIANGLES
 
-  /** Value indicating if the material is transparent. */
-  transparent = false
+  /** Render type used to render a mesh. This will determine in which order
+   * the material is being rendered compared to other materials. */
+  renderType = MaterialRenderType.opaque
 
   /** Value indicating if the material is double sided. */
-  doubleSided = false
+  get doubleSided() {
+    return !this.state.culling
+  }
+
+  set doubleSided(value: boolean) {
+    this.state.culling = !value
+  }
+
+  /** Blend mode used to render a mesh. */
+  get blendMode() {
+    return this.state.blendMode
+  }
+
+  set blendMode(value: PIXI.BLEND_MODES) {
+    this.state.blendMode = value
+  }
 
   /**
    * Creates a shader used to render the specified mesh.
@@ -41,9 +63,8 @@ export abstract class Material {
    * Renders the specified mesh.
    * @param mesh The mesh to render.
    * @param renderer The renderer to use.
-   * @param state The state to use.
    */
-  render(mesh: Mesh3D, renderer: PIXI.Renderer, state?: PIXI.State) {
+  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
     if (!this._shader) {
       this._shader = this.createShader(mesh, renderer)
       if (!this._shader) {
@@ -56,6 +77,6 @@ export abstract class Material {
     if (this.updateUniforms) {
       this.updateUniforms(mesh, this._shader)
     }
-    this._shader.render(mesh, renderer, state, this.drawMode)
+    this._shader.render(mesh, renderer, this.state, this.drawMode)
   }
 }

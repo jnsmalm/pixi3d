@@ -12,6 +12,7 @@ import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
 import { StandardMaterialSkinUniforms } from "./standard-material-skin-uniforms"
+import { MaterialRenderType } from "../material-render-type"
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -30,7 +31,6 @@ export class StandardMaterial extends Material {
   private _occlusionTexture?: PIXI.Texture
   private _emissiveTexture?: PIXI.Texture
   private _metallicRoughnessTexture?: PIXI.Texture
-  private _transparent = false
   private _shadowCastingLight?: ShadowCastingLight
   private _lightsCount?: number
 
@@ -123,9 +123,9 @@ export class StandardMaterial extends Material {
     if (this._alphaMode !== value) {
       this._alphaMode = value
       if (this._alphaMode === StandardMaterialAlphaMode.opaque) {
-        this._transparent = false
+        this.renderType = MaterialRenderType.opaque
       } else {
-        this._transparent = true
+        this.renderType = MaterialRenderType.transparent
       }
       this.invalidateShader()
     }
@@ -153,17 +153,6 @@ export class StandardMaterial extends Material {
       this.invalidateShader()
       this._debugMode = value
     }
-  }
-
-  get transparent() {
-    return this._transparent
-  }
-
-  set transparent(value: boolean) {
-    if (value !== this._transparent) {
-      this.alphaMode = value ? StandardMaterialAlphaMode.blend : StandardMaterialAlphaMode.opaque
-    }
-    this._transparent = value
   }
 
   /**
@@ -260,32 +249,32 @@ export class StandardMaterial extends Material {
       material.doubleSided = source.doubleSided
       material.alphaCutoff = source.alphaCutoff
       if (source.baseColorTexture && (<any>source.baseColorTexture).uvTransform) {
-        (<any>material.baseColorTexture).uvTransform = (<any>source.baseColorTexture).uvTransform; 
+        (<any>material.baseColorTexture).uvTransform = (<any>source.baseColorTexture).uvTransform;
       }
       if (source.normalTexture && (<any>source.normalTexture).uvTransform) {
-        (<any>material.normalTexture).uvTransform = (<any>source.normalTexture).uvTransform; 
+        (<any>material.normalTexture).uvTransform = (<any>source.normalTexture).uvTransform;
       }
       if (source.emissiveTexture && (<any>source.emissiveTexture).uvTransform) {
-        (<any>material.emissiveTexture).uvTransform = (<any>source.emissiveTexture).uvTransform; 
+        (<any>material.emissiveTexture).uvTransform = (<any>source.emissiveTexture).uvTransform;
       }
       if (source.occlusionTexture && (<any>source.occlusionTexture).uvTransform) {
-        (<any>material.occlusionTexture).uvTransform = (<any>source.occlusionTexture).uvTransform; 
+        (<any>material.occlusionTexture).uvTransform = (<any>source.occlusionTexture).uvTransform;
       }
       if (source.metallicRoughnessTexture && (<any>source.metallicRoughnessTexture).uvTransform) {
-        (<any>material.metallicRoughnessTexture).uvTransform = (<any>source.metallicRoughnessTexture).uvTransform; 
+        (<any>material.metallicRoughnessTexture).uvTransform = (<any>source.metallicRoughnessTexture).uvTransform;
       }
     }
     return material
   }
 
-  render(mesh: Mesh3D, renderer: PIXI.Renderer, state?: PIXI.State) {
+  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
     let lightingEnvironment = this.lightingEnvironment || LightingEnvironment.main
     if (lightingEnvironment.lights.length !== this._lightsCount) {
       // Invalidate shader when the number of punctual lights has changed.
       this.invalidateShader()
       this._lightsCount = lightingEnvironment.lights.length
     }
-    super.render(mesh, renderer, state)
+    super.render(mesh, renderer)
   }
 
   createShader(mesh: Mesh3D, renderer: PIXI.Renderer) {
