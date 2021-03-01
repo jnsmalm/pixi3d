@@ -90,8 +90,9 @@ export class Camera extends Container3D {
    * @param y Screen y coordinate.
    * @param distance Distance from the camera.
    * @param point Point to set.
+   * @param viewSize The size of the view when not rendering to the entire screen.
    */
-  screenToWorld(x: number, y: number, distance: number, point = new ObservablePoint3D(() => { }, undefined)) {
+  screenToWorld(x: number, y: number, distance: number, point = new ObservablePoint3D(() => { }, undefined), viewSize: { width: number, height: number } = this.renderer) {
     // Make sure the transform is updated in case something has been changed, 
     // otherwise it may be using wrong values.
     this.transform.updateTransform()
@@ -108,7 +109,7 @@ export class Camera extends Container3D {
       return
     }
     let clipSpace = Vec4.set(
-      (x / this.renderer.width) * 2 - 1, ((y / this.renderer.height) * 2 - 1) * -1, 1, 1, vec4
+      (x / viewSize.width) * 2 - 1, ((y / viewSize.height) * 2 - 1) * -1, 1, 1, vec4
     )
     this.far = far
 
@@ -126,8 +127,9 @@ export class Camera extends Container3D {
    * @param y World y coordinate.
    * @param z World z coordinate.
    * @param point Point to set.
+   * @param viewSize The size of the view when not rendering to the entire screen.
    */
-  worldToScreen(x: number, y: number, z: number, point = new PIXI.Point()) {
+  worldToScreen(x: number, y: number, z: number, point = new PIXI.Point(), viewSize: { width: number, height: number } = this.renderer) {
     // Make sure the transform is updated in case something has been changed, 
     // otherwise it may be using wrong values.
     this.transform.updateTransform()
@@ -141,9 +143,8 @@ export class Camera extends Container3D {
         clipSpace[i] /= clipSpace[3]
       }
     }
-    let { width, height } = this.renderer
-    return point.set((clipSpace[0] + 1) / 2 * width,
-      height - (clipSpace[1] + 1) / 2 * height)
+    return point.set((clipSpace[0] + 1) / 2 * viewSize.width,
+      viewSize.height - (clipSpace[1] + 1) / 2 * viewSize.height)
   }
 
   private _fieldOfView = 60
