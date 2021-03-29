@@ -1,4 +1,5 @@
 export { glTFLoader } from "./loader/gltf-loader"
+export { glTFBinaryLoader } from "./loader/gltf-binary-loader"
 export { glTFAsset } from "./gltf/gltf-asset"
 export { ObservablePoint3D } from "./transform/observable-point"
 export { ObservableQuaternion } from "./transform/observable-quaternion"
