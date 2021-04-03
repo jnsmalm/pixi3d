@@ -59,7 +59,7 @@ export class glTFAsset {
 
   /**
    * Returns a value indicating if the specified data buffer is a valid glTF.
-   * @param data The buffer data.
+   * @param data The buffer data to validate.
    */
   static isValid(data: ArrayBuffer) {
     const header = new Uint32Array(data, 0, 3)
@@ -72,13 +72,17 @@ export class glTFAsset {
   /**
    * Creates a new glTF asset from binary (glb) buffer data.
    * @param data The binary buffer data to read from.
+   * @param callback The function which gets called when the asset has been 
+   * created.
    */
-  static fromBuffer(data: ArrayBuffer, complete: (gltf: glTFAsset) => void) {
+  static fromBuffer(data: ArrayBuffer, callback: (gltf: glTFAsset) => void) {
     const chunks: { type: number, offset: number, length: number }[] = []
     let offset = 3 * 4
     while (offset < data.byteLength) {
       const header = new Uint32Array(data, offset, 3)
-      chunks.push({ length: header[0], type: header[1], offset: offset + 2 * 4 })
+      chunks.push({
+        length: header[0], type: header[1], offset: offset + 2 * 4
+      })
       offset += header[0] + 2 * 4
     }
     const json = new Uint8Array(data, chunks[0].offset, chunks[0].length)
@@ -86,6 +90,9 @@ export class glTFAsset {
     const buffers: ArrayBuffer[] = []
     for (let i = 1; i < chunks.length; i++) {
       buffers.push(data.slice(chunks[i].offset, chunks[i].offset + chunks[i].length))
+    }
+    if (!descriptor.images || descriptor.images.length === 0) {
+      callback(new glTFAsset(descriptor, buffers))
     }
     const images: PIXI.Texture[] = []
     for (let i = 0; i < descriptor.images.length; i++) {
@@ -102,7 +109,7 @@ export class glTFAsset {
         images[i] = PIXI.Texture.from(<string>reader.result)
         images[i].baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
         if (images.length === descriptor.images.length) {
-          complete(new glTFAsset(descriptor, buffers, images))
+          callback(new glTFAsset(descriptor, buffers, images))
         }
       }
       reader.readAsDataURL(blob)
