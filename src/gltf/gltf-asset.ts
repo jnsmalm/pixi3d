@@ -95,7 +95,7 @@ export class glTFAsset {
       callback(new glTFAsset(descriptor, buffers))
     }
     const images: PIXI.Texture[] = []
-    for (let i = 0; i < descriptor.images.length; i++) {
+    for (let i = 0; descriptor.images && i < descriptor.images.length; i++) {
       const image = descriptor.images[i]
       if (image.bufferView === undefined) {
         continue
