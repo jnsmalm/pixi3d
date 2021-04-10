@@ -9,6 +9,7 @@ import { Vec3 } from "../math/vec3"
  */
 export class CameraOrbitControl {
   private _distance = 5
+  private _grabbed = false
 
   private _angles = new PIXI.ObservablePoint(() => {
     this._angles.x = Math.min(Math.max(-85, this._angles.x), 85)
@@ -38,8 +39,17 @@ export class CameraOrbitControl {
     this.camera.renderer.on("prerender", () => {
       this.updateCamera()
     })
+    canvas.addEventListener("mousedown", (event) => {
+      const object = this.camera.renderer.plugins.interaction.hitTest(new PIXI.Point(event.x, event.y))
+      if (!object) {
+        this._grabbed = true
+      }
+    })
+    canvas.addEventListener("mouseup", () => {
+      this._grabbed = false
+    })
     canvas.addEventListener("mousemove", (event) => {
-      if (this.allowControl && event.buttons === 1) {
+      if (this.allowControl && event.buttons === 1 && this._grabbed) {
         this._angles.x += event.movementY * 0.5
         this._angles.y -= event.movementX * 0.5
       }
