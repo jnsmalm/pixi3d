@@ -31,30 +31,29 @@ export class CameraOrbitControl {
 
   /**
    * Creates a new camera orbit control.
-   * @param canvas Canvas for user events.
+   * @param element Element for user events.
    * @param camera Camera to control. If not set, the main camera will be used 
    * by default.
    */
-  constructor(canvas: HTMLCanvasElement, public camera = Camera.main) {
+  constructor(element: HTMLElement, public camera = Camera.main) {
     this.camera.renderer.on("prerender", () => {
       this.updateCamera()
     })
-    canvas.addEventListener("mousedown", (event) => {
-      const object = this.camera.renderer.plugins.interaction.hitTest(new PIXI.Point(event.x, event.y))
-      if (!object) {
+    this.camera.renderer.plugins.interaction.on("pointerdown", (e: PIXI.interaction.InteractionEvent) => {
+      if (!e.stopped) {
         this._grabbed = true
       }
     })
-    canvas.addEventListener("mouseup", () => {
+    element.addEventListener("mouseup", () => {
       this._grabbed = false
     })
-    canvas.addEventListener("mousemove", (event) => {
+    element.addEventListener("mousemove", (event) => {
       if (this.allowControl && event.buttons === 1 && this._grabbed) {
         this._angles.x += event.movementY * 0.5
         this._angles.y -= event.movementX * 0.5
       }
     })
-    canvas.addEventListener("mousewheel", (event: Event) => {
+    element.addEventListener("mousewheel", (event: Event) => {
       if (this.allowControl) {
         this.distance += (<WheelEvent>event).deltaY * 0.01
         event.preventDefault()
