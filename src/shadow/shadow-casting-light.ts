@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { Light } from "../lighting/light"
 import { LightType } from "../lighting/light-type"
 import { Camera } from "../camera/camera"
@@ -60,7 +62,6 @@ export class ShadowCastingLight {
       throw new Error("PIXI3D: Only directional and spot lights are supported as shadow casters.")
     }
     this._shadowTexture = ShadowTexture.create(renderer, shadowTextureSize, quality)
-    // @ts-ignore
     this._shadowTexture.baseTexture.framebuffer.addDepthTexture()
     this._filterTexture = ShadowTexture.create(renderer, shadowTextureSize, quality)
   }
@@ -78,7 +79,6 @@ export class ShadowCastingLight {
    */
   clear() {
     this.renderer.renderTexture.bind(this._shadowTexture)
-    // @ts-ignore
     this.renderer.renderTexture.clear([0, 0, 0, 0], this.renderer.gl.COLOR_BUFFER_BIT | this.renderer.gl.DEPTH_BUFFER_BIT)
     this.renderer.renderTexture.bind(undefined)
   }

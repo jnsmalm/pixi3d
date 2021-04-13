@@ -49,8 +49,10 @@ export class glTFAsset {
           throw new Error("PIXI3D: A resource loader is required when image is not embedded.")
         }
         loader.load(image.uri, (resource) => {
-          resource.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
-          asset.images[i] = resource.texture
+          if (resource.texture) {
+            resource.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
+            asset.images[i] = resource.texture
+          }
         })
       }
     }
@@ -135,5 +137,5 @@ export interface glTFAssetResourceLoader {
    * @param onComplete Callback when loading is completed.
    */
   load(uri: string,
-    onComplete: (resource: PIXI.LoaderResource) => void): void
+    onComplete: (resource: PIXI.ILoaderResource) => void): void
 }

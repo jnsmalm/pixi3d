@@ -53,9 +53,8 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * @param cb Callback when changed.
    * @param scope Owner of callback.
    */
-  clone(cb?: (...params: any[]) => any, scope?: any) {
-    return new ObservableQuaternion(
-      cb || this.cb, scope || this.scope, this.x, this.y, this.z, this.w)
+  clone(cb = this.cb, scope = this.scope) {
+    return new ObservableQuaternion(cb, scope, this.x, this.y, this.z, this.w)
   }
 
   /**
@@ -74,11 +73,11 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * Copies x, y, z and w into the given quaternion.
    * @param p The quaternion to copy to.
    */
-  copyTo(p: PIXI.IPoint) {
+   copyTo<T extends PIXI.IPoint>(p: T) {
     if (p instanceof ObservableQuaternion) {
       p.set(this.x, this.y, this.z, this.w)
     }
-    return p
+    return <T>p
   }
 
   /**

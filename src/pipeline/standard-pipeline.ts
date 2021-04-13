@@ -38,6 +38,7 @@ export class StandardPipeline extends PIXI.ObjectRenderer {
     this._shadowPass = this.addRenderPass(new ShadowRenderPass(renderer, "shadow"))
     this._materialPass = this.addRenderPass(new MaterialRenderPass(renderer, "material"))
 
+    // @ts-expect-error
     renderer.on("prerender", () => {
       for (let pass of this._renderPasses) {
         if (pass.clear) { pass.clear() }

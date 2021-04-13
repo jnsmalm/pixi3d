@@ -142,10 +142,6 @@ export class glTFParser {
       result.baseColor = pbr.baseColorFactor
     }
     result.baseColorTexture = this.parseTexture(pbr?.baseColorTexture)
-    if (result.baseColorTexture) {
-      result.baseColorTexture.baseTexture.alphaMode =
-        PIXI.ALPHA_MODES.PREMULTIPLIED_ALPHA
-    }
     if (pbr?.metallicFactor !== undefined) {
       result.metallic = pbr.metallicFactor
     }

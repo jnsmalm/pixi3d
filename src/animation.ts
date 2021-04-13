@@ -70,6 +70,7 @@ export abstract class Animation extends PIXI.utils.EventEmitter {
       this.position = this.duration
       this.stop()
     }
+    // @ts-expect-error
     this.emit("complete")
   }
 }

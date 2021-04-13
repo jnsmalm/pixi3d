@@ -2,6 +2,9 @@ import * as PIXI from "pixi.js"
 
 import { Platform } from "../../platform"
 
+// @ts-ignore PIXI.resources.BufferResource was moved after PixiJS 6.0+
+const BufferResource: typeof PIXI.BufferResource = PIXI.BufferResource || PIXI.resources.BufferResource
+
 export class StandardMaterialMatrixTexture extends PIXI.Texture {
   private _buffer: Float32Array
 
@@ -10,10 +13,8 @@ export class StandardMaterialMatrixTexture extends PIXI.Texture {
   }
 
   constructor(matrixCount: number) {
-    let buffer = new Float32Array(matrixCount * 16);
-    let resource = new PIXI.resources.BufferResource(buffer, {
-      width: 4, height: matrixCount
-    });
+    let buffer = new Float32Array(matrixCount * 16)
+    let resource = new BufferResource(buffer, { width: 4, height: matrixCount })
     super(new PIXI.BaseTexture(resource, {
       mipmap: PIXI.MIPMAP_MODES.OFF,
       wrapMode: PIXI.WRAP_MODES.CLAMP,

@@ -36,6 +36,7 @@ export class Camera extends Container3D {
   constructor(public renderer: PIXI.Renderer) {
     super()
 
+    // @ts-expect-error
     this.renderer.on("prerender", () => {
       if (!this._aspect) {
         // When there is no specific aspect set, this is used for the 

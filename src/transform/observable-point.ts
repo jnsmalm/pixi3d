@@ -14,7 +14,7 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
    * @param y The position on the y axis.
    * @param z The position on the z axis.
    */
-  constructor(protected cb: () => void, protected scope: any, x = 0, y = 0, z = 0) {
+  constructor(cb: () => void, scope: any, x = 0, y = 0, z = 0) {
     super(cb, scope, x, y)
     this._z = z
   }
@@ -33,9 +33,8 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
     }
   }
 
-  clone(cb?: (...params: any[]) => any, scope?: any) {
-    return new ObservablePoint3D(
-      cb || this.cb, scope || this.scope, this.x, this.y, this._z)
+  clone(cb = this.cb, scope = this.scope) {
+    return new ObservablePoint3D(cb, scope, this.x, this.y, this.z)
   }
 
   copyFrom(p: PIXI.IPoint) {
@@ -46,11 +45,11 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
     return this
   }
 
-  copyTo(p: PIXI.IPoint) {
+  copyTo<T extends PIXI.IPoint>(p: T) {
     if (p instanceof ObservablePoint3D) {
       p.set(this.x, this.y, this.z)
     }
-    return p
+    return <T>p
   }
 
   equals(p: PIXI.IPoint): boolean {

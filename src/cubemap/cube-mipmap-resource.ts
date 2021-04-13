@@ -3,10 +3,19 @@ import * as PIXI from "pixi.js"
 import { MipmapResource } from "./mipmap-resource"
 
 // @ts-ignore PIXI.resources.CubeResource was moved after PixiJS 6.0+
-const CubeResource: typeof PIXI.resources.CubeResource = PIXI.CubeResource || PIXI.resources.CubeResource
+const CubeResource: typeof PIXI.CubeResource = PIXI.CubeResource || PIXI.resources.CubeResource
+
+export type MipmapResourceArray = [
+  MipmapResource,
+  MipmapResource,
+  MipmapResource,
+  MipmapResource,
+  MipmapResource,
+  MipmapResource
+]
 
 export class CubeMipmapResource extends CubeResource {
-  constructor(source: MipmapResource[], public levels = 1) {
+  constructor(source: MipmapResourceArray, public levels = 1) {
     super(source)
   }
 

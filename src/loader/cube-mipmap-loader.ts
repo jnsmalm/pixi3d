@@ -7,7 +7,7 @@ export const CubeMipmapLoader = {
     if (resource.extension !== "cubemap") {
       return next()
     }
-    let loader = <PIXI.Loader>this
+    let loader = <PIXI.Loader><unknown>this
 
     // The urls in the cubemap file is relative to where the cubemap file is 
     // located, we this is needed to get the complete urls.

@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { ShadowCastingLight } from "./shadow-casting-light"
 import { Mat4 } from "../math/mat4"
 import { LightType } from "../lighting/light-type"

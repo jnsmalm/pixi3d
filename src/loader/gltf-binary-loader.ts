@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js"
 import { glTFAsset } from "../gltf/gltf-asset"
 
 export const glTFBinaryLoader = {
-  use: function (resource: PIXI.LoaderResource, next: () => void) {
+  use: function (resource: PIXI.ILoaderResource, next: () => void) {
     if (resource.extension !== "glb") {
       return next()
     }

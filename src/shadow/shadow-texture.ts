@@ -7,7 +7,6 @@ export namespace ShadowTexture {
   export function create(renderer: PIXI.Renderer, size: number, quality: ShadowQuality) {
     let type = getSupportedType(renderer, quality)
     return PIXI.RenderTexture.create({
-      // @ts-ignore
       width: size, height: size, type: type, scaleMode: getSupportedScaleMode(renderer)
     })
   }

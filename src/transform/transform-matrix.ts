@@ -35,12 +35,8 @@ export class TransformMatrix extends PIXI.Matrix {
     }
   }
 
-  toArray(transpose?: boolean, out?: Float32Array) {
-    let _array = out
-    if (!out) {
-      _array = this._array
-    }
-    return <number[]><unknown>_array
+  toArray() {
+    return this._array
   }
 
   /** Returns the current version id. */

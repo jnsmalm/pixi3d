@@ -16,7 +16,6 @@ export class PostProcessingSprite extends PIXI.Sprite {
   /** The depth texture. */
   get depthTexture() {
     if (this._renderTexture) {
-      // @ts-ignore
       return <PIXI.BaseTexture>this._renderTexture.baseTexture.framebuffer.depthTexture
     }
   }
@@ -43,7 +42,6 @@ export class PostProcessingSprite extends PIXI.Sprite {
     /* When rendering to a texture, it's flipped vertically for some reason. 
     This will flip it back to it's expected orientation. */
     this._renderTexture.rotate = 8
-    // @ts-ignore
     this._renderTexture.baseTexture.framebuffer.addDepthTexture()
 
     this._fxaa.enabled = false
@@ -52,6 +50,7 @@ export class PostProcessingSprite extends PIXI.Sprite {
     this.filters = [this._fxaa]
 
     if (!options || !options.width || !options.height) {
+      // @ts-expect-error
       renderer.on("prerender", () => {
         this._renderTexture.resize(renderer.width, renderer.height)
       })

@@ -16,8 +16,6 @@ export class PickingMap {
     this._output = PIXI.RenderTexture.create({ width, height })
     this._shader = new MeshShader(
       PIXI.Program.from(require("./shader/picking.vert").default, require("./shader/picking.frag").default))
-
-    // @ts-ignore Framebuffer does exist on render texture.
     this._output.framebuffer.addDepthTexture()
   }
 

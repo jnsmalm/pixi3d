@@ -36,10 +36,11 @@ export class CameraOrbitControl {
    * by default.
    */
   constructor(element: HTMLElement, public camera = Camera.main) {
+    // @ts-expect-error
     this.camera.renderer.on("prerender", () => {
       this.updateCamera()
     })
-    this.camera.renderer.plugins.interaction.on("pointerdown", (e: PIXI.interaction.InteractionEvent) => {
+    this.camera.renderer.plugins.interaction.on("pointerdown", (e: PIXI.InteractionEvent) => {
       if (!e.stopped) {
         this._grabbed = true
       }

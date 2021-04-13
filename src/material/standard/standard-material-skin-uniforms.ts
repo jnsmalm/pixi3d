@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { Mesh3D } from "../../mesh/mesh"
 import { StandardMaterialMatrixTexture } from "./standard-material-matrix-texture"
 

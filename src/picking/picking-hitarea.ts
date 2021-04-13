@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { PickingManager } from "./picking-manager"
 import { Mesh3D } from "../mesh/mesh"
 import { Model } from "../model"
