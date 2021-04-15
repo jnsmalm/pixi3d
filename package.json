@@ -28,6 +28,7 @@
   "homepage": "https://github.com/jnsmalm/pixi3d#readme",
   "devDependencies": {
     "@types/node": "^12.12.32",
+    "gl-matrix": "^3.3.0",
     "html-webpack-plugin": "^4.0.4",
     "pixi.js": "^6.0.2",
     "raw-loader": "^3.1.0",

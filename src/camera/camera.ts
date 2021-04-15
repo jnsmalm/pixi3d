@@ -2,10 +2,13 @@ import * as PIXI from "pixi.js"
 
 import { Container3D } from "../container"
 import { Mat4 } from "../math/mat4"
+import { Ray } from "../math/ray"
+import { Vec3 } from "../math/vec3"
 import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "../transform/matrix-component"
 import { ObservablePoint3D } from "../transform/observable-point"
 
+const vec3 = new Float32Array(3)
 const mat4 = new Float32Array(16)
 const vec4 = new Float32Array(4)
 
@@ -86,6 +89,20 @@ export class Camera extends Container3D {
   }
 
   /**
+   * Converts screen coordinates to a ray.
+   * @param x Screen x coordinate.
+   * @param y Screen y coordinate.
+   * @param viewSize The size of the view when not rendering to the entire screen.
+   */
+  screenToRay(x: number, y: number, viewSize: { width: number, height: number } = this.renderer) {
+    let screen = this.screenToWorld(x, y, 1, undefined, viewSize)
+    if (screen) {
+      return new Ray(this.worldTransform.position,
+        Vec3.subtract(screen.array, this.worldTransform.position, vec3))
+    }
+  }
+
+  /**
    * Converts screen coordinates to world coordinates.
    * @param x Screen x coordinate.
    * @param y Screen y coordinate.
@@ -96,7 +113,7 @@ export class Camera extends Container3D {
   screenToWorld(x: number, y: number, distance: number, point = new ObservablePoint3D(() => { }, undefined), viewSize: { width: number, height: number } = this.renderer) {
     // Make sure the transform is updated in case something has been changed, 
     // otherwise it may be using wrong values.
-    this.transform.updateTransform()
+    this.transform.updateTransform(this.parent?.transform)
 
     let far = this.far
 
@@ -133,7 +150,7 @@ export class Camera extends Container3D {
   worldToScreen(x: number, y: number, z: number, point = new PIXI.Point(), viewSize: { width: number, height: number } = this.renderer) {
     // Make sure the transform is updated in case something has been changed, 
     // otherwise it may be using wrong values.
-    this.transform.updateTransform()
+    this.transform.updateTransform(this.parent?.transform)
 
     let worldSpace = Vec4.set(x, y, z, 1, vec4)
     let clipSpace = Vec4.transformMat4(

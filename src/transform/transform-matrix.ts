@@ -17,9 +17,10 @@ export class TransformMatrix extends PIXI.Matrix {
   private _scaling?: MatrixComponent
   private _rotation?: MatrixComponent
   private _up?: MatrixComponent
+  private _array: Float32Array
   private _forward?: MatrixComponent
   private _target?: MatrixComponent
-  private _array: Float32Array
+  
 
   /**
    * Creates a new transform matrix using the specified matrix array.

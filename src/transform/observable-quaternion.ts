@@ -1,15 +1,21 @@
 import * as PIXI from "pixi.js"
 
 import { Quat } from "../math/quat"
-import { ObservablePoint3D } from "./observable-point"
-
-const quat = new Float32Array(4)
 
 /**
  * Represents a rotation quaternion in 3D space.
  */
-export class ObservableQuaternion extends ObservablePoint3D {
-  _w: number
+export class ObservableQuaternion extends PIXI.ObservablePoint {
+  private _array = new Float32Array(4)
+
+  /** Array containing the x, y, z, w values. */
+  get array() {
+    return this._array
+  }
+
+  set array(value: Float32Array) {
+    this.setFrom(value)
+  }
 
   /**
    * Creates a new observable quaternion.
@@ -21,8 +27,56 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * @param w The w component.
    */
   constructor(cb: () => void, scope: any, x = 0, y = 0, z = 0, w = 1) {
-    super(cb, scope, x, y, z)
-    this._w = w
+    super(cb, scope)
+    this._array.set([x, y, z, w])
+  }
+
+  /** The x component of the quaternion. */
+  get x() {
+    return this._array[0]
+  }
+
+  set x(value: number) {
+    if (this._array[0] !== value) {
+      this._array[0] = value
+      this.cb.call(this.scope)
+    }
+  }
+
+  /** The y component of the quaternion. */
+  get y() {
+    return this._array[1]
+  }
+
+  set y(value: number) {
+    if (this._array[1] !== value) {
+      this._array[1] = value
+      this.cb.call(this.scope)
+    }
+  }
+
+  /** The z component of the quaternion. */
+  get z() {
+    return this._array[2]
+  }
+
+  set z(value: number) {
+    if (this._array[2] !== value) {
+      this._array[2] = value
+      this.cb.call(this.scope)
+    }
+  }
+
+  /** The w component of the quaternion. */
+  get w() {
+    return this._array[3]
+  }
+
+  set w(value: number) {
+    if (this._array[3] !== value) {
+      this._array[3] = value
+      this.cb.call(this.scope)
+    }
   }
 
   /**
@@ -32,20 +86,7 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * @param z The z angle.
    */
   setEulerAngles(x: number, y: number, z: number) {
-    Quat.fromEuler(x, y, z, quat)
-    this.set(quat[0], quat[1], quat[2], quat[3])
-  }
-
-  /** W component of the quaternion. */
-  get w() {
-    return this._w
-  }
-
-  set w(value: number) {
-    if (this._w !== value) {
-      this._w = value
-      this.cb.call(this.scope)
-    }
+    Quat.fromEuler(x, y, z, this._array); this.cb.call(this.scope)
   }
 
   /**
@@ -61,10 +102,13 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * Copies x, y, z, and w from the given quaternion.
    * @param p The quaternion to copy from.
    */
-  copyFrom(p: PIXI.IPoint) {
-    super.copyFrom(p)
-    if (p instanceof ObservableQuaternion) {
-      this.w = p.w
+  copyFrom(p: ObservableQuaternion) {
+    if (this._array[0] !== p.x || this._array[1] !== p.y || this._array[2] !== p.z || this._array[3] !== p.w) {
+      this._array[0] = p.x
+      this._array[1] = p.y
+      this._array[2] = p.z
+      this._array[3] = p.w
+      this.cb.call(this.scope)
     }
     return this
   }
@@ -73,7 +117,7 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * Copies x, y, z and w into the given quaternion.
    * @param p The quaternion to copy to.
    */
-   copyTo<T extends PIXI.IPoint>(p: T) {
+  copyTo<T extends PIXI.IPoint>(p: T) {
     if (p instanceof ObservableQuaternion) {
       p.set(this.x, this.y, this.z, this.w)
     }
@@ -84,11 +128,8 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * Returns true if the given quaternion is equal to this quaternion.
    * @param p The quaternion to check.
    */
-  equals(p: PIXI.IPoint) {
-    if (p instanceof ObservableQuaternion) {
-      return super.equals(p) && (p.w === this.w)
-    }
-    return false
+  equals(p: ObservableQuaternion) {
+    return p.x === this.x && p.y === this.y && p.z === this.z && p.w === this.w
   }
 
   /**
@@ -98,11 +139,12 @@ export class ObservableQuaternion extends ObservablePoint3D {
    * @param z Z component to set.
    * @param w W component to set.
    */
-  set(x: number, y?: number, z?: number, w?: number) {
-    super.set(x, y, z)
-    const _w = w || ((w !== 0) ? x : 0)
-    if (this._w !== _w) {
-      this._w = _w
+  set(x: number, y = x, z = x, w = x) {
+    if (this._array[0] !== x || this._array[1] !== y || this._array[2] !== z || this._array[3] !== w) {
+      this._array[0] = x
+      this._array[1] = y
+      this._array[2] = z
+      this._array[3] = w
       this.cb.call(this.scope)
     }
     return this

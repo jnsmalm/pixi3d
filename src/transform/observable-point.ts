@@ -4,7 +4,16 @@ import * as PIXI from "pixi.js"
  * Represents a point in 3D space.
  */
 export class ObservablePoint3D extends PIXI.ObservablePoint {
-  private _z: number
+  private _array = new Float32Array(3)
+
+  /** Array containing the x, y, z values. */
+  get array() {
+    return this._array
+  }
+
+  set array(value: Float32Array) {
+    this.setFrom(value)
+  }
 
   /**
    * Creates a new observable point.
@@ -15,20 +24,48 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
    * @param z The position on the z axis.
    */
   constructor(cb: () => void, scope: any, x = 0, y = 0, z = 0) {
-    super(cb, scope, x, y)
-    this._z = z
+    super(cb, scope)
+    this._array.set([x, y, z])
+  }
+
+  /**
+   * Position on the x axis relative to the local coordinates of the parent.
+   */
+  get x() {
+    return this._array[0]
+  }
+
+  set x(value: number) {
+    if (this._array[0] !== value) {
+      this._array[0] = value
+      this.cb.call(this.scope)
+    }
+  }
+
+  /**
+   * Position on the y axis relative to the local coordinates of the parent.
+   */
+  get y() {
+    return this._array[1]
+  }
+
+  set y(value: number) {
+    if (this._array[1] !== value) {
+      this._array[1] = value
+      this.cb.call(this.scope)
+    }
   }
 
   /**
    * Position on the z axis relative to the local coordinates of the parent.
    */
   get z() {
-    return this._z
+    return this._array[2]
   }
 
   set z(value: number) {
-    if (this._z !== value) {
-      this._z = value
+    if (this._array[2] !== value) {
+      this._array[2] = value
       this.cb.call(this.scope)
     }
   }
@@ -37,10 +74,12 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
     return new ObservablePoint3D(cb, scope, this.x, this.y, this.z)
   }
 
-  copyFrom(p: PIXI.IPoint) {
-    super.copyFrom(p)
-    if (p instanceof ObservablePoint3D) {
-      this.z = p.z
+  copyFrom(p: ObservablePoint3D) {
+    if (this._array[0] !== p.x || this._array[1] !== p.y || this._array[2] !== p.z) {
+      this._array[0] = p.x
+      this._array[1] = p.y
+      this._array[2] = p.z
+      this.cb.call(this.scope)
     }
     return this
   }
@@ -52,11 +91,8 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
     return <T>p
   }
 
-  equals(p: PIXI.IPoint): boolean {
-    if (p instanceof ObservablePoint3D) {
-      return super.equals(p) && (p.z === this.z)
-    }
-    return false
+  equals(p: ObservablePoint3D): boolean {
+    return p.x === this.x && p.y === this.y && p.z === this.z
   }
 
   /**
@@ -65,11 +101,11 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
    * @param y The position on the y axis.
    * @param z The position on the z axis.
    */
-  set(x: number, y?: number, z?: number) {
-    super.set(x, y)
-    const _z = z || ((z !== 0) ? x : 0)
-    if (this._z !== _z) {
-      this._z = _z
+  set(x: number, y = x, z = x) {
+    if (this._array[0] !== x || this._array[1] !== y || this._array[2] !== z) {
+      this._array[0] = x
+      this._array[1] = y
+      this._array[2] = z
       this.cb.call(this.scope)
     }
     return this
