@@ -7,6 +7,7 @@ import * as PIXI from "pixi.js"
 export class glTFMaterial {
   alphaCutoff = 0.5
   alphaMode = "OPAQUE"
+  opacity = 1
   doubleSided = false
   roughness = 1
   metallic = 1

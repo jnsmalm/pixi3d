@@ -25,6 +25,7 @@ export class StandardMaterial extends Material {
   private _lightingEnvironment?: LightingEnvironment
   private _unlit = false
   private _alphaMode = StandardMaterialAlphaMode.opaque
+  private _opacity = 1  // when renderType === MaterialRenderType.transparent
   private _debugMode?: StandardMaterialDebugMode
   private _baseColorTexture?: PIXI.Texture
   private _normalTexture?: PIXI.Texture
@@ -129,6 +130,16 @@ export class StandardMaterial extends Material {
       }
       this.invalidateShader()
     }
+  }
+
+  /** Material opacity (when alphaMode === StandardMaterialAlphaMode.mask) */
+  get opacity() {
+    return this._opacity
+  }
+
+  set opacity(value: number) {
+    this._opacity = value;
+    this.alphaMode = value < 1 ? StandardMaterialAlphaMode.mask : StandardMaterialAlphaMode.opaque;
   }
 
   /** The shadow casting light of the material. */
@@ -248,6 +259,7 @@ export class StandardMaterial extends Material {
       material.occlusionTexture = source.occlusionTexture?.clone()
       material.doubleSided = source.doubleSided
       material.alphaCutoff = source.alphaCutoff
+      material.opacity = source.opacity
       if (source.baseColorTexture && (<any>source.baseColorTexture).uvTransform) {
         (<any>material.baseColorTexture).uvTransform = (<any>source.baseColorTexture).uvTransform;
       }
@@ -323,6 +335,7 @@ export class StandardMaterial extends Material {
     }
     if (this._alphaMode === StandardMaterialAlphaMode.mask) {
       shader.uniforms.u_AlphaCutoff = this.alphaCutoff
+      shader.uniforms.u_Opacity = this.opacity
     }
     if (mesh.morphWeights) {
       shader.uniforms.u_morphWeights = mesh.morphWeights

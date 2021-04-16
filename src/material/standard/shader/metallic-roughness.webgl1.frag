@@ -80,6 +80,7 @@ uniform float u_GlossinessFactor;
 
 #ifdef ALPHAMODE_MASK
 uniform float u_AlphaCutoff;
+uniform float u_Opacity;
 #endif
 
 uniform vec3 u_Camera;
@@ -338,7 +339,7 @@ void main()
     {
         discard;
     }
-    baseColor.a = 1.0;
+    baseColor.a = u_Opacity;
 #endif
 
 #ifdef ALPHAMODE_OPAQUE
