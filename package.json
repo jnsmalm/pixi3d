@@ -10,7 +10,7 @@
   "types": "types/index.d.ts",
   "scripts": {
     "build": "webpack --env.production",
-    "prepare": "rm -rf dist types && npm run build",
+    "prepare": "rimraf dist types && npm run build",
     "serve": "webpack-dev-server --open --config examples/example.config.js",
     "docs": "typedoc src/index.ts",
     "preversion": "npm run build",
@@ -32,6 +32,7 @@
     "html-webpack-plugin": "^4.0.4",
     "pixi.js": "^6.0.2",
     "raw-loader": "^3.1.0",
+    "rimraf": "^3.0.2",
     "ts-loader": "^6.2.0",
     "typedoc": "^0.17.0-3",
     "typescript": "^4.2.4",
