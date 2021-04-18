@@ -13,6 +13,7 @@ import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
 import { StandardMaterialSkinUniforms } from "./standard-material-skin-uniforms"
 import { MaterialRenderType } from "../material-render-type"
+import { Color } from "../../color"
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -27,6 +28,7 @@ export class StandardMaterial extends Material {
   private _alphaMode = StandardMaterialAlphaMode.opaque
   private _debugMode?: StandardMaterialDebugMode
   private _baseColorTexture?: PIXI.Texture
+  private _baseColor = new Float32Array(4)
   private _normalTexture?: PIXI.Texture
   private _occlusionTexture?: PIXI.Texture
   private _emissiveTexture?: PIXI.Texture
@@ -42,14 +44,14 @@ export class StandardMaterial extends Material {
   /** The metalness of the material. */
   metallic = 1
 
-  /** The base color of the material. Array containing RGBA values. */
-  baseColor = [1, 1, 1, 1]
+  /** The base color of the material. */
+  baseColor = new Color(1, 1, 1, 1)
 
   /** The cutoff threshold when alpha mode is set to "mask". */
   alphaCutoff = 0.5
 
-  /** The emissive color of the material. Array containing RGB values. */
-  emissive = [0, 0, 0]
+  /** The emissive color of the material. */
+  emissive = new Color(0, 0, 0, 0)
 
   /** The exposure (brightness) of the material. */
   exposure = 3
@@ -209,12 +211,12 @@ export class StandardMaterial extends Material {
 
   /**
    * Creates a standard material factory which can be used when loading models.
-   * @param properties Properties to set on the material when created.
+   * @param props Properties to set on the material when created.
    */
-  static factory(properties = {}) {
+  static factory(props = {}) {
     return {
       create: (source: unknown) => {
-        return <StandardMaterial>Object.assign(StandardMaterial.create(source), properties)
+        return <StandardMaterial>Object.assign(StandardMaterial.create(source), props)
       }
     }
   }
@@ -226,7 +228,7 @@ export class StandardMaterial extends Material {
   static create(source: unknown) {
     let material = new StandardMaterial()
     if (source instanceof glTFMaterial) {
-      material.baseColor = source.baseColor
+      material.baseColor = Color.from(source.baseColor)
       material.baseColorTexture = source.baseColorTexture?.clone()
       material.metallic = source.metallic
       material.roughness = source.roughness
@@ -240,10 +242,14 @@ export class StandardMaterial extends Material {
           material.alphaMode = StandardMaterialAlphaMode.mask
           break
         }
+        case "OPAQUE": {
+          material.alphaMode = StandardMaterialAlphaMode.opaque
+          break
+        }
       }
       material.unlit = source.unlit
       material.emissiveTexture = source.emissiveTexture?.clone()
-      material.emissive = source.emissive
+      material.emissive = Color.from(source.emissive)
       material.normalTexture = source.normalTexture?.clone()
       material.occlusionTexture = source.occlusionTexture?.clone()
       material.doubleSided = source.doubleSided
@@ -304,6 +310,8 @@ export class StandardMaterial extends Material {
   }
 
   updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
+    this._baseColor.set(this.baseColor.rgb)
+    this._baseColor[3] = this.baseColor.a * mesh.worldAlpha
     let camera = this.camera || Camera.main
     if (mesh.skin) {
       this._skinUniforms.update(mesh, shader)
@@ -313,8 +321,8 @@ export class StandardMaterial extends Material {
     shader.uniforms.u_Exposure = this.exposure
     shader.uniforms.u_MetallicFactor = this.metallic
     shader.uniforms.u_RoughnessFactor = this.roughness
-    shader.uniforms.u_BaseColorFactor = this.baseColor
-    shader.uniforms.u_EmissiveFactor = this.emissive
+    shader.uniforms.u_BaseColorFactor = this._baseColor
+    shader.uniforms.u_EmissiveFactor = this.emissive.rgb
     shader.uniforms.u_ModelMatrix = mesh.worldTransform.toArray()
     shader.uniforms.u_NormalMatrix = mesh.transform.normalTransform.toArray()
     if (this._shadowCastingLight) {
