@@ -449,7 +449,7 @@ void main()
     #endif
 
     #ifdef DEBUG_EMISSIVE
-        gl_FragColor.rgb = LINEARtoSRGB(emissive);
+        fragColor.rgb = LINEARtoSRGB(emissive);
     #endif
 
     #ifdef DEBUG_F0
