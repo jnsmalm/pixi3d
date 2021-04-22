@@ -356,7 +356,7 @@ export class StandardMaterial extends Material {
       shader.uniforms[`u_Lights[${i}].position`] = light.worldTransform.position
       shader.uniforms[`u_Lights[${i}].direction`] = light.worldTransform.forward
       shader.uniforms[`u_Lights[${i}].range`] = light.range
-      shader.uniforms[`u_Lights[${i}].color`] = light.color
+      shader.uniforms[`u_Lights[${i}].color`] = light.color.rgb
       shader.uniforms[`u_Lights[${i}].intensity`] = light.intensity
       shader.uniforms[`u_Lights[${i}].innerConeCos`] = Math.cos(light.innerConeAngle * PIXI.DEG_TO_RAD)
       shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle * PIXI.DEG_TO_RAD)

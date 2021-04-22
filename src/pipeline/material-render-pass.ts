@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js"
 
+import { Color } from "../color"
 import { RenderPass } from "./render-pass"
 import { Mesh3D } from "../mesh/mesh"
 
@@ -10,7 +11,7 @@ export class MaterialRenderPass implements RenderPass {
   private _renderTexture?: PIXI.RenderTexture
 
   /** The color (r,g,b,a) used for clearing the render texture. If this value is empty, the render texture will not be cleared. */
-  clearColor?= [0, 0, 0, 0]
+  clearColor?= new Color(0, 0, 0, 0)
 
   /** The texture used when rendering to a texture. */
   get renderTexture() {
@@ -32,7 +33,7 @@ export class MaterialRenderPass implements RenderPass {
   clear() {
     if (this._renderTexture && this.clearColor) {
       this.renderer.renderTexture.bind(this._renderTexture)
-      this.renderer.renderTexture.clear(this.clearColor)
+      this.renderer.renderTexture.clear(Array.from(this.clearColor.rgb))
       this.renderer.renderTexture.bind(undefined)
     }
   }

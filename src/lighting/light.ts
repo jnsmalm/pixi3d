@@ -1,3 +1,4 @@
+import { Color } from "../color"
 import { Container3D } from "../container"
 import { LightType } from "./light-type"
 
@@ -6,7 +7,7 @@ export class Light extends Container3D {
   type = LightType.point
 
   /** The color of the light. */
-  color = [1, 1, 1]
+  color = new Color(1, 1, 1)
 
   /** The range of the light. */
   range = 10
