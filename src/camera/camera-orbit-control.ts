@@ -26,7 +26,7 @@ export class CameraOrbitControl {
   /** Target position (x, y, z) to orbit. */
   target = { x: 0, y: 0, z: 0 }
 
-  /** Allows the camera to be controlled. */
+  /** Allows the camera to be controlled by user. */
   allowControl = true
 
   /**
@@ -40,7 +40,7 @@ export class CameraOrbitControl {
     this.camera.renderer.on("prerender", () => {
       this.updateCamera()
     })
-    this.camera.renderer.plugins.interaction.on("pointerdown", (e: PIXI.InteractionEvent) => {
+    this.camera.renderer.plugins.interaction.on("mousedown", (e: PIXI.InteractionEvent) => {
       if (!e.stopped) {
         this._grabbed = true
       }
