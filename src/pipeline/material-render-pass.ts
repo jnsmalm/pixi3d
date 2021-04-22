@@ -33,7 +33,7 @@ export class MaterialRenderPass implements RenderPass {
   clear() {
     if (this._renderTexture && this.clearColor) {
       this.renderer.renderTexture.bind(this._renderTexture)
-      this.renderer.renderTexture.clear(Array.from(this.clearColor.rgb))
+      this.renderer.renderTexture.clear(Array.from(this.clearColor.rgba))
       this.renderer.renderTexture.bind(undefined)
     }
   }

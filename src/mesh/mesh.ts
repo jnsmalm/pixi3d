@@ -23,7 +23,8 @@ export class Mesh3D extends Container3D {
   /** The skin used for vertex skinning. */
   skin?: Skin
 
-  private _enabledRenderPasses = ["material"]
+  /** The enabled render passes for this mesh. */
+  enabledRenderPasses = ["material"]
 
   /**
    * Creates a new mesh with the specified geometry and material.
@@ -42,8 +43,8 @@ export class Mesh3D extends Container3D {
    * @param name The name of the render pass to enable.
    */
   enableRenderPass(name: string) {
-    if (this._enabledRenderPasses.indexOf(name) < 0) {
-      this._enabledRenderPasses.push(name)
+    if (this.enabledRenderPasses.indexOf(name) < 0) {
+      this.enabledRenderPasses.push(name)
     }
   }
 
@@ -52,9 +53,9 @@ export class Mesh3D extends Container3D {
    * @param name The name of the render pass to disable.
    */
   disableRenderPass(name: string) {
-    const index = this._enabledRenderPasses.indexOf(name)
+    const index = this.enabledRenderPasses.indexOf(name)
     if (index >= 0) {
-      this._enabledRenderPasses.splice(index, 1)
+      this.enabledRenderPasses.splice(index, 1)
     }
   }
 
@@ -63,7 +64,7 @@ export class Mesh3D extends Container3D {
    * @param name The name of the render pass to check.
    */
   isRenderPassEnabled(name: string) {
-    return this._enabledRenderPasses.indexOf(name) >= 0
+    return this.enabledRenderPasses.indexOf(name) >= 0
   }
 
   /**

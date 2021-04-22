@@ -35,7 +35,7 @@ app.loader.load((loader, resources) => {
   // Create the plane used as water. It will be rendered using the water pass
   // and the water material.
   let water = app.stage.addChild(PIXI3D.Mesh3D.createPlane())
-  water.renderPasses = [waterPass.name]
+  water.enabledRenderPasses = [waterPass.name]
   water.material = new WaterMaterial(resources["water_dudv.jpg"].texture, sprite1.renderTexture, sprite1.depthTexture)
   water.scale.set(10, 1, 10)
   water.material.doubleSided = true
