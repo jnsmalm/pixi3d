@@ -7,25 +7,32 @@ import { Vec3 } from "../math/vec3"
 import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "./matrix-component"
 import { Quat } from "../math/quat"
+import { TransformId } from "./transform-id"
 
 /**
  * Represents the matrix for a transform.
  */
-export class TransformMatrix extends PIXI.Matrix {
-  private _id = 0
+export class TransformMatrix extends PIXI.Matrix implements TransformId {
+  private _transformId = 0
   private _position?: MatrixComponent
   private _scaling?: MatrixComponent
   private _rotation?: MatrixComponent
   private _up?: MatrixComponent
+  private _down?: MatrixComponent
   private _array: Float32Array
   private _forward?: MatrixComponent
-  private _target?: MatrixComponent
-  
+  private _left?: MatrixComponent
+  private _right?: MatrixComponent
+  private _backward?: MatrixComponent
+
+  get transformId() {
+    return this._transformId
+  }
 
   /**
    * Creates a new transform matrix using the specified matrix array.
    * @param array The matrix array, expected length is 16. If empty, an identity 
-   * matrix is used as default.
+   * matrix is used by default.
    */
   constructor(array?: ArrayLike<number>) {
     super()
@@ -38,11 +45,6 @@ export class TransformMatrix extends PIXI.Matrix {
 
   toArray() {
     return this._array
-  }
-
-  /** Returns the current version id. */
-  get id() {
-    return this._id
   }
 
   /** Returns the position component of the matrix. */
@@ -92,6 +94,36 @@ export class TransformMatrix extends PIXI.Matrix {
     return this._up.array
   }
 
+  /** Returns the down vector of the matrix. */
+  get down() {
+    if (!this._down) {
+      this._down = new MatrixComponent(this, 3, data => {
+        Vec3.negate(this.up, data)
+      })
+    }
+    return this._down.array
+  }
+
+  /** Returns the left vector of the matrix. */
+  get right() {
+    if (!this._right) {
+      this._right = new MatrixComponent(this, 3, data => {
+        Vec3.negate(this.left, data)
+      })
+    }
+    return this._right.array
+  }
+
+  /** Returns the right vector of the matrix. */
+  get left() {
+    if (!this._left) {
+      this._left = new MatrixComponent(this, 3, data => {
+        Vec3.normalize(Vec3.cross(this.up, this.forward, data), data)
+      })
+    }
+    return this._left.array
+  }
+
   /** Returns the forward vector of the matrix. */
   get forward() {
     if (!this._forward) {
@@ -102,19 +134,19 @@ export class TransformMatrix extends PIXI.Matrix {
     return this._forward.array
   }
 
-  /** Returns the target (position + forward) vector of the matrix. */
-  get target() {
-    if (!this._target) {
-      this._target = new MatrixComponent(this, 3, data => {
-        Vec3.add(this.position, this.forward, data)
+  /** Returns the backward vector of the matrix. */
+  get backward() {
+    if (!this._backward) {
+      this._backward = new MatrixComponent(this, 3, data => {
+        Vec3.negate(this.forward, data)
       })
     }
-    return this._target.array
+    return this._backward.array
   }
 
   copyFrom(matrix: TransformMatrix) {
     if (matrix instanceof TransformMatrix) {
-      Mat4.copy(matrix._array, this._array); this._id++
+      Mat4.copy(matrix._array, this._array); this._transformId++
     }
     return this
   }
@@ -129,15 +161,15 @@ export class TransformMatrix extends PIXI.Matrix {
     Vec4.set(rotation.x, rotation.y, rotation.z, rotation.w, this.rotation)
     Vec3.set(scaling.x, scaling.y, scaling.z, this.scaling)
     Vec3.set(position.x, position.y, position.z, this.position)
-    Mat4.fromRotationTranslationScale(this.rotation, this.position, this.scaling, this._array); this._id++
+    Mat4.fromRotationTranslationScale(this.rotation, this.position, this.scaling, this._array); this._transformId++
   }
 
   /**
-   * Sets the multiplication result of world and local matrices.
-   * @param world World transform matrix.
-   * @param local Local transform matrix.
+   * Sets the multiplication result of two matrix transforms.
+   * @param a The first operand.
+   * @param b The second operand.
    */
-  setFromMultiplyWorldLocal(world: TransformMatrix, local: TransformMatrix) {
-    Mat4.multiply(world._array, local._array, this._array); this._id++
+  setFromMultiply(a: TransformMatrix, b: TransformMatrix) {
+    Mat4.multiply(a._array, b._array, this._array); this._transformId++
   }
 }

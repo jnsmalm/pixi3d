@@ -40,4 +40,10 @@ export namespace Vec3 {
   export function multiply(a: Float32Array, b: Float32Array, out = new Float32Array(3)) {
     return <Float32Array>vec3.multiply(out, a, b)
   }
+  export function inverse(a: Float32Array, out = new Float32Array(3)) {
+    return <Float32Array>vec3.inverse(out, a)
+  }
+  export function negate(a: Float32Array, out = new Float32Array(3)) {
+    return <Float32Array>vec3.negate(out, a)
+  }
 }

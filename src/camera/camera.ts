@@ -7,6 +7,7 @@ import { Vec3 } from "../math/vec3"
 import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "../transform/matrix-component"
 import { ObservablePoint3D } from "../transform/observable-point"
+import { TransformId } from "../transform/transform-id"
 
 const vec3 = new Float32Array(3)
 const mat4 = new Float32Array(16)
@@ -15,11 +16,11 @@ const vec4 = new Float32Array(4)
 /**
  * Camera is a device from which the world is viewed.
  */
-export class Camera extends Container3D {
-  private _id = 0
+export class Camera extends Container3D implements TransformId {
+  private _transformId = 0
 
-  get id() {
-    return (<any>this.transform)._worldID + this._id
+  get transformId() {
+    return this.transform._worldID + this._transformId
   }
 
   private _projection?: MatrixComponent
@@ -45,7 +46,7 @@ export class Camera extends Container3D {
         // When there is no specific aspect set, this is used for the 
         // projection matrix to always update each frame (in case when the 
         // renderer aspect ratio has changed).
-        this._id++
+        this._transformId++
       }
       if (!this.parent) {
         // When the camera is not attached to the scene hierarchy the transform 
@@ -70,7 +71,7 @@ export class Camera extends Container3D {
 
   set orthographicSize(value: number) {
     if (this._orthographicSize !== value) {
-      this._orthographicSize = value; this._id++
+      this._orthographicSize = value; this._transformId++
     }
   }
 
@@ -84,7 +85,7 @@ export class Camera extends Container3D {
 
   set orthographic(value: boolean) {
     if (this._orthographic !== value) {
-      this._orthographic = value; this._id++
+      this._orthographic = value; this._transformId++
     }
   }
 
@@ -180,7 +181,7 @@ export class Camera extends Container3D {
 
   set aspect(value: number | undefined) {
     if (this._aspect !== value) {
-      this._aspect = value; this._id++
+      this._aspect = value; this._transformId++
     }
   }
 
@@ -191,7 +192,7 @@ export class Camera extends Container3D {
 
   set fieldOfView(value: number) {
     if (this._fieldOfView !== value) {
-      this._fieldOfView = value; this._id++
+      this._fieldOfView = value; this._transformId++
     }
   }
 
@@ -202,7 +203,7 @@ export class Camera extends Container3D {
 
   set near(value: number) {
     if (this._near !== value) {
-      this._near = value; this._id++
+      this._near = value; this._transformId++
     }
   }
 
@@ -213,7 +214,7 @@ export class Camera extends Container3D {
 
   set far(value: number) {
     if (this._far !== value) {
-      this._far = value; this._id++
+      this._far = value; this._transformId++
     }
   }
 
@@ -236,8 +237,10 @@ export class Camera extends Container3D {
   get view() {
     if (!this._view) {
       this._view = new MatrixComponent(this, 16, data => {
+        const target = Vec3.add(
+          this.worldTransform.position, this.worldTransform.forward, vec3)
         Mat4.lookAt(this.worldTransform.position,
-          this.worldTransform.target, this.worldTransform.up, data)
+          target, this.worldTransform.up, data)
       })
     }
     return this._view.array

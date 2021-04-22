@@ -63,22 +63,19 @@ export class Transform3D extends PIXI.Transform {
    */
   updateTransform(parentTransform?: PIXI.Transform) {
     this.updateLocalTransform()
-    if (parentTransform && this._parentID === (<any>parentTransform)._worldID) {
+    if (parentTransform && this._parentID === parentTransform._worldID) {
       return
     }
     if (parentTransform instanceof Transform3D) {
-      this.worldTransform.setFromMultiplyWorldLocal(
-        parentTransform.worldTransform, this.localTransform)
+      this.worldTransform.setFromMultiply(parentTransform.worldTransform, this.localTransform)
     } else {
       this.worldTransform.copyFrom(this.localTransform)
     }
-    Mat4.invert(<Float32Array><unknown>this.worldTransform.toArray(),
-      <Float32Array><unknown>this.inverseWorldTransform.toArray())
-    Mat4.transpose(<Float32Array><unknown>this.inverseWorldTransform.toArray(),
-      <Float32Array><unknown>this.normalTransform.toArray())
+    Mat4.invert(this.worldTransform.toArray(), this.inverseWorldTransform.toArray())
+    Mat4.transpose(this.inverseWorldTransform.toArray(), this.normalTransform.toArray())
     this._worldID++
     if (parentTransform) {
-      this._parentID = (<any>parentTransform)._worldID
+      this._parentID = parentTransform._worldID
     }
   }
 }
