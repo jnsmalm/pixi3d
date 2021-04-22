@@ -1,5 +1,3 @@
-import * as PIXI from "pixi.js"
-
 import { glTFChannel } from "./animation/gltf-channel"
 import { glTFAsset } from "./gltf-asset"
 import { glTFAnimation } from "./animation/gltf-animation"
