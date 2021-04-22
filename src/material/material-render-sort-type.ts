@@ -1,4 +1,4 @@
-export enum MaterialRenderType {
+export enum MaterialRenderSortType {
   opaque = "opaque",
   transparent = "transparent"
 }

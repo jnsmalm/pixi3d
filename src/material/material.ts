@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js"
 
 import { Mesh3D } from "../mesh/mesh"
-import { MaterialRenderType } from "./material-render-type"
+import { MaterialRenderSortType } from "./material-render-sort-type"
 import { MeshShader } from "../mesh/mesh-shader"
 
 /**
@@ -18,9 +18,9 @@ export abstract class Material {
   /** Draw mode used to render a mesh. */
   drawMode = PIXI.DRAW_MODES.TRIANGLES
 
-  /** Render type used to render a mesh. This will determine in which order
+  /** Sort type used to render a mesh. This will determine in which order
    * the material is being rendered compared to other materials. */
-  renderType = MaterialRenderType.opaque
+  renderSortType = MaterialRenderSortType.opaque
 
   /** Value indicating if the material is double sided. */
   get doubleSided() {

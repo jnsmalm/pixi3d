@@ -12,7 +12,7 @@ import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
 import { StandardMaterialSkinUniforms } from "./standard-material-skin-uniforms"
-import { MaterialRenderType } from "../material-render-type"
+import { MaterialRenderSortType } from "../material-render-sort-type"
 import { Color } from "../../color"
 
 const shaders: { [features: string]: StandardShader } = {}
@@ -125,9 +125,9 @@ export class StandardMaterial extends Material {
     if (this._alphaMode !== value) {
       this._alphaMode = value
       if (this._alphaMode === StandardMaterialAlphaMode.opaque) {
-        this.renderType = MaterialRenderType.opaque
+        this.renderSortType = MaterialRenderSortType.opaque
       } else {
-        this.renderType = MaterialRenderType.transparent
+        this.renderSortType = MaterialRenderSortType.transparent
       }
       this.invalidateShader()
     }
