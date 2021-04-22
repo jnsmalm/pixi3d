@@ -16,8 +16,20 @@ export namespace Mat4 {
   export function copy(a: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.copy(out, a)
   }
+  export function fromQuat(q: Float32Array, out = new Float32Array(16)) {
+    return <Float32Array>mat4.fromQuat(out, q)
+  }
   export function fromRotationTranslationScale(q: Float32Array, v: Float32Array, s: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.fromRotationTranslationScale(out, q, v, s)
+  }
+  export function fromRotation(rad: number, axis: Float32Array, out = new Float32Array(16)) {
+    return <Float32Array>mat4.fromRotation(out, rad, axis)
+  }
+  export function fromScaling(v: Float32Array, out = new Float32Array(16)) {
+    return <Float32Array>mat4.fromScaling(out, v)
+  }
+  export function fromTranslation(v: Float32Array, out = new Float32Array(16)) {
+    return <Float32Array>mat4.fromTranslation(out, v)
   }
   export function multiply(a: Float32Array, b: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.multiply(out, a, b)
@@ -40,10 +52,7 @@ export namespace Mat4 {
   export function transpose(a: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.transpose(out, a)
   }
-  export function fromScaling(v: Float32Array, out = new Float32Array(16)) {
-    return <Float32Array>mat4.fromScaling(out, v)
-  }
-  export function fromTranslation(v: Float32Array, out = new Float32Array(16)) {
-    return <Float32Array>mat4.fromTranslation(out, v)
+  export function targetTo(eye: Float32Array, target: Float32Array, up: Float32Array, out = new Float32Array(16)) {
+    return <Float32Array>mat4.targetTo(out, eye, target, up)
   }
 }

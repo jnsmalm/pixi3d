@@ -37,13 +37,22 @@ export namespace Vec3 {
   export function copy(a: Float32Array, out = new Float32Array(3)) {
     return <Float32Array>vec3.copy(out, a)
   }
-  export function multiply(a: Float32Array, b: Float32Array, out = new Float32Array(3)) {
-    return <Float32Array>vec3.multiply(out, a, b)
+  export function length(a: Float32Array) {
+    return vec3.length(a)
   }
   export function inverse(a: Float32Array, out = new Float32Array(3)) {
     return <Float32Array>vec3.inverse(out, a)
   }
   export function negate(a: Float32Array, out = new Float32Array(3)) {
     return <Float32Array>vec3.negate(out, a)
+  }
+  export function multiply(a: Float32Array, b: Float32Array, out = new Float32Array(3)) {
+    return <Float32Array>vec3.multiply(out, a, b)
+  }
+  export function distance(a: Float32Array, b: Float32Array) {
+    return vec3.distance(a, b)
+  }
+  export function squaredDistance(a: Float32Array, b: Float32Array) {
+    return vec3.squaredDistance(a, b)
   }
 }
