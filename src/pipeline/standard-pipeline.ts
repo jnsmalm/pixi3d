@@ -94,7 +94,7 @@ export class StandardPipeline extends PIXI.ObjectRenderer {
   flush() {
     this.sort()
     for (let pass of this._renderPasses) {
-      pass.render(this._meshes.filter(mesh => mesh.renderPasses.indexOf(pass.name) >= 0))
+      pass.render(this._meshes.filter(mesh => mesh.isRenderPassEnabled(pass.name)))
     }
     this._meshes = []
   }
@@ -125,8 +125,9 @@ export class StandardPipeline extends PIXI.ObjectRenderer {
   }
 
   /**
-   * Enables shadows for the specified object. Adds the render pass to the 
-   * specified object and enables the standard material to use the casting light.
+   * Enables shadows for the specified object. Adds the shadow render pass to 
+   * the specified object and enables the standard material to use the casting 
+   * light.
    * @param object The mesh or model to enable shadows for.
    * @param light The shadow casting light to associate with the 
    * object when using the standard material.
@@ -137,7 +138,7 @@ export class StandardPipeline extends PIXI.ObjectRenderer {
       if (light && mesh.material instanceof StandardMaterial) {
         mesh.material.shadowCastingLight = light
       }
-      mesh.renderPasses.push(this._shadowPass.name)
+      mesh.enableRenderPass(this._shadowPass.name)
     }
     if (light) {
       this._shadowPass.addShadowCastingLight(light)
@@ -154,10 +155,7 @@ export class StandardPipeline extends PIXI.ObjectRenderer {
       if (mesh.material instanceof StandardMaterial) {
         mesh.material.shadowCastingLight = undefined
       }
-      const index = mesh.renderPasses.indexOf(this._shadowPass.name)
-      if (index >= 0) {
-        mesh.renderPasses.splice(index, 1)
-      }
+      mesh.disableRenderPass(this._shadowPass.name)
     }
   }
 }

@@ -4,13 +4,13 @@ import { Mesh3D } from "../mesh/mesh"
  * Represents a pass used when rendering.
  */
 export interface RenderPass {
+  /** The name of the render pass. */
+  name: string
+
   /**
    * Clears the render pass. Most often used when rendering to a texture.
    */
-  clear?(): void
-
-  /** The name of the render pass. */
-  name: string
+   clear?(): void
 
   /**
    * Renders the specified meshes.

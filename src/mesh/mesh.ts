@@ -23,8 +23,7 @@ export class Mesh3D extends Container3D {
   /** The skin used for vertex skinning. */
   skin?: Skin
 
-  /** Names of the passes used for rendering the mesh. */
-  renderPasses = ["material"]
+  private _enabledRenderPasses = ["material"]
 
   /**
    * Creates a new mesh with the specified geometry and material.
@@ -36,6 +35,35 @@ export class Mesh3D extends Container3D {
     if (!geometry) {
       throw new Error("PIXI3D: Geometry is required when creating a mesh.")
     }
+  }
+
+  /**
+   * Enables the render pass with the specified name.
+   * @param name The name of the render pass to enable.
+   */
+  enableRenderPass(name: string) {
+    if (this._enabledRenderPasses.indexOf(name) < 0) {
+      this._enabledRenderPasses.push(name)
+    }
+  }
+
+  /**
+   * Disables the render pass with the specified name.
+   * @param name The name of the render pass to disable.
+   */
+  disableRenderPass(name: string) {
+    const index = this._enabledRenderPasses.indexOf(name)
+    if (index >= 0) {
+      this._enabledRenderPasses.splice(index, 1)
+    }
+  }
+
+  /**
+   * Returns a value indicating if the specified render pass is enabled.
+   * @param name The name of the render pass to check.
+   */
+  isRenderPassEnabled(name: string) {
+    return this._enabledRenderPasses.indexOf(name) >= 0
   }
 
   /**
