@@ -1,26 +1,24 @@
 import * as PIXI from "pixi.js"
 
-import { CubeMipmapTexture } from "../cubemap/cube-mipmap-texture"
+import { Cubemap } from "../cubemap/cubemap"
+import { CubemapFaces } from "../cubemap/cubemap-faces"
 
-export const CubeMipmapLoader = {
+export const CubemapLoader = {
   use: function (resource: any, next: () => void) {
     if (resource.extension !== "cubemap") {
       return next()
     }
     let loader = <PIXI.Loader><unknown>this
 
-    // The urls in the cubemap file is relative to where the cubemap file is 
-    // located, we this is needed to get the complete urls.
-    let source = (<string[]>resource.data).map((value) =>
-      resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + value
-    )
-    // Unpack all the mipmap faces.
-    let faces = CubeMipmapTexture.faces.map((face) => {
-      return source.map((mipmap) => mipmap.replace("{{face}}", face))
+    const mipmaps = (<string[]>resource.data).map(mipmap => {
+      return Cubemap.faces.map(face => {
+        return resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + mipmap.replace("{{face}}", face)
+      })
     })
+
     // The list of urls (faces and mipmaps) which needs to be loaded before the 
     // cubemap should be created.
-    let urls = faces.reduce((acc, val) => acc.concat(val), [])
+    let urls = mipmaps.reduce((acc, val) => acc.concat(val), [])
 
     loader.add(urls.filter(url => !loader.resources[url]).map((url) => {
       return { parentResource: resource, url: url }
@@ -32,7 +30,17 @@ export const CubeMipmapLoader = {
       if (urls.includes(res.url)) {
         if (++completed === urls.length) {
           // All resources used by cubemap has been loaded.
-          resource.texture = CubeMipmapTexture.fromSource(source)
+          const textures = mipmaps.map(face => {
+            return <CubemapFaces>{
+              posx: PIXI.Texture.from(face[0]),
+              negx: PIXI.Texture.from(face[1]),
+              posy: PIXI.Texture.from(face[2]),
+              negy: PIXI.Texture.from(face[3]),
+              posz: PIXI.Texture.from(face[4]),
+              negz: PIXI.Texture.from(face[5]),
+            }
+          })
+          resource.cubemap = Cubemap.fromFaces(textures)
           binding.detach()
         }
       }
@@ -45,4 +53,4 @@ export const CubeMipmapLoader = {
   }
 }
 
-PIXI.Loader.registerPlugin(CubeMipmapLoader)
+PIXI.Loader.registerPlugin(CubemapLoader)

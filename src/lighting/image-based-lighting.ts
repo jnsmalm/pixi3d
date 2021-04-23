@@ -1,14 +1,14 @@
 import * as PIXI from "pixi.js"
 
-import { CubeMipmapTexture } from "../cubemap/cube-mipmap-texture"
+import { Cubemap } from "../cubemap/cubemap"
 
 /**
  * A collection of components used for image-based lighting (IBL).
  */
 export class ImageBasedLighting {
-  private _diffuse: CubeMipmapTexture
+  private _diffuse: Cubemap
   private _brdf: PIXI.Texture
-  private _specular: CubeMipmapTexture
+  private _specular: Cubemap
 
   /** Cube texture used for the diffuse component. */
   get diffuse() {
@@ -31,7 +31,7 @@ export class ImageBasedLighting {
    * @param specular Cube mipmap texture used for the specular component.
    * @param brdf BRDF integration map lookup texture.
    */
-  constructor(diffuse: CubeMipmapTexture, specular: CubeMipmapTexture, brdf?: PIXI.Texture) {
+  constructor(diffuse: Cubemap, specular: Cubemap, brdf?: PIXI.Texture) {
     this._diffuse = diffuse
     this._brdf = brdf || PIXI.Texture.from(require("./assets/brdf.png").default)
     this._specular = specular
