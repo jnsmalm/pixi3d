@@ -1,9 +1,7 @@
 import * as PIXI from "pixi.js"
 
+import { BufferResource } from "../../pixi/buffer-resource"
 import { Platform } from "../../platform"
-
-// @ts-ignore PIXI.resources.BufferResource was moved after PixiJS 6.0+
-const BufferResource: typeof PIXI.BufferResource = PIXI.BufferResource || PIXI.resources.BufferResource
 
 export class StandardMaterialMatrixTexture extends PIXI.Texture {
   private _buffer: Float32Array
