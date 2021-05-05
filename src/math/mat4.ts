@@ -55,4 +55,16 @@ export namespace Mat4 {
   export function targetTo(eye: Float32Array, target: Float32Array, up: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.targetTo(out, eye, target, up)
   }
+  export function rotateX(a: Float32Array, rad: number, out = new Float32Array(16)) {
+    return <Float32Array>mat4.rotateX(out, a, rad)
+  }
+  export function rotateY(a: Float32Array, rad: number, out = new Float32Array(16)) {
+    return <Float32Array>mat4.rotateY(out, a, rad)
+  }
+  export function rotateZ(a: Float32Array, rad: number, out = new Float32Array(16)) {
+    return <Float32Array>mat4.rotateZ(out, a, rad)
+  }
+  export function rotate(a: Float32Array, rad: number, axis: Float32Array, out = new Float32Array(16)) {
+    return <Float32Array>mat4.rotate(out, a, rad, axis)
+  }
 }
