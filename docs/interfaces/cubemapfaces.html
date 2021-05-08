@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>StandardMaterialAlphaMode | Pixi3D - v0.9.4</title>
+	<title>CubemapFaces | Pixi3D - v0.9.4</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,79 +56,131 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="standardmaterialalphamode.html">StandardMaterialAlphaMode</a>
+					<a href="cubemapfaces.html">CubemapFaces</a>
 				</li>
 			</ul>
-			<h1>Enumeration StandardMaterialAlphaMode</h1>
+			<h1>Interface CubemapFaces</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">CubemapFaces</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Enumeration members</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="standardmaterialalphamode.html#blend" class="tsd-kind-icon">blend</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="standardmaterialalphamode.html#mask" class="tsd-kind-icon">mask</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="standardmaterialalphamode.html#opaque" class="tsd-kind-icon">opaque</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cubemapfaces.html#negx" class="tsd-kind-icon">negx</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cubemapfaces.html#negy" class="tsd-kind-icon">negy</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cubemapfaces.html#negz" class="tsd-kind-icon">negz</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cubemapfaces.html#posx" class="tsd-kind-icon">posx</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cubemapfaces.html#posy" class="tsd-kind-icon">posy</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cubemapfaces.html#posz" class="tsd-kind-icon">posz</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Enumeration members</h2>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="blend" class="tsd-anchor"></a>
-					<h3>blend</h3>
-					<div class="tsd-signature tsd-kind-icon">blend<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;blend&quot;</span></div>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="negx" class="tsd-anchor"></a>
+					<h3>negx</h3>
+					<div class="tsd-signature tsd-kind-icon">negx<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/material/standard/standard-material-alpha-mode.ts#L17">src/material/standard/standard-material-alpha-mode.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/cubemap/cubemap-faces.ts#L7">src/cubemap/cubemap-faces.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The rendered output is combined with the background using the normal
-								painting operation (i.e. the Porter and Duff over operator). This mode is
-							used to simulate geometry such as guaze cloth or animal fur.</p>
+							<p>The texture or url for negative x.</p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="mask" class="tsd-anchor"></a>
-					<h3>mask</h3>
-					<div class="tsd-signature tsd-kind-icon">mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;mask&quot;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="negy" class="tsd-anchor"></a>
+					<h3>negy</h3>
+					<div class="tsd-signature tsd-kind-icon">negy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/material/standard/standard-material-alpha-mode.ts#L11">src/material/standard/standard-material-alpha-mode.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/cubemap/cubemap-faces.ts#L11">src/cubemap/cubemap-faces.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The rendered output is either fully opaque or fully transparent depending
-								on the alpha value and the specified alpha cutoff value. This mode is used
-							to simulate geometry such as tree leaves or wire fences.</p>
+							<p>The texture or url for negative y.</p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="opaque" class="tsd-anchor"></a>
-					<h3>opaque</h3>
-					<div class="tsd-signature tsd-kind-icon">opaque<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;opaque&quot;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="negz" class="tsd-anchor"></a>
+					<h3>negz</h3>
+					<div class="tsd-signature tsd-kind-icon">negz<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/material/standard/standard-material-alpha-mode.ts#L5">src/material/standard/standard-material-alpha-mode.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/cubemap/cubemap-faces.ts#L15">src/cubemap/cubemap-faces.ts:15</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The rendered output is fully opaque and any alpha value is ignored.</p>
+							<p>The texture or url for negative z.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="posx" class="tsd-anchor"></a>
+					<h3>posx</h3>
+					<div class="tsd-signature tsd-kind-icon">posx<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/cubemap/cubemap-faces.ts#L5">src/cubemap/cubemap-faces.ts:5</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The texture or url for positive x.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="posy" class="tsd-anchor"></a>
+					<h3>posy</h3>
+					<div class="tsd-signature tsd-kind-icon">posy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/cubemap/cubemap-faces.ts#L9">src/cubemap/cubemap-faces.ts:9</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The texture or url for positive y.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="posz" class="tsd-anchor"></a>
+					<h3>posz</h3>
+					<div class="tsd-signature tsd-kind-icon">posz<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/cubemap/cubemap-faces.ts#L13">src/cubemap/cubemap-faces.ts:13</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The texture or url for positive z.</p>
 						</div>
 					</div>
 				</section>
@@ -146,17 +198,26 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-enum">
-						<a href="standardmaterialalphamode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Alpha<wbr>Mode</a>
+					<li class="current tsd-kind-interface">
+						<a href="cubemapfaces.html" class="tsd-kind-icon">Cubemap<wbr>Faces</a>
 						<ul>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="standardmaterialalphamode.html#blend" class="tsd-kind-icon">blend</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="cubemapfaces.html#negx" class="tsd-kind-icon">negx</a>
 							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="standardmaterialalphamode.html#mask" class="tsd-kind-icon">mask</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="cubemapfaces.html#negy" class="tsd-kind-icon">negy</a>
 							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="standardmaterialalphamode.html#opaque" class="tsd-kind-icon">opaque</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="cubemapfaces.html#negz" class="tsd-kind-icon">negz</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="cubemapfaces.html#posx" class="tsd-kind-icon">posx</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="cubemapfaces.html#posy" class="tsd-kind-icon">posy</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="cubemapfaces.html#posz" class="tsd-kind-icon">posz</a>
 							</li>
 						</ul>
 					</li>

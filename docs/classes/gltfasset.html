@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>glTFAsset | Pixi3D - v0.9.3</title>
+	<title>glTFAsset | Pixi3D - v0.9.4</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.3</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.4</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -91,27 +91,21 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="gltfasset.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="gltfasset.html#_buffers" class="tsd-kind-icon">_buffers</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="gltfasset.html#_descriptor" class="tsd-kind-icon">_descriptor</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="gltfasset.html#_images" class="tsd-kind-icon">_images</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Accessors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="gltfasset.html#buffers" class="tsd-kind-icon">buffers</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="gltfasset.html#descriptor" class="tsd-kind-icon">descriptor</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="gltfasset.html#images" class="tsd-kind-icon">images</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="gltfasset.html#buffers" class="tsd-kind-icon">buffers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="gltfasset.html#descriptor" class="tsd-kind-icon">descriptor</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="gltfasset.html#images" class="tsd-kind-icon">images</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="gltfasset.html#frombuffer" class="tsd-kind-icon">from<wbr>Buffer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="gltfasset.html#getembeddedbuffer" class="tsd-kind-icon">get<wbr>Embedded<wbr>Buffer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="gltfasset.html#isembeddedresource" class="tsd-kind-icon">is<wbr>Embedded<wbr>Resource</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="gltfasset.html#isvalid" class="tsd-kind-icon">is<wbr>Valid</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="gltfasset.html#load" class="tsd-kind-icon">load</a></li>
 							</ul>
 						</section>
@@ -124,19 +118,18 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new glTFAsset<span class="tsd-signature-symbol">(</span>descriptor<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="gltfasset.html" class="tsd-signature-type">glTFAsset</a></li>
+						<li class="tsd-signature tsd-kind-icon">new glTFAsset<span class="tsd-signature-symbol">(</span>descriptor<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, buffers<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">[]</span>, images<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="gltfasset.html" class="tsd-signature-type">glTFAsset</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L9">src/gltf/gltf-asset.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/gltf/gltf-asset.ts#L6">src/gltf/gltf-asset.ts:6</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates a new glTF asset using the specified JSON descriptor. The resources
-									(buffers and images) will not be loaded automatically.</p>
+									<p>Creates a new glTF asset using the specified JSON descriptor.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -149,116 +142,134 @@
 										</div>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> buffers: <span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>The buffers used by this asset.</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> images: <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>The images used by this asset.</p>
+										</div>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="gltfasset.html" class="tsd-signature-type">glTFAsset</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_buffers" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _buffers</h3>
-					<div class="tsd-signature tsd-kind-icon">_buffers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L7">src/gltf/gltf-asset.ts:7</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_descriptor" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _descriptor</h3>
-					<div class="tsd-signature tsd-kind-icon">_descriptor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L9">src/gltf/gltf-asset.ts:9</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_images" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _images</h3>
-					<div class="tsd-signature tsd-kind-icon">_images<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L8">src/gltf/gltf-asset.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="buffers" class="tsd-anchor"></a>
 					<h3>buffers</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> buffers<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L31">src/gltf/gltf-asset.ts:31</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>The buffers used by this asset.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">buffers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/gltf/gltf-asset.ts#L13">src/gltf/gltf-asset.ts:13</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The buffers used by this asset.</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="descriptor" class="tsd-anchor"></a>
 					<h3>descriptor</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> descriptor<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L26">src/gltf/gltf-asset.ts:26</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>The descriptor used by this asset.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">descriptor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/gltf/gltf-asset.ts#L13">src/gltf/gltf-asset.ts:13</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The JSON descriptor to create the asset from.</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="images" class="tsd-anchor"></a>
 					<h3>images</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> images<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L21">src/gltf/gltf-asset.ts:21</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>The images used by this asset.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
+					<div class="tsd-signature tsd-kind-icon">images<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Texture</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/gltf/gltf-asset.ts#L13">src/gltf/gltf-asset.ts:13</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The images used by this asset.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="frombuffer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> from<wbr>Buffer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Buffer<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayBuffer</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>gltf<span class="tsd-signature-symbol">: </span><a href="gltfasset.html" class="tsd-signature-type">glTFAsset</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/gltf/gltf-asset.ts#L80">src/gltf/gltf-asset.ts:80</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a new glTF asset from binary (glb) buffer data.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <span class="tsd-signature-type">ArrayBuffer</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The binary buffer data to read from.</p>
+									</div>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>gltf<span class="tsd-signature-symbol">: </span><a href="gltfasset.html" class="tsd-signature-type">glTFAsset</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The function which gets called when the asset has been
+										created.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>gltf<span class="tsd-signature-symbol">: </span><a href="gltfasset.html" class="tsd-signature-type">glTFAsset</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>gltf: <a href="gltfasset.html" class="tsd-signature-type">glTFAsset</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="getembeddedbuffer" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> get<wbr>Embedded<wbr>Buffer</h3>
@@ -269,7 +280,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L84">src/gltf/gltf-asset.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/gltf/gltf-asset.ts#L125">src/gltf/gltf-asset.ts:125</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -292,13 +303,44 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L80">src/gltf/gltf-asset.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/gltf/gltf-asset.ts#L121">src/gltf/gltf-asset.ts:121</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>uri: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="isvalid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Valid</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Valid<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/gltf/gltf-asset.ts#L66">src/gltf/gltf-asset.ts:66</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a value indicating if the specified data buffer is a valid glTF.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <span class="tsd-signature-type">ArrayBuffer</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The buffer data to validate.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -315,7 +357,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/gltf/gltf-asset.ts#L42">src/gltf/gltf-asset.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/gltf/gltf-asset.ts#L22">src/gltf/gltf-asset.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -356,99 +398,6 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum">
-						<a href="../enums/lighttype.html" class="tsd-kind-icon">Light<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/shadowquality.html" class="tsd-kind-icon">Shadow<wbr>Quality</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/standardmaterialalphamode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Alpha<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/standardmaterialdebugmode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Debug<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="animation.html" class="tsd-kind-icon">Animation</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="camera.html" class="tsd-kind-icon">Camera</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="cameraorbitcontrol.html" class="tsd-kind-icon">Camera<wbr>Orbit<wbr>Control</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="container3d.html" class="tsd-kind-icon">Container3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="cubemipmaptexture.html" class="tsd-kind-icon">Cube<wbr>Mipmap<wbr>Texture</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="imagebasedlighting.html" class="tsd-kind-icon">Image<wbr>Based<wbr>Lighting</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="joint.html" class="tsd-kind-icon">Joint</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="light.html" class="tsd-kind-icon">Light</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="lightingenvironment.html" class="tsd-kind-icon">Lighting<wbr>Environment</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="material.html" class="tsd-kind-icon">Material</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="materialrenderpass.html" class="tsd-kind-icon">Material<wbr>Render<wbr>Pass</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="mesh3d.html" class="tsd-kind-icon">Mesh3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="meshgeometry3d.html" class="tsd-kind-icon">Mesh<wbr>Geometry3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="meshshader.html" class="tsd-kind-icon">Mesh<wbr>Shader</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="model.html" class="tsd-kind-icon">Model</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="observablepoint3d.html" class="tsd-kind-icon">Observable<wbr>Point3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="observablequaternion.html" class="tsd-kind-icon">Observable<wbr>Quaternion</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="pickinghitarea.html" class="tsd-kind-icon">Picking<wbr>Hit<wbr>Area</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="pickingmanager.html" class="tsd-kind-icon">Picking<wbr>Manager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="postprocessingsprite.html" class="tsd-kind-icon">Post<wbr>Processing<wbr>Sprite</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="shadowcastinglight.html" class="tsd-kind-icon">Shadow<wbr>Casting<wbr>Light</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="shadowrenderpass.html" class="tsd-kind-icon">Shadow<wbr>Render<wbr>Pass</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="skin.html" class="tsd-kind-icon">Skin</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="skybox.html" class="tsd-kind-icon">Skybox</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="standardmaterial.html" class="tsd-kind-icon">Standard<wbr>Material</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="standardpipeline.html" class="tsd-kind-icon">Standard<wbr>Pipeline</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="transform3d.html" class="tsd-kind-icon">Transform3D</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
@@ -457,23 +406,17 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="gltfasset.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="gltfasset.html#_buffers" class="tsd-kind-icon">_buffers</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="gltfasset.html#_descriptor" class="tsd-kind-icon">_descriptor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="gltfasset.html#_images" class="tsd-kind-icon">_images</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="gltfasset.html#buffers" class="tsd-kind-icon">buffers</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="gltfasset.html#descriptor" class="tsd-kind-icon">descriptor</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="gltfasset.html#images" class="tsd-kind-icon">images</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="gltfasset.html#frombuffer" class="tsd-kind-icon">from<wbr>Buffer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="gltfasset.html#getembeddedbuffer" class="tsd-kind-icon">get<wbr>Embedded<wbr>Buffer</a>
@@ -482,21 +425,15 @@
 								<a href="gltfasset.html#isembeddedresource" class="tsd-kind-icon">is<wbr>Embedded<wbr>Resource</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="gltfasset.html#isvalid" class="tsd-kind-icon">is<wbr>Valid</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="gltfasset.html#load" class="tsd-kind-icon">load</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#cubemipmaploader" class="tsd-kind-icon">Cube<wbr>Mipmap<wbr>Loader</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#shadersourceloader" class="tsd-kind-icon">Shader<wbr>Source<wbr>Loader</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#gltfloader" class="tsd-kind-icon">glTFLoader</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

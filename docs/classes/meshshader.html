@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MeshShader | Pixi3D - v0.9.3</title>
+	<title>MeshShader | Pixi3D - v0.9.4</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.3</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.4</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -102,19 +102,22 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="meshshader.html#drawmode" class="tsd-kind-icon">draw<wbr>Mode</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="meshshader.html#program" class="tsd-kind-icon">program</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="meshshader.html#state" class="tsd-kind-icon">state</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="meshshader.html#uniforms" class="tsd-kind-icon">uniforms</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="meshshader.html#uniformgroup" class="tsd-kind-icon">uniform<wbr>Group</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="meshshader.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="meshshader.html#uniforms" class="tsd-kind-icon">uniforms</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="meshshader.html#checkuniformexists" class="tsd-kind-icon">check<wbr>Uniform<wbr>Exists</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="meshshader.html#createshadergeometry" class="tsd-kind-icon">create<wbr>Shader<wbr>Geometry</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="meshshader.html#destroy" class="tsd-kind-icon">destroy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="meshshader.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="meshshader.html#from" class="tsd-kind-icon">from</a></li>
 							</ul>
@@ -128,23 +131,25 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Mesh<wbr>Shader<span class="tsd-signature-symbol">(</span>program<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PIXI.Program</span>, uniforms<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="meshshader.html" class="tsd-signature-type">MeshShader</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Mesh<wbr>Shader<span class="tsd-signature-symbol">(</span>program<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Program</span>, uniforms<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Dict</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="meshshader.html" class="tsd-signature-type">MeshShader</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="meshshader.html">MeshShader</a>.<a href="meshshader.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:3875</li>
+									<li>Defined in node_modules/@pixi/core/index.d.ts:3493</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> program: <span class="tsd-signature-type">PIXI.Program</span></h5>
+									<h5>program: <span class="tsd-signature-type">Program</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> uniforms: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> uniforms: <span class="tsd-signature-type">Dict</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="meshshader.html" class="tsd-signature-type">MeshShader</a></h4>
@@ -160,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">draw<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DRAW_MODES</span><span class="tsd-signature-symbol"> = PIXI.DRAW_MODES.TRIANGLES</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/mesh/mesh-shader.ts#L17">src/mesh/mesh-shader.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/mesh/mesh-shader.ts#L17">src/mesh/mesh-shader.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -176,19 +181,9 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="meshshader.html">MeshShader</a>.<a href="meshshader.html#program">program</a></p>
 						<ul>
-							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:3882</li>
+							<li>Defined in node_modules/@pixi/core/index.d.ts:3492</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Program that the shader uses</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>member</dt>
-							<dd><p>{PIXI.Program} PIXI.Shader#program</p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="state" class="tsd-anchor"></a>
@@ -196,7 +191,7 @@
 					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">State</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>clockwiseFrontFace<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">; </span>culling<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>depthTest<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = Object.assign(new PIXI.State(), {culling: true, clockwiseFrontFace: false, depthTest: true})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/mesh/mesh-shader.ts#L12">src/mesh/mesh-shader.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/mesh/mesh-shader.ts#L12">src/mesh/mesh-shader.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -206,27 +201,15 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="uniforms" class="tsd-anchor"></a>
-					<h3>uniforms</h3>
-					<div class="tsd-signature tsd-kind-icon">uniforms<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="uniformgroup" class="tsd-anchor"></a>
+					<h3>uniform<wbr>Group</h3>
+					<div class="tsd-signature tsd-kind-icon">uniform<wbr>Group<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">UniformGroup</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="meshshader.html">MeshShader</a>.<a href="meshshader.html#uniforms">uniforms</a></p>
+						<p>Inherited from <a href="meshshader.html">MeshShader</a>.<a href="meshshader.html#uniformgroup">uniformGroup</a></p>
 						<ul>
-							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:3888</li>
+							<li>Defined in node_modules/@pixi/core/index.d.ts:3493</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Shader uniform values, shortcut for <code>uniformGroup.uniforms</code></p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>readonly</dt>
-							<dd></dd>
-							<dt>member</dt>
-							<dd><p>{object}</p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -241,7 +224,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/mesh/mesh-shader.ts#L20">src/mesh/mesh-shader.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/mesh/mesh-shader.ts#L20">src/mesh/mesh-shader.ts:20</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -253,20 +236,77 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a name="uniforms" class="tsd-anchor"></a>
+					<h3>uniforms</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> uniforms<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Dict</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="meshshader.html">MeshShader</a>.<a href="meshshader.html#uniforms">uniforms</a></p>
+								<ul>
+									<li>Defined in node_modules/@pixi/core/index.d.ts:3506</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Shader uniform values, shortcut for <code>uniformGroup.uniforms</code></p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>readonly</dt>
+									<dd></dd>
+									<dt>member</dt>
+									<dd><p>{object}</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Dict</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="checkuniformexists" class="tsd-anchor"></a>
+					<h3>check<wbr>Uniform<wbr>Exists</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">check<wbr>Uniform<wbr>Exists<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, group<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">UniformGroup</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="meshshader.html">MeshShader</a>.<a href="meshshader.html#checkuniformexists">checkUniformExists</a></p>
+								<ul>
+									<li>Defined in node_modules/@pixi/core/index.d.ts:3499</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>group: <span class="tsd-signature-type">UniformGroup</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="createshadergeometry" class="tsd-anchor"></a>
 					<h3>create<wbr>Shader<wbr>Geometry</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Shader<wbr>Geometry<span class="tsd-signature-symbol">(</span>geometry<span class="tsd-signature-symbol">: </span><a href="meshgeometry3d.html" class="tsd-signature-type">MeshGeometry3D</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Geometry</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Shader<wbr>Geometry<span class="tsd-signature-symbol">(</span>geometry<span class="tsd-signature-symbol">: </span><a href="meshgeometry3d.html" class="tsd-signature-type">MeshGeometry3D</a>, instanced<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Geometry</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/mesh/mesh-shader.ts#L28">src/mesh/mesh-shader.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/mesh/mesh-shader.ts#L29">src/mesh/mesh-shader.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -282,8 +322,32 @@
 										<p>The geometry with mesh data.</p>
 									</div>
 								</li>
+								<li>
+									<h5>instanced: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Value indicating if the geometry will be instanced.</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Geometry</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="destroy" class="tsd-anchor"></a>
+					<h3>destroy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="meshshader.html">MeshShader</a>.<a href="meshshader.html#destroy">destroy</a></p>
+								<ul>
+									<li>Defined in node_modules/@pixi/core/index.d.ts:3500</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -297,7 +361,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/mesh/mesh-shader.ts#L64">src/mesh/mesh-shader.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/mesh/mesh-shader.ts#L65">src/mesh/mesh-shader.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -340,14 +404,14 @@
 					<a name="from" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>vertexSrc<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, fragmentSrc<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, uniforms<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Shader</span></li>
+						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>vertexSrc<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, fragmentSrc<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, uniforms<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Dict</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Shader</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="meshshader.html">MeshShader</a>.<a href="meshshader.html#from">from</a></p>
 								<ul>
-									<li>Defined in node_modules/pixi.js/pixi.js.d.ts:3898</li>
+									<li>Defined in node_modules/@pixi/core/index.d.ts:3516</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -364,7 +428,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fragmentSrc: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> uniforms: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> uniforms: <span class="tsd-signature-type">Dict</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Shader</span></h4>
@@ -384,57 +448,6 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum">
-						<a href="../enums/lighttype.html" class="tsd-kind-icon">Light<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/shadowquality.html" class="tsd-kind-icon">Shadow<wbr>Quality</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/standardmaterialalphamode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Alpha<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/standardmaterialdebugmode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Debug<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="animation.html" class="tsd-kind-icon">Animation</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="camera.html" class="tsd-kind-icon">Camera</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="cameraorbitcontrol.html" class="tsd-kind-icon">Camera<wbr>Orbit<wbr>Control</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="container3d.html" class="tsd-kind-icon">Container3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="cubemipmaptexture.html" class="tsd-kind-icon">Cube<wbr>Mipmap<wbr>Texture</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="imagebasedlighting.html" class="tsd-kind-icon">Image<wbr>Based<wbr>Lighting</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="joint.html" class="tsd-kind-icon">Joint</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="light.html" class="tsd-kind-icon">Light</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="lightingenvironment.html" class="tsd-kind-icon">Lighting<wbr>Environment</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="material.html" class="tsd-kind-icon">Material</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="materialrenderpass.html" class="tsd-kind-icon">Material<wbr>Render<wbr>Pass</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="mesh3d.html" class="tsd-kind-icon">Mesh3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="meshgeometry3d.html" class="tsd-kind-icon">Mesh<wbr>Geometry3D</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
@@ -453,13 +466,22 @@
 								<a href="meshshader.html#state" class="tsd-kind-icon">state</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="meshshader.html#uniforms" class="tsd-kind-icon">uniforms</a>
+								<a href="meshshader.html#uniformgroup" class="tsd-kind-icon">uniform<wbr>Group</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="meshshader.html#name" class="tsd-kind-icon">name</a>
 							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+								<a href="meshshader.html#uniforms" class="tsd-kind-icon">uniforms</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="meshshader.html#checkuniformexists" class="tsd-kind-icon">check<wbr>Uniform<wbr>Exists</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="meshshader.html#createshadergeometry" class="tsd-kind-icon">create<wbr>Shader<wbr>Geometry</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="meshshader.html#destroy" class="tsd-kind-icon">destroy</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="meshshader.html#render" class="tsd-kind-icon">render</a>
@@ -471,57 +493,6 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class">
-						<a href="model.html" class="tsd-kind-icon">Model</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="observablepoint3d.html" class="tsd-kind-icon">Observable<wbr>Point3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="observablequaternion.html" class="tsd-kind-icon">Observable<wbr>Quaternion</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="pickinghitarea.html" class="tsd-kind-icon">Picking<wbr>Hit<wbr>Area</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="pickingmanager.html" class="tsd-kind-icon">Picking<wbr>Manager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="postprocessingsprite.html" class="tsd-kind-icon">Post<wbr>Processing<wbr>Sprite</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="shadowcastinglight.html" class="tsd-kind-icon">Shadow<wbr>Casting<wbr>Light</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="shadowrenderpass.html" class="tsd-kind-icon">Shadow<wbr>Render<wbr>Pass</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="skin.html" class="tsd-kind-icon">Skin</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="skybox.html" class="tsd-kind-icon">Skybox</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="standardmaterial.html" class="tsd-kind-icon">Standard<wbr>Material</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="standardpipeline.html" class="tsd-kind-icon">Standard<wbr>Pipeline</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="transform3d.html" class="tsd-kind-icon">Transform3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="gltfasset.html" class="tsd-kind-icon">glTFAsset</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#cubemipmaploader" class="tsd-kind-icon">Cube<wbr>Mipmap<wbr>Loader</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#shadersourceloader" class="tsd-kind-icon">Shader<wbr>Source<wbr>Loader</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#gltfloader" class="tsd-kind-icon">glTFLoader</a>
-					</li>
 				</ul>
 			</nav>
 		</div>

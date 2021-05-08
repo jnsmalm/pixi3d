@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>StandardMaterialAlphaMode | Pixi3D - v0.9.4</title>
+	<title>EventEmitterStatic | Pixi3D - v0.9.4</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,81 +56,64 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="standardmaterialalphamode.html">StandardMaterialAlphaMode</a>
+					<a href="../classes/animation.html">Animation</a>
+				</li>
+				<li>
+					<a href="animation.eventemitterstatic.html">EventEmitterStatic</a>
 				</li>
 			</ul>
-			<h1>Enumeration StandardMaterialAlphaMode</h1>
+			<h1>Interface EventEmitterStatic</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">EventEmitterStatic</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Enumeration members</h3>
+							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="standardmaterialalphamode.html#blend" class="tsd-kind-icon">blend</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="standardmaterialalphamode.html#mask" class="tsd-kind-icon">mask</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="standardmaterialalphamode.html#opaque" class="tsd-kind-icon">opaque</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-interface tsd-has-type-parameter"><a href="animation.eventemitterstatic.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Enumeration members</h2>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="blend" class="tsd-anchor"></a>
-					<h3>blend</h3>
-					<div class="tsd-signature tsd-kind-icon">blend<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;blend&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/material/standard/standard-material-alpha-mode.ts#L17">src/material/standard/standard-material-alpha-mode.ts:17</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The rendered output is combined with the background using the normal
-								painting operation (i.e. the Porter and Duff over operator). This mode is
-							used to simulate geometry such as guaze cloth or animal fur.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="mask" class="tsd-anchor"></a>
-					<h3>mask</h3>
-					<div class="tsd-signature tsd-kind-icon">mask<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;mask&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/material/standard/standard-material-alpha-mode.ts#L11">src/material/standard/standard-material-alpha-mode.ts:11</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The rendered output is either fully opaque or fully transparent depending
-								on the alpha value and the specified alpha cutoff value. This mode is used
-							to simulate geometry such as tree leaves or wire fences.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="opaque" class="tsd-anchor"></a>
-					<h3>opaque</h3>
-					<div class="tsd-signature tsd-kind-icon">opaque<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;opaque&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/material/standard/standard-material-alpha-mode.ts#L5">src/material/standard/standard-material-alpha-mode.ts:5</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The rendered output is fully opaque and any alpha value is ignored.</p>
-						</div>
-					</div>
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-interface tsd-has-type-parameter">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-interface tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Event<wbr>Emitter<wbr>Static&lt;EventTypes&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventTypes</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/eventemitter3/index.d.ts:57</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>EventTypes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventTypes</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -146,17 +129,88 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-enum">
-						<a href="standardmaterialalphamode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Alpha<wbr>Mode</a>
+					<li class="current tsd-kind-class tsd-has-type-parameter">
+						<a href="../classes/animation.html" class="tsd-kind-icon">Animation</a>
 						<ul>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="standardmaterialalphamode.html#blend" class="tsd-kind-icon">blend</a>
+							<li class="current tsd-kind-interface tsd-parent-kind-class">
+								<a href="animation.eventemitterstatic.html" class="tsd-kind-icon">Event<wbr>Emitter<wbr>Static</a>
+								<ul>
+									<li class=" tsd-kind-constructor tsd-parent-kind-interface tsd-has-type-parameter">
+										<a href="animation.eventemitterstatic.html#constructor" class="tsd-kind-icon">constructor</a>
+									</li>
+								</ul>
 							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="standardmaterialalphamode.html#mask" class="tsd-kind-icon">mask</a>
+							<li class=" tsd-kind-interface tsd-parent-kind-class">
+								<a href="animation.listenerfn.html" class="tsd-kind-icon">Listener<wbr>Fn</a>
 							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="standardmaterialalphamode.html#opaque" class="tsd-kind-icon">opaque</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="../classes/animation.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="../classes/animation.html#_ticker" class="tsd-kind-icon">_ticker</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="../classes/animation.html#_update" class="tsd-kind-icon">_update</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="../classes/animation.html#duration" class="tsd-kind-icon">duration</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="../classes/animation.html#loop" class="tsd-kind-icon">loop</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="../classes/animation.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="../classes/animation.html#position" class="tsd-kind-icon">position</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="../classes/animation.html#speed" class="tsd-kind-icon">speed</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="../classes/animation.html#eventemitter" class="tsd-kind-icon">Event<wbr>Emitter</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="../classes/animation.html#prefixed" class="tsd-kind-icon">prefixed</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#addlistener" class="tsd-kind-icon">add<wbr>Listener</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#emit" class="tsd-kind-icon">emit</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#eventnames" class="tsd-kind-icon">event<wbr>Names</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#listenercount" class="tsd-kind-icon">listener<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#listeners" class="tsd-kind-icon">listeners</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#off" class="tsd-kind-icon">off</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#on" class="tsd-kind-icon">on</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#once" class="tsd-kind-icon">once</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="../classes/animation.html#play" class="tsd-kind-icon">play</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="../classes/animation.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="../classes/animation.html#stop" class="tsd-kind-icon">stop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="../classes/animation.html#update" class="tsd-kind-icon">update</a>
 							</li>
 						</ul>
 					</li>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ObservableQuaternion | Pixi3D - v0.9.3</title>
+	<title>ObservableQuaternion | Pixi3D - v0.9.4</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.3</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.4</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -59,7 +59,7 @@
 					<a href="observablequaternion.html">ObservableQuaternion</a>
 				</li>
 			</ul>
-			<h1>Class ObservableQuaternion</h1>
+			<h1>Class ObservableQuaternion&lt;T&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -73,17 +73,31 @@
 					</div>
 				</div>
 			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>T</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="observablepoint3d.html" class="tsd-signature-type">ObservablePoint3D</a>
+						<span class="tsd-signature-type">ObservablePoint</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">ObservableQuaternion</span>
 							</li>
 						</ul>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><span class="tsd-signature-type">IPoint</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -99,18 +113,21 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="observablequaternion.html#_w" class="tsd-kind-icon">_w</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="observablequaternion.html#cb" class="tsd-kind-icon">cb</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="observablequaternion.html#scope" class="tsd-kind-icon">scope</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="observablequaternion.html#x" class="tsd-kind-icon">x</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="observablequaternion.html#y" class="tsd-kind-icon">y</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="observablequaternion.html#_array" class="tsd-kind-icon">_array</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="observablequaternion.html#_x" class="tsd-kind-icon">_x</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="observablequaternion.html#_y" class="tsd-kind-icon">_y</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="observablequaternion.html#cb" class="tsd-kind-icon">cb</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="observablequaternion.html#scope" class="tsd-kind-icon">scope</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="observablequaternion.html#array" class="tsd-kind-icon">array</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="observablequaternion.html#w" class="tsd-kind-icon">w</a></li>
-								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="observablequaternion.html#z" class="tsd-kind-icon">z</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite"><a href="observablequaternion.html#x" class="tsd-kind-icon">x</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite"><a href="observablequaternion.html#y" class="tsd-kind-icon">y</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="observablequaternion.html#z" class="tsd-kind-icon">z</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -118,11 +135,12 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="observablequaternion.html#clone" class="tsd-kind-icon">clone</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="observablequaternion.html#copyfrom" class="tsd-kind-icon">copy<wbr>From</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="observablequaternion.html#copyto" class="tsd-kind-icon">copy<wbr>To</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite"><a href="observablequaternion.html#copyto" class="tsd-kind-icon">copy<wbr>To</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="observablequaternion.html#equals" class="tsd-kind-icon">equals</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="observablequaternion.html#set" class="tsd-kind-icon">set</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="observablequaternion.html#seteulerangles" class="tsd-kind-icon">set<wbr>Euler<wbr>Angles</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="observablequaternion.html#setfrom" class="tsd-kind-icon">set<wbr>From</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="observablequaternion.html#setfrom" class="tsd-kind-icon">set<wbr>From</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="observablequaternion.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -139,9 +157,9 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#constructor">constructor</a></p>
+								<p>Overrides ObservablePoint.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L12">src/transform/observable-quaternion.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L18">src/transform/observable-quaternion.ts:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -219,114 +237,126 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="_w" class="tsd-anchor"></a>
-					<h3>_w</h3>
-					<div class="tsd-signature tsd-kind-icon">_w<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_array" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _array</h3>
+					<div class="tsd-signature tsd-kind-icon">_array<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> = new Float32Array(4)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L12">src/transform/observable-quaternion.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L9">src/transform/observable-quaternion.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="_x" class="tsd-anchor"></a>
+					<h3>_x</h3>
+					<div class="tsd-signature tsd-kind-icon">_x<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#_x">_x</a></p>
+						<ul>
+							<li>Defined in node_modules/@pixi/math/index.d.ts:555</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="_y" class="tsd-anchor"></a>
+					<h3>_y</h3>
+					<div class="tsd-signature tsd-kind-icon">_y<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#_y">_y</a></p>
+						<ul>
+							<li>Defined in node_modules/@pixi/math/index.d.ts:556</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="cb" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> cb</h3>
-					<div class="tsd-signature tsd-kind-icon">cb<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<h3>cb</h3>
+					<div class="tsd-signature tsd-kind-icon">cb<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#cb">cb</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-point.ts#L17">src/transform/observable-point.ts:17</a></li>
+							<li>Defined in node_modules/@pixi/math/index.d.ts:553</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The callback when changed.</p>
-						</div>
-					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-class">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>this: <span class="tsd-signature-type">T</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 									</li>
 								</ul>
 							</li>
 						</ul>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="scope" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> scope</h3>
+					<h3>scope</h3>
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#scope">scope</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-point.ts#L17">src/transform/observable-point.ts:17</a></li>
+							<li>Defined in node_modules/@pixi/math/index.d.ts:554</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The owner of callback.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="x" class="tsd-anchor"></a>
-					<h3>x</h3>
-					<div class="tsd-signature tsd-kind-icon">x<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#x">x</a></p>
-						<ul>
-							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:11790</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>X coord</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>memberof</dt>
-							<dd><p>PIXI.IPoint#</p>
-							</dd>
-							<dt>member</dt>
-							<dd><p>{number} x</p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-					<a name="y" class="tsd-anchor"></a>
-					<h3>y</h3>
-					<div class="tsd-signature tsd-kind-icon">y<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#y">y</a></p>
-						<ul>
-							<li>Defined in node_modules/pixi.js/pixi.js.d.ts:11796</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Y coord</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>memberof</dt>
-							<dd><p>PIXI.IPoint#</p>
-							</dd>
-							<dt>member</dt>
-							<dd><p>{number} y</p>
-							</dd>
-						</dl>
-					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="array" class="tsd-anchor"></a>
+					<h3>array</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> array<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> array<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L12">src/transform/observable-quaternion.ts:12</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Array containing the x, y, z, w values.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Float32Array</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L16">src/transform/observable-quaternion.ts:16</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Array containing the x, y, z, w values.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">Float32Array</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
 					<a name="w" class="tsd-anchor"></a>
 					<h3>w</h3>
@@ -338,12 +368,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L40">src/transform/observable-quaternion.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L71">src/transform/observable-quaternion.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>W component of the quaternion.</p>
+									<p>The w component of the quaternion.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -351,12 +381,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L44">src/transform/observable-quaternion.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L75">src/transform/observable-quaternion.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>W component of the quaternion.</p>
+									<p>The w component of the quaternion.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -369,38 +399,124 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-					<a name="z" class="tsd-anchor"></a>
-					<h3>z</h3>
-					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> z<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> z<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="x" class="tsd-anchor"></a>
+					<h3>x</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> x<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> x<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#z">z</a></p>
+								<p>Overrides ObservablePoint.x</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-point.ts#L25">src/transform/observable-point.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L35">src/transform/observable-quaternion.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Position on the z axis relative to the local coordinates of the parent.</p>
+									<p>The x component of the quaternion.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#z">z</a></p>
+								<p>Overrides ObservablePoint.x</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-point.ts#L29">src/transform/observable-point.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L39">src/transform/observable-quaternion.ts:39</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Position on the z axis relative to the local coordinates of the parent.</p>
+									<p>The x component of the quaternion.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="y" class="tsd-anchor"></a>
+					<h3>y</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> y<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> y<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides ObservablePoint.y</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L47">src/transform/observable-quaternion.ts:47</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The y component of the quaternion.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides ObservablePoint.y</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L51">src/transform/observable-quaternion.ts:51</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The y component of the quaternion.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="z" class="tsd-anchor"></a>
+					<h3>z</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> z<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> z<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L59">src/transform/observable-quaternion.ts:59</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The z component of the quaternion.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L63">src/transform/observable-quaternion.ts:63</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The z component of the quaternion.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -420,14 +536,14 @@
 					<a name="clone" class="tsd-anchor"></a>
 					<h3>clone</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span>cb<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span>, scope<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="observablequaternion.html" class="tsd-signature-type">ObservableQuaternion</a></li>
+						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span>cb<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span>, scope<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="observablequaternion.html" class="tsd-signature-type">ObservableQuaternion</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#clone">clone</a></p>
+								<p>Overrides ObservablePoint.clone</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L56">src/transform/observable-quaternion.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L97">src/transform/observable-quaternion.ts:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -438,13 +554,31 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> cb: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> cb: <span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = this.cb</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Callback when changed.</p>
 									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>this: <span class="tsd-signature-type">T</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> scope: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> scope: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = this.scope</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Owner of callback.</p>
 									</div>
@@ -458,14 +592,14 @@
 					<a name="copyfrom" class="tsd-anchor"></a>
 					<h3>copy<wbr>From</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">copy<wbr>From<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">copy<wbr>From<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><a href="observablequaternion.html" class="tsd-signature-type">ObservableQuaternion</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#copyfrom">copyFrom</a></p>
+								<p>Overrides ObservablePoint.copyFrom</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L65">src/transform/observable-quaternion.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L105">src/transform/observable-quaternion.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -476,7 +610,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>p: <span class="tsd-signature-type">IPoint</span></h5>
+									<h5>p: <a href="observablequaternion.html" class="tsd-signature-type">ObservableQuaternion</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The quaternion to copy from.</p>
 									</div>
@@ -486,18 +620,18 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite">
 					<a name="copyto" class="tsd-anchor"></a>
 					<h3>copy<wbr>To</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">copy<wbr>To<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">copy<wbr>To&lt;T&gt;<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#copyto">copyTo</a></p>
+								<p>Overrides ObservablePoint.copyTo</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L77">src/transform/observable-quaternion.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L120">src/transform/observable-quaternion.ts:120</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -505,16 +639,22 @@
 									<p>Copies x, y, z and w into the given quaternion.</p>
 								</div>
 							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span></h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>p: <span class="tsd-signature-type">IPoint</span></h5>
+									<h5>p: <span class="tsd-signature-type">T</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The quaternion to copy to.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -522,14 +662,14 @@
 					<a name="equals" class="tsd-anchor"></a>
 					<h3>equals</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IPoint</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">equals<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><a href="observablequaternion.html" class="tsd-signature-type">ObservableQuaternion</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#equals">equals</a></p>
+								<p>Overrides ObservablePoint.equals</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L88">src/transform/observable-quaternion.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L131">src/transform/observable-quaternion.ts:131</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -540,7 +680,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>p: <span class="tsd-signature-type">IPoint</span></h5>
+									<h5>p: <a href="observablequaternion.html" class="tsd-signature-type">ObservableQuaternion</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The quaternion to check.</p>
 									</div>
@@ -554,14 +694,14 @@
 					<a name="set" class="tsd-anchor"></a>
 					<h3>set</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, z<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, w<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, z<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, w<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#set">set</a></p>
+								<p>Overrides ObservablePoint.set</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L102">src/transform/observable-quaternion.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L142">src/transform/observable-quaternion.ts:142</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -578,19 +718,19 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> y: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> y: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = x</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Y component to set.</p>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> z: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> z: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = x</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Z component to set.</p>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> w: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> w: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = x</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>W component to set.</p>
 									</div>
@@ -610,7 +750,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L34">src/transform/observable-quaternion.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L88">src/transform/observable-quaternion.ts:88</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -643,18 +783,17 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="setfrom" class="tsd-anchor"></a>
 					<h3>set<wbr>From</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">set<wbr>From<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ArrayLike</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#setfrom">setFrom</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/b392e63/src/transform/observable-quaternion.ts#L116">src/transform/observable-quaternion.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/aea456c/src/transform/observable-quaternion.ts#L157">src/transform/observable-quaternion.ts:157</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -675,6 +814,24 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="observablepoint3d.html">ObservablePoint3D</a>.<a href="observablepoint3d.html#tostring">toString</a></p>
+								<ul>
+									<li>Defined in node_modules/@pixi/math/index.d.ts:605</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -687,93 +844,42 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum">
-						<a href="../enums/lighttype.html" class="tsd-kind-icon">Light<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/shadowquality.html" class="tsd-kind-icon">Shadow<wbr>Quality</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/standardmaterialalphamode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Alpha<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/standardmaterialdebugmode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Debug<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="animation.html" class="tsd-kind-icon">Animation</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="camera.html" class="tsd-kind-icon">Camera</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="cameraorbitcontrol.html" class="tsd-kind-icon">Camera<wbr>Orbit<wbr>Control</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="container3d.html" class="tsd-kind-icon">Container3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="cubemipmaptexture.html" class="tsd-kind-icon">Cube<wbr>Mipmap<wbr>Texture</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="imagebasedlighting.html" class="tsd-kind-icon">Image<wbr>Based<wbr>Lighting</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="joint.html" class="tsd-kind-icon">Joint</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="light.html" class="tsd-kind-icon">Light</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="lightingenvironment.html" class="tsd-kind-icon">Lighting<wbr>Environment</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="material.html" class="tsd-kind-icon">Material</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="materialrenderpass.html" class="tsd-kind-icon">Material<wbr>Render<wbr>Pass</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="mesh3d.html" class="tsd-kind-icon">Mesh3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="meshgeometry3d.html" class="tsd-kind-icon">Mesh<wbr>Geometry3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="meshshader.html" class="tsd-kind-icon">Mesh<wbr>Shader</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="model.html" class="tsd-kind-icon">Model</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="observablepoint3d.html" class="tsd-kind-icon">Observable<wbr>Point3D</a>
-					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class="current tsd-kind-class tsd-has-type-parameter">
 						<a href="observablequaternion.html" class="tsd-kind-icon">Observable<wbr>Quaternion</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="observablequaternion.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="observablequaternion.html#_w" class="tsd-kind-icon">_w</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="observablequaternion.html#_array" class="tsd-kind-icon">_array</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="observablequaternion.html#_x" class="tsd-kind-icon">_x</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="observablequaternion.html#_y" class="tsd-kind-icon">_y</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="observablequaternion.html#cb" class="tsd-kind-icon">cb</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="observablequaternion.html#scope" class="tsd-kind-icon">scope</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="observablequaternion.html#x" class="tsd-kind-icon">x</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="observablequaternion.html#y" class="tsd-kind-icon">y</a>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="observablequaternion.html#array" class="tsd-kind-icon">array</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="observablequaternion.html#w" class="tsd-kind-icon">w</a>
 							</li>
-							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="observablequaternion.html#x" class="tsd-kind-icon">x</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="observablequaternion.html#y" class="tsd-kind-icon">y</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="observablequaternion.html#z" class="tsd-kind-icon">z</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
@@ -782,7 +888,7 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="observablequaternion.html#copyfrom" class="tsd-kind-icon">copy<wbr>From</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-overwrite">
 								<a href="observablequaternion.html#copyto" class="tsd-kind-icon">copy<wbr>To</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
@@ -794,55 +900,16 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="observablequaternion.html#seteulerangles" class="tsd-kind-icon">set<wbr>Euler<wbr>Angles</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="observablequaternion.html#setfrom" class="tsd-kind-icon">set<wbr>From</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="observablequaternion.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class">
-						<a href="pickinghitarea.html" class="tsd-kind-icon">Picking<wbr>Hit<wbr>Area</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="pickingmanager.html" class="tsd-kind-icon">Picking<wbr>Manager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="postprocessingsprite.html" class="tsd-kind-icon">Post<wbr>Processing<wbr>Sprite</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="shadowcastinglight.html" class="tsd-kind-icon">Shadow<wbr>Casting<wbr>Light</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="shadowrenderpass.html" class="tsd-kind-icon">Shadow<wbr>Render<wbr>Pass</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="skin.html" class="tsd-kind-icon">Skin</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="skybox.html" class="tsd-kind-icon">Skybox</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="standardmaterial.html" class="tsd-kind-icon">Standard<wbr>Material</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="standardpipeline.html" class="tsd-kind-icon">Standard<wbr>Pipeline</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="transform3d.html" class="tsd-kind-icon">Transform3D</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="gltfasset.html" class="tsd-kind-icon">glTFAsset</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#cubemipmaploader" class="tsd-kind-icon">Cube<wbr>Mipmap<wbr>Loader</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#shadersourceloader" class="tsd-kind-icon">Shader<wbr>Source<wbr>Loader</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#gltfloader" class="tsd-kind-icon">glTFLoader</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
