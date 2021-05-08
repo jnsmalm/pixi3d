@@ -14,6 +14,9 @@ export namespace StandardMaterialFeatureSet {
   export function build(renderer: PIXI.Renderer, mesh: Mesh3D, geometry: MeshGeometry3D, material: StandardMaterial, lightingEnvironment: LightingEnvironment) {
     let features: string[] = []
 
+    if (mesh.instances.length > 0) {
+      features.push("USE_INSTANCING 1")
+    }
     if (geometry.normals) {
       features.push("HAS_NORMALS 1")
     }

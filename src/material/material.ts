@@ -60,6 +60,20 @@ export abstract class Material {
   destroy() { }
 
   /**
+   * Returns a value indicating if this material supports instancing.
+   */
+  get isInstancingSupported() {
+    return false
+  }
+
+  /**
+   * Creates a new instanced version of this material.
+   */
+  createInstance(): unknown {
+    return undefined
+  }
+
+  /**
    * Renders the specified mesh.
    * @param mesh The mesh to render.
    * @param renderer The renderer to use.

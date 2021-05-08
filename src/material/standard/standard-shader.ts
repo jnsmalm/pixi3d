@@ -1,10 +1,14 @@
 import * as PIXI from "pixi.js"
 
 import { MeshGeometry3D } from "../../mesh/geometry/mesh-geometry"
+import { Mesh3D } from "../../mesh/mesh"
 import { MeshShader } from "../../mesh/mesh-shader"
+import { StandardShaderInstancing } from "./standard-shader-instancing"
 import { StandardShaderSource } from "./standard-shader-source"
 
 export class StandardShader extends MeshShader {
+  private _instancing = new StandardShaderInstancing()
+
   static build(renderer: PIXI.Renderer, features: string[]) {
     let environment = "webgl1"
     if (renderer.context.webGLVersion === 2) {
@@ -24,8 +28,11 @@ export class StandardShader extends MeshShader {
     return "standard-shader"
   }
 
-  createShaderGeometry(geometry: MeshGeometry3D) {
-    let result = super.createShaderGeometry(geometry)
+  createShaderGeometry(geometry: MeshGeometry3D, instanced: boolean) {
+    let result = super.createShaderGeometry(geometry, instanced)
+    if (instanced) {
+      this._instancing.addGeometryAttributes(result)
+    }
     if (geometry.targets) {
       for (let i = 0; i < geometry.targets.length; i++) {
         let positions = geometry.targets[i].positions
@@ -54,5 +61,12 @@ export class StandardShader extends MeshShader {
         4, false, geometry.weights.componentType, geometry.weights.stride)
     }
     return result
+  }
+
+  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
+    if (mesh.instances.length > 0) {
+      this._instancing.updateBuffers(mesh.instances)
+    }
+    super.render(mesh, renderer)
   }
 }

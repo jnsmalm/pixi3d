@@ -7,6 +7,25 @@
 attribute vec4 a_Position;
 varying vec3 v_Position;
 
+#ifdef USE_INSTANCING
+attribute vec4 a_ModelMatrix0;
+attribute vec4 a_ModelMatrix1;
+attribute vec4 a_ModelMatrix2;
+attribute vec4 a_ModelMatrix3;
+#endif
+
+#ifdef USE_INSTANCING
+attribute vec4 a_BaseColorFactor;
+varying vec4 v_BaseColorFactor;
+#endif
+
+#ifdef USE_INSTANCING
+attribute vec4 a_NormalMatrix0;
+attribute vec4 a_NormalMatrix1;
+attribute vec4 a_NormalMatrix2;
+attribute vec4 a_NormalMatrix3;
+#endif
+
 #ifdef HAS_NORMALS
 attribute vec4 a_Normal;
 #endif
@@ -104,18 +123,27 @@ vec4 getTangent()
 
 void main()
 {
-    vec4 pos = u_ModelMatrix * getPosition();
+    mat4 modelMatrix = u_ModelMatrix;
+    #ifdef USE_INSTANCING
+        modelMatrix = mat4(a_ModelMatrix0, a_ModelMatrix1, a_ModelMatrix2, a_ModelMatrix3);
+    #endif
+    vec4 pos = modelMatrix * getPosition();
     v_Position = vec3(pos.xyz) / pos.w;
+
+    mat4 normalMatrix = u_NormalMatrix;
+    #ifdef USE_INSTANCING
+        normalMatrix = mat4(a_NormalMatrix0, a_NormalMatrix1, a_NormalMatrix2, a_NormalMatrix3);
+    #endif
 
     #ifdef HAS_NORMALS
     #ifdef HAS_TANGENTS
     vec4 tangent = getTangent();
-    vec3 normalW = normalize(vec3(u_NormalMatrix * vec4(getNormal().xyz, 0.0)));
+    vec3 normalW = normalize(vec3(normalMatrix * vec4(getNormal().xyz, 0.0)));
     vec3 tangentW = normalize(vec3(u_ModelMatrix * vec4(tangent.xyz, 0.0)));
     vec3 bitangentW = cross(normalW, tangentW) * tangent.w;
     v_TBN = mat3(tangentW, bitangentW, normalW);
     #else // !HAS_TANGENTS
-    v_Normal = normalize(vec3(u_NormalMatrix * vec4(getNormal().xyz, 0.0)));
+    v_Normal = normalize(vec3(normalMatrix * vec4(getNormal().xyz, 0.0)));
     #endif
     #endif // !HAS_NORMALS
 
@@ -136,6 +164,10 @@ void main()
 
     #ifdef USE_SHADOW_MAPPING
     v_PositionLightSpace = u_LightViewProjectionMatrix * pos;
+    #endif
+
+    #ifdef USE_INSTANCING
+    v_BaseColorFactor = a_BaseColorFactor;
     #endif
 
     gl_Position = u_ViewProjectionMatrix * pos;

@@ -14,6 +14,7 @@ import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
 import { StandardMaterialSkinUniforms } from "./standard-material-skin-uniforms"
 import { MaterialRenderSortType } from "../material-render-sort-type"
 import { Color } from "../../color"
+import { InstancedStandardMaterial } from "./instanced-standard-material"
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -35,6 +36,7 @@ export class StandardMaterial extends Material {
   private _metallicRoughnessTexture?: PIXI.Texture
   private _shadowCastingLight?: ShadowCastingLight
   private _lightsCount?: number
+  private _instancingEnabled = false
 
   private _skinUniforms = new StandardMaterialSkinUniforms()
 
@@ -274,6 +276,11 @@ export class StandardMaterial extends Material {
   }
 
   render(mesh: Mesh3D, renderer: PIXI.Renderer) {
+    if (!this._instancingEnabled && mesh.instances.length > 0) {
+      // Invalidate shader when instacing was enabled.
+      this.invalidateShader()
+      this._instancingEnabled = mesh.instances.length > 0
+    }
     let lightingEnvironment = this.lightingEnvironment || LightingEnvironment.main
     if (lightingEnvironment.lights.length !== this._lightsCount) {
       // Invalidate shader when the number of punctual lights has changed.
@@ -281,6 +288,14 @@ export class StandardMaterial extends Material {
       this._lightsCount = lightingEnvironment.lights.length
     }
     super.render(mesh, renderer)
+  }
+
+  get isInstancingSupported() {
+    return true
+  }
+
+  createInstance() {
+    return new InstancedStandardMaterial(this)
   }
 
   createShader(mesh: Mesh3D, renderer: PIXI.Renderer) {

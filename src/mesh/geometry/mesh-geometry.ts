@@ -30,17 +30,22 @@ export class MeshGeometry3D {
   /**
    * Creates geometry with attributes required by the specified shader.
    * @param shader The shader to use.
+   * @param instanced Value indicating if the geometry will be instanced.
    */
-  addShaderGeometry(shader: MeshShader) {
-    this._shaderGeometry[shader.name] = shader.createShaderGeometry(this)
+  addShaderGeometry(shader: MeshShader, instanced: boolean) {
+    this._shaderGeometry[shader.name] = shader.createShaderGeometry(this, instanced)
   }
 
   /**
    * Returns a value indicating if geometry with required attributes has been created the specified shader.
    * @param shader The shader to test.
+   * @param instanced Value indicating if the geometry is instanced.
    */
-  hasShaderGeometry(shader: MeshShader) {
-    return !!this._shaderGeometry[shader.name]
+  hasShaderGeometry(shader: MeshShader, instanced: boolean) {
+    if (this._shaderGeometry[shader.name]) {
+      return !instanced || (instanced && this._shaderGeometry[shader.name].instanced)
+    }
+    return false
   }
 
   /**

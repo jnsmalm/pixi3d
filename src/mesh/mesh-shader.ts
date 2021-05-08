@@ -24,8 +24,9 @@ export class MeshShader extends PIXI.Shader {
   /**
    * Creates geometry with required attributes used by this shader. Override when using custom attributes.
    * @param geometry The geometry with mesh data.
+   * @param instanced Value indicating if the geometry will be instanced.
    */
-  createShaderGeometry(geometry: MeshGeometry3D) {
+  createShaderGeometry(geometry: MeshGeometry3D, instanced: boolean) {
     let result = new PIXI.Geometry()
     if (geometry.indices) {
       if (geometry.indices.buffer.BYTES_PER_ELEMENT === 1) {
@@ -62,13 +63,18 @@ export class MeshShader extends PIXI.Shader {
    * @param drawMode Draw mode to use.
    */
   render(mesh: Mesh3D, renderer: PIXI.Renderer, state?: PIXI.State, drawMode?: PIXI.DRAW_MODES) {
-    if (!mesh.geometry.hasShaderGeometry(this)) {
-      mesh.geometry.addShaderGeometry(this)
+    const instancing = mesh.instances.length > 0
+    if (!mesh.geometry.hasShaderGeometry(this, instancing)) {
+      mesh.geometry.addShaderGeometry(this, instancing)
     }
     let geometry = mesh.geometry.getShaderGeometry(this)
     renderer.shader.bind(this, false)
     renderer.state.set(state || this.state)
     renderer.geometry.bind(geometry, this)
-    renderer.geometry.draw(drawMode || this.drawMode)
+    if (mesh.instances.length > 0) {
+      renderer.geometry.draw(drawMode || this.drawMode, undefined, undefined, mesh.instances.length)
+    } else {
+      renderer.geometry.draw(drawMode || this.drawMode)
+    }
   }
 }

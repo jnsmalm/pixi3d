@@ -8,6 +8,8 @@ import { StandardMaterial } from "../material/standard/standard-material"
 import { Container3D } from "../container"
 import { QuadGeometry } from "./geometry/quad-geometry"
 import { Skin } from "../skinning/skin"
+import { InstancedMesh3D } from "./instanced-mesh"
+import { Platform } from "../platform"
 
 /**
  * Represents a mesh which contains geometry and has a material.
@@ -35,6 +37,44 @@ export class Mesh3D extends Container3D {
     super()
     if (!geometry) {
       throw new Error("PIXI3D: Geometry is required when creating a mesh.")
+    }
+  }
+
+  /**
+   * Returns a value indicating if specified renderer supports instancing.
+   * @param renderer The renderer.
+   */
+  static isInstancingSupported(renderer: PIXI.Renderer) {
+    return Platform.isInstancingSupported(renderer)
+  }
+
+  private _instances: InstancedMesh3D[] = []
+
+  /** An array of instances created from this mesh. */
+  get instances() {
+    return this._instances
+  }
+
+  /**
+   * Creates a new instance of this mesh.
+   */
+  createInstance() {
+    if (this.material && !this.material.isInstancingSupported) {
+      throw new Error("PIXI3D: Can't create instance of mesh, material does not supported instancing.")
+    }
+    return this._instances[
+      this._instances.push(new InstancedMesh3D(this, this.material?.createInstance())) - 1
+    ]
+  }
+
+  /**
+   * Removes a instanced mesh from this mesh.
+   * @param instance The instance to remove.
+   */
+  removeInstance(instance: InstancedMesh3D) {
+    const index = this._instances.indexOf(instance)
+    if (index >= 0) {
+      this._instances.splice(index, 1)
     }
   }
 

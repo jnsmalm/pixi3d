@@ -101,4 +101,15 @@ export namespace Platform {
     }
     return renderer.gl.getExtension("EXT_shader_texture_lod") !== null
   }
+
+  let _isInstancingSupported: boolean | undefined
+
+  export function isInstancingSupported(renderer: PIXI.Renderer) {
+    if (_isInstancingSupported !== undefined) {
+      return _isInstancingSupported
+    }
+    const gl = renderer.gl
+    _isInstancingSupported = gl.getExtension('ANGLE_instanced_arrays') !== undefined
+    return _isInstancingSupported
+  }
 }

@@ -6,12 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Create a `Cubemap` from colors.
+- Support for creating a `Cubemap` from colors.
+- Support for instancing using `createInstance` on `Mesh3D` or `Model`.
 - Simple `Color` class with RGBA components.
-- Export math functionality, `Vec3`, `Quat`, `Mat4`, `Plane` and `Ray`.
-- Support for loading binary glTF files.
+- Math functionality (`Vec3`, `Quat`, `Mat4`, `Plane` and `Ray`).
+- Support for loading binary glTF (.glb) files.
 - Additional components for `TransformMatrix`.
-- Convert screen position to a `Ray` using `Camera`.
+- Convert screen coordinates to a `Ray` using `Camera`.
 - Enable/disable render passes on `Mesh3D`.
 
 ### Changed

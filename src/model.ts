@@ -4,6 +4,7 @@ import { MaterialFactory } from "./material/material-factory"
 import { Mesh3D } from "./mesh/mesh"
 import { Animation } from "./animation"
 import { Container3D } from "./container"
+import { InstancedModel } from "./instanced-model"
 
 /**
  * Represents a model which includes a hierarchy of meshes and animations.
@@ -25,5 +26,12 @@ export class Model extends Container3D {
    */
   static from(source: glTFAsset, materialFactory?: MaterialFactory) {
     return glTFParser.createModel(source, materialFactory)
+  }
+
+  /**
+   * Creates a new instance of this model.
+   */
+  createInstance() {
+    return new InstancedModel(this.meshes.map(m => m.createInstance()))
   }
 }

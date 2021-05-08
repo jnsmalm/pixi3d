@@ -62,6 +62,10 @@ uniform float u_RoughnessFactor;
 uniform vec4 u_BaseColorFactor;
 #endif
 
+#ifdef USE_INSTANCING
+in vec4 v_BaseColorFactor;
+#endif
+
 #ifdef MATERIAL_SPECULARGLOSSINESS
 uniform vec3 u_SpecularFactor;
 uniform vec4 u_DiffuseFactor;
@@ -310,11 +314,16 @@ void main()
     perceptualRoughness = u_RoughnessFactor;
 #endif
 
+    vec4 baseColorFactor = u_BaseColorFactor;
+#ifdef USE_INSTANCING
+    baseColorFactor = v_BaseColorFactor;
+#endif
+
     // The albedo may be defined from a base texture or a flat color
 #ifdef HAS_BASE_COLOR_MAP
-    baseColor = SRGBtoLINEAR(texture(u_BaseColorSampler, getBaseColorUV())) * u_BaseColorFactor;
+    baseColor = SRGBtoLINEAR(texture(u_BaseColorSampler, getBaseColorUV())) * baseColorFactor;
 #else
-    baseColor = u_BaseColorFactor;
+    baseColor = baseColorFactor;
 #endif
 
     baseColor *= getVertexColor();
