@@ -50,7 +50,7 @@ export class Cubemap extends PIXI.BaseTexture<CubemapResource> {
 
     for (let i = 0; i < colors.length; i++) {
       let resource = new BufferResource(
-        new Uint8Array(colors[i].rgba), { width: 1, height: 1 })
+        new Uint8Array(colors[i].rgba.map(c => c * 255)), { width: 1, height: 1 })
       let texture = new PIXI.Texture(new PIXI.BaseTexture(resource, {
         type: PIXI.TYPES.UNSIGNED_BYTE,
         format: PIXI.FORMATS.RGB,
