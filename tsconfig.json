@@ -7,7 +7,14 @@
     "downlevelIteration": true,
     "sourceMap": true,
     "declaration": true,
-    "declarationDir": "types"
+    "declarationDir": "types",
+    // Required for docs
+    "esModuleInterop": true,
+    "paths": {
+      "mini-signals": [
+        "./node_modules/resource-loader/typings/mini-signals.d.ts"
+      ]
+    }
   },
   "include": [
     "src/**/*"

@@ -50,7 +50,6 @@ export class PostProcessingSprite extends PIXI.Sprite {
     this.filters = [this._fxaa]
 
     if (!options || !options.width || !options.height) {
-      // @ts-expect-error
       renderer.on("prerender", () => {
         this._renderTexture.resize(renderer.width, renderer.height)
       })

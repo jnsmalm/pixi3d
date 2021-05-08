@@ -36,7 +36,6 @@ export class CameraOrbitControl {
    * by default.
    */
   constructor(element: HTMLElement, public camera = Camera.main) {
-    // @ts-expect-error
     this.camera.renderer.on("prerender", () => {
       this.updateCamera()
     })

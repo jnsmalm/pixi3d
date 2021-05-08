@@ -20,7 +20,6 @@ export class PickingManager {
   constructor(public renderer: PIXI.Renderer) {
     this._map = new PickingMap(this.renderer, 128 * Math.floor(this.renderer.width / this.renderer.height), 128)
 
-    // @ts-expect-error
     renderer.on("postrender", () => {
       // Because of how PixiJS interaction works and the design of the picking,
       // the "hitTest" function needs to be called. Otherwise, in some 

@@ -21,7 +21,6 @@ export class LightingEnvironment {
    * @param renderer The renderer to use.
    */
   constructor(public renderer: PIXI.Renderer, imageBasedLighting?: ImageBasedLighting) {
-    // @ts-expect-error
     this.renderer.on("prerender", () => {
       for (let light of this.lights) {
         // Make sure the transform has been updated in the case where the light
