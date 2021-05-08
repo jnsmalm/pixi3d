@@ -113,8 +113,8 @@ app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap"
 app.loader.load((loader, resources) => {
   PIXI3D.LightingEnvironment.main =
     new PIXI3D.LightingEnvironment(app.renderer, new PIXI3D.ImageBasedLighting(
-      resources["diffuse.cubemap"].texture,
-      resources["specular.cubemap"].texture))
+      resources["diffuse.cubemap"].cubemap,
+      resources["specular.cubemap"].cubemap))
 })
 
 let material = {
