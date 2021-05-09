@@ -30,8 +30,6 @@ export class StandardShaderInstancing {
   }
 
   updateBuffers(instances: InstancedMesh3D[]) {
-    instances = instances.filter(i => i.worldVisible)
-
     if (instances.length > this._maxInstances) {
       this.expandBuffers(instances.length)
     }
