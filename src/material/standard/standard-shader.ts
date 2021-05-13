@@ -63,10 +63,10 @@ export class StandardShader extends MeshShader {
     return result
   }
 
-  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
+  render(mesh: Mesh3D, renderer: PIXI.Renderer, state: PIXI.State, drawMode: PIXI.DRAW_MODES) {
     if (mesh.instances.length > 0) {
       this._instancing.updateBuffers(mesh.instances)
     }
-    super.render(mesh, renderer)
+    super.render(mesh, renderer, state, drawMode)
   }
 }
