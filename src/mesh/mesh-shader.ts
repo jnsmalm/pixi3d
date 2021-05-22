@@ -7,16 +7,11 @@ import { Mesh3D } from "./mesh"
  * Shader used specifically to render a mesh.
  */
 export class MeshShader extends PIXI.Shader {
-
-  /** Default state used to render a mesh. */
-  state = Object.assign(new PIXI.State(), {
+  private _state = Object.assign(new PIXI.State(), {
     culling: true, clockwiseFrontFace: false, depthTest: true
   })
 
-  /** Default draw mode used to render a mesh. */
-  drawMode = PIXI.DRAW_MODES.TRIANGLES
-
-  /** The name of the mesh shader. Used for figuring out if geometry attributes is compatible with the shader. This needs to be set to something different than default value when custom attributes is used.*/
+  /** The name of the mesh shader. Used for figuring out if geometry attributesis compatible with the shader. This needs to be set to something different than default value when custom attributes is used. */
   get name() {
     return "mesh-shader"
   }
@@ -62,19 +57,17 @@ export class MeshShader extends PIXI.Shader {
    * @param state Rendering state to use.
    * @param drawMode Draw mode to use.
    */
-  render(mesh: Mesh3D, renderer: PIXI.Renderer, state?: PIXI.State, drawMode?: PIXI.DRAW_MODES) {
+  render(mesh: Mesh3D, renderer: PIXI.Renderer, state: PIXI.State = this._state, drawMode = PIXI.DRAW_MODES.TRIANGLES) {
+    const instanceCount = mesh.instances.filter(i =>
+      i.worldVisible && i.renderable).length
     const instancing = mesh.instances.length > 0
     if (!mesh.geometry.hasShaderGeometry(this, instancing)) {
       mesh.geometry.addShaderGeometry(this, instancing)
     }
     let geometry = mesh.geometry.getShaderGeometry(this)
     renderer.shader.bind(this, false)
-    renderer.state.set(state || this.state)
+    renderer.state.set(state)
     renderer.geometry.bind(geometry, this)
-    if (mesh.instances.length > 0) {
-      renderer.geometry.draw(drawMode || this.drawMode, undefined, undefined, mesh.instances.length)
-    } else {
-      renderer.geometry.draw(drawMode || this.drawMode)
-    }
+    renderer.geometry.draw(drawMode, undefined, undefined, instanceCount)
   }
 }

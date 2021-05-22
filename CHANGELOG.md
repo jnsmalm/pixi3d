@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Added `destroy` function to an instanced model.
+
+### Fixed
+- Fixed an issue which caused mesh instances to be rendered even if they were `visible = false`.
+- Fixed an issue which caused `StandardMaterial` not to render double sided materials correctly.
+
 ## [0.9.5] - 2021-05-09
 ### Fixed
 - Fixed an issue which caused WebGL errors when using instancing.

@@ -33,19 +33,25 @@ export class StandardShaderInstancing {
     if (instances.length > this._maxInstances) {
       this.expandBuffers(instances.length)
     }
+    let bufferIndex = 0
     for (let i = 0; i < instances.length; i++) {
+      if (!instances[i].worldVisible || !instances[i].renderable) {
+        continue
+      }
       const normal = instances[i].transform.normalTransform.toArray()
       for (let j = 0; j < 4; j++) {
         (<Float32Array>this._normalMatrix[j].data)
-          .set(normal.slice(j * 4, j * 4 + 4), i * 4)
+          .set(normal.slice(j * 4, j * 4 + 4), bufferIndex * 4)
       }
       const model = instances[i].worldTransform.toArray()
       for (let j = 0; j < 4; j++) {
         (<Float32Array>this._modelMatrix[j].data)
-          .set(model.slice(j * 4, j * 4 + 4), i * 4)
+          .set(model.slice(j * 4, j * 4 + 4), bufferIndex * 4)
       }
       const material = <InstancedStandardMaterial>instances[i].material;
-      (<Float32Array>this._baseColor.data).set(material.baseColor.rgba, i * 4)
+      (<Float32Array>this._baseColor.data)
+        .set(material.baseColor.rgba, bufferIndex * 4)
+      bufferIndex++
     }
 
     for (let i = 0; i < 4; i++) {
