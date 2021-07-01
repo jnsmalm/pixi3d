@@ -126,14 +126,18 @@ export class StandardMaterial extends Material {
   set alphaMode(value: StandardMaterialAlphaMode) {
     if (this._alphaMode !== value) {
       this._alphaMode = value
-      if (this._alphaMode === StandardMaterialAlphaMode.opaque) {
-        this.renderSortType = MaterialRenderSortType.opaque
-        this.state.depthMask = true
-      } else {
-        this.renderSortType = MaterialRenderSortType.transparent
-        // Depth mask feature is only available in PixiJS 6.0+ and won't have
-        // any effects in previous versions.
-        this.state.depthMask = false
+      switch (this._alphaMode) {
+        case StandardMaterialAlphaMode.opaque:
+        case StandardMaterialAlphaMode.mask: {
+          this.renderSortType = MaterialRenderSortType.opaque
+          this.state.depthMask = true; break
+        }
+        case StandardMaterialAlphaMode.blend: {
+          this.renderSortType = MaterialRenderSortType.transparent
+          // Depth mask feature is only available in PixiJS 6.0+ and won't have
+          // any effects in previous versions.
+          this.state.depthMask = false; break
+        }
       }
       this.invalidateShader()
     }
