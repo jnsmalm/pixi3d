@@ -3,21 +3,21 @@
 const float M_PI = 3.141592653589793;
 const float c_MinReflectance = 0.04;
 
-in vec3 v_Position;
+FRAG_IN vec3 v_Position;
 
 #ifdef HAS_NORMALS
 #ifdef HAS_TANGENTS
-in mat3 v_TBN;
+FRAG_IN mat3 v_TBN;
 #else
-in vec3 v_Normal;
+FRAG_IN vec3 v_Normal;
 #endif
 #endif
 
 #ifdef HAS_VERTEX_COLOR_VEC3
-in vec3 v_Color;
+FRAG_IN vec3 v_Color;
 #endif
 #ifdef HAS_VERTEX_COLOR_VEC4
-in vec4 v_Color;
+FRAG_IN vec4 v_Color;
 #endif
 
 struct AngularInfo
@@ -54,10 +54,10 @@ vec3 getNormal()
 
     // Retrieve the tangent space matrix
 #ifndef HAS_TANGENTS
-    vec3 pos_dx = dFdx(v_Position);
-    vec3 pos_dy = dFdy(v_Position);
-    vec3 tex_dx = dFdx(vec3(UV, 0.0));
-    vec3 tex_dy = dFdy(vec3(UV, 0.0));
+    vec3 pos_dx = _dFdx(v_Position);
+    vec3 pos_dy = _dFdy(v_Position);
+    vec3 tex_dx = _dFdx(vec3(UV, 0.0));
+    vec3 tex_dy = _dFdy(vec3(UV, 0.0));
     vec3 t = (tex_dy.t * pos_dx - tex_dx.t * pos_dy) / (tex_dx.s * tex_dy.t - tex_dy.s * tex_dx.t);
 
 #ifdef HAS_NORMALS
@@ -74,7 +74,7 @@ vec3 getNormal()
 #endif
 
 #ifdef HAS_NORMAL_MAP
-    vec3 n = texture(u_NormalSampler, UV).rgb;
+    vec3 n = _texture(u_NormalSampler, UV).rgb;
     n = normalize(tbn * ((2.0 * n - 1.0) * vec3(u_NormalScale, u_NormalScale, 1.0)));
 #else
     // The tbn matrix is linearly interpolated, so we need to re-normalize

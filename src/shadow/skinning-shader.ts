@@ -20,7 +20,7 @@ export class SkinningShader extends ShadowShader {
     let uniformsRequiredPerJoint = 4
     let maxJointCount = Math.floor(availableVertexUniforms / uniformsRequiredPerJoint)
 
-    super(["USE_SKINNING 1", "MAX_JOINT_COUNT " + maxJointCount])
+    super(renderer, ["USE_SKINNING 1", "MAX_JOINT_COUNT " + maxJointCount])
     this._maxSupportedJoints = maxJointCount
   }
 

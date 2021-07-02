@@ -16,7 +16,7 @@ export class ShadowRenderer {
   private _textureShader?: TextureShader
 
   constructor(public renderer: PIXI.Renderer) {
-    this._shadowShader = new ShadowShader()
+    this._shadowShader = new ShadowShader(this.renderer)
   }
 
   render(mesh: Mesh3D, shadowCastingLight: ShadowCastingLight) {
@@ -29,7 +29,7 @@ export class ShadowRenderer {
       if (mesh.skin.joints.length > this._skinningShader.maxSupportedJoints) {
         if (!this._textureShader) {
           if (TextureShader.isSupported(this.renderer)) {
-            this._textureShader = new TextureShader()
+            this._textureShader = new TextureShader(this.renderer)
           }
         }
         shader = this._textureShader

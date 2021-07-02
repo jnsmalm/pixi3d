@@ -19,8 +19,8 @@ export class TextureShader extends ShadowShader {
     return StandardMaterialMatrixTexture.isSupported(renderer)
   }
 
-  constructor() {
-    super([
+  constructor(renderer: PIXI.Renderer) {
+    super(renderer, [
       "USE_SKINNING 1", "USE_SKINNING_TEXTURE 1", "MAX_JOINT_COUNT " + MAX_SUPPORTED_JOINTS
     ])
     this._jointMatrixTexture =

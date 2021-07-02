@@ -1,65 +1,65 @@
 #ifdef HAS_TARGET_POSITION0
-attribute vec3 a_Target_Position0;
+VERT_IN vec3 a_Target_Position0;
 #endif
 
 #ifdef HAS_TARGET_POSITION1
-attribute vec3 a_Target_Position1;
+VERT_IN vec3 a_Target_Position1;
 #endif
 
 #ifdef HAS_TARGET_POSITION2
-attribute vec3 a_Target_Position2;
+VERT_IN vec3 a_Target_Position2;
 #endif
 
 #ifdef HAS_TARGET_POSITION3
-attribute vec3 a_Target_Position3;
+VERT_IN vec3 a_Target_Position3;
 #endif
 
 #ifdef HAS_TARGET_POSITION4
-attribute vec3 a_Target_Position4;
+VERT_IN vec3 a_Target_Position4;
 #endif
 
 #ifdef HAS_TARGET_POSITION5
-attribute vec3 a_Target_Position5;
+VERT_IN vec3 a_Target_Position5;
 #endif
 
 #ifdef HAS_TARGET_POSITION6
-attribute vec3 a_Target_Position6;
+VERT_IN vec3 a_Target_Position6;
 #endif
 
 #ifdef HAS_TARGET_POSITION7
-attribute vec3 a_Target_Position7;
+VERT_IN vec3 a_Target_Position7;
 #endif
 
 #ifdef HAS_TARGET_NORMAL0
-attribute vec3 a_Target_Normal0;
+VERT_IN vec3 a_Target_Normal0;
 #endif
 
 #ifdef HAS_TARGET_NORMAL1
-attribute vec3 a_Target_Normal1;
+VERT_IN vec3 a_Target_Normal1;
 #endif
 
 #ifdef HAS_TARGET_NORMAL2
-attribute vec3 a_Target_Normal2;
+VERT_IN vec3 a_Target_Normal2;
 #endif
 
 #ifdef HAS_TARGET_NORMAL3
-attribute vec3 a_Target_Normal3;
+VERT_IN vec3 a_Target_Normal3;
 #endif
 
 #ifdef HAS_TARGET_TANGENT0
-attribute vec3 a_Target_Tangent0;
+VERT_IN vec3 a_Target_Tangent0;
 #endif
 
 #ifdef HAS_TARGET_TANGENT1
-attribute vec3 a_Target_Tangent1;
+VERT_IN vec3 a_Target_Tangent1;
 #endif
 
 #ifdef HAS_TARGET_TANGENT2
-attribute vec3 a_Target_Tangent2;
+VERT_IN vec3 a_Target_Tangent2;
 #endif
 
 #ifdef HAS_TARGET_TANGENT3
-attribute vec3 a_Target_Tangent3;
+VERT_IN vec3 a_Target_Tangent3;
 #endif
 
 #ifdef USE_MORPHING
@@ -67,19 +67,19 @@ uniform float u_morphWeights[WEIGHT_COUNT];
 #endif
 
 #ifdef HAS_JOINT_SET1
-attribute vec4 a_Joint1;
+VERT_IN vec4 a_Joint1;
 #endif
 
 #ifdef HAS_JOINT_SET2
-attribute vec4 a_Joint2;
+VERT_IN vec4 a_Joint2;
 #endif
 
 #ifdef HAS_WEIGHT_SET1
-attribute vec4 a_Weight1;
+VERT_IN vec4 a_Weight1;
 #endif
 
 #ifdef HAS_WEIGHT_SET2
-attribute vec4 a_Weight2;
+VERT_IN vec4 a_Weight2;
 #endif
 
 #ifdef USE_SKINNING
@@ -97,16 +97,16 @@ uniform mat4 u_jointNormalMatrix[JOINT_COUNT];
 #define ROW1_U ((0.5 + 1.0) / 4.0)
 #define ROW2_U ((0.5 + 2.0) / 4.0)
 #define ROW3_U ((0.5 + 3.0) / 4.0)
- 
+
 #ifdef USE_SKINNING
 mat4 getJointMatrix(float boneNdx) {
     #ifdef USE_SKINNING_TEXTURE
     float v = (boneNdx + 0.5) / float(JOINT_COUNT);
     return mat4(
-        texture2D(u_jointMatrixSampler, vec2(ROW0_U, v)) * 2.0 - 1.0,
-        texture2D(u_jointMatrixSampler, vec2(ROW1_U, v)) * 2.0 - 1.0,
-        texture2D(u_jointMatrixSampler, vec2(ROW2_U, v)) * 2.0 - 1.0,
-        texture2D(u_jointMatrixSampler, vec2(ROW3_U, v)) * 2.0 - 1.0
+        _texture(u_jointMatrixSampler, vec2(ROW0_U, v)) * 2.0 - 1.0,
+        _texture(u_jointMatrixSampler, vec2(ROW1_U, v)) * 2.0 - 1.0,
+        _texture(u_jointMatrixSampler, vec2(ROW2_U, v)) * 2.0 - 1.0,
+        _texture(u_jointMatrixSampler, vec2(ROW3_U, v)) * 2.0 - 1.0
     );
     #else
     return u_jointMatrix[int(boneNdx)];
@@ -117,10 +117,10 @@ mat4 getJointNormalMatrix(float boneNdx) {
     #ifdef USE_SKINNING_TEXTURE
     float v = (boneNdx + 0.5) / float(JOINT_COUNT);
     return mat4(
-        texture2D(u_jointNormalMatrixSampler, vec2(ROW0_U, v)) * 2.0 - 1.0,
-        texture2D(u_jointNormalMatrixSampler, vec2(ROW1_U, v)) * 2.0 - 1.0,
-        texture2D(u_jointNormalMatrixSampler, vec2(ROW2_U, v)) * 2.0 - 1.0,
-        texture2D(u_jointNormalMatrixSampler, vec2(ROW3_U, v)) * 2.0 - 1.0
+        _texture(u_jointNormalMatrixSampler, vec2(ROW0_U, v)) * 2.0 - 1.0,
+        _texture(u_jointNormalMatrixSampler, vec2(ROW1_U, v)) * 2.0 - 1.0,
+        _texture(u_jointNormalMatrixSampler, vec2(ROW2_U, v)) * 2.0 - 1.0,
+        _texture(u_jointNormalMatrixSampler, vec2(ROW3_U, v)) * 2.0 - 1.0
     );
     #else
     return u_jointNormalMatrix[int(boneNdx)];

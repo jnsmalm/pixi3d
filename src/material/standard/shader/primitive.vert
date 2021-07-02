@@ -1,66 +1,67 @@
-#version 300 es
+#version VERSION
 
 #define FEATURES
 
-#include <animation.webgl2.glsl>
+#include <extensions.glsl>
+#include <animation.glsl>
 
-in vec4 a_Position;
-out vec3 v_Position;
+VERT_IN vec4 a_Position;
+VERT_OUT vec3 v_Position;
 
 #ifdef USE_INSTANCING
-in vec4 a_ModelMatrix0;
-in vec4 a_ModelMatrix1;
-in vec4 a_ModelMatrix2;
-in vec4 a_ModelMatrix3;
+VERT_IN vec4 a_ModelMatrix0;
+VERT_IN vec4 a_ModelMatrix1;
+VERT_IN vec4 a_ModelMatrix2;
+VERT_IN vec4 a_ModelMatrix3;
 #endif
 
 #ifdef USE_INSTANCING
-in vec4 a_BaseColorFactor;
-out vec4 v_BaseColorFactor;
+VERT_IN vec4 a_BaseColorFactor;
+VERT_OUT vec4 v_BaseColorFactor;
 #endif
 
 #ifdef USE_INSTANCING
-in vec4 a_NormalMatrix0;
-in vec4 a_NormalMatrix1;
-in vec4 a_NormalMatrix2;
-in vec4 a_NormalMatrix3;
+VERT_IN vec4 a_NormalMatrix0;
+VERT_IN vec4 a_NormalMatrix1;
+VERT_IN vec4 a_NormalMatrix2;
+VERT_IN vec4 a_NormalMatrix3;
 #endif
 
 #ifdef HAS_NORMALS
-in vec4 a_Normal;
+VERT_IN vec4 a_Normal;
 #endif
 
 #ifdef HAS_TANGENTS
-in vec4 a_Tangent;
+VERT_IN vec4 a_Tangent;
 #endif
 
 #ifdef HAS_NORMALS
 #ifdef HAS_TANGENTS
-out mat3 v_TBN;
+VERT_OUT mat3 v_TBN;
 #else
-out vec3 v_Normal;
+VERT_OUT vec3 v_Normal;
 #endif
 #endif
 
 #ifdef HAS_UV_SET1
-in vec2 a_UV1;
+VERT_IN vec2 a_UV1;
 #endif
 
 #ifdef HAS_UV_SET2
-in vec2 a_UV2;
+VERT_IN vec2 a_UV2;
 #endif
 
-out vec2 v_UVCoord1;
-out vec2 v_UVCoord2;
+VERT_OUT vec2 v_UVCoord1;
+VERT_OUT vec2 v_UVCoord2;
 
 #ifdef HAS_VERTEX_COLOR_VEC3
-in vec3 a_Color;
-out vec3 v_Color;
+VERT_IN vec3 a_Color;
+VERT_OUT vec3 v_Color;
 #endif
 
 #ifdef HAS_VERTEX_COLOR_VEC4
-in vec4 a_Color;
-out vec4 v_Color;
+VERT_IN vec4 a_Color;
+VERT_OUT vec4 v_Color;
 #endif
 
 uniform mat4 u_ViewProjectionMatrix;
@@ -69,7 +70,7 @@ uniform mat4 u_NormalMatrix;
 
 #ifdef USE_SHADOW_MAPPING
 uniform mat4 u_LightViewProjectionMatrix;
-out vec4 v_PositionLightSpace;
+VERT_OUT vec4 v_PositionLightSpace;
 #endif
 
 vec4 getPosition()

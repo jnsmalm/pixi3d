@@ -1,3 +1,5 @@
+#version VERSION
+
 //
 // This fragment shader defines a reference implementation for Physically Based Shading of
 // a microfacet surface material defined by a glTF model.
@@ -14,13 +16,15 @@
 
 #define FEATURES
 
-#ifdef USE_TEX_LOD
+#if defined(WEBGL1) //&& defined(USE_TEX_LOD)
 #extension GL_EXT_shader_texture_lod : enable
 #endif
 
+#if defined(WEBGL1)
 #extension GL_OES_standard_derivatives : enable
+#endif
 
-#ifdef USE_HDR
+#if defined(WEBGL1) && defined(USE_HDR)
 #extension GL_OES_texture_float : enable
 #extension GL_OES_texture_float_linear : enable
 #endif
@@ -31,11 +35,13 @@
   precision mediump float;
 #endif
 
-#include <extensions.webgl1.glsl>
+#include <extensions.glsl>
+#include <texture-lod.glsl>
+#include <standard-derivatives.glsl>
+#include <textures.glsl>
+#include <functions.glsl>
+#include <shadow.glsl>
 #include <tonemapping.glsl>
-#include <textures.webgl1.glsl>
-#include <functions.webgl1.glsl>
-#include <shadow.webgl1.glsl>
 
 // KHR_lights_punctual extension.
 // see https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_lights_punctual
@@ -73,7 +79,7 @@ uniform vec4 u_BaseColorFactor;
 #endif
 
 #ifdef USE_INSTANCING
-varying vec4 v_BaseColorFactor;
+FRAG_IN vec4 v_BaseColorFactor;
 #endif
 
 #ifdef MATERIAL_SPECULARGLOSSINESS
@@ -115,14 +121,14 @@ vec3 getIBLContribution(MaterialInfo materialInfo, vec3 n, vec3 v)
 
     vec2 brdfSamplePoint = clamp(vec2(NdotV, materialInfo.perceptualRoughness), vec2(0.0, 0.0), vec2(1.0, 1.0));
     // retrieve a scale and bias to F0. See [1], Figure 3
-    vec2 brdf = texture2D(u_brdfLUT, brdfSamplePoint).rg;
+    vec2 brdf = _texture(u_brdfLUT, brdfSamplePoint).rg;
 
-    vec4 diffuseSample = textureCube(u_DiffuseEnvSampler, n);
+    vec4 diffuseSample = _texture(u_DiffuseEnvSampler, n);
 
 #ifdef USE_TEX_LOD
-    vec4 specularSample = _textureCubeLodEXT(u_SpecularEnvSampler, reflection, lod);
+    vec4 specularSample = _textureLod(u_SpecularEnvSampler, reflection, lod);
 #else
-    vec4 specularSample = textureCube(u_SpecularEnvSampler, reflection);
+    vec4 specularSample = _texture(u_SpecularEnvSampler, reflection);
 #endif
 
 #ifdef USE_HDR
@@ -266,6 +272,10 @@ vec3 applyAmbientLight(Light light, MaterialInfo materialInfo)
     return light.intensity * light.color * diffuse(materialInfo);
 }
 
+#ifdef WEBGL2
+    out vec4 FRAG_COLOR;
+#endif
+
 void main()
 {
     // Metallic and Roughness material properties are packed together
@@ -281,7 +291,7 @@ void main()
 #ifdef MATERIAL_SPECULARGLOSSINESS
 
 #ifdef HAS_SPECULAR_GLOSSINESS_MAP
-    vec4 sgSample = SRGBtoLINEAR(texture2D(u_SpecularGlossinessSampler, getSpecularGlossinessUV()));
+    vec4 sgSample = SRGBtoLINEAR(_texture(u_SpecularGlossinessSampler, getSpecularGlossinessUV()));
     perceptualRoughness = (1.0 - sgSample.a * u_GlossinessFactor); // glossiness to roughness
     f0 = sgSample.rgb * u_SpecularFactor; // specular
 #else
@@ -290,7 +300,7 @@ void main()
 #endif // ! HAS_SPECULAR_GLOSSINESS_MAP
 
 #ifdef HAS_DIFFUSE_MAP
-    baseColor = SRGBtoLINEAR(texture2D(u_DiffuseSampler, getDiffuseUV())) * u_DiffuseFactor;
+    baseColor = SRGBtoLINEAR(_texture(u_DiffuseSampler, getDiffuseUV())) * u_DiffuseFactor;
 #else
     baseColor = u_DiffuseFactor;
 #endif // !HAS_DIFFUSE_MAP
@@ -314,7 +324,7 @@ void main()
 #ifdef HAS_METALLIC_ROUGHNESS_MAP
     // Roughness is stored in the 'g' channel, metallic is stored in the 'b' channel.
     // This layout intentionally reserves the 'r' channel for (optional) occlusion map data
-    vec4 mrSample = texture2D(u_MetallicRoughnessSampler, getMetallicRoughnessUV());
+    vec4 mrSample = _texture(u_MetallicRoughnessSampler, getMetallicRoughnessUV());
     perceptualRoughness = mrSample.g * u_RoughnessFactor;
     metallic = mrSample.b * u_MetallicFactor;
 #else
@@ -329,7 +339,7 @@ void main()
 
     // The albedo may be defined from a base texture or a flat color
 #ifdef HAS_BASE_COLOR_MAP
-    baseColor = SRGBtoLINEAR(texture2D(u_BaseColorSampler, getBaseColorUV())) * baseColorFactor;
+    baseColor = SRGBtoLINEAR(_texture(u_BaseColorSampler, getBaseColorUV())) * baseColorFactor;
 #else
     baseColor = baseColorFactor;
 #endif
@@ -355,7 +365,7 @@ void main()
 #endif
 
 #ifdef MATERIAL_UNLIT
-    gl_FragColor = vec4(LINEARtoSRGB(baseColor.rgb) * baseColor.a, baseColor.a);
+    FRAG_COLOR = vec4(LINEARtoSRGB(baseColor.rgb) * baseColor.a, baseColor.a);
     return;
 #endif
 
@@ -424,60 +434,60 @@ void main()
     float ao = 1.0;
     // Apply optional PBR terms for additional (optional) shading
 #ifdef HAS_OCCLUSION_MAP
-    ao = texture2D(u_OcclusionSampler,  getOcclusionUV()).r;
+    ao = _texture(u_OcclusionSampler,  getOcclusionUV()).r;
     color = mix(color, color * ao, u_OcclusionStrength);
 #endif
 
     vec3 emissive = vec3(0);
 #ifdef HAS_EMISSIVE_MAP
-    emissive = SRGBtoLINEAR(texture2D(u_EmissiveSampler, getEmissiveUV())).rgb * u_EmissiveFactor;
+    emissive = SRGBtoLINEAR(_texture(u_EmissiveSampler, getEmissiveUV())).rgb * u_EmissiveFactor;
     color += emissive;
 #endif
 
 #ifndef DEBUG_OUTPUT // no debug
 
    // regular shading
-    gl_FragColor = vec4(toneMap(color) * baseColor.a, baseColor.a);
+    FRAG_COLOR = vec4(toneMap(color) * baseColor.a, baseColor.a);
 
 #else // debug output
 
     #ifdef DEBUG_METALLIC
-        gl_FragColor.rgb = vec3(metallic);
+        FRAG_COLOR.rgb = vec3(metallic);
     #endif
 
     #ifdef DEBUG_ROUGHNESS
-        gl_FragColor.rgb = vec3(perceptualRoughness);
+        FRAG_COLOR.rgb = vec3(perceptualRoughness);
     #endif
 
     #ifdef DEBUG_NORMAL
         #ifdef HAS_NORMAL_MAP
-            gl_FragColor.rgb = texture2D(u_NormalSampler, getNormalUV()).rgb;
+            FRAG_COLOR.rgb = _texture(u_NormalSampler, getNormalUV()).rgb;
         #else
-            gl_FragColor.rgb = vec3(0.5, 0.5, 1.0);
+            FRAG_COLOR.rgb = vec3(0.5, 0.5, 1.0);
         #endif
     #endif
 
     #ifdef DEBUG_BASECOLOR
-        gl_FragColor.rgb = LINEARtoSRGB(baseColor.rgb);
+        FRAG_COLOR.rgb = LINEARtoSRGB(baseColor.rgb);
     #endif
 
     #ifdef DEBUG_OCCLUSION
-        gl_FragColor.rgb = vec3(ao);
+        FRAG_COLOR.rgb = vec3(ao);
     #endif
 
     #ifdef DEBUG_EMISSIVE
-        gl_FragColor.rgb = LINEARtoSRGB(emissive);
+        FRAG_COLOR.rgb = LINEARtoSRGB(emissive);
     #endif
 
     #ifdef DEBUG_F0
-        gl_FragColor.rgb = vec3(f0);
+        FRAG_COLOR.rgb = vec3(f0);
     #endif
 
     #ifdef DEBUG_ALPHA
-        gl_FragColor.rgb = vec3(baseColor.a);
+        FRAG_COLOR.rgb = vec3(baseColor.a);
     #endif
 
-    gl_FragColor.a = 1.0;
+    FRAG_COLOR.a = 1.0;
 
 #endif // !DEBUG_OUTPUT
 }

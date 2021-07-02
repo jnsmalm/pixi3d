@@ -7,12 +7,12 @@ import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"
 
 export class ShadowShader extends MeshShader {
-  constructor(features: string[] = []) {
+  constructor(renderer: PIXI.Renderer, features: string[] = []) {
     let vert = require("./shader/shadow.vert").default
     let frag = require("./shader/shadow.frag").default
     super(PIXI.Program.from(
-      StandardShaderSource.build(vert, features),
-      StandardShaderSource.build(frag, features)))
+      StandardShaderSource.build(vert, features, renderer),
+      StandardShaderSource.build(frag, features, renderer)))
   }
 
   createShaderGeometry(geometry: MeshGeometry3D) {
