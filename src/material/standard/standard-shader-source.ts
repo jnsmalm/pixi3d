@@ -2,10 +2,6 @@ import * as PIXI from "pixi.js"
 
 export namespace StandardShaderSource {
   export function build(source: string, features: string[], renderer: PIXI.Renderer) {
-    let match: RegExpExecArray | null
-    while ((match = /#include <(.+)>/gm.exec(source)) !== null) {
-      source = source.replace(match[0], require(`./shader/${match[1]}`).default)
-    }
     if (renderer.context.webGLVersion === 1) {
       source = source.replace(/VERSION/, "100")
         .replace(/VERT_IN/g, "attribute")

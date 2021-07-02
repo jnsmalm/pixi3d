@@ -2,8 +2,8 @@
 
 #define FEATURES
 
-#include <extensions.glsl>
-#include <animation.glsl>
+@import ./extensions;
+@import ./animation;
 
 VERT_IN vec4 a_Position;
 VERT_OUT vec3 v_Position;

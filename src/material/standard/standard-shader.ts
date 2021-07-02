@@ -10,8 +10,8 @@ export class StandardShader extends MeshShader {
   private _instancing = new StandardShaderInstancing()
 
   static build(renderer: PIXI.Renderer, features: string[]) {
-    let vert = require(`./shader/primitive.vert`).default
-    let frag = require(`./shader/metallic-roughness.frag`).default
+    let vert = require(`./shader/primitive.vert`)
+    let frag = require(`./shader/metallic-roughness.frag`)
 
     let program = PIXI.Program.from(
       StandardShaderSource.build(vert, features, renderer),

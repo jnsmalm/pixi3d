@@ -35,13 +35,13 @@
   precision mediump float;
 #endif
 
-#include <extensions.glsl>
-#include <texture-lod.glsl>
-#include <standard-derivatives.glsl>
-#include <textures.glsl>
-#include <functions.glsl>
-#include <shadow.glsl>
-#include <tonemapping.glsl>
+@import ./extensions;
+@import ./texture-lod;
+@import ./standard-derivatives;
+@import ./textures;
+@import ./functions;
+@import ./shadow;
+@import ./tonemapping;
 
 // KHR_lights_punctual extension.
 // see https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_lights_punctual

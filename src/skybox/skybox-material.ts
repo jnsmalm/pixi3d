@@ -1,10 +1,10 @@
 import * as PIXI from "pixi.js"
 
+import { Cubemap } from "../cubemap/cubemap"
+import { MeshShader } from "../mesh/mesh-shader"
 import { Camera } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
 import { Material } from "../material/material"
-import { Cubemap } from "../cubemap/cubemap"
-import { MeshShader } from "../mesh/mesh-shader"
 
 export class SkyboxMaterial extends Material {
   private _cubemap: Cubemap
@@ -53,8 +53,8 @@ export class SkyboxMaterial extends Material {
   }
 
   createShader() {
-    const vert: string = require("./shader/skybox.vert").default
-    const frag: string = require("./shader/skybox.frag").default
+    let vert = require("./shader/skybox.vert")
+    let frag = require("./shader/skybox.frag")
 
     if (this.cubemap.valid) {
       return new MeshShader(PIXI.Program.from(vert, frag))
