@@ -1,70 +1,70 @@
 import { mat4 } from "gl-matrix"
 
-export namespace Mat4 {
-  export function getTranslation(mat: Float32Array, out = new Float32Array(3)) {
+export class Mat4 {
+  static getTranslation(mat: Float32Array, out = new Float32Array(3)) {
     return <Float32Array>mat4.getTranslation(out, mat)
   }
-  export function create() {
+  static create() {
     return <Float32Array>mat4.create()
   }
-  export function getScaling(mat: Float32Array, out = new Float32Array(3)) {
+  static getScaling(mat: Float32Array, out = new Float32Array(3)) {
     return <Float32Array>mat4.getScaling(out, mat)
   }
-  export function getRotation(mat: Float32Array, out = new Float32Array(4)) {
+  static getRotation(mat: Float32Array, out = new Float32Array(4)) {
     return <Float32Array>mat4.getRotation(out, mat)
   }
-  export function copy(a: Float32Array, out = new Float32Array(16)) {
+  static copy(a: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.copy(out, a)
   }
-  export function fromQuat(q: Float32Array, out = new Float32Array(16)) {
+  static fromQuat(q: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.fromQuat(out, q)
   }
-  export function fromRotationTranslationScale(q: Float32Array, v: Float32Array, s: Float32Array, out = new Float32Array(16)) {
+  static fromRotationTranslationScale(q: Float32Array, v: Float32Array, s: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.fromRotationTranslationScale(out, q, v, s)
   }
-  export function fromRotation(rad: number, axis: Float32Array, out = new Float32Array(16)) {
+  static fromRotation(rad: number, axis: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.fromRotation(out, rad, axis)
   }
-  export function fromScaling(v: Float32Array, out = new Float32Array(16)) {
+  static fromScaling(v: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.fromScaling(out, v)
   }
-  export function fromTranslation(v: Float32Array, out = new Float32Array(16)) {
+  static fromTranslation(v: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.fromTranslation(out, v)
   }
-  export function multiply(a: Float32Array, b: Float32Array, out = new Float32Array(16)) {
+  static multiply(a: Float32Array, b: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.multiply(out, a, b)
   }
-  export function lookAt(eye: Float32Array, center: Float32Array, up: Float32Array, out = new Float32Array(16)) {
+  static lookAt(eye: Float32Array, center: Float32Array, up: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.lookAt(out, eye, center, up)
   }
-  export function identity(out = new Float32Array(16)) {
+  static identity(out = new Float32Array(16)) {
     return <Float32Array>mat4.identity(out)
   }
-  export function perspective(fovy: number, aspect: number, near: number, far: number, out = new Float32Array(16)) {
+  static perspective(fovy: number, aspect: number, near: number, far: number, out = new Float32Array(16)) {
     return <Float32Array>mat4.perspective(out, fovy, aspect, near, far)
   }
-  export function ortho(left: number, right: number, bottom: number, top: number, near: number, far: number, out = new Float32Array(16)) {
+  static ortho(left: number, right: number, bottom: number, top: number, near: number, far: number, out = new Float32Array(16)) {
     return <Float32Array>mat4.ortho(out, left, right, bottom, top, near, far)
   }
-  export function invert(a: Float32Array, out = new Float32Array(16)) {
+  static invert(a: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.invert(out, a)
   }
-  export function transpose(a: Float32Array, out = new Float32Array(16)) {
+  static transpose(a: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.transpose(out, a)
   }
-  export function targetTo(eye: Float32Array, target: Float32Array, up: Float32Array, out = new Float32Array(16)) {
+  static targetTo(eye: Float32Array, target: Float32Array, up: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.targetTo(out, eye, target, up)
   }
-  export function rotateX(a: Float32Array, rad: number, out = new Float32Array(16)) {
+  static rotateX(a: Float32Array, rad: number, out = new Float32Array(16)) {
     return <Float32Array>mat4.rotateX(out, a, rad)
   }
-  export function rotateY(a: Float32Array, rad: number, out = new Float32Array(16)) {
+  static rotateY(a: Float32Array, rad: number, out = new Float32Array(16)) {
     return <Float32Array>mat4.rotateY(out, a, rad)
   }
-  export function rotateZ(a: Float32Array, rad: number, out = new Float32Array(16)) {
+  static rotateZ(a: Float32Array, rad: number, out = new Float32Array(16)) {
     return <Float32Array>mat4.rotateZ(out, a, rad)
   }
-  export function rotate(a: Float32Array, rad: number, axis: Float32Array, out = new Float32Array(16)) {
+  static rotate(a: Float32Array, rad: number, axis: Float32Array, out = new Float32Array(16)) {
     return <Float32Array>mat4.rotate(out, a, rad, axis)
   }
 }
