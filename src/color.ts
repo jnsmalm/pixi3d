@@ -12,7 +12,7 @@ export class Color {
    * @param b The B (blue) component.
    * @param a The A (alpha) component.
    */
-  constructor(r = 0, g = 0, b = 0, a = 0) {
+  constructor(r = 0, g = 0, b = 0, a = 1) {
     this._array4 = new Float32Array([r, g, b, a])
     this._array3 = this._array4.subarray(0, 3)
   }
