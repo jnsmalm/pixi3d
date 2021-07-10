@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed an issue which caused mesh instances to be rendered even if they were `visible = false`.
 - Fixed an issue which caused `StandardMaterial` not to render double sided materials correctly.
 - Using `StandardMaterial` alpha mode "mask" previously rendered the object as transparent, this should no longer be the case.
+- Fixed `StandardMaterial` shader for Safari with WebGL 2.0 enabled.
 
 ## [0.9.5] - 2021-05-09
 ### Fixed
