@@ -7,10 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Added `destroy` function to an instanced model.
+- Added functionality to create a `Color` object from bytes.
 
 ### Changed
 - Turn off writing to depth buffer when rendering transparent objects using `StandardMaterial`. This feature if only available in PixiJS 6.0+.
-- Color default alpha has been changed to 1 instead of 0.
+- `Color` default alpha has been changed to 1 instead of 0.
 
 ### Fixed
 - Fixed an issue which caused mesh instances to be rendered even if they were `visible = false`.

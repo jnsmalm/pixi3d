@@ -6,7 +6,7 @@ export class Color {
   private _array3: Float32Array
 
   /**
-   * Creates a new color with the specified components.
+   * Creates a new color with the specified components (in range 0-1).
    * @param r The R (red) component.
    * @param g The G (green) component.
    * @param b The B (blue) component.
@@ -15,6 +15,17 @@ export class Color {
   constructor(r = 0, g = 0, b = 0, a = 1) {
     this._array4 = new Float32Array([r, g, b, a])
     this._array3 = this._array4.subarray(0, 3)
+  }
+
+  /**
+   * Creates a new color with the specified components (in range 0-255).
+   * @param r The R (red) component.
+   * @param g The G (green) component.
+   * @param b The B (blue) component.
+   * @param a The A (alpha) component.
+   */
+  static fromBytes(r = 0, g = 0, b = 0, a = 255) {
+    return new Color(r / 255, g / 255, b / 255, a / 255)
   }
 
   /** The color as an typed array containing RGB. */
