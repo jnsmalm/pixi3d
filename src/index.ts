@@ -20,6 +20,7 @@ export { ImageBasedLighting } from "./lighting/image-based-lighting"
 export { StandardPipeline } from "./pipeline/standard-pipeline"
 export { MaterialRenderPass } from "./pipeline/material-render-pass"
 export { Material } from "./material/material"
+export { MaterialRenderSortType } from "./material/material-render-sort-type";
 export { CubemapLoader } from "./loader/cubemap-loader"
 export { Cubemap } from "./cubemap/cubemap"
 export { ShaderSourceLoader } from "./loader/shader-source-loader"
