@@ -15,7 +15,7 @@ export class PickingMap {
     this._pixels = new Uint8Array(width * height * 4)
     this._output = PIXI.RenderTexture.create({ width, height })
     this._shader = new MeshShader(
-      PIXI.Program.from(require("./shader/picking.vert").default, require("./shader/picking.frag").default))
+      PIXI.Program.from(require("./shader/picking.vert"), require("./shader/picking.frag")))
     this._output.framebuffer.addDepthTexture()
   }
 

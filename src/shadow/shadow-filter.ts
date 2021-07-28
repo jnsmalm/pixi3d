@@ -11,8 +11,8 @@ export class ShadowFilter {
   constructor(public renderer: PIXI.Renderer) {
     this._mesh = Mesh3D.createQuad()
     this._gaussianBlurShader = new MeshShader(PIXI.Program.from(
-      require("./shader/gaussian-blur.vert").default,
-      require("./shader/gaussian-blur.frag").default
+      require("./shader/gaussian-blur.vert"),
+      require("./shader/gaussian-blur.frag")
     ))
   }
 
