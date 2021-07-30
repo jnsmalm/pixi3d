@@ -9558,7 +9558,7 @@
       }
     },
     {
-      "alphaMode": "BLEND",
+      "alphaMode": "OPAQUE",
       "doubleSided": false,
       "emissiveFactor": [
         1,
