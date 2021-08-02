@@ -32,13 +32,15 @@ export class MaterialRenderPass implements RenderPass {
 
   clear() {
     if (this._renderTexture && this.clearColor) {
+      const current = this.renderer.renderTexture.current
       this.renderer.renderTexture.bind(this._renderTexture)
       this.renderer.renderTexture.clear(Array.from(this.clearColor.rgba))
-      this.renderer.renderTexture.bind(undefined)
+      this.renderer.renderTexture.bind(current)
     }
   }
 
   render(meshes: Mesh3D[]) {
+    const current = this.renderer.renderTexture.current
     if (this._renderTexture) {
       this.renderer.renderTexture.bind(this._renderTexture)
     }
@@ -48,7 +50,7 @@ export class MaterialRenderPass implements RenderPass {
       }
     }
     if (this._renderTexture) {
-      this.renderer.renderTexture.bind(undefined)
+      this.renderer.renderTexture.bind(current)
     }
   }
 }

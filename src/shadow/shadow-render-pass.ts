@@ -52,16 +52,20 @@ export class ShadowRenderPass implements RenderPass {
   }
 
   render(meshes: Mesh3D[]) {
+    if (meshes.length === 0 || this._lights.length === 0) {
+      return
+    }
+    const current = this.renderer.renderTexture.current
     for (let shadowCastingLight of this._lights) {
       this.renderer.renderTexture.bind(shadowCastingLight.shadowTexture)
       shadowCastingLight.updateLightViewProjection()
       for (let mesh of meshes) {
         this._shadow.render(mesh, shadowCastingLight)
       }
-      this.renderer.renderTexture.bind(undefined)
       if (shadowCastingLight.softness > 0) {
         this._filter.applyGaussianBlur(shadowCastingLight)
       }
     }
+    this.renderer.renderTexture.bind(current)
   }
 }
