@@ -175,7 +175,7 @@ let control = new PIXI3D.CameraOrbitControl(app.view)
 The API documentation is available at https://api.pixi3d.org
 
 ## Building
-Build *pixi3d.js* to *dist* folder with production settings.
+Build *dist/pixi3d.js* (for development) and *dist/pixi3d.min.js* (for production).
 ```
 > npm run build
 ```

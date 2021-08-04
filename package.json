@@ -9,7 +9,7 @@
   ],
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "webpack --env.production",
+    "build": "webpack",
     "prepare": "rimraf dist types && npm run build",
     "serve": "webpack-dev-server --open --config examples/example.config.js",
     "docs": "typedoc src/index.ts",
@@ -27,9 +27,7 @@
   },
   "homepage": "https://github.com/jnsmalm/pixi3d#readme",
   "devDependencies": {
-    "@types/node": "^12.12.32",
     "gl-matrix": "^3.3.0",
-    "html-webpack-plugin": "^4.0.4",
     "pixi.js": "^6.0.2",
     "rimraf": "^3.0.2",
     "ts-loader": "^6.2.0",
