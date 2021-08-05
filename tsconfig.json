@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "importHelpers": true,
     "outDir": "out/",
     "strict": true,
     "module": "commonjs",
