@@ -10,8 +10,8 @@ app.loader.add("diffuse.cubemap", "assets/environments/autumn/diffuse.cubemap")
 app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap")
 app.loader.add("suzanne.gltf", "assets/models/suzanne/suzanne.gltf")
 
-// The aspect ratio of the camera being used should be the same as width/height
-// of the mesh sprite.
+// The aspect ratio of the camera should be the same as width/height of the 
+// object rendering sprite.
 PIXI3D.Camera.main.aspect = 1
 
 app.loader.load((loader, resources) => {
@@ -31,15 +31,16 @@ app.loader.load((loader, resources) => {
   PIXI3D.LightingEnvironment.main =
     new PIXI3D.LightingEnvironment(app.renderer, imageBasedLighting)
 
-  // Create first mesh sprite which will be used to render the object each frame.
-  let sprite1 = app.stage.addChild(new PIXI3D.MeshSprite(app.renderer, model, {
+  // Create first object rendering sprite which will be used to render the 
+  // model each frame.
+  let sprite1 = app.stage.addChild(new PIXI3D.ObjectRenderingSprite(app.renderer, model, {
     width: 256, height: 256
   }))
   sprite1.tint = 0x00ff22
 
-  // Create second mesh sprite which will be used to render the object only when
-  // user clicks on the window.
-  let sprite2 = app.stage.addChild(new PIXI3D.MeshSprite(app.renderer, model, {
+  // Create second object rendering sprite which will be used to render the 
+  // model only when user clicks on the window.
+  let sprite2 = app.stage.addChild(new PIXI3D.ObjectRenderingSprite(app.renderer, model, {
     width: 256, height: 256, autoRenderObject: false
   }))
   sprite2.tint = 0xff00ff
