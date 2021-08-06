@@ -49,7 +49,7 @@ export class PickingMap {
         let meshes = hitArea.object instanceof Mesh3D ? [hitArea.object] : hitArea.object.meshes
         let camera = hitArea.camera || Camera.main
         for (let mesh of meshes) {
-          this._shader.uniforms.u_World = mesh.transform.worldTransform.toArray()
+          this._shader.uniforms.u_World = mesh.transform.worldTransform.array
           this._shader.uniforms.u_Id = hitArea.id
           this._shader.uniforms.u_ViewProjection = camera.viewProjection
           this._shader.render(mesh, this._renderer)

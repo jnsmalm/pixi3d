@@ -38,7 +38,7 @@ export class SkyboxMaterial extends Material {
   updateUniforms(mesh: Mesh3D, shader: MeshShader) {
     let camera = this.camera || Camera.main
 
-    shader.uniforms.u_ModelMatrix = mesh.worldTransform.toArray()
+    shader.uniforms.u_ModelMatrix = mesh.worldTransform.array
     shader.uniforms.u_View = camera.view
     shader.uniforms.u_Projection = camera.projection
     shader.uniforms.u_EnvironmentSampler = this.cubemap

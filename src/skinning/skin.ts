@@ -35,14 +35,14 @@ export class Skin {
       inverseBindMatrix, this will cause the vertices to be transformed only 
       based on the current transform of the node, in the coordinate space of the 
       current joint node. */
-      Mat4.multiply(<Float32Array><unknown>this.joints[i].node.worldTransform.toArray(),
+      Mat4.multiply(<Float32Array><unknown>this.joints[i].node.worldTransform.array,
         this.joints[i].inverseBindMatrix, this._arrayVertexMatrices[i])
 
       /* The vertices have to be transformed with inverse of the global 
       transform of the node that the mesh is attached to, because this transform 
       is already done using the model-view-matrix, and thus has to be cancelled 
       out from the skinning computation. */
-      Mat4.multiply(<Float32Array><unknown>this.parent.transform.inverseWorldTransform.toArray(),
+      Mat4.multiply(<Float32Array><unknown>this.parent.transform.inverseWorldTransform.array,
         this._arrayVertexMatrices[i], this._arrayVertexMatrices[i])
 
       Mat4.invert(this._arrayVertexMatrices[i], this._arrayNormalMatrices[i])

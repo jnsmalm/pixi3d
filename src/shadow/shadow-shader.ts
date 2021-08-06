@@ -38,7 +38,7 @@ export class ShadowShader extends MeshShader {
   }
 
   updateUniforms(mesh: Mesh3D, shadowCastingLight: ShadowCastingLight) {
-    this.uniforms.u_ModelMatrix = mesh.worldTransform.toArray()
+    this.uniforms.u_ModelMatrix = mesh.worldTransform.array
     this.uniforms.u_ViewProjectionMatrix = shadowCastingLight.lightViewProjection
   }
 }

@@ -19,7 +19,6 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
   private _rotation?: MatrixComponent
   private _up?: MatrixComponent
   private _down?: MatrixComponent
-  private _array: Float32Array
   private _forward?: MatrixComponent
   private _left?: MatrixComponent
   private _right?: MatrixComponent
@@ -29,6 +28,9 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
     return this._transformId
   }
 
+  /** The array containing the matrix data. */
+  public array: Float32Array
+
   /**
    * Creates a new transform matrix using the specified matrix array.
    * @param array The matrix array, expected length is 16. If empty, an identity 
@@ -37,21 +39,24 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
   constructor(array?: ArrayLike<number>) {
     super()
     if (array) {
-      this._array = new Float32Array(array)
+      this.array = new Float32Array(array)
     } else {
-      this._array = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1])
+      this.array = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1])
     }
   }
 
-  toArray() {
-    return this._array
+  toArray(transpose: boolean, out?: Float32Array) {
+    if (transpose) {
+      return Mat4.transpose(this.array, out)
+    }
+    return out ? Mat4.copy(this.array, out) : this.array
   }
 
   /** Returns the position component of the matrix. */
   get position() {
     if (!this._position) {
       this._position = new MatrixComponent(this, 3, data => {
-        Mat4.getTranslation(this._array, data)
+        Mat4.getTranslation(this.array, data)
       })
     }
     return this._position.array
@@ -61,7 +66,7 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
   get scaling() {
     if (!this._scaling) {
       this._scaling = new MatrixComponent(this, 3, data => {
-        Mat4.getScaling(this._array, data)
+        Mat4.getScaling(this.array, data)
       })
     }
     return this._scaling.array
@@ -74,9 +79,9 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
       this._rotation = new MatrixComponent(this, 4, data => {
         // To extract a correct rotation, the scaling component must be eliminated.
         for (let col of [0, 1, 2]) {
-          matrix[col + 0] = this._array[col + 0] / this.scaling[0]
-          matrix[col + 4] = this._array[col + 4] / this.scaling[1]
-          matrix[col + 8] = this._array[col + 8] / this.scaling[2]
+          matrix[col + 0] = this.array[col + 0] / this.scaling[0]
+          matrix[col + 4] = this.array[col + 4] / this.scaling[1]
+          matrix[col + 8] = this.array[col + 8] / this.scaling[2]
         }
         Quat.normalize(Mat4.getRotation(matrix, data), data)
       })
@@ -88,7 +93,7 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
   get up() {
     if (!this._up) {
       this._up = new MatrixComponent(this, 3, data => {
-        Vec3.normalize(Vec3.set(this._array[4], this._array[5], this._array[6], data), data)
+        Vec3.normalize(Vec3.set(this.array[4], this.array[5], this.array[6], data), data)
       })
     }
     return this._up.array
@@ -128,7 +133,7 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
   get forward() {
     if (!this._forward) {
       this._forward = new MatrixComponent(this, 3, data => {
-        Vec3.normalize(Vec3.set(this._array[8], this._array[9], this._array[10], data), data)
+        Vec3.normalize(Vec3.set(this.array[8], this.array[9], this.array[10], data), data)
       })
     }
     return this._forward.array
@@ -146,7 +151,7 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
 
   copyFrom(matrix: TransformMatrix) {
     if (matrix instanceof TransformMatrix) {
-      Mat4.copy(matrix._array, this._array); this._transformId++
+      Mat4.copy(matrix.array, this.array); this._transformId++
     }
     return this
   }
@@ -161,7 +166,7 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
     Vec4.set(rotation.x, rotation.y, rotation.z, rotation.w, this.rotation)
     Vec3.set(scaling.x, scaling.y, scaling.z, this.scaling)
     Vec3.set(position.x, position.y, position.z, this.position)
-    Mat4.fromRotationTranslationScale(this.rotation, this.position, this.scaling, this._array); this._transformId++
+    Mat4.fromRotationTranslationScale(this.rotation, this.position, this.scaling, this.array); this._transformId++
   }
 
   /**
@@ -170,6 +175,6 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
    * @param b The second operand.
    */
   setFromMultiply(a: TransformMatrix, b: TransformMatrix) {
-    Mat4.multiply(a._array, b._array, this._array); this._transformId++
+    Mat4.multiply(a.array, b.array, this.array); this._transformId++
   }
 }

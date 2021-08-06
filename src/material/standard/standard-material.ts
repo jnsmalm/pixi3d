@@ -346,8 +346,8 @@ export class StandardMaterial extends Material {
     shader.uniforms.u_RoughnessFactor = this.roughness
     shader.uniforms.u_BaseColorFactor = this._baseColor
     shader.uniforms.u_EmissiveFactor = this.emissive.rgb
-    shader.uniforms.u_ModelMatrix = mesh.worldTransform.toArray()
-    shader.uniforms.u_NormalMatrix = mesh.transform.normalTransform.toArray()
+    shader.uniforms.u_ModelMatrix = mesh.worldTransform.array
+    shader.uniforms.u_NormalMatrix = mesh.transform.normalTransform.array
     if (this._shadowCastingLight) {
       shader.uniforms.u_ShadowSampler = this._shadowCastingLight.shadowTexture
       shader.uniforms.u_LightViewProjectionMatrix = this._shadowCastingLight.lightViewProjection

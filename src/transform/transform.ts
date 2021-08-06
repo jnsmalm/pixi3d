@@ -71,8 +71,8 @@ export class Transform3D extends PIXI.Transform {
     } else {
       this.worldTransform.copyFrom(this.localTransform)
     }
-    Mat4.invert(this.worldTransform.toArray(), this.inverseWorldTransform.toArray())
-    Mat4.transpose(this.inverseWorldTransform.toArray(), this.normalTransform.toArray())
+    Mat4.invert(this.worldTransform.array, this.inverseWorldTransform.array)
+    Mat4.transpose(this.inverseWorldTransform.array, this.normalTransform.array)
     this._worldID++
     if (parentTransform) {
       this._parentID = parentTransform._worldID

@@ -38,12 +38,12 @@ export class StandardShaderInstancing {
       if (!instances[i].worldVisible || !instances[i].renderable) {
         continue
       }
-      const normal = instances[i].transform.normalTransform.toArray()
+      const normal = instances[i].transform.normalTransform.array
       for (let j = 0; j < 4; j++) {
         (<Float32Array>this._normalMatrix[j].data)
           .set(normal.slice(j * 4, j * 4 + 4), bufferIndex * 4)
       }
-      const model = instances[i].worldTransform.toArray()
+      const model = instances[i].worldTransform.array
       for (let j = 0; j < 4; j++) {
         (<Float32Array>this._modelMatrix[j].data)
           .set(model.slice(j * 4, j * 4 + 4), bufferIndex * 4)
