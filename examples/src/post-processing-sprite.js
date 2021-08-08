@@ -11,7 +11,7 @@ app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap"
 app.loader.add("suzanne.gltf", "assets/models/suzanne/suzanne.gltf")
 
 // The aspect ratio of the camera should be the same as width/height of the 
-// object rendering sprite.
+// post processing sprite.
 PIXI3D.Camera.main.aspect = 1
 
 app.loader.load((loader, resources) => {
@@ -31,28 +31,30 @@ app.loader.load((loader, resources) => {
   PIXI3D.LightingEnvironment.main =
     new PIXI3D.LightingEnvironment(app.renderer, imageBasedLighting)
 
-  // Create first object rendering sprite which will be used to render the 
-  // model each frame.
-  let sprite1 = app.stage.addChild(new PIXI3D.ObjectRenderingSprite(app.renderer, model, {
-    width: 256, height: 256
+  let pipeline = PIXI3D.StandardPipeline.from(app.renderer)
+
+  // Create first sprite which will be used to render the model each frame.
+  let sprite1 = app.stage.addChild(new PIXI3D.PostProcessingSprite(app.renderer, {
+    width: 256, height: 256, objectToRender: model
   }))
   sprite1.tint = 0x00ff22
 
-  // Create second object rendering sprite which will be used to render the 
-  // model only when user clicks on the window.
-  let sprite2 = app.stage.addChild(new PIXI3D.ObjectRenderingSprite(app.renderer, model, {
-    width: 256, height: 256, autoRenderObject: false
+  // Create second sprite which will be used to render the model only when user
+  // clicks on the window.
+  let sprite2 = app.stage.addChild(new PIXI3D.PostProcessingSprite(app.renderer, {
+    width: 256, height: 256
   }))
-  sprite2.tint = 0xff00ff
+  sprite2.filters = [new PIXI.filters.CRTFilter()]
 
   document.addEventListener("pointerdown", () => {
     // Render object to sprite and update texture
-    sprite2.renderObject()
+    sprite2.renderObject(model)
   })
 
   let velocity = { x: 1, y: 2 }
   let rotation = 0
 
+  // The first sprite bounces around on the screen
   app.ticker.add(() => {
     model.rotationQuaternion.setEulerAngles(0, rotation++, 0)
     sprite1.position.set(sprite1.x + velocity.x, sprite1.y + velocity.y)

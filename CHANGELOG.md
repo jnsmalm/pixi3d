@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Added `MeshSprite` which is used for rendering 3D objects as 2D sprites.
+- Added functionality to `PostProcessingSprite` so it can be used for rendering a 3D object as a 2D sprite.
 
 ## [0.9.6] - 2021-07-28
 ### Added

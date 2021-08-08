@@ -149,7 +149,9 @@ pipeline.enableShadows(model, shadowCastingLight)
 ### 2D and 3D
 Compositing 2D (PixiJS) and 3D (Pixi3D) containers is simple and can be combined in many ways. 2D containers can be added on top of 3D containers, and the other way around. Although the containers can be combined, the transforms used by 2D and 3D works differently from each other and are not compatible. The transforms won't be affected by each other, even if they have a parent-child relation.
 
-To be able to convert 3D coordinates to 2D coordinates (or the other way around) the camera methods *screenToWorld* and *worldToScreen* can be used.
+To be able to convert 3D coordinates to 2D coordinates (or the other way around) the camera methods `screenToWorld` and `worldToScreen` can be used. 
+
+Another way of combining 2D and 3D objects is to render a 3D object as a sprite using `PostProcessingSprite`. Thay way, the 3D object can easily be positioned together with 2D objects. This method also makes it possible to use regular PixiJS filters with 3D objects.
 
 ```javascript
 let vignette = app.stage.addChild(
