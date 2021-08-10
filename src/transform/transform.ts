@@ -4,6 +4,7 @@ import { TransformMatrix } from "./transform-matrix"
 import { ObservablePoint3D } from "./observable-point"
 import { ObservableQuaternion } from "./observable-quaternion"
 import { Mat4 } from "../math/mat4"
+import { Vec3 } from "../math/vec3"
 
 /**
  * Handles position, scaling and rotation.
@@ -77,5 +78,16 @@ export class Transform3D extends PIXI.Transform {
     if (parentTransform) {
       this._parentID = parentTransform._worldID
     }
+  }
+
+  /**
+   * Rotates the transform so the forward vector points at specified point.
+   * @param point The point to look at.
+   * @param up The upward direction.
+   */
+  lookAt(point: ObservablePoint3D, up = new Float32Array([0, 1, 0])) {
+    let rot = Mat4.getRotation(
+      Mat4.targetTo(point.array, this.worldTransform.position, up))
+    this.rotationQuaternion.set(rot[0], rot[1], rot[2], rot[3])
   }
 }
