@@ -28,6 +28,7 @@ jobs:
       with:
         artifacts: 'dist/*.js'
         token: ${{ secrets.GITHUB_TOKEN }}
+        draft: true
 
     - name: Publish
       run: npm publish
