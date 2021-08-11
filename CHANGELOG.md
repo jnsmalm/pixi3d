@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.9.7] - 2021-08-11
 ### Added
 - New functionality to `PostProcessingSprite` so it can be used for rendering a 3D object as a 2D sprite.
-- Translate function to `Mat4`
+- Added `translate` function to `Mat4`.
+- Added `lookAt` function to `Transform3D` to make it easier for an object to be rotated towards a specified point.
 
 ## [0.9.6] - 2021-07-28
 ### Added
