@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Pixi3D - v0.9.6</title>
+	<title>Pixi3D - v0.9.7</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">Pixi3D - v0.9.6</a>
+					<a href="index.html" class="title">Pixi3D - v0.9.7</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Pixi3D - v0.9.6</h1>
+			<h1>Pixi3D - v0.9.7</h1>
 		</div>
 	</div>
 </header>
@@ -193,7 +193,8 @@ pipeline.enableShadows(model, shadowCastingLight)</code></pre>
 					<h3>2D and 3D</h3>
 				</a>
 				<p>Compositing 2D (PixiJS) and 3D (Pixi3D) containers is simple and can be combined in many ways. 2D containers can be added on top of 3D containers, and the other way around. Although the containers can be combined, the transforms used by 2D and 3D works differently from each other and are not compatible. The transforms won&#39;t be affected by each other, even if they have a parent-child relation.</p>
-				<p>To be able to convert 3D coordinates to 2D coordinates (or the other way around) the camera methods <em>screenToWorld</em> and <em>worldToScreen</em> can be used.</p>
+				<p>To be able to convert 3D coordinates to 2D coordinates (or the other way around) the camera methods <code>screenToWorld</code> and <code>worldToScreen</code> can be used. </p>
+				<p>Another way of combining 2D and 3D objects is to render a 3D object as a sprite using <code>PostProcessingSprite</code>. Thay way, the 3D object can easily be positioned together with 2D objects. This method also makes it possible to use regular PixiJS filters with 3D objects.</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> vignette = app.stage.addChild(
   <span class="hljs-keyword">new</span> PIXI.Sprite(PIXI.Texture.from(<span class="hljs-string">"assets/vignette.png"</span>)))
 
@@ -216,7 +217,7 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 				<a href="#building" id="building" style="color: inherit; text-decoration: none;">
 					<h2>Building</h2>
 				</a>
-				<p>Build <em>pixi3d.js</em> to <em>dist</em> folder with production settings.</p>
+				<p>Build <em>dist/pixi3d.js</em> (for development) and <em>dist/pixi3d.min.js</em> (for production).</p>
 				<pre><code>&gt; npm <span class="hljs-keyword">run</span><span class="bash"> build</span></code></pre>
 			</div>
 		</div>

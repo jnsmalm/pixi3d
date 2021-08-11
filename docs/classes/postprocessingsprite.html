@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PostProcessingSprite | Pixi3D - v0.9.6</title>
+	<title>PostProcessingSprite | Pixi3D - v0.9.7</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.6</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.7</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -69,7 +69,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents a sprite which has post processing effects.</p>
+						<p>Represents a sprite which has post processing effects. Can be used for
+						rendering 3D objects as 2D sprites.</p>
 					</div>
 				</div>
 			</section>
@@ -112,7 +113,6 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="postprocessingsprite.html#_anchor" class="tsd-kind-icon">_anchor</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#_cachedtint" class="tsd-kind-icon">_cached<wbr>Tint</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="postprocessingsprite.html#_fxaa" class="tsd-kind-icon">_fxaa</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#_height" class="tsd-kind-icon">_height</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="postprocessingsprite.html#_rendertexture" class="tsd-kind-icon">_render<wbr>Texture</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#_texture" class="tsd-kind-icon">_texture</a></li>
@@ -123,6 +123,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#blendmode" class="tsd-kind-icon">blend<wbr>Mode</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#indices" class="tsd-kind-icon">indices</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#pluginname" class="tsd-kind-icon">plugin<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="postprocessingsprite.html#renderer" class="tsd-kind-icon">renderer</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="postprocessingsprite.html#uvs" class="tsd-kind-icon">uvs</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="postprocessingsprite.html#vertexdata" class="tsd-kind-icon">vertex<wbr>Data</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static"><a href="postprocessingsprite.html#prefixed" class="tsd-kind-icon">prefixed</a></li>
@@ -133,7 +134,6 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#anchor" class="tsd-kind-icon">anchor</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="postprocessingsprite.html#depthtexture" class="tsd-kind-icon">depth<wbr>Texture</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="postprocessingsprite.html#fxaa" class="tsd-kind-icon">fxaa</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#height" class="tsd-kind-icon">height</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="postprocessingsprite.html#rendertexture" class="tsd-kind-icon">render<wbr>Texture</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#roundpixels" class="tsd-kind-icon">round<wbr>Pixels</a></li>
@@ -142,7 +142,7 @@
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="postprocessingsprite.html#width" class="tsd-kind-icon">width</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="postprocessingsprite.html#_calculatebounds" class="tsd-kind-icon">_calculate<wbr>Bounds</a></li>
@@ -163,6 +163,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="postprocessingsprite.html#once" class="tsd-kind-icon">once</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="postprocessingsprite.html#removealllisteners" class="tsd-kind-icon">remove<wbr>All<wbr>Listeners</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="postprocessingsprite.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="postprocessingsprite.html#renderobject" class="tsd-kind-icon">render<wbr>Object</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="postprocessingsprite.html#from" class="tsd-kind-icon">from</a></li>
 							</ul>
 						</section>
@@ -182,7 +183,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Sprite.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/504ac08/src/pipeline/post-processing-sprite.ts#L28">src/pipeline/post-processing-sprite.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/sprite/post-processing-sprite.ts#L36">src/sprite/post-processing-sprite.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -239,16 +240,6 @@
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_fxaa" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _fxaa</h3>
-					<div class="tsd-signature tsd-kind-icon">_fxaa<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FXAAFilter</span><span class="tsd-signature-symbol"> = new PIXI.filters.FXAAFilter()</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/504ac08/src/pipeline/post-processing-sprite.ts#L23">src/pipeline/post-processing-sprite.ts:23</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="_height" class="tsd-anchor"></a>
 					<h3>_height</h3>
@@ -266,7 +257,7 @@
 					<div class="tsd-signature tsd-kind-icon">_render<wbr>Texture<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RenderTexture</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/504ac08/src/pipeline/post-processing-sprite.ts#L9">src/pipeline/post-processing-sprite.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/sprite/post-processing-sprite.ts#L24">src/sprite/post-processing-sprite.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -357,6 +348,21 @@
 							<li>Defined in node_modules/@pixi/sprite/index.d.ts:46</li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="renderer" class="tsd-anchor"></a>
+					<h3>renderer</h3>
+					<div class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Renderer</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/sprite/post-processing-sprite.ts#L44">src/sprite/post-processing-sprite.ts:44</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The renderer to use.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="uvs" class="tsd-anchor"></a>
@@ -468,7 +474,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/504ac08/src/pipeline/post-processing-sprite.ts#L17">src/pipeline/post-processing-sprite.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/sprite/post-processing-sprite.ts#L32">src/sprite/post-processing-sprite.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -477,28 +483,6 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">BaseTexture</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Resource</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">ISize</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ICubeResourceOptions</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">IImageResourceOptions</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ISVGResourceOptions</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">IVideoResourceOptions</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="fxaa" class="tsd-anchor"></a>
-					<h3>fxaa</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> fxaa<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FXAAFilter</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/504ac08/src/pipeline/post-processing-sprite.ts#L26">src/pipeline/post-processing-sprite.ts:26</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>The FXAA (Fast approximate anti-aliasing) filter.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">FXAAFilter</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -561,7 +545,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/504ac08/src/pipeline/post-processing-sprite.ts#L12">src/pipeline/post-processing-sprite.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/sprite/post-processing-sprite.ts#L27">src/sprite/post-processing-sprite.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -784,7 +768,7 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="_calculatebounds" class="tsd-anchor"></a>
@@ -1327,6 +1311,37 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="renderobject" class="tsd-anchor"></a>
+					<h3>render<wbr>Object</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">render<wbr>Object<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DisplayObject</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/sprite/post-processing-sprite.ts#L74">src/sprite/post-processing-sprite.ts:74</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Updates the sprite&#39;s texture by rendering the specified object to it.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>object: <span class="tsd-signature-type">DisplayObject</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The object to render.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 					<a name="from" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> from</h3>
@@ -1394,9 +1409,6 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="postprocessingsprite.html#_cachedtint" class="tsd-kind-icon">_cached<wbr>Tint</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="postprocessingsprite.html#_fxaa" class="tsd-kind-icon">_fxaa</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="postprocessingsprite.html#_height" class="tsd-kind-icon">_height</a>
 							</li>
@@ -1427,6 +1439,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="postprocessingsprite.html#pluginname" class="tsd-kind-icon">plugin<wbr>Name</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="postprocessingsprite.html#renderer" class="tsd-kind-icon">renderer</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="postprocessingsprite.html#uvs" class="tsd-kind-icon">uvs</a>
 							</li>
@@ -1441,9 +1456,6 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="postprocessingsprite.html#depthtexture" class="tsd-kind-icon">depth<wbr>Texture</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="postprocessingsprite.html#fxaa" class="tsd-kind-icon">fxaa</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
 								<a href="postprocessingsprite.html#height" class="tsd-kind-icon">height</a>
@@ -1516,6 +1528,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="postprocessingsprite.html#removelistener" class="tsd-kind-icon">remove<wbr>Listener</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="postprocessingsprite.html#renderobject" class="tsd-kind-icon">render<wbr>Object</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="postprocessingsprite.html#from" class="tsd-kind-icon">from</a>
