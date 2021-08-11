@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
+        registry-url: 'https://registry.npmjs.org'
 
     - name: Build
       run: |
@@ -28,6 +29,7 @@ jobs:
       with:
         artifacts: 'dist/*.js'
         token: ${{ secrets.GITHUB_TOKEN }}
+        omitName: true
         draft: true
 
     - name: Publish
