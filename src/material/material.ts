@@ -8,6 +8,7 @@ import { MeshShader } from "../mesh/mesh-shader"
  * Materials are used to render a mesh with a specific visual appearance.
  */
 export abstract class Material {
+  protected _renderSortType = MaterialRenderSortType.opaque
   protected _shader?: MeshShader
 
   /** State used to render a mesh. */
@@ -18,9 +19,26 @@ export abstract class Material {
   /** Draw mode used to render a mesh. */
   drawMode = PIXI.DRAW_MODES.TRIANGLES
 
-  /** Sort type used to render a mesh. This will determine in which order
-   * the material is being rendered compared to other materials. */
-  renderSortType = MaterialRenderSortType.opaque
+  /**
+   * Sort type used to render a mesh. This will determine in which order the 
+   * material is being rendered compared to other materials. Setting this to 
+   * "transparent" will also disable writing to depth buffer (only available 
+   * in PixiJS 6.0+).
+   */
+  get renderSortType() {
+    return this._renderSortType
+  }
+
+  set renderSortType(value: MaterialRenderSortType) {
+    this._renderSortType = value
+    // Depth mask feature is only available in PixiJS 6.0+ and won't have
+    // any effects in previous versions.
+    if (value === MaterialRenderSortType.opaque) {
+      this.state.depthMask = true
+    } else {
+      this.state.depthMask = false
+    }
+  }
 
   /** Value indicating if the material is double sided. */
   get doubleSided() {
