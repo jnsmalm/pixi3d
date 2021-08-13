@@ -25,11 +25,10 @@ jobs:
         npm run build
 
     - name: Release
-      uses: ncipollo/release-action@v1
+      uses: softprops/action-gh-release@v1
       with:
-        artifacts: 'dist/*.js'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        omitName: true
+        files: dist/*.js
+        token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
         draft: true
 
     - name: Publish
