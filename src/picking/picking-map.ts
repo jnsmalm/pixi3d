@@ -19,6 +19,11 @@ export class PickingMap {
     this._output.framebuffer.addDepthTexture()
   }
 
+  destroy() {
+    this._output.destroy(true)
+    this._shader.destroy()
+  }
+
   resize(width: number, height: number) {
     this._pixels = new Uint8Array(width * height * 4)
     this._output.resize(width, height)

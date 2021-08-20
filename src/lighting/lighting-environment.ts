@@ -7,7 +7,7 @@ import { Light } from "./light"
  * A lighting environment represents the different lighting conditions for a 
  * specific object or an entire scene.
  */
-export class LightingEnvironment {
+export class LightingEnvironment implements PIXI.IRendererPlugin {
   private _imageBasedLighting?: ImageBasedLighting
 
   /** The lights affecting this lighting environment. */
@@ -43,6 +43,9 @@ export class LightingEnvironment {
   /** Value indicating if this object is valid to be used for rendering. */
   get valid() {
     return !this._imageBasedLighting || this._imageBasedLighting.valid
+  }
+
+  destroy() {
   }
 }
 

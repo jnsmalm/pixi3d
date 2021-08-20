@@ -9,7 +9,7 @@ import { PickingMap } from "./picking-map"
  * is then used to map a mesh to a x/y coordinate. The picking manager is 
  * registered as a renderer plugin.
  */
-export class PickingManager {
+export class PickingManager implements PIXI.IRendererPlugin {
   private _map: PickingMap
   private _hitAreas: PickingHitArea[] = []
 
@@ -35,6 +35,9 @@ export class PickingManager {
       }
       this._map.update(this._hitAreas); this._hitAreas = []
     })
+  }
+
+  destroy() {
   }
 
   /**

@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Setting `alphaMode` on `StandardMaterial` no longer changes `depthMask` or `renderSortType`.
 - Setting `renderSortType` on `Material` also changes `depthMask`.
 
+### Fixed
+- Fixed an issue which caused a crash when application was destroyed.
+
 ## [0.9.7] - 2021-08-11
 ### Added
 - New functionality to `PostProcessingSprite` so it can be used for rendering a 3D object as a 2D sprite.

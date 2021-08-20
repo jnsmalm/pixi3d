@@ -60,6 +60,14 @@ export class Camera extends Container3D implements TransformId {
     this.transform.rotationQuaternion.setEulerAngles(0, 180, 0)
   }
 
+  destroy(options?: boolean | PIXI.IDestroyOptions) {
+    super.destroy(options)
+    if (this === Camera.main) {
+      // @ts-ignore It's ok, main camera was destroyed.
+      Camera.main = undefined
+    }
+  }
+
   /**
    * The camera's half-size when in orthographic mode. The visible area from 
    * center of the screen to the top.
