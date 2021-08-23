@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PickingManager | Pixi3D - v0.9.7</title>
+	<title>PickingManager | Pixi3D - v0.9.8</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.7</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.8</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -84,6 +84,12 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><span class="tsd-signature-type">IRendererPlugin</span></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -106,6 +112,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pickingmanager.html#containshitarea" class="tsd-kind-icon">contains<wbr>Hit<wbr>Area</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pickingmanager.html#destroy" class="tsd-kind-icon">destroy</a></li>
 							</ul>
 						</section>
 					</div>
@@ -123,7 +130,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/picking/picking-manager.ts#L14">src/picking/picking-manager.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L14">src/picking/picking-manager.ts:14</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -155,7 +162,7 @@
 					<div class="tsd-signature tsd-kind-icon">_hit<wbr>Areas<span class="tsd-signature-symbol">:</span> <a href="pickinghitarea.html" class="tsd-signature-type">PickingHitArea</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/picking/picking-manager.ts#L14">src/picking/picking-manager.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L14">src/picking/picking-manager.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -165,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">_map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PickingMap</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/picking/picking-manager.ts#L13">src/picking/picking-manager.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L13">src/picking/picking-manager.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -175,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Renderer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/picking/picking-manager.ts#L20">src/picking/picking-manager.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L20">src/picking/picking-manager.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -197,7 +204,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/picking/picking-manager.ts#L46">src/picking/picking-manager.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L49">src/picking/picking-manager.ts:49</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,6 +234,23 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="destroy" class="tsd-anchor"></a>
+					<h3>destroy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L40">src/picking/picking-manager.ts:40</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -261,6 +285,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="pickingmanager.html#containshitarea" class="tsd-kind-icon">contains<wbr>Hit<wbr>Area</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="pickingmanager.html#destroy" class="tsd-kind-icon">destroy</a>
 							</li>
 						</ul>
 					</li>

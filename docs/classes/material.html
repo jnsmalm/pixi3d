@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Material | Pixi3D - v0.9.7</title>
+	<title>Material | Pixi3D - v0.9.8</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.7</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.8</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -93,9 +93,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="material.html#_rendersorttype" class="tsd-kind-icon">_render<wbr>Sort<wbr>Type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="material.html#_shader" class="tsd-kind-icon">_shader</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="material.html#drawmode" class="tsd-kind-icon">draw<wbr>Mode</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="material.html#rendersorttype" class="tsd-kind-icon">render<wbr>Sort<wbr>Type</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="material.html#state" class="tsd-kind-icon">state</a></li>
 							</ul>
 						</section>
@@ -105,6 +105,7 @@
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="material.html#blendmode" class="tsd-kind-icon">blend<wbr>Mode</a></li>
 								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="material.html#doublesided" class="tsd-kind-icon">double<wbr>Sided</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="material.html#isinstancingsupported" class="tsd-kind-icon">is<wbr>Instancing<wbr>Supported</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="material.html#rendersorttype" class="tsd-kind-icon">render<wbr>Sort<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -123,12 +124,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="_rendersorttype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _render<wbr>Sort<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">_render<wbr>Sort<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/materialrendersorttype.html" class="tsd-signature-type">MaterialRenderSortType</a><span class="tsd-signature-symbol"> = MaterialRenderSortType.opaque</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L11">src/material/material.ts:11</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="_shader" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> <span class="tsd-flag ts-flagOptional">Optional</span> _shader</h3>
 					<div class="tsd-signature tsd-kind-icon">_shader<span class="tsd-signature-symbol">:</span> <a href="meshshader.html" class="tsd-signature-type">MeshShader</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L11">src/material/material.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L12">src/material/material.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -138,7 +149,7 @@
 					<div class="tsd-signature tsd-kind-icon">draw<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DRAW_MODES</span><span class="tsd-signature-symbol"> = PIXI.DRAW_MODES.TRIANGLES</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L19">src/material/material.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L20">src/material/material.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -148,28 +159,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="rendersorttype" class="tsd-anchor"></a>
-					<h3>render<wbr>Sort<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">render<wbr>Sort<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/materialrendersorttype.html" class="tsd-signature-type">MaterialRenderSortType</a><span class="tsd-signature-symbol"> = MaterialRenderSortType.opaque</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L23">src/material/material.ts:23</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Sort type used to render a mesh. This will determine in which order
-							the material is being rendered compared to other materials.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="state" class="tsd-anchor"></a>
 					<h3>state</h3>
 					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">State</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>clockwiseFrontFace<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">; </span>culling<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>depthTest<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> = Object.assign(new PIXI.State(), {culling: true, clockwiseFrontFace: false, depthTest: true})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L14">src/material/material.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L15">src/material/material.ts:15</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -192,7 +187,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L35">src/material/material.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L53">src/material/material.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -205,7 +200,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L39">src/material/material.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L57">src/material/material.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -234,7 +229,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L26">src/material/material.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L44">src/material/material.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,7 +242,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L30">src/material/material.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L48">src/material/material.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -275,7 +270,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L65">src/material/material.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L83">src/material/material.ts:83</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -284,6 +279,54 @@
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class">
+					<a name="rendersorttype" class="tsd-anchor"></a>
+					<h3>render<wbr>Sort<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> renderSortType<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../enums/materialrendersorttype.html" class="tsd-signature-type">MaterialRenderSortType</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> renderSortType<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../enums/materialrendersorttype.html" class="tsd-signature-type">MaterialRenderSortType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L28">src/material/material.ts:28</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sort type used to render a mesh. This will determine in which order the
+										material is being rendered compared to other materials. Setting this to
+										&quot;transparent&quot; will also disable writing to depth buffer (only available
+									in PixiJS 6.0+).</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../enums/materialrendersorttype.html" class="tsd-signature-type">MaterialRenderSortType</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L32">src/material/material.ts:32</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sort type used to render a mesh. This will determine in which order the
+										material is being rendered compared to other materials. Setting this to
+										&quot;transparent&quot; will also disable writing to depth buffer (only available
+									in PixiJS 6.0+).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../enums/materialrendersorttype.html" class="tsd-signature-type">MaterialRenderSortType</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -300,7 +343,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L72">src/material/material.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L90">src/material/material.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -322,7 +365,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L48">src/material/material.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L66">src/material/material.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -359,7 +402,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L60">src/material/material.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L78">src/material/material.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -381,7 +424,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L81">src/material/material.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L99">src/material/material.ts:99</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -418,7 +461,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/c6514ad/src/material/material.ts#L55">src/material/material.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/material/material.ts#L73">src/material/material.ts:73</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -463,13 +506,13 @@
 						<a href="material.html" class="tsd-kind-icon">Material</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="material.html#_rendersorttype" class="tsd-kind-icon">_render<wbr>Sort<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="material.html#_shader" class="tsd-kind-icon">_shader</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="material.html#drawmode" class="tsd-kind-icon">draw<wbr>Mode</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="material.html#rendersorttype" class="tsd-kind-icon">render<wbr>Sort<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="material.html#state" class="tsd-kind-icon">state</a>
@@ -482,6 +525,9 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="material.html#isinstancingsupported" class="tsd-kind-icon">is<wbr>Instancing<wbr>Supported</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class">
+								<a href="material.html#rendersorttype" class="tsd-kind-icon">render<wbr>Sort<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="material.html#createinstance" class="tsd-kind-icon">create<wbr>Instance</a>
