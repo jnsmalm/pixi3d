@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Added `fromHex` function to `Color`.
+
+## [0.9.8] - 2021-09-23
+### Added
 - Added `scale` function to `Mat4`.
 
 ### Changed

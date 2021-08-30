@@ -28,6 +28,17 @@ export class Color {
     return new Color(r / 255, g / 255, b / 255, a / 255)
   }
 
+  /**
+   * Creates a new color from the specified hex value.
+   * @param hex The hex value as a string or a number.
+   */
+  static fromHex(hex: number | string) {
+    if (typeof hex === "string") {
+      hex = parseInt(hex.replace(/[^0-9A-F]/gi, ""), 16)
+    }
+    return Color.fromBytes((hex >> 16) & 255, (hex >> 8) & 255, hex & 255)
+}
+
   /** The color as an typed array containing RGB. */
   get rgb() {
     return this._array3
