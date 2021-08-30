@@ -264,4 +264,4 @@ export class Camera extends Container3D implements TransformId {
   }
 }
 
-PIXI.Renderer.registerPlugin("camera", <any>Camera)
+PIXI.Renderer.registerPlugin("camera", Camera)

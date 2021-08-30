@@ -31,8 +31,8 @@ export class CameraOrbitControl {
 
   /**
    * Creates a new camera orbit control.
-   * @param element Element for user events.
-   * @param camera Camera to control. If not set, the main camera will be used 
+   * @param element The element for listening to user events.
+   * @param camera The camera to control. If not set, the main camera will be used 
    * by default.
    */
   constructor(element: HTMLElement, public camera = Camera.main) {
