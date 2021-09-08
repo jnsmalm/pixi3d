@@ -40,17 +40,26 @@ export class Camera extends Container3D implements TransformId {
   constructor(public renderer: PIXI.Renderer) {
     super()
 
+    let aspect = renderer.width / renderer.height
+    let localID = -1
+
     this.renderer.on("prerender", () => {
       if (!this._aspect) {
         // When there is no specific aspect set, this is used for the 
         // projection matrix to always update each frame (in case when the 
         // renderer aspect ratio has changed).
-        this._transformId++
+        if (renderer.width / renderer.height !== aspect) {
+          this._transformId++
+          aspect = renderer.width / renderer.height
+        }
       }
-      if (!this.parent) {
+      // @ts-ignore: _localID do exist, but be careful if this changes.
+      if (!this.parent && localID !== this.transform._localID) {
         // When the camera is not attached to the scene hierarchy the transform 
         // needs to be updated manually.
         this.transform.updateTransform()
+        // @ts-ignore: _localID do exist, but be careful if this changes.
+        localID = this.transform._localID
       }
     })
     if (!Camera.main) {
