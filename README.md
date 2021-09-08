@@ -5,6 +5,7 @@ Pixi3D is a JavaScript library which makes it easy to render 3D graphics on the 
 * Physically-based rendering (PBR) and image-based lighting (IBL)
 * Transformation, morphing and skeletal animations
 * Customized materials and shaders
+* Sprites in 3D
 * Built on top of PixiJS, seamless integration with 2D applications.
 
 ## Getting started
