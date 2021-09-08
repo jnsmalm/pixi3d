@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Added `Sprite3D` which works like regular PixiJS 2D sprites but in 3D space.
 - Added `fromHex` function to `Color`.
 
 ## [0.9.8] - 2021-09-23
