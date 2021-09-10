@@ -128,6 +128,9 @@ export class Camera extends Container3D implements TransformId {
    * @param viewSize The size of the view when not rendering to the entire screen.
    */
   screenToWorld(x: number, y: number, distance: number, point = new ObservablePoint3D(() => { }, undefined), viewSize: { width: number, height: number } = this.renderer) {
+    x = x * this.renderer.resolution
+    y = y * this.renderer.resolution
+
     // Make sure the transform is updated in case something has been changed, 
     // otherwise it may be using wrong values.
     this.transform.updateTransform(this.parent?.transform)
@@ -178,8 +181,10 @@ export class Camera extends Container3D implements TransformId {
         clipSpace[i] /= clipSpace[3]
       }
     }
-    return point.set((clipSpace[0] + 1) / 2 * viewSize.width,
-      viewSize.height - (clipSpace[1] + 1) / 2 * viewSize.height)
+    const width = viewSize.width / this.renderer.resolution
+    const height = viewSize.height / this.renderer.resolution
+    return point.set((
+      clipSpace[0] + 1) / 2 * width, height - (clipSpace[1] + 1) / 2 * height)
   }
 
   private _fieldOfView = 60

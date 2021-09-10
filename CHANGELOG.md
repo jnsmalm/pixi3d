@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `Sprite3D` which works like regular PixiJS 2D sprites but in 3D space.
 - Added `fromHex` function to `Color`.
 
+### Fixed
+- Fixed an issue which caused `screenToWorld` and `worldToScreen` to give wrong results when renderer resolution was more than 1.
+
 ## [0.9.8] - 2021-09-23
 ### Added
 - Added `scale` function to `Mat4`.
