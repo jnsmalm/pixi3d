@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `fromHex` function to `Color`.
 
 ### Fixed
-- Fixed an issue which caused `screenToWorld` and `worldToScreen` to give wrong results when renderer resolution was more than 1.
+- Fixed issues which caused `Camera`, `PostProcessingSprite` and `PickingHitArea` to not work correctly when renderer resolution was more than 1.
 
 ## [0.9.8] - 2021-09-23
 ### Added

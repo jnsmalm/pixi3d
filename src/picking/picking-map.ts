@@ -30,8 +30,10 @@ export class PickingMap {
   }
 
   containsId(x: number, y: number, id: Uint8Array) {
-    x = Math.floor(x / this._renderer.width * this._output.width)
-    y = Math.floor((this._renderer.height - y) / this._renderer.height * this._output.height)
+    const { width, height } = this._renderer.screen
+
+    x = Math.floor(x / width * this._output.width)
+    y = Math.floor((height - y) / height * this._output.height)
     for (let i = 0; i < 3; i++) {
       if (id[i] !== this._pixels[(y * this._output.width + x) * 4 + i]) {
         return false
@@ -62,7 +64,7 @@ export class PickingMap {
       }
     } else {
       const gl = this._renderer.gl
-      gl.readPixels(0, 0, this._output.width * this._renderer.resolution, this._output.height * this._renderer.resolution, gl.RGBA, gl.UNSIGNED_BYTE, this._pixels)
+      gl.readPixels(0, 0, this._output.width, this._output.height, gl.RGBA, gl.UNSIGNED_BYTE, this._pixels)
     }
     this._renderer.renderTexture.bind(undefined)
   }

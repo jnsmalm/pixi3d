@@ -55,7 +55,7 @@ export class PostProcessingSprite extends PIXI.Sprite {
 
     if (!options || !options.width || !options.height) {
       renderer.on("prerender", () => {
-        this._renderTexture.resize(renderer.width, renderer.height)
+        this._renderTexture.resize(renderer.screen.width, renderer.screen.height)
       })
     }
     if (objectToRender) {

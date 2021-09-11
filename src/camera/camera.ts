@@ -111,7 +111,7 @@ export class Camera extends Container3D implements TransformId {
    * @param y Screen y coordinate.
    * @param viewSize The size of the view when not rendering to the entire screen.
    */
-  screenToRay(x: number, y: number, viewSize: { width: number, height: number } = this.renderer) {
+  screenToRay(x: number, y: number, viewSize: { width: number, height: number } = this.renderer.screen) {
     let screen = this.screenToWorld(x, y, 1, undefined, viewSize)
     if (screen) {
       return new Ray(this.worldTransform.position,
@@ -127,10 +127,7 @@ export class Camera extends Container3D implements TransformId {
    * @param point Point to set.
    * @param viewSize The size of the view when not rendering to the entire screen.
    */
-  screenToWorld(x: number, y: number, distance: number, point = new ObservablePoint3D(() => { }, undefined), viewSize: { width: number, height: number } = this.renderer) {
-    x = x * this.renderer.resolution
-    y = y * this.renderer.resolution
-
+  screenToWorld(x: number, y: number, distance: number, point = new ObservablePoint3D(() => { }, undefined), viewSize: { width: number, height: number } = this.renderer.screen) {
     // Make sure the transform is updated in case something has been changed, 
     // otherwise it may be using wrong values.
     this.transform.updateTransform(this.parent?.transform)
@@ -167,7 +164,7 @@ export class Camera extends Container3D implements TransformId {
    * @param point Point to set.
    * @param viewSize The size of the view when not rendering to the entire screen.
    */
-  worldToScreen(x: number, y: number, z: number, point = new PIXI.Point(), viewSize: { width: number, height: number } = this.renderer) {
+  worldToScreen(x: number, y: number, z: number, point = new PIXI.Point(), viewSize: { width: number, height: number } = this.renderer.screen) {
     // Make sure the transform is updated in case something has been changed, 
     // otherwise it may be using wrong values.
     this.transform.updateTransform(this.parent?.transform)
@@ -181,10 +178,8 @@ export class Camera extends Container3D implements TransformId {
         clipSpace[i] /= clipSpace[3]
       }
     }
-    const width = viewSize.width / this.renderer.resolution
-    const height = viewSize.height / this.renderer.resolution
     return point.set((
-      clipSpace[0] + 1) / 2 * width, height - (clipSpace[1] + 1) / 2 * height)
+      clipSpace[0] + 1) / 2 * viewSize.width, viewSize.height - (clipSpace[1] + 1) / 2 * viewSize.height)
   }
 
   private _fieldOfView = 60
