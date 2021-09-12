@@ -32,6 +32,6 @@ export class Model extends Container3D {
    * Creates a new instance of this model.
    */
   createInstance() {
-    return InstancedModel.from(this)
+    return new InstancedModel(this)
   }
 }
