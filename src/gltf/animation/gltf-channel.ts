@@ -109,7 +109,7 @@ export abstract class glTFChannel {
         glTFInterpolation.from(interpolation, input, output, 4))
     }
     if (path === "weights") {
-      let weights = (<Mesh3D>target.children[0]).morphWeights
+      let weights = (<Mesh3D>target.children[0]).targetWeights
       if (!weights) {
         return undefined
       }

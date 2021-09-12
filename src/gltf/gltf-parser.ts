@@ -183,7 +183,7 @@ export class glTFParser {
     return <Mesh3D[]>mesh.primitives.map((primitive: any) => {
       return Object.assign<Mesh3D, Partial<Mesh3D>>(this.parsePrimitive(primitive), {
         name: mesh.name,
-        morphWeights: weights
+        targetWeights: weights
       })
     })
   }

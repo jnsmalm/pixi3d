@@ -343,8 +343,8 @@ export class StandardMaterial extends Material {
     if (this._alphaMode === StandardMaterialAlphaMode.mask) {
       shader.uniforms.u_AlphaCutoff = this.alphaCutoff
     }
-    if (mesh.morphWeights) {
-      shader.uniforms.u_morphWeights = mesh.morphWeights
+    if (mesh.targetWeights) {
+      shader.uniforms.u_morphWeights = mesh.targetWeights
     }
     if (this.baseColorTexture?.valid) {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture

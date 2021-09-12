@@ -20,7 +20,7 @@ export class Mesh3D extends Container3D {
   pluginName = "pipeline"
 
   /** Array of weights used for morphing between geometry targets. */
-  morphWeights?: number[]
+  targetWeights?: number[]
 
   /** The skin used for vertex skinning. */
   skin?: Skin

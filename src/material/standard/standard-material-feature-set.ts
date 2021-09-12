@@ -44,8 +44,8 @@ export namespace StandardMaterialFeatureSet {
           features.push("HAS_TARGET_TANGENT" + i)
         }
       }
-      if (mesh.morphWeights) {
-        features.push(`WEIGHT_COUNT ${mesh.morphWeights.length}`)
+      if (mesh.targetWeights) {
+        features.push(`WEIGHT_COUNT ${mesh.targetWeights.length}`)
         features.push("USE_MORPHING 1")
       }
     }
