@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js"
 
-import { glTFAsset, glTFAssetResourceLoader } from "../gltf/gltf-asset"
+import { glTFAsset } from "../gltf/gltf-asset"
+import { glTFResourceLoader } from "../gltf/gltf-resource-loader"
 
 export const glTFLoader = {
   use: function (resource: PIXI.ILoaderResource, next: () => void) {
@@ -23,7 +24,7 @@ export const glTFLoader = {
 
 PIXI.Loader.registerPlugin(glTFLoader)
 
-class glTFExternalResourceLoader implements glTFAssetResourceLoader {
+class glTFExternalResourceLoader implements glTFResourceLoader {
   constructor(private _loader: PIXI.Loader, private _resource: PIXI.ILoaderResource) {
   }
 
