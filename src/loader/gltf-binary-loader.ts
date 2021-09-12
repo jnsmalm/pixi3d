@@ -7,7 +7,7 @@ export const glTFBinaryLoader = {
     if (resource.extension !== "glb") {
       return next()
     }
-    if (glTFAsset.isValid(resource.data)) {
+    if (glTFAsset.isValidBinary(resource.data)) {
       glTFAsset.fromBuffer(resource.data, (gltf) => {
         Object.assign(resource, { gltf })
       })

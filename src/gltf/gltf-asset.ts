@@ -1,5 +1,7 @@
 import * as PIXI from "pixi.js"
 
+import { glTFResourceLoader } from "./gltf-resource-loader"
+
 /**
  * glTF assets are JSON files plus supporting external data.
  */
@@ -19,13 +21,13 @@ export class glTFAsset {
    * @param loader The resource loader to use for external resources. The 
    * loader can be empty when all resources in the descriptor is embedded.
    */
-  static load(descriptor: any, loader?: glTFAssetResourceLoader) {
+  static load(descriptor: any, loader?: glTFResourceLoader) {
     let asset = new glTFAsset(descriptor)
 
     for (let i = 0; i < descriptor.buffers.length; i++) {
       let buffer: { uri: string } = descriptor.buffers[i]
-      if (glTFAsset.isEmbeddedResource(buffer.uri)) {
-        asset.buffers[i] = glTFAsset.getEmbeddedBuffer(buffer.uri)
+      if (isEmbeddedResource(buffer.uri)) {
+        asset.buffers[i] = createBufferFromBase64(buffer.uri)
       } else {
         if (!loader) {
           throw new Error("PIXI3D: A resource loader is required when buffer is not embedded.")
@@ -40,7 +42,7 @@ export class glTFAsset {
     }
     for (let i = 0; i < descriptor.images.length; i++) {
       let image: { uri: string } = descriptor.images[i]
-      if (glTFAsset.isEmbeddedResource(image.uri)) {
+      if (isEmbeddedResource(image.uri)) {
         asset.images[i] = PIXI.Texture.from(image.uri, {
           wrapMode: PIXI.WRAP_MODES.REPEAT
         })
@@ -63,7 +65,7 @@ export class glTFAsset {
    * Returns a value indicating if the specified data buffer is a valid glTF.
    * @param data The buffer data to validate.
    */
-  static isValid(data: ArrayBuffer) {
+  static isValidBinary(data: ArrayBuffer) {
     const header = new Uint32Array(data, 0, 3)
     if (header[0] === 0x46546C67 && header[1] === 2) {
       return true
@@ -117,25 +119,12 @@ export class glTFAsset {
       reader.readAsDataURL(blob)
     }
   }
-
-  static isEmbeddedResource(uri: string) {
-    return uri.startsWith("data:")
-  }
-
-  static getEmbeddedBuffer(value: string) {
-    return Uint8Array.from(atob(value.split(",")[1]), c => c.charCodeAt(0)).buffer
-  }
 }
 
-/**
- * Represents a loader for glTF asset resources (buffers and images).
- */
-export interface glTFAssetResourceLoader {
-  /**
-   * Loads the resource from the specified uri.
-   * @param uri The uri to load from.
-   * @param onComplete Callback when loading is completed.
-   */
-  load(uri: string,
-    onComplete: (resource: PIXI.ILoaderResource) => void): void
+function isEmbeddedResource(uri: string) {
+  return uri.startsWith("data:")
+}
+
+function createBufferFromBase64(value: string) {
+  return Uint8Array.from(atob(value.split(",")[1]), c => c.charCodeAt(0)).buffer
 }
