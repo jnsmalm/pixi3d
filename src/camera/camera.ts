@@ -114,6 +114,9 @@ export class Camera extends Container3D implements TransformId {
   screenToRay(x: number, y: number, viewSize: { width: number, height: number } = this.renderer.screen) {
     let screen = this.screenToWorld(x, y, 1, undefined, viewSize)
     if (screen) {
+      if (this.orthographic) {
+        return new Ray(screen.array, this.worldTransform.forward)
+      }
       return new Ray(this.worldTransform.position,
         Vec3.subtract(screen.array, this.worldTransform.position, vec3))
     }
