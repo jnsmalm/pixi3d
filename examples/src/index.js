@@ -1,27 +1,48 @@
-let page = /(\?|&)page=([^&]+)/.exec(document.location.search)[2];
-if (page) {
-    console.log("Loading", page, "...");
-    import("./" + page);
-}
+let pageQuery = /(\?|&)page=([^&]+)/.exec(document.location.search);
+let page = pageQuery ? pageQuery[2] : "getting-started";
+console.log("Loading", page, "...");
+import("./" + page);
+
 setTimeout(() => {
-    document.body.insertAdjacentHTML("beforeend", `
-    <div style="
-        position: fixed;
-        left: 15px;
-        top: 5px;
-    ">
-    <a href="?page=getting-started">Getting started</a>
-    <a href="?page=color-material">Color material</a>
-    <a href="?page=instancing">Instancing</a>
-    <a href="?page=lighting">Lighting</a>
-    <a href="?page=mesh-geometry">Mesh-geometry</a>
-    <a href="?page=mesh-interact">Mesh-interact</a>
-    <a href="?page=model-viewer">Model-viewer</a>
-    <a href="?page=pbr">Pbr</a>
-    <a href="?page=post-processing-sprite">Post-processing-sprite</a>
-    <a href="?page=quick-guide">Quick-guide</a>
-    <a href="?page=sprites">Sprites</a>
-    <a href="?page=water-effect">Water-effect</a>
-    </div>
-    `);
+    let html = []
+    html.push(`<style>    
+        div.menu {
+            background-color: #5a9dd661;
+            padding: 5px 270px 5px 10px;
+        }
+        div.menu > a {
+            background-color: #69b9f9;
+            padding: 6px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 4px;
+            text-decoration: none;
+        } 
+        div.menu > a.active {
+            background-color: #8353c1;
+            color: white;
+            font-weight: bold;            
+        }       
+    </style>`);
+    html.push(`<div class="menu">`);
+    let pages = {
+        "getting-started": "Getting started",
+        "color-material": "Color material",
+        "instancing": "Instancing",
+        "lighting": "Lighting",
+        "mesh-geometry": "Mesh-geometry",
+        "mesh-interact": "Mesh-interact",
+        "model-viewer": "Model-viewer",
+        "pbr": "Pbr",
+        "post-processing-sprite": "Post-processing-sprite",
+        "quick-guide": "Quick-guide",
+        "sprites": "Sprites",
+        "water-effect": "Water-effect"
+    };
+    Object.keys(pages).forEach(url => {
+        let klass = (url == page) ? 'active' : '';
+        html.push(`<a href="?page=${encodeURI(url)}" class="${klass}">${pages[url]}</a>`);
+    });
+    html.push(`</div>`);
+    document.body.insertAdjacentHTML("beforeend", html.join('\n'));
 })
