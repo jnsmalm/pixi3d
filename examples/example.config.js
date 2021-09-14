@@ -52,7 +52,7 @@ module.exports = env => {
       umdNamedDefine: true
     }
   }, {
-    entry: "./examples/src/" + (env?.example || "getting-started") + ".js",
+    entry: "./examples/src/" + (env?.example || "index") + ".js",
     devtool: "source-map",
     mode: "development",
     devServer: {
