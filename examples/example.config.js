@@ -7,7 +7,7 @@ module.exports = env => {
     mode: "development",
     devServer: {
       contentBase: "./examples",
-      host: "0.0.0.0"
+      host: "127.0.0.1"
     },
     module: {
       rules: [
@@ -52,7 +52,7 @@ module.exports = env => {
       umdNamedDefine: true
     }
   }, {
-    entry: "./examples/src/" + env.example + ".js",
+    entry: "./examples/src/" + (env?.example || "getting-started") + ".js",
     devtool: "source-map",
     mode: "development",
     devServer: {

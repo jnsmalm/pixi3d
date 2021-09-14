@@ -28,3 +28,12 @@ app.ticker.add(() => {
   // set the rotation on all axes. In this case, only the y-axis is changed.
   mesh.rotationQuaternion.setEulerAngles(0, rotation++, 0)
 })
+document.body.insertAdjacentHTML("beforeend",`
+<div style="
+    position: fixed;
+    left: 15px;
+    top: 0;
+">
+  <p>Welcome to pixi3d</p>
+</div>
+`);
