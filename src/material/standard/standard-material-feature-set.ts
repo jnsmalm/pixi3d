@@ -26,8 +26,11 @@ export namespace StandardMaterialFeatureSet {
     if (geometry.normals) {
       features.push("HAS_NORMALS 1")
     }
-    if (geometry.uvs) {
+    if (geometry.uvs && geometry.uvs[0]) {
       features.push("HAS_UV_SET1 1")
+    }
+    if (geometry.uvs && geometry.uvs[1]) {
+      features.push("HAS_UV_SET2 1")
     }
     if (geometry.tangents) {
       features.push("HAS_TANGENTS 1")
@@ -92,7 +95,7 @@ export namespace StandardMaterialFeatureSet {
       if (!material.baseColorTexture.valid) {
         return undefined
       }
-      if ((<any>material.baseColorTexture).uvTransform) {
+      if (material.baseColorTexture.transform) {
         features.push("HAS_BASECOLOR_UV_TRANSFORM 1");
       }
       features.push("HAS_BASE_COLOR_MAP 1")
@@ -101,7 +104,7 @@ export namespace StandardMaterialFeatureSet {
       if (!material.emissiveTexture.valid) {
         return undefined
       }
-      if ((<any>material.emissiveTexture).uvTransform) {
+      if (material.emissiveTexture.transform) {
         features.push("HAS_EMISSIVE_UV_TRANSFORM 1");
       }
       features.push("HAS_EMISSIVE_MAP 1")
@@ -110,7 +113,7 @@ export namespace StandardMaterialFeatureSet {
       if (!material.normalTexture.valid) {
         return undefined
       }
-      if ((<any>material.normalTexture).uvTransform) {
+      if (material.normalTexture.transform) {
         features.push("HAS_NORMAL_UV_TRANSFORM 1");
       }
       features.push("HAS_NORMAL_MAP 1")
@@ -119,7 +122,7 @@ export namespace StandardMaterialFeatureSet {
       if (!material.metallicRoughnessTexture.valid) {
         return undefined
       }
-      if ((<any>material.metallicRoughnessTexture).uvTransform) {
+      if (material.metallicRoughnessTexture.transform) {
         features.push("HAS_METALLICROUGHNESS_UV_TRANSFORM 1");
       }
       features.push("HAS_METALLIC_ROUGHNESS_MAP 1")
@@ -128,7 +131,7 @@ export namespace StandardMaterialFeatureSet {
       if (!material.occlusionTexture.valid) {
         return undefined
       }
-      if ((<any>material.occlusionTexture).uvTransform) {
+      if (material.occlusionTexture.transform) {
         features.push("HAS_OCCLUSION_UV_TRANSFORM 1");
       }
       features.push("HAS_OCCLUSION_MAP 1")

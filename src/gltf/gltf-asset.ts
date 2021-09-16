@@ -26,7 +26,7 @@ export class glTFAsset {
 
     for (let i = 0; i < descriptor.buffers.length; i++) {
       let buffer: { uri: string } = descriptor.buffers[i]
-      if (isEmbeddedResource(buffer.uri)) {
+      if (glTFAsset.isEmbeddedResource(buffer.uri)) {
         asset.buffers[i] = createBufferFromBase64(buffer.uri)
       } else {
         if (!loader) {
@@ -42,17 +42,14 @@ export class glTFAsset {
     }
     for (let i = 0; i < descriptor.images.length; i++) {
       let image: { uri: string } = descriptor.images[i]
-      if (isEmbeddedResource(image.uri)) {
-        asset.images[i] = PIXI.Texture.from(image.uri, {
-          wrapMode: PIXI.WRAP_MODES.REPEAT
-        })
+      if (glTFAsset.isEmbeddedResource(image.uri)) {
+        asset.images[i] = PIXI.Texture.from(image.uri)
       } else {
         if (!loader) {
           throw new Error("PIXI3D: A resource loader is required when image is not embedded.")
         }
         loader.load(image.uri, (resource) => {
           if (resource.texture) {
-            resource.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
             asset.images[i] = resource.texture
           }
         })
@@ -73,13 +70,17 @@ export class glTFAsset {
     return false
   }
 
+  static isEmbeddedResource(uri: string) {
+    return uri.startsWith("data:")
+  }
+
   /**
    * Creates a new glTF asset from binary (glb) buffer data.
    * @param data The binary buffer data to read from.
-   * @param callback The function which gets called when the asset has been 
+   * @param cb The function which gets called when the asset has been 
    * created.
    */
-  static fromBuffer(data: ArrayBuffer, callback: (gltf: glTFAsset) => void) {
+  static fromBuffer(data: ArrayBuffer, cb: (gltf: glTFAsset) => void) {
     const chunks: { type: number, offset: number, length: number }[] = []
     let offset = 3 * 4
     while (offset < data.byteLength) {
@@ -96,7 +97,7 @@ export class glTFAsset {
       buffers.push(data.slice(chunks[i].offset, chunks[i].offset + chunks[i].length))
     }
     if (!descriptor.images || descriptor.images.length === 0) {
-      callback(new glTFAsset(descriptor, buffers))
+      cb(new glTFAsset(descriptor, buffers))
     }
     const images: PIXI.Texture[] = []
     for (let i = 0; descriptor.images && i < descriptor.images.length; i++) {
@@ -111,18 +112,13 @@ export class glTFAsset {
       const reader = new FileReader()
       reader.onload = () => {
         images[i] = PIXI.Texture.from(<string>reader.result)
-        images[i].baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
         if (images.length === descriptor.images.length) {
-          callback(new glTFAsset(descriptor, buffers, images))
+          cb(new glTFAsset(descriptor, buffers, images))
         }
       }
       reader.readAsDataURL(blob)
     }
   }
-}
-
-function isEmbeddedResource(uri: string) {
-  return uri.startsWith("data:")
 }
 
 function createBufferFromBase64(value: string) {

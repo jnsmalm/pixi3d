@@ -1,3 +1,5 @@
+import * as PIXI from "pixi.js"
+
 import { glTFChannel } from "./animation/gltf-channel"
 import { glTFAsset } from "./gltf-asset"
 import { glTFAnimation } from "./animation/gltf-animation"
@@ -13,7 +15,6 @@ import { Model } from "../model"
 import { TransformMatrix } from "../transform/transform-matrix"
 import { Skin } from "../skinning/skin"
 import { Joint } from "../skinning/joint"
-import { TextureTransform } from "../texture/textureTransform"
 
 /**
  * Parses glTF assets and creates models and meshes.
@@ -22,6 +23,7 @@ export class glTFParser {
   private _asset: glTFAsset
   private _materialFactory: MaterialFactory
   private _descriptor: any
+  private _textures: PIXI.Texture[] = []
 
   /**
    * Creates a new parser using the specified asset.
@@ -32,6 +34,9 @@ export class glTFParser {
     this._asset = asset
     this._materialFactory = materialFactory || StandardMaterial
     this._descriptor = this._asset.descriptor
+    for (let i = 0; i < this._descriptor.textures?.length; i++) {
+      this._textures.push(this.parseTexture(i))
+    }
   }
 
   /**
@@ -118,15 +123,43 @@ export class glTFParser {
     if (!material) {
       return this._materialFactory.create(result)
     }
-    result.occlusionTexture = this.parseTexture(material.occlusionTexture)
-    result.normalTexture = this.parseTexture(material.normalTexture)
-    result.emissiveTexture = this.parseTexture(material.emissiveTexture)
-
+    if (material.occlusionTexture !== undefined) {
+      result.occlusionTexture = this._textures[material.occlusionTexture.index].clone()
+      result.occlusionTexture.strength = material.occlusionTexture.strength
+      result.occlusionTexture.texCoord = material.occlusionTexture.texCoord
+      if (material.occlusionTexture.extensions && material.occlusionTexture.extensions.KHR_texture_transform) {
+        result.occlusionTexture.transform = material.occlusionTexture.extensions.KHR_texture_transform
+        if (material.occlusionTexture.extensions.KHR_texture_transform.texCoord !== undefined) {
+          result.occlusionTexture.texCoord = material.occlusionTexture.extensions.KHR_texture_transform.texCoord
+        }
+      }
+    }
+    if (material.normalTexture !== undefined) {
+      result.normalTexture = this._textures[material.normalTexture.index].clone()
+      result.normalTexture.scale = material.normalTexture.scale || 1
+      result.normalTexture.texCoord = material.normalTexture.texCoord
+      if (material.normalTexture.extensions && material.normalTexture.extensions.KHR_texture_transform) {
+        result.normalTexture.transform = material.normalTexture.extensions.KHR_texture_transform
+        if (material.normalTexture.extensions.KHR_texture_transform.texCoord !== undefined) {
+          result.normalTexture.texCoord = material.normalTexture.extensions.KHR_texture_transform.texCoord
+        }
+      }
+    }
+    if (material.emissiveTexture !== undefined) {
+      result.emissiveTexture = this._textures[material.emissiveTexture.index].clone()
+      result.emissiveTexture.texCoord = material.emissiveTexture.texCoord
+      if (material.emissiveTexture.extensions && material.emissiveTexture.extensions.KHR_texture_transform) {
+        result.emissiveTexture.transform = material.emissiveTexture.extensions.KHR_texture_transform
+        if (material.emissiveTexture.extensions.KHR_texture_transform.texCoord !== undefined) {
+          result.emissiveTexture.texCoord = material.emissiveTexture.extensions.KHR_texture_transform.texCoord
+        }
+      }
+    }
     if (material.doubleSided !== undefined) {
       result.doubleSided = material.doubleSided
     }
-    if (material.emissive) {
-      result.emissive = material.emissive
+    if (material.emissiveFactor) {
+      result.emissiveFactor = material.emissiveFactor
     }
     if (material.alphaMode) {
       result.alphaMode = material.alphaMode
@@ -135,11 +168,29 @@ export class glTFParser {
       result.alphaCutoff = material.alphaCutoff
     }
     let pbr = material.pbrMetallicRoughness
-    result.metallicRoughnessTexture = this.parseTexture(pbr?.metallicRoughnessTexture)
+    if (pbr?.metallicRoughnessTexture !== undefined) {
+      result.metallicRoughnessTexture = this._textures[pbr.metallicRoughnessTexture.index].clone()
+      result.metallicRoughnessTexture.texCoord = pbr.metallicRoughnessTexture.texCoord
+      if (pbr.metallicRoughnessTexture.extensions && pbr.metallicRoughnessTexture.extensions.KHR_texture_transform) {
+        result.metallicRoughnessTexture.transform = pbr.metallicRoughnessTexture.extensions.KHR_texture_transform
+        if (material.metallicRoughnessTexture.extensions.KHR_texture_transform.texCoord !== undefined) {
+          result.metallicRoughnessTexture.texCoord = material.metallicRoughnessTexture.extensions.KHR_texture_transform.texCoord
+        }
+      }
+    }
     if (pbr?.baseColorFactor) {
       result.baseColor = pbr.baseColorFactor
     }
-    result.baseColorTexture = this.parseTexture(pbr?.baseColorTexture)
+    if (pbr?.baseColorTexture !== undefined) {
+      result.baseColorTexture = this._textures[pbr.baseColorTexture.index].clone()
+      result.baseColorTexture.texCoord = pbr.baseColorTexture.texCoord
+      if (pbr.baseColorTexture.extensions && pbr.baseColorTexture.extensions.KHR_texture_transform) {
+        result.baseColorTexture.transform = pbr.baseColorTexture.extensions.KHR_texture_transform
+        if (pbr.baseColorTexture.extensions.KHR_texture_transform.texCoord !== undefined) {
+          result.baseColorTexture.texCoord = pbr.baseColorTexture.extensions.KHR_texture_transform.texCoord
+        }
+      }
+    }
     if (pbr?.metallicFactor !== undefined) {
       result.metallic = pbr.metallicFactor
     }
@@ -147,7 +198,7 @@ export class glTFParser {
       result.roughness = pbr.roughnessFactor
     }
     if (material.extensions) {
-      result.unlit = material.extensions["KHR_materials_unlit"] != undefined
+      result.unlit = material.extensions["KHR_materials_unlit"] !== undefined
     }
     return this._materialFactory.create(result)
   }
@@ -156,16 +207,21 @@ export class glTFParser {
    * Returns the texture used by the specified object.
    * @param source The source object or index.
    */
-  parseTexture(source: any) {
-    if (source === undefined) { return undefined }
-    if (typeof source === "number") {
-      source = { index: source }
+  parseTexture(index: number) {
+    const texture = this._descriptor.textures[index]
+    const image = this._asset.images[texture.source]
+    const result = new PIXI.Texture(new PIXI.BaseTexture(image.baseTexture.resource, {
+      wrapMode: PIXI.WRAP_MODES.REPEAT
+    }))
+    if (this._descriptor.samplers && texture.sampler !== undefined) {
+      const sampler = this._descriptor.samplers[texture.sampler]
+      switch (sampler.wrapS) {
+        case 10497: result.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT; break
+        case 33648: result.baseTexture.wrapMode = PIXI.WRAP_MODES.MIRRORED_REPEAT; break
+        case 33071: result.baseTexture.wrapMode = PIXI.WRAP_MODES.CLAMP; break
+      }
     }
-    let texture = this._asset.images[this._descriptor.textures[source.index].source];
-	  if (source.extensions && source.extensions.KHR_texture_transform) {
-	    TextureTransform.calculateUVTransform(source.extensions.KHR_texture_transform, texture);
-    }    
-    return texture;
+    return result
   }
 
   /**

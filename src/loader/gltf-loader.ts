@@ -41,7 +41,7 @@ class glTFExternalResourceLoader implements glTFResourceLoader {
       onComplete(this._loader.resources[url])
     } else {
       // The resource is in queue to be loaded, wait for it.
-      let binding = this._loader.onProgress.add((l: any, resource: PIXI.ILoaderResource) => {
+      let binding = this._loader.onProgress.add((_, resource) => {
         if (resource.url === url) {
           onComplete(resource); binding.detach()
         }

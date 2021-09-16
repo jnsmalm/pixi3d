@@ -48,6 +48,10 @@ export class StandardShader extends MeshShader {
         }
       }
     }
+    if (geometry.uvs && geometry.uvs[1]) {
+      result.addAttribute("a_UV2", new PIXI.Buffer(geometry.uvs[1].buffer),
+        2, false, geometry.uvs[1].componentType, geometry.uvs[1].stride)
+    }
     if (geometry.joints) {
       result.addAttribute("a_Joint1", new PIXI.Buffer(geometry.joints.buffer),
         4, false, geometry.joints.componentType, geometry.joints.stride)

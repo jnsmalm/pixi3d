@@ -1,4 +1,4 @@
-import * as PIXI from "pixi.js"
+import { glTFTexture } from "./gltf-texture"
 
 /**
  * glTF defines materials using a common set of parameters that are based on 
@@ -10,12 +10,12 @@ export class glTFMaterial {
   doubleSided = false
   roughness = 1
   metallic = 1
-  baseColorTexture?: PIXI.Texture
-  metallicRoughnessTexture?: PIXI.Texture
-  normalTexture?: PIXI.Texture
-  occlusionTexture?: PIXI.Texture
-  emissiveTexture?: PIXI.Texture
-  emissive = [0, 0, 0]
+  baseColorTexture?: glTFTexture
+  metallicRoughnessTexture?: glTFTexture
+  normalTexture?: glTFTexture & { scale?: number }
+  occlusionTexture?: glTFTexture & { strength?: number }
+  emissiveTexture?: glTFTexture
+  emissiveFactor = [0, 0, 0]
   baseColor = [1, 1, 1, 1]
   unlit = false
 }

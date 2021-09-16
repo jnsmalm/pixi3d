@@ -5,16 +5,18 @@ import { StandardMaterialFeatureSet } from "./standard-material-feature-set"
 import { StandardShader } from "./standard-shader"
 import { Material } from "../material"
 import { Camera } from "../../camera/camera"
-import { glTFMaterial } from "../../gltf/gltf-material"
 import { LightingEnvironment } from "../../lighting/lighting-environment"
 import { Mesh3D } from "../../mesh/mesh"
 import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { ShadowCastingLight } from "../../shadow/shadow-casting-light"
 import { StandardMaterialSkinUniforms } from "./standard-material-skin-uniforms"
-import { MaterialRenderSortType } from "../material-render-sort-type"
 import { Color } from "../../color"
 import { InstancedStandardMaterial } from "./instanced-standard-material"
+import { StandardMaterialOcclusionTexture } from "./standard-material-occlusion-texture"
+import { StandardMaterialNormalTexture } from "./standard-material-normal-texture"
+import { StandardMaterialTexture } from "./standard-material-texture"
+import { StandardMaterialFactory } from "./standard-material-factory"
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -28,12 +30,12 @@ export class StandardMaterial extends Material {
   private _unlit = false
   private _alphaMode = StandardMaterialAlphaMode.opaque
   private _debugMode?: StandardMaterialDebugMode
-  private _baseColorTexture?: PIXI.Texture
+  private _baseColorTexture?: StandardMaterialTexture
   private _baseColor = new Float32Array(4)
-  private _normalTexture?: PIXI.Texture
-  private _occlusionTexture?: PIXI.Texture
-  private _emissiveTexture?: PIXI.Texture
-  private _metallicRoughnessTexture?: PIXI.Texture
+  private _normalTexture?: StandardMaterialNormalTexture
+  private _occlusionTexture?: StandardMaterialOcclusionTexture
+  private _emissiveTexture?: StandardMaterialTexture
+  private _metallicRoughnessTexture?: StandardMaterialTexture
   private _shadowCastingLight?: ShadowCastingLight
   private _lightsCount?: number
   private _instancingEnabled = false
@@ -53,7 +55,7 @@ export class StandardMaterial extends Material {
   alphaCutoff = 0.5
 
   /** The emissive color of the material. */
-  emissive = new Color(0, 0, 0, 0)
+  emissive = new Color(0, 0, 0)
 
   /** The exposure (brightness) of the material. */
   exposure = 3
@@ -63,7 +65,7 @@ export class StandardMaterial extends Material {
     return this._baseColorTexture
   }
 
-  set baseColorTexture(value: PIXI.Texture | undefined) {
+  set baseColorTexture(value: StandardMaterialTexture | undefined) {
     if (value !== this._baseColorTexture) {
       this.invalidateShader()
       this._baseColorTexture = value
@@ -75,7 +77,7 @@ export class StandardMaterial extends Material {
     return this._metallicRoughnessTexture
   }
 
-  set metallicRoughnessTexture(value: PIXI.Texture | undefined) {
+  set metallicRoughnessTexture(value: StandardMaterialTexture | undefined) {
     if (value !== this._metallicRoughnessTexture) {
       this.invalidateShader()
       this._metallicRoughnessTexture = value
@@ -87,7 +89,7 @@ export class StandardMaterial extends Material {
     return this._normalTexture
   }
 
-  set normalTexture(value: PIXI.Texture | undefined) {
+  set normalTexture(value: StandardMaterialNormalTexture | undefined) {
     if (value !== this._normalTexture) {
       this.invalidateShader()
       this._normalTexture = value
@@ -99,7 +101,7 @@ export class StandardMaterial extends Material {
     return this._occlusionTexture
   }
 
-  set occlusionTexture(value: PIXI.Texture | undefined) {
+  set occlusionTexture(value: StandardMaterialOcclusionTexture | undefined) {
     if (value !== this._occlusionTexture) {
       this.invalidateShader()
       this._occlusionTexture = value
@@ -111,7 +113,7 @@ export class StandardMaterial extends Material {
     return this._emissiveTexture
   }
 
-  set emissiveTexture(value: PIXI.Texture | undefined) {
+  set emissiveTexture(value: StandardMaterialTexture | undefined) {
     if (value !== this._emissiveTexture) {
       this.invalidateShader()
       this._emissiveTexture = value
@@ -223,57 +225,12 @@ export class StandardMaterial extends Material {
    * @param source Source from which the material is created.
    */
   static create(source: unknown) {
-    let material = new StandardMaterial()
-    if (source instanceof glTFMaterial) {
-      material.baseColor = Color.from(source.baseColor)
-      material.baseColorTexture = source.baseColorTexture?.clone()
-      material.metallic = source.metallic
-      material.roughness = source.roughness
-      material.metallicRoughnessTexture = source.metallicRoughnessTexture?.clone()
-      switch (source.alphaMode) {
-        case "BLEND": {
-          material.alphaMode = StandardMaterialAlphaMode.blend
-          material.renderSortType = MaterialRenderSortType.transparent
-          break
-        }
-        case "MASK": {
-          material.alphaMode = StandardMaterialAlphaMode.mask
-          break
-        }
-        case "OPAQUE": {
-          material.alphaMode = StandardMaterialAlphaMode.opaque
-          break
-        }
-      }
-      material.unlit = source.unlit
-      material.emissiveTexture = source.emissiveTexture?.clone()
-      material.emissive = Color.from(source.emissive)
-      material.normalTexture = source.normalTexture?.clone()
-      material.occlusionTexture = source.occlusionTexture?.clone()
-      material.doubleSided = source.doubleSided
-      material.alphaCutoff = source.alphaCutoff
-      if (source.baseColorTexture && (<any>source.baseColorTexture).uvTransform) {
-        (<any>material.baseColorTexture).uvTransform = (<any>source.baseColorTexture).uvTransform;
-      }
-      if (source.normalTexture && (<any>source.normalTexture).uvTransform) {
-        (<any>material.normalTexture).uvTransform = (<any>source.normalTexture).uvTransform;
-      }
-      if (source.emissiveTexture && (<any>source.emissiveTexture).uvTransform) {
-        (<any>material.emissiveTexture).uvTransform = (<any>source.emissiveTexture).uvTransform;
-      }
-      if (source.occlusionTexture && (<any>source.occlusionTexture).uvTransform) {
-        (<any>material.occlusionTexture).uvTransform = (<any>source.occlusionTexture).uvTransform;
-      }
-      if (source.metallicRoughnessTexture && (<any>source.metallicRoughnessTexture).uvTransform) {
-        (<any>material.metallicRoughnessTexture).uvTransform = (<any>source.metallicRoughnessTexture).uvTransform;
-      }
-    }
-    return material
+    return new StandardMaterialFactory().create(source)
   }
 
   render(mesh: Mesh3D, renderer: PIXI.Renderer) {
     if (!this._instancingEnabled && mesh.instances.length > 0) {
-      // Invalidate shader when instacing was enabled.
+      // Invalidate shader when instancing was enabled.
       this.invalidateShader()
       this._instancingEnabled = mesh.instances.length > 0
     }
@@ -333,7 +290,6 @@ export class StandardMaterial extends Material {
     shader.uniforms.u_MetallicFactor = this.metallic
     shader.uniforms.u_RoughnessFactor = this.roughness
     shader.uniforms.u_BaseColorFactor = this._baseColor
-    shader.uniforms.u_EmissiveFactor = this.emissive.rgb
     shader.uniforms.u_ModelMatrix = mesh.worldTransform.array
     shader.uniforms.u_NormalMatrix = mesh.transform.normalTransform.array
     if (this._shadowCastingLight) {
@@ -348,9 +304,9 @@ export class StandardMaterial extends Material {
     }
     if (this.baseColorTexture?.valid) {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture
-      shader.uniforms.u_BaseColorUVSet = 0
-      if ((<any>this.baseColorTexture).uvTransform) {
-        shader.uniforms.u_BaseColorUVTransform = (<any>this.baseColorTexture).uvTransform;
+      shader.uniforms.u_BaseColorUVSet = this.baseColorTexture.uvSet || 0
+      if (this.baseColorTexture.transform) {
+        shader.uniforms.u_BaseColorUVTransform = this.baseColorTexture.transform.array
       }
     }
     let lightingEnvironment = this.lightingEnvironment || LightingEnvironment.main
@@ -381,33 +337,33 @@ export class StandardMaterial extends Material {
     }
     if (this.emissiveTexture?.valid) {
       shader.uniforms.u_EmissiveSampler = this.emissiveTexture
-      shader.uniforms.u_EmissiveUVSet = 0
-      shader.uniforms.u_EmissiveFactor = [1, 1, 1]
-      if ((<any>this.emissiveTexture).uvTransform) {
-        shader.uniforms.u_EmissiveUVTransform = (<any>this.emissiveTexture).uvTransform;
+      shader.uniforms.u_EmissiveUVSet = this.emissiveTexture.uvSet || 0
+      shader.uniforms.u_EmissiveFactor = this.emissive.rgb
+      if (this.emissiveTexture.transform) {
+        shader.uniforms.u_EmissiveUVTransform = this.emissiveTexture.transform.array
       }
     }
     if (this.normalTexture?.valid) {
       shader.uniforms.u_NormalSampler = this.normalTexture
-      shader.uniforms.u_NormalScale = 1
-      shader.uniforms.u_NormalUVSet = 0
-      if ((<any>this.normalTexture).uvTransform) {
-        shader.uniforms.u_NormalUVTransform = (<any>this.normalTexture).uvTransform;
+      shader.uniforms.u_NormalScale = this.normalTexture.scale || 1
+      shader.uniforms.u_NormalUVSet = this.normalTexture.uvSet || 0
+      if (this.normalTexture.transform) {
+        shader.uniforms.u_NormalUVTransform = this.normalTexture.transform.array
       }
     }
     if (this.metallicRoughnessTexture?.valid) {
       shader.uniforms.u_MetallicRoughnessSampler = this.metallicRoughnessTexture
-      shader.uniforms.u_MetallicRoughnessUVSet = 0
-      if ((<any>this.metallicRoughnessTexture).uvTransform) {
-        shader.uniforms.u_MetallicRoughnessUVTransform = (<any>this.metallicRoughnessTexture).uvTransform;
+      shader.uniforms.u_MetallicRoughnessUVSet = this.metallicRoughnessTexture.uvSet || 0
+      if (this.metallicRoughnessTexture.transform) {
+        shader.uniforms.u_MetallicRoughnessUVTransform = this.metallicRoughnessTexture.transform.array
       }
     }
     if (this.occlusionTexture?.valid) {
       shader.uniforms.u_OcclusionSampler = this.occlusionTexture
-      shader.uniforms.u_OcclusionStrength = 1
-      shader.uniforms.u_OcclusionUVSet = 0
-      if ((<any>this.occlusionTexture).uvTransform) {
-        shader.uniforms.u_OcclusionUVTransform = (<any>this.occlusionTexture).uvTransform;
+      shader.uniforms.u_OcclusionStrength = this.occlusionTexture.strength || 1
+      shader.uniforms.u_OcclusionUVSet = this.occlusionTexture.uvSet || 0
+      if (this.occlusionTexture.transform) {
+        shader.uniforms.u_OcclusionUVTransform = this.occlusionTexture.transform.array
       }
     }
   }

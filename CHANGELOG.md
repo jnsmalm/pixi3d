@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Added `Sprite3D` which works like regular PixiJS 2D sprites but in 3D space.
+- Improved support for glTF.
 - Added `fromHex` function to `Color`.
+- Added `TextureTransform` which can used to offset, scale and rotate texture coordinates.
 
 ### Changed
 - Renamed `morphWeights` to `targetWeights` for `Mesh3D`.

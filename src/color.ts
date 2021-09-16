@@ -37,7 +37,7 @@ export class Color {
       hex = parseInt(hex.replace(/[^0-9A-F]/gi, ""), 16)
     }
     return Color.fromBytes((hex >> 16) & 255, (hex >> 8) & 255, hex & 255)
-}
+  }
 
   /** The color as an typed array containing RGB. */
   get rgb() {

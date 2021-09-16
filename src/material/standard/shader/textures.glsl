@@ -66,7 +66,7 @@ vec2 getNormalUV()
 #ifdef HAS_NORMAL_MAP
     uv.xy = u_NormalUVSet < 1 ? v_UVCoord1 : v_UVCoord2;
     #ifdef HAS_NORMAL_UV_TRANSFORM
-    uv *= u_NormalUVTransform;
+    uv = u_NormalUVTransform * uv;
     #endif
 #endif
     return uv.xy;
@@ -78,7 +78,7 @@ vec2 getEmissiveUV()
 #ifdef HAS_EMISSIVE_MAP
     uv.xy = u_EmissiveUVSet < 1 ? v_UVCoord1 : v_UVCoord2;
     #ifdef HAS_EMISSIVE_UV_TRANSFORM
-    uv *= u_EmissiveUVTransform;
+    uv = u_EmissiveUVTransform * uv;
     #endif
 #endif
 
@@ -91,7 +91,7 @@ vec2 getOcclusionUV()
 #ifdef HAS_OCCLUSION_MAP
     uv.xy = u_OcclusionUVSet < 1 ? v_UVCoord1 : v_UVCoord2;
     #ifdef HAS_OCCLUSION_UV_TRANSFORM
-    uv *= u_OcclusionUVTransform;
+    uv = u_OcclusionUVTransform * uv;
     #endif
 #endif
     return uv.xy;
@@ -103,7 +103,7 @@ vec2 getBaseColorUV()
 #ifdef HAS_BASE_COLOR_MAP
     uv.xy = u_BaseColorUVSet < 1 ? v_UVCoord1 : v_UVCoord2;
     #ifdef HAS_BASECOLOR_UV_TRANSFORM
-    uv *= u_BaseColorUVTransform;
+    uv = u_BaseColorUVTransform * uv;
     #endif
 #endif
     return uv.xy;
@@ -115,7 +115,7 @@ vec2 getMetallicRoughnessUV()
 #ifdef HAS_METALLIC_ROUGHNESS_MAP
     uv.xy = u_MetallicRoughnessUVSet < 1 ? v_UVCoord1 : v_UVCoord2;
     #ifdef HAS_METALLICROUGHNESS_UV_TRANSFORM
-    uv *= u_MetallicRoughnessUVTransform;
+    uv = u_MetallicRoughnessUVTransform * uv;
     #endif
 #endif
     return uv.xy;
@@ -127,7 +127,7 @@ vec2 getSpecularGlossinessUV()
 #ifdef HAS_SPECULAR_GLOSSINESS_MAP
     uv.xy = u_SpecularGlossinessUVSet < 1 ? v_UVCoord1 : v_UVCoord2;
     #ifdef HAS_SPECULARGLOSSINESS_UV_TRANSFORM
-    uv *= u_SpecularGlossinessUVTransform;
+    uv = u_SpecularGlossinessUVTransform * uv;
     #endif
 #endif
     return uv.xy;
@@ -139,7 +139,7 @@ vec2 getDiffuseUV()
 #ifdef HAS_DIFFUSE_MAP
     uv.xy = u_DiffuseUVSet < 1 ? v_UVCoord1 : v_UVCoord2;
     #ifdef HAS_DIFFUSE_UV_TRANSFORM
-    uv *= u_DiffuseUVTransform;
+    uv = u_DiffuseUVTransform * uv;
     #endif
 #endif
     return uv.xy;
