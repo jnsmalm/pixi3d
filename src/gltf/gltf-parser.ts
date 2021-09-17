@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js"
 import { glTFChannel } from "./animation/gltf-channel"
 import { glTFAsset } from "./gltf-asset"
 import { glTFAnimation } from "./animation/gltf-animation"
-import { glTFBufferView } from "./gltf-buffer-view"
+import { glTFAttribute } from "./gltf-attribute"
 import { glTFMaterial } from "./gltf-material"
 import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
@@ -78,8 +78,8 @@ export class glTFParser {
     }
     let buffer = this._asset.buffers[bufferView.buffer]
 
-    return glTFBufferView.from(
-      accessor.componentType, buffer, offset, size, bufferView.byteStride)
+    return glTFAttribute.from(
+      accessor.componentType, buffer, offset, size, bufferView.byteStride, accessor.min, accessor.max)
   }
 
   /**

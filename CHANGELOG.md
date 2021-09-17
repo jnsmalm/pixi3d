@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved support for glTF.
 - Added `fromHex` function to `Color`.
 - Added `TextureTransform` which can used to offset, scale and rotate texture coordinates.
+- Added `min` and `max` values for mesh geometry attributes.
 
 ### Changed
 - Renamed `morphWeights` to `targetWeights` for `Mesh3D`.
