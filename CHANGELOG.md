@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Renamed `morphWeights` to `targetWeights` for `Mesh3D`.
+- Setting `renderSortType` on `Material` no longer changes `depthMask`.
 
 ### Fixed
 - Fixed issues which caused `Camera`, `PostProcessingSprite` and `PickingHitArea` to not work correctly when renderer resolution was more than 1.

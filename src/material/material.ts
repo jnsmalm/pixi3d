@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { State, Renderer, DRAW_MODES, BLEND_MODES } from "pixi.js"
 import { Mesh3D } from "../mesh/mesh"
 import { MaterialRenderSortType } from "./material-render-sort-type"
 import { MeshShader } from "../mesh/mesh-shader"
@@ -12,35 +11,36 @@ export abstract class Material {
   protected _shader?: MeshShader
 
   /** State used to render a mesh. */
-  state = Object.assign(new PIXI.State(), {
+  state = Object.assign(new State(), {
     culling: true, clockwiseFrontFace: false, depthTest: true
   })
 
   /** Draw mode used to render a mesh. */
-  drawMode = PIXI.DRAW_MODES.TRIANGLES
+  drawMode = DRAW_MODES.TRIANGLES
 
   /**
-   * Sort type used to render a mesh. This will determine in which order the 
-   * material is being rendered compared to other materials. Setting this to 
-   * "transparent" will also disable writing to depth buffer (only available 
-   * in PixiJS 6.0+).
+   * Sort type used to render a mesh. Transparent materials will be rendered
+   * after opaque materials.
    */
-  get renderSortType() {
-    return this._renderSortType
+  renderSortType = MaterialRenderSortType.opaque
+
+  /**
+   * Value indicating if writing into the depth buffer is enabled or disabled.
+   * Depth mask feature is only available in PixiJS 6.0+ and won't have any 
+   * effects in previous versions.
+   */
+  get depthMask() {
+    return this.state.depthMask
   }
 
-  set renderSortType(value: MaterialRenderSortType) {
-    this._renderSortType = value
-    // Depth mask feature is only available in PixiJS 6.0+ and won't have
-    // any effects in previous versions.
-    if (value === MaterialRenderSortType.opaque) {
-      this.state.depthMask = true
-    } else {
-      this.state.depthMask = false
-    }
+  set depthMask(value: boolean) {
+    this.state.depthMask = value
   }
 
-  /** Value indicating if the material is double sided. */
+  /**
+   * Value indicating if the material is double sided. When set to true, the
+   * culling state will be set to false.
+   */
   get doubleSided() {
     return !this.state.culling
   }
@@ -54,7 +54,7 @@ export abstract class Material {
     return this.state.blendMode
   }
 
-  set blendMode(value: PIXI.BLEND_MODES) {
+  set blendMode(value: BLEND_MODES) {
     this.state.blendMode = value
   }
 
@@ -63,7 +63,7 @@ export abstract class Material {
    * @param mesh The mesh to create the shader for.
    * @param renderer The renderer to use.
    */
-  abstract createShader(mesh: Mesh3D, renderer: PIXI.Renderer): MeshShader | undefined
+  abstract createShader(mesh: Mesh3D, renderer: Renderer): MeshShader | undefined
 
   /**
    * Updates the uniforms for the specified shader.
@@ -96,7 +96,7 @@ export abstract class Material {
    * @param mesh The mesh to render.
    * @param renderer The renderer to use.
    */
-  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
+  render(mesh: Mesh3D, renderer: Renderer) {
     if (!this._shader) {
       this._shader = this.createShader(mesh, renderer)
       if (!this._shader) {
