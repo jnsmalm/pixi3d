@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `fromHex` function to `Color`.
 - Added `TextureTransform` which can used to offset, scale and rotate texture coordinates.
 - Added `min` and `max` values for mesh geometry attributes.
+- Meshes rendered using `StandardPipeline` is now sorted by `zIndex`.
 
 ### Changed
 - Renamed `morphWeights` to `targetWeights` for `Mesh3D`.

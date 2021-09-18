@@ -109,7 +109,7 @@ export class StandardPipeline extends PIXI.ObjectRenderer {
       if (a.material.renderSortType !== b.material.renderSortType) {
         return a.material.renderSortType === MaterialRenderSortType.transparent ? 1 : -1
       }
-      return 0
+      return a.zIndex - b.zIndex
     })
   }
 
