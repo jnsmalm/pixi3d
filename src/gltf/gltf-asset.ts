@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { Texture } from "pixi.js"
 import { glTFResourceLoader } from "./gltf-resource-loader"
 
 /**
@@ -12,7 +11,7 @@ export class glTFAsset {
    * @param buffers The buffers used by this asset.
    * @param images The images used by this asset.
    */
-  constructor(readonly descriptor: any, readonly buffers: ArrayBuffer[] = [], readonly images: PIXI.Texture[] = []) { }
+  constructor(readonly descriptor: any, readonly buffers: ArrayBuffer[] = [], readonly images: Texture[] = []) { }
 
   /**
    * Loads a new glTF asset (including resources) using the specified JSON 
@@ -43,7 +42,7 @@ export class glTFAsset {
     for (let i = 0; i < descriptor.images.length; i++) {
       let image: { uri: string } = descriptor.images[i]
       if (glTFAsset.isEmbeddedResource(image.uri)) {
-        asset.images[i] = PIXI.Texture.from(image.uri)
+        asset.images[i] = Texture.from(image.uri)
       } else {
         if (!loader) {
           throw new Error("PIXI3D: A resource loader is required when image is not embedded.")
@@ -60,16 +59,20 @@ export class glTFAsset {
 
   /**
    * Returns a value indicating if the specified data buffer is a valid glTF.
-   * @param data The buffer data to validate.
+   * @param buffer The buffer data to validate.
    */
-  static isValidBinary(data: ArrayBuffer) {
-    const header = new Uint32Array(data, 0, 3)
+  static isValidBuffer(buffer: ArrayBuffer) {
+    const header = new Uint32Array(buffer, 0, 3)
     if (header[0] === 0x46546C67 && header[1] === 2) {
       return true
     }
     return false
   }
 
+  /**
+   * Returns a value indicating if the specified uri is embedded.
+   * @param uri The uri to check.
+   */
   static isEmbeddedResource(uri: string) {
     return uri.startsWith("data:")
   }
@@ -99,7 +102,7 @@ export class glTFAsset {
     if (!descriptor.images || descriptor.images.length === 0) {
       cb(new glTFAsset(descriptor, buffers))
     }
-    const images: PIXI.Texture[] = []
+    const images: Texture[] = []
     for (let i = 0; descriptor.images && i < descriptor.images.length; i++) {
       const image = descriptor.images[i]
       if (image.bufferView === undefined) {
@@ -111,7 +114,7 @@ export class glTFAsset {
       const blob = new Blob([array], { "type": image.mimeType })
       const reader = new FileReader()
       reader.onload = () => {
-        images[i] = PIXI.Texture.from(<string>reader.result)
+        images[i] = Texture.from(<string>reader.result)
         if (images.length === descriptor.images.length) {
           cb(new glTFAsset(descriptor, buffers, images))
         }

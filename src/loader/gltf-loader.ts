@@ -1,34 +1,33 @@
-import * as PIXI from "pixi.js"
-
+import { ILoaderResource, LoaderResource, Loader } from "pixi.js"
 import { glTFAsset } from "../gltf/gltf-asset"
 import { glTFResourceLoader } from "../gltf/gltf-resource-loader"
 
 export const glTFLoader = {
-  use: function (resource: PIXI.ILoaderResource, next: () => void) {
+  use: function (resource: ILoaderResource, next: () => void) {
     if (resource.extension !== "gltf") {
       return next()
     }
-    let loader = <PIXI.Loader><unknown>this
+    let loader = <Loader><unknown>this
     Object.assign(resource, {
       gltf: glTFAsset.load(resource.data, new glTFExternalResourceLoader(loader, resource))
     })
     next()
   },
   add: function () {
-    PIXI.LoaderResource.setExtensionXhrType(
-      "bin", PIXI.LoaderResource.XHR_RESPONSE_TYPE.BUFFER)
-    PIXI.LoaderResource.setExtensionXhrType(
-      "gltf", PIXI.LoaderResource.XHR_RESPONSE_TYPE.JSON)
+    LoaderResource.setExtensionXhrType(
+      "bin", LoaderResource.XHR_RESPONSE_TYPE.BUFFER)
+    LoaderResource.setExtensionXhrType(
+      "gltf", LoaderResource.XHR_RESPONSE_TYPE.JSON)
   }
 }
 
-PIXI.Loader.registerPlugin(glTFLoader)
+Loader.registerPlugin(glTFLoader)
 
 class glTFExternalResourceLoader implements glTFResourceLoader {
-  constructor(private _loader: PIXI.Loader, private _resource: PIXI.ILoaderResource) {
+  constructor(private _loader: Loader, private _resource: ILoaderResource) {
   }
 
-  load(uri: string, onComplete: (resource: PIXI.ILoaderResource) => void) {
+  load(uri: string, onComplete: (resource: ILoaderResource) => void) {
     const url = this._resource.url.substring(
       0, this._resource.url.lastIndexOf("/") + 1) + uri
 
