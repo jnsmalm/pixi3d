@@ -211,7 +211,15 @@ export class glTFParser {
     const texture = this._descriptor.textures[index]
     const image = this._asset.images[texture.source]
     const result = new PIXI.Texture(new PIXI.BaseTexture(image.baseTexture.resource, {
-      wrapMode: PIXI.WRAP_MODES.REPEAT
+      wrapMode: PIXI.WRAP_MODES.REPEAT,
+      // Went back and forth about NO_PREMULTIPLIED_ALPHA. The default in
+      // PixiJS is to have premultiplied alpha textures, but this may not work
+      // so well when rendering objects as opaque (which have alpha equal to 0).
+      // In that case it's impossible to retrieve the original RGB values, 
+      // because they are all zero when using premultiplied alpha. Both the glTF
+      // Sample Viewer and Babylon.js uses NO_PREMULTIPLIED_ALPHA so decided to
+      // do the same.
+      alphaMode: PIXI.ALPHA_MODES.NO_PREMULTIPLIED_ALPHA
     }))
     if (this._descriptor.samplers && texture.sampler !== undefined) {
       const sampler = this._descriptor.samplers[texture.sampler]
