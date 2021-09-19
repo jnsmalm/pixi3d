@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { Geometry } from "pixi.js"
 import { MeshShader } from "../mesh-shader"
 import { MeshGeometryAttribute } from "./mesh-geometry-attribute"
 import { MeshGeometryTarget } from "./mesh-geometry-target"
@@ -8,7 +7,7 @@ import { MeshGeometryTarget } from "./mesh-geometry-target"
  * Geometry with mesh data (i.e. positions, normals, uvs).
  */
 export class MeshGeometry3D {
-  private _shaderGeometry: { [id: string]: PIXI.Geometry } = {}
+  private _shaderGeometry: { [id: string]: Geometry } = {}
 
   indices?: MeshGeometryAttribute
   positions?: MeshGeometryAttribute
@@ -37,7 +36,8 @@ export class MeshGeometry3D {
   }
 
   /**
-   * Returns a value indicating if geometry with required attributes has been created the specified shader.
+   * Returns a value indicating if geometry with required attributes has been
+   * created by the specified shader.
    * @param shader The shader to test.
    * @param instanced Value indicating if the geometry is instanced.
    */

@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { IDestroyOptions } from "pixi.js"
 import { Container3D } from "../container"
 import { Mesh3D } from "./mesh"
 
@@ -8,7 +7,7 @@ export class InstancedMesh3D extends Container3D {
     super()
   }
 
-  destroy(options: boolean | PIXI.IDestroyOptions | undefined) {
+  destroy(options: boolean | IDestroyOptions | undefined) {
     super.destroy(options)
     this.mesh.removeInstance(this)
   }

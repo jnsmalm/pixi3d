@@ -1,15 +1,15 @@
-import * as PIXI from "pixi.js"
-
+import { Renderer, ObjectRenderer } from "pixi.js"
 import { PlaneGeometry } from "./geometry/plane-geometry"
 import { CubeGeometry } from "./geometry/cube-geometry"
 import { MeshGeometry3D } from "./geometry/mesh-geometry"
-import { Material } from "../material/material"
-import { StandardMaterial } from "../material/standard/standard-material"
 import { Container3D } from "../container"
 import { QuadGeometry } from "./geometry/quad-geometry"
 import { Skin } from "../skinning/skin"
 import { InstancedMesh3D } from "./instanced-mesh"
 import { Platform } from "../platform"
+import { Material } from "../material/material"
+import { StandardMaterial } from "../material/standard/standard-material"
+import { MeshDestroyOptions } from "./mesh-destroy-options"
 
 /**
  * Represents a mesh which contains geometry and has a material.
@@ -40,14 +40,6 @@ export class Mesh3D extends Container3D {
     }
   }
 
-  /**
-   * Returns a value indicating if specified renderer supports instancing.
-   * @param renderer The renderer.
-   */
-  static isInstancingSupported(renderer: PIXI.Renderer) {
-    return Platform.isInstancingSupported(renderer)
-  }
-
   private _instances: InstancedMesh3D[] = []
 
   /** An array of instances created from this mesh. */
@@ -60,7 +52,7 @@ export class Mesh3D extends Container3D {
    */
   createInstance() {
     if (this.material && !this.material.isInstancingSupported) {
-      throw new Error("PIXI3D: Can't create instance of mesh, material does not supported instancing.")
+      throw new Error("PIXI3D: Can't create instance of mesh, material does not support instancing.")
     }
     return this._instances[
       this._instances.push(new InstancedMesh3D(this, this.material?.createInstance())) - 1
@@ -68,7 +60,7 @@ export class Mesh3D extends Container3D {
   }
 
   /**
-   * Removes a instanced mesh from this mesh.
+   * Removes an instance from this mesh.
    * @param instance The instance to remove.
    */
   removeInstance(instance: InstancedMesh3D) {
@@ -110,19 +102,23 @@ export class Mesh3D extends Container3D {
   /**
    * Destroys the mesh and it's used resources.
    */
-  destroy() {
-    this.geometry.destroy()
-    if (this.material) {
-      this.material.destroy()
+  destroy(options?: boolean | MeshDestroyOptions) {
+    if (options === true || (options && options.geometry)) {
+      this.geometry.destroy()
     }
-    super.destroy()
+    if (options === true || (options && options.material)) {
+      if (this.material) {
+        this.material.destroy()
+      }
+    }
+    super.destroy(options)
   }
 
-  _render(renderer: PIXI.Renderer) {
+  _render(renderer: Renderer) {
     renderer.batch.setObjectRenderer(
-      <PIXI.ObjectRenderer>(<any>renderer.plugins)[this.pluginName]
+      <ObjectRenderer>(<any>renderer.plugins)[this.pluginName]
     );
-    <PIXI.ObjectRenderer>(<any>renderer.plugins)[this.pluginName].render(this)
+    <ObjectRenderer>(<any>renderer.plugins)[this.pluginName].render(this)
   }
 
   /**
