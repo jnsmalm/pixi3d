@@ -36,6 +36,7 @@ export { StandardMaterialDebugMode } from "./material/standard/standard-material
 export { StandardMaterialNormalTexture } from "./material/standard/standard-material-normal-texture"
 export { StandardMaterialOcclusionTexture } from "./material/standard/standard-material-occlusion-texture"
 export { StandardMaterialTexture } from "./material/standard/standard-material-texture"
+export { InstancedStandardMaterial } from "./material/standard/instanced-standard-material"
 export { PickingHitArea } from "./picking/picking-hitarea"
 export { PickingManager } from "./picking/picking-manager"
 export { Skin } from "./skinning/skin"
