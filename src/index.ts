@@ -40,7 +40,7 @@ export { StandardMaterialOcclusionTexture } from "./material/standard/standard-m
 export { StandardMaterialTexture } from "./material/standard/standard-material-texture"
 export { InstancedStandardMaterial } from "./material/standard/instanced-standard-material"
 export { PickingHitArea } from "./picking/picking-hitarea"
-export { PickingManager } from "./picking/picking-manager"
+export { PickingInteraction } from "./picking/picking-interaction"
 export { Skin } from "./skinning/skin"
 export { Joint } from "./skinning/joint"
 export { ShadowRenderPass } from "./shadow/shadow-render-pass"

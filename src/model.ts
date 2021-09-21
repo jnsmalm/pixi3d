@@ -7,7 +7,7 @@ import { Container3D } from "./container"
 import { InstancedModel } from "./instanced-model"
 
 /**
- * Represents a model which includes a hierarchy of meshes and animations.
+ * Represents a model which has been loaded from a file. Contains a hierarchy of meshes and animations.
  */
 export class Model extends Container3D {
   /** The animations included in the model. */
