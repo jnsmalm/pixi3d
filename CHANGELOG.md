@@ -11,11 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `fromHex` function to `Color`.
 - Added `TextureTransform` which can used to offset, scale and rotate texture coordinates.
 - Added `min` and `max` values for mesh geometry attributes.
-- Meshes rendered using `StandardPipeline` is now sorted by `zIndex`.
+- Meshes rendered using `StandardPipeline` is now sorted by `renderSortOrder`.
 
 ### Changed
 - Renamed `morphWeights` to `targetWeights` for `Mesh3D`.
 - Setting `renderSortType` on `Material` no longer changes `depthMask`.
+- Removed `addRenderPass` and `removeRenderPass` from `StandardPipeline`. Instead, the `renderPasses` array can be used for adding/removing render passes.
 
 ### Fixed
 - Fixed issues which caused `Camera`, `PostProcessingSprite` and `PickingHitArea` to not work correctly when renderer resolution was more than 1.

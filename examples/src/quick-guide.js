@@ -37,7 +37,7 @@ app.loader.load((loader, resources) => {
   let shadowCastingLight = new PIXI3D.ShadowCastingLight(
     app.renderer, dirLight, 512, 15, 1, PIXI3D.ShadowQuality.medium)
     
-  let pipeline = PIXI3D.StandardPipeline.from(app.renderer)
+  let pipeline = app.renderer.plugins.pipeline
   pipeline.enableShadows(model, shadowCastingLight)
 
   /* Adds a 2D vignette layer on top of the 3D scene to give it a more cinematic 

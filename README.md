@@ -142,7 +142,7 @@ The shadows must also be enabled (using the standard pipeline) for an object to 
 let shadowCastingLight = new PIXI3D.ShadowCastingLight(
   app.renderer, dirLight, 512, 15, 1, PIXI3D.ShadowQuality.medium)
   
-let pipeline = PIXI3D.StandardPipeline.from(app.renderer)
+let pipeline = app.renderer.plugins.pipeline
 pipeline.enableShadows(model, shadowCastingLight)
 ```
 *Creates a shadow casting light and enables it for the model using the standard pipeline.*

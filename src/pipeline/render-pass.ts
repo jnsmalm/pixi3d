@@ -7,10 +7,8 @@ export interface RenderPass {
   /** The name of the render pass. */
   name: string
 
-  /**
-   * Clears the render pass. Most often used when rendering to a texture.
-   */
-   clear?(): void
+  /** Clears the render pass. Used when rendering to a texture. */
+  clear?(): void
 
   /**
    * Renders the specified meshes.

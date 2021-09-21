@@ -31,7 +31,7 @@ app.loader.load((loader, resources) => {
   PIXI3D.LightingEnvironment.main =
     new PIXI3D.LightingEnvironment(app.renderer, imageBasedLighting)
 
-  let pipeline = PIXI3D.StandardPipeline.from(app.renderer)
+  let pipeline = app.renderer.plugins.pipeline
 
   // Create first sprite which will be used to render the model each frame.
   let sprite1 = app.stage.addChild(new PIXI3D.PostProcessingSprite(app.renderer, {

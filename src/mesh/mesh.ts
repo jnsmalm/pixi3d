@@ -28,6 +28,9 @@ export class Mesh3D extends Container3D {
   /** The enabled render passes for this mesh. */
   enabledRenderPasses = ["material"]
 
+  /** Used for sorting the mesh before render. */
+  renderSortOrder = 0
+
   /**
    * Creates a new mesh with the specified geometry and material.
    * @param geometry The geometry for the mesh.
