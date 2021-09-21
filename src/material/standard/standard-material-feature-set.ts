@@ -6,7 +6,7 @@ import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
 import { StandardMaterial } from "./standard-material"
 import { LightingEnvironment } from "../../lighting/lighting-environment"
 import { Mesh3D } from "../../mesh/mesh"
-import { Platform } from "../../platform"
+import { Capabilities } from "../../capabilities"
 import { StandardMaterialMatrixTexture } from "./standard-material-matrix-texture"
 import { Console } from "../../console"
 
@@ -83,7 +83,7 @@ export namespace StandardMaterialFeatureSet {
       if (!lightingEnvironment.imageBasedLighting.valid) {
         return undefined
       }
-      if (Platform.isShaderTextureLodSupported(renderer)) {
+      if (Capabilities.isShaderTextureLodSupported(renderer)) {
         features.push("USE_TEX_LOD 1")
       }
       features.push("USE_IBL 1")
@@ -185,7 +185,7 @@ export namespace StandardMaterialFeatureSet {
   function isJointMatrixTextureRequired(jointsCount: number, renderer: PIXI.Renderer) {
     let uniformsRequiredForMostFeatures = 25
     let availableJointUniforms =
-      Platform.getMaxVertexUniformVectors(renderer) - uniformsRequiredForMostFeatures
+      Capabilities.getMaxVertexUniformVectors(renderer) - uniformsRequiredForMostFeatures
     let uniformsRequiredPerJoint = 8
     return jointsCount > Math.floor(availableJointUniforms / uniformsRequiredPerJoint)
   }

@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js"
 
 import { ShadowQuality } from "./shadow-quality"
-import { Platform } from "../platform"
+import { Capabilities } from "../capabilities"
 
 export namespace ShadowTexture {
   export function create(renderer: PIXI.Renderer, size: number, quality: ShadowQuality) {
@@ -12,7 +12,7 @@ export namespace ShadowTexture {
   }
 
   function getSupportedScaleMode(renderer: PIXI.Renderer) {
-    if (Platform.supportsFloatLinear(renderer)) {
+    if (Capabilities.supportsFloatLinear(renderer)) {
       return PIXI.SCALE_MODES.LINEAR
     }
     return PIXI.SCALE_MODES.NEAREST
@@ -20,14 +20,14 @@ export namespace ShadowTexture {
 
   function getSupportedType(renderer: PIXI.Renderer, quality: ShadowQuality) {
     if (quality === ShadowQuality.high) {
-      if (Platform.isFloatFramebufferSupported(renderer)) {
+      if (Capabilities.isFloatFramebufferSupported(renderer)) {
         return PIXI.TYPES.FLOAT
       }
-      if (Platform.isHalfFloatFramebufferSupported(renderer)) {
+      if (Capabilities.isHalfFloatFramebufferSupported(renderer)) {
         return PIXI.TYPES.HALF_FLOAT
       }
     }
-    if (quality === ShadowQuality.medium && Platform.isHalfFloatFramebufferSupported(renderer)) {
+    if (quality === ShadowQuality.medium && Capabilities.isHalfFloatFramebufferSupported(renderer)) {
       return PIXI.TYPES.HALF_FLOAT
     }
     return PIXI.TYPES.UNSIGNED_BYTE

@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js"
 import { Light } from "../lighting/light"
 import { LightType } from "../lighting/light-type"
 import { Camera } from "../camera/camera"
-import { Platform } from "../platform"
+import { Capabilities } from "../capabilities"
 import { ShadowTexture } from "./shadow-texture"
 import { ShadowQuality } from "./shadow-quality"
 import { ShadowMath } from "./shadow-math"
@@ -100,7 +100,7 @@ export class ShadowCastingLight {
    * @param renderer The renderer to use.
    */
   static isMediumQualitySupported(renderer: PIXI.Renderer) {
-    return Platform.isHalfFloatFramebufferSupported(renderer)
+    return Capabilities.isHalfFloatFramebufferSupported(renderer)
   }
 
   /**
@@ -109,6 +109,6 @@ export class ShadowCastingLight {
    * @param renderer The renderer to use.
    */
   static isHighQualitySupported(renderer: PIXI.Renderer) {
-    return Platform.isFloatFramebufferSupported(renderer)
+    return Capabilities.isFloatFramebufferSupported(renderer)
   }
 }

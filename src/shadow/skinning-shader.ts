@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { Mesh3D } from "../mesh/mesh"
-import { Platform } from "../platform"
+import { Capabilities } from "../capabilities"
 import { ShadowCastingLight } from "./shadow-casting-light"
 import { ShadowShader } from "./shadow-shader"
 
@@ -16,7 +16,7 @@ export class SkinningShader extends ShadowShader {
   constructor(renderer: PIXI.Renderer) {
     let uniformsRequiredForOtherFeatures = 8
     let availableVertexUniforms =
-      Platform.getMaxVertexUniformVectors(renderer) - uniformsRequiredForOtherFeatures
+      Capabilities.getMaxVertexUniformVectors(renderer) - uniformsRequiredForOtherFeatures
     let uniformsRequiredPerJoint = 4
     let maxJointCount = Math.floor(availableVertexUniforms / uniformsRequiredPerJoint)
 

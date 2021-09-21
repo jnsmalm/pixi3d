@@ -1,12 +1,12 @@
 import { BufferResource } from "../../resource/buffer-resource"
 import { Texture, Renderer, BaseTexture, MIPMAP_MODES, WRAP_MODES, SCALE_MODES, FORMATS, TYPES, ALPHA_MODES } from "pixi.js"
-import { Platform } from "../../platform"
+import { Capabilities } from "../../capabilities"
 
 export class StandardMaterialMatrixTexture extends Texture {
   private _buffer: Float32Array
 
   static isSupported(renderer: Renderer) {
-    return Platform.isFloatTextureSupported(renderer)
+    return Capabilities.isFloatTextureSupported(renderer)
   }
 
   constructor(matrixCount: number) {

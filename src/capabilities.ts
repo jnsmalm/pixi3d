@@ -1,9 +1,9 @@
-import * as PIXI from "pixi.js"
+import { Renderer } from "pixi.js"
 
-export namespace Platform {
+export namespace Capabilities {
   let _maxVertexUniformVectors: number | undefined
 
-  export function getMaxVertexUniformVectors(renderer: PIXI.Renderer) {
+  export function getMaxVertexUniformVectors(renderer: Renderer) {
     if (_maxVertexUniformVectors !== undefined) {
       return _maxVertexUniformVectors
     }
@@ -14,7 +14,7 @@ export namespace Platform {
 
   let _isFloatTextureSupported: boolean | undefined
 
-  export function isFloatTextureSupported(renderer: PIXI.Renderer) {
+  export function isFloatTextureSupported(renderer: Renderer) {
     if (renderer.context.webGLVersion === 2) {
       return true
     }
@@ -36,7 +36,7 @@ export namespace Platform {
 
   let _isHalfFloatFramebufferSupported: boolean | undefined
 
-  export function isHalfFloatFramebufferSupported(renderer: PIXI.Renderer) {
+  export function isHalfFloatFramebufferSupported(renderer: Renderer) {
     if (renderer.context.webGLVersion === 2) {
       return true
     }
@@ -61,7 +61,7 @@ export namespace Platform {
 
   let _isFloatFramebufferSupported: boolean | undefined
 
-  export function isFloatFramebufferSupported(renderer: PIXI.Renderer) {
+  export function isFloatFramebufferSupported(renderer: Renderer) {
     if (renderer.context.webGLVersion === 2) {
       return true
     }
@@ -86,7 +86,7 @@ export namespace Platform {
 
   let _isFloatLinearSupported: boolean | undefined
 
-  export function supportsFloatLinear(renderer: PIXI.Renderer) {
+  export function supportsFloatLinear(renderer: Renderer) {
     if (_isFloatLinearSupported !== undefined) {
       return _isFloatLinearSupported
     }
@@ -95,7 +95,7 @@ export namespace Platform {
     return _isFloatLinearSupported
   }
 
-  export function isShaderTextureLodSupported(renderer: PIXI.Renderer) {
+  export function isShaderTextureLodSupported(renderer: Renderer) {
     if (renderer.context.webGLVersion === 2) {
       return true
     }
@@ -104,12 +104,12 @@ export namespace Platform {
 
   let _isInstancingSupported: boolean | undefined
 
-  export function isInstancingSupported(renderer: PIXI.Renderer) {
+  export function isInstancingSupported(renderer: Renderer) {
     if (_isInstancingSupported !== undefined) {
       return _isInstancingSupported
     }
     const gl = renderer.gl
-    _isInstancingSupported = gl.getExtension('ANGLE_instanced_arrays') !== undefined
+    _isInstancingSupported = gl.getExtension("ANGLE_instanced_arrays") !== undefined
     return _isInstancingSupported
   }
 }
