@@ -15,8 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Renamed `morphWeights` to `targetWeights` for `Mesh3D`.
+- Removed `setFromMultiply` from `TransformMatrix`, use `multiply` function instead.
+- Renamed `TransformMatrix` to `Matrix4`.
 - Setting `renderSortType` on `Material` no longer changes `depthMask`.
-- Removed `addRenderPass` and `removeRenderPass` from `StandardPipeline`. Instead, the `renderPasses` array can be used for adding/removing render passes.
+- Removed `addRenderPass` and `removeRenderPass` from `StandardPipeline`, use `renderPasses` array instead.
 - `Joint` now extends `Container3D`.
 
 ### Fixed

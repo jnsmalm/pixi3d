@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { Matrix } from "pixi.js"
 import { ObservablePoint3D } from "./observable-point"
 import { ObservableQuaternion } from "./observable-quaternion"
 import { Mat4 } from "../math/mat4"
@@ -10,9 +9,9 @@ import { Quat } from "../math/quat"
 import { TransformId } from "./transform-id"
 
 /**
- * Represents the matrix for a transform.
+ * Represents a 4x4 matrix.
  */
-export class TransformMatrix extends PIXI.Matrix implements TransformId {
+export class Matrix4 extends Matrix implements TransformId {
   private _transformId = 0
   private _position?: MatrixComponent
   private _scaling?: MatrixComponent
@@ -149,8 +148,8 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
     return this._backward.array
   }
 
-  copyFrom(matrix: TransformMatrix) {
-    if (matrix instanceof TransformMatrix) {
+  copyFrom(matrix: Matrix4) {
+    if (matrix instanceof Matrix4) {
       Mat4.copy(matrix.array, this.array); this._transformId++
     }
     return this
@@ -170,11 +169,10 @@ export class TransformMatrix extends PIXI.Matrix implements TransformId {
   }
 
   /**
-   * Sets the multiplication result of two matrix transforms.
-   * @param a The first operand.
-   * @param b The second operand.
+   * Multiplies this matrix with another matrix.
+   * @param matrix The matrix to multiply with.
    */
-  setFromMultiply(a: TransformMatrix, b: TransformMatrix) {
-    Mat4.multiply(a.array, b.array, this.array); this._transformId++
+  multiply(matrix: Matrix4) {
+    Mat4.multiply(matrix.array, this.array, this.array); this._transformId++
   }
 }

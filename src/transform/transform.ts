@@ -1,15 +1,13 @@
-import * as PIXI from "pixi.js"
-
-import { TransformMatrix } from "./transform-matrix"
+import { Transform } from "pixi.js"
+import { Matrix4 } from "./matrix4"
 import { ObservablePoint3D } from "./observable-point"
 import { ObservableQuaternion } from "./observable-quaternion"
 import { Mat4 } from "../math/mat4"
-import { Vec3 } from "../math/vec3"
 
 /**
- * Handles position, scaling and rotation.
+ * Handles position, scaling and rotation in 3D.
  */
-export class Transform3D extends PIXI.Transform {
+export class Transform3D extends Transform {
 
   /** The position in local space. */
   position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
@@ -21,16 +19,16 @@ export class Transform3D extends PIXI.Transform {
   rotationQuaternion = new ObservableQuaternion(this.onChange, this, 0, 0, 0, 1)
 
   /** The transformation matrix in world space. */
-  worldTransform = new TransformMatrix()
+  worldTransform = new Matrix4()
 
   /** The transformation matrix in local space. */
-  localTransform = new TransformMatrix()
+  localTransform = new Matrix4()
 
   /** The inverse transformation matrix in world space. */
-  inverseWorldTransform = new TransformMatrix();
+  inverseWorldTransform = new Matrix4()
 
   /** The normal transformation matrix. */
-  normalTransform = new TransformMatrix();
+  normalTransform = new Matrix4()
 
   /**
    * Updates the local transformation matrix.
@@ -47,10 +45,10 @@ export class Transform3D extends PIXI.Transform {
   }
 
   /**
-   * Sets position, rotation and scale from an matrix array.
+   * Sets position, rotation and scale from a matrix array.
    * @param matrix The matrix to set.
    */
-  setFromMatrix(matrix: TransformMatrix) {
+  setFromMatrix(matrix: Matrix4) {
     this.localTransform.copyFrom(matrix)
 
     this.position.set(this.localTransform.position[0], this.localTransform.position[1], this.localTransform.position[2])
@@ -62,15 +60,14 @@ export class Transform3D extends PIXI.Transform {
    * Updates the world transformation matrix.
    * @param parentTransform The parent transform.
    */
-  updateTransform(parentTransform?: PIXI.Transform) {
+  updateTransform(parentTransform?: Transform) {
     this.updateLocalTransform()
     if (parentTransform && this._parentID === parentTransform._worldID) {
       return
     }
+    this.worldTransform.copyFrom(this.localTransform)
     if (parentTransform instanceof Transform3D) {
-      this.worldTransform.setFromMultiply(parentTransform.worldTransform, this.localTransform)
-    } else {
-      this.worldTransform.copyFrom(this.localTransform)
+      this.worldTransform.multiply(parentTransform.worldTransform)
     }
     Mat4.invert(this.worldTransform.array, this.inverseWorldTransform.array)
     Mat4.transpose(this.inverseWorldTransform.array, this.normalTransform.array)
