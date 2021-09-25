@@ -316,7 +316,7 @@ export class glTFParser {
   parseNode(index: number) {
     const node = this._asset.descriptor.nodes[index]
     let joint: Joint | undefined
-    for (let skin of this._asset.descriptor.skins) {
+    for (let skin of this._asset.descriptor.skins || []) {
       const i = skin.joints.indexOf(index)
       if (i >= 0) {
         // This node is a joint
