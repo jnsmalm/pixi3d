@@ -1,11 +1,10 @@
-import * as PIXI from "pixi.js"
-
+import { ObservablePoint, IPoint } from "pixi.js"
 import { Quat } from "../math/quat"
 
 /**
  * Represents a rotation quaternion in 3D space.
  */
-export class ObservableQuaternion extends PIXI.ObservablePoint {
+export class ObservableQuaternion extends ObservablePoint {
   private _array = new Float32Array(4)
 
   /** Array containing the x, y, z, w values. */
@@ -117,7 +116,7 @@ export class ObservableQuaternion extends PIXI.ObservablePoint {
    * Copies x, y, z and w into the given quaternion.
    * @param p The quaternion to copy to.
    */
-  copyTo<T extends PIXI.IPoint>(p: T) {
+  copyTo<T extends IPoint>(p: T) {
     if (p instanceof ObservableQuaternion) {
       p.set(this.x, this.y, this.z, this.w)
     }

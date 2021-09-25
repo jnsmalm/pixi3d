@@ -42,8 +42,8 @@ export class StandardPipeline extends ObjectRenderer {
   }
 
   /**
-   * Creates a new post processing sprite and uses that to render to it's 
-   * texture.
+   * Creates a new post processing sprite and sets the material pass to render
+   * to it's texture.
    * @param options The options when creating the sprite.
    */
   createPostProcessingSprite(options?: PostProcessingSpriteOptions) {
@@ -55,7 +55,7 @@ export class StandardPipeline extends ObjectRenderer {
 
   /**
    * Adds a mesh to be rendered.
-   * @param mesh Mesh to add.
+   * @param mesh The mesh to render.
    */
   render(mesh: Mesh3D) {
     this._meshes.push(mesh)
