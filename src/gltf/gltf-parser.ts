@@ -262,15 +262,8 @@ export class glTFParser {
     if (typeof skin === "number") {
       skin = this._asset.descriptor.skins[skin]
     }
-    let inverseBindMatrices = this.parseBuffer(skin.inverseBindMatrices)
-    let joints: Joint[] = []
-    if (inverseBindMatrices) {
-      for (let i = 0; i < skin.joints.length; i++) {
-        joints.push(new Joint(nodes[skin.joints[i]],
-          <Float32Array>inverseBindMatrices.buffer.slice(i * 16, i * 16 + 16)))
-      }
-    }
-    return new Skin(target, joints)
+    return new Skin(target, 
+      skin.joints.map((joint: number) => <Joint>nodes[joint]))
   }
 
   /**
@@ -317,14 +310,24 @@ export class glTFParser {
   }
 
   /**
-   * Creates a container from the specified node.
-   * @param node The source node object or index.
+   * Creates a container or joint from the specified node index.
+   * @param node The index of the node.
    */
-  parseNode(node: any) {
-    if (typeof node === "number") {
-      node = this._asset.descriptor.nodes[node]
+  parseNode(index: number) {
+    const node = this._asset.descriptor.nodes[index]
+    let joint: Joint | undefined
+    for (let skin of this._asset.descriptor.skins) {
+      const i = skin.joints.indexOf(index)
+      if (i >= 0) {
+        // This node is a joint
+        const inverseBindMatrices = this.parseBuffer(skin.inverseBindMatrices)
+        const inverseBindMatrix = <Float32Array>inverseBindMatrices?.buffer.slice(i * 16, i * 16 + 16)
+        joint = Object.assign<Joint, Partial<Joint>>(new Joint(inverseBindMatrix), {
+          name: node.name
+        })
+      }
     }
-    let container = Object.assign<Container3D, Partial<Container3D>>(new Container3D(), {
+    let container = joint || Object.assign<Container3D, Partial<Container3D>>(new Container3D(), {
       name: node.name
     })
     if (node.translation) {
@@ -347,8 +350,8 @@ export class glTFParser {
   }
 
   parseModel() {
-    let nodes = <Container3D[]>this._descriptor.nodes.map((n: any) => {
-      return this.parseNode(n)
+    let nodes = <Container3D[]>this._descriptor.nodes.map((n: any, i: number) => {
+      return this.parseNode(i)
     })
     let scene = this._descriptor.scenes[this._asset.descriptor.scene || 0]
     let model = new Model()

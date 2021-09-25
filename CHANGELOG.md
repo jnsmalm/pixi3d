@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed `morphWeights` to `targetWeights` for `Mesh3D`.
 - Setting `renderSortType` on `Material` no longer changes `depthMask`.
 - Removed `addRenderPass` and `removeRenderPass` from `StandardPipeline`. Instead, the `renderPasses` array can be used for adding/removing render passes.
+- `Joint` now extends `Container3D`.
 
 ### Fixed
 - Fixed issues which caused `Camera`, `PostProcessingSprite` and `PickingHitArea` to not work correctly when renderer resolution was more than 1.

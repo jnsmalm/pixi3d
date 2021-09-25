@@ -49,8 +49,7 @@ export class TextureShader extends ShadowShader {
     if (!mesh.skin) {
       return
     }
-    let { jointVertexMatrices } = mesh.skin.calculateJointMatrices()
-    this._jointMatrixTexture.updateBuffer(jointVertexMatrices)
+    this._jointMatrixTexture.updateBuffer(mesh.skin.jointMatrices)
     this.uniforms.u_jointMatrixSampler = this._jointMatrixTexture
   }
 }

@@ -25,18 +25,17 @@ export class StandardMaterialSkinUniforms {
     if (!mesh.skin) {
       return
     }
-    let { jointVertexMatrices, jointNormalMatrices } = mesh.skin.calculateJointMatrices()
     if (this._jointMatrixTexture) {
-      this._jointMatrixTexture.updateBuffer(jointVertexMatrices)
+      this._jointMatrixTexture.updateBuffer(mesh.skin.jointMatrices)
       shader.uniforms.u_jointMatrixSampler = this._jointMatrixTexture
     } else {
-      shader.uniforms.u_jointMatrix = jointVertexMatrices
+      shader.uniforms.u_jointMatrix = mesh.skin.jointMatrices
     }
     if (this._jointNormalTexture) {
-      this._jointNormalTexture.updateBuffer(jointNormalMatrices)
+      this._jointNormalTexture.updateBuffer(mesh.skin.jointNormalMatrices)
       shader.uniforms.u_jointNormalMatrixSampler = this._jointNormalTexture
     } else {
-      shader.uniforms.u_jointNormalMatrix = jointNormalMatrices
+      shader.uniforms.u_jointNormalMatrix = mesh.skin.jointNormalMatrices
     }
   }
 }

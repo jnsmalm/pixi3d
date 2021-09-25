@@ -46,7 +46,6 @@ export class SkinningShader extends ShadowShader {
     if (!mesh.skin) {
       return
     }
-    let { jointVertexMatrices } = mesh.skin.calculateJointMatrices()
-    this.uniforms.u_jointMatrix = jointVertexMatrices
+    this.uniforms.u_jointMatrix = mesh.skin.jointMatrices
   }
 }

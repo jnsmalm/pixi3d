@@ -120,6 +120,9 @@ export class Mesh3D extends Container3D {
     renderer.batch.setObjectRenderer(
       <ObjectRenderer>(<any>renderer.plugins)[this.pluginName]
     );
+    if (this.skin) {
+      this.skin.calculateJointMatrices()
+    }
     <ObjectRenderer>(<any>renderer.plugins)[this.pluginName].render(this)
   }
 
