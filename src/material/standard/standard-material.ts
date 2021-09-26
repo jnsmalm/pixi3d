@@ -58,7 +58,7 @@ export class StandardMaterial extends Material {
   emissive = new Color(0, 0, 0)
 
   /** The exposure (brightness) of the material. */
-  exposure = 3
+  exposure = 1
 
   /** The base color texture. */
   get baseColorTexture() {

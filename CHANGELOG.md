@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Setting `renderSortType` on `Material` no longer changes `depthMask`.
 - Removed `addRenderPass` and `removeRenderPass` from `StandardPipeline`, use `renderPasses` array instead.
 - `Joint` now extends `Container3D`.
+- Default exposure for `StandardMaterial` was changed from 3 to 1.
 
 ### Fixed
 - Fixed issues which caused `Camera`, `PostProcessingSprite` and `PickingHitArea` to not work correctly when renderer resolution was more than 1.
