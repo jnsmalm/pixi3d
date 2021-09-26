@@ -6,8 +6,8 @@ document.body.appendChild(app.view)
 document.getElementById("message").style.display = "block"
 document.getElementById("message").innerText = "Click to render object and update texture for sprite at top left"
 
-app.loader.add("diffuse.cubemap", "assets/environments/autumn/diffuse.cubemap")
-app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap")
+app.loader.add("diffuse.cubemap", "assets/environments/footprint_court/diffuse.cubemap")
+app.loader.add("specular.cubemap", "assets/environments/footprint_court/specular.cubemap")
 app.loader.add("suzanne.gltf", "assets/models/suzanne/suzanne.gltf")
 
 // The aspect ratio of the camera should be the same as width/height of the 

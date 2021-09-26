@@ -3,8 +3,8 @@ let app = new PIXI.Application({
 })
 document.body.appendChild(app.view)
 
-app.loader.add("diffuse.cubemap", "assets/environments/autumn/diffuse.cubemap")
-app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap")
+app.loader.add("diffuse.cubemap", "assets/environments/footprint_court/diffuse.cubemap")
+app.loader.add("specular.cubemap", "assets/environments/footprint_court/specular.cubemap")
 app.loader.add("suzanne.gltf", "assets/models/suzanne/suzanne.gltf")
 
 app.loader.load((loader, resources) => {

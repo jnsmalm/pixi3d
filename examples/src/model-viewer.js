@@ -107,8 +107,8 @@ let model, resourceLoader = new glTFLocalResourceLoader((descriptor) => {
   document.getElementById("message").style.display = "none"
 })
 
-app.loader.add("diffuse.cubemap", "assets/environments/autumn/diffuse.cubemap")
-app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap")
+app.loader.add("diffuse.cubemap", "assets/environments/footprint_court/diffuse.cubemap")
+app.loader.add("specular.cubemap", "assets/environments/footprint_court/specular.cubemap")
 
 app.loader.load((loader, resources) => {
   PIXI3D.LightingEnvironment.main =

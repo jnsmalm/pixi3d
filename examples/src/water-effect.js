@@ -9,8 +9,8 @@ control.angles.set(25, 45)
 
 app.loader.add("water.vert", "assets/shaders/water/water.vert")
 app.loader.add("water.frag", "assets/shaders/water/water.frag")
-app.loader.add("diffuse.cubemap", "assets/environments/autumn/diffuse.cubemap")
-app.loader.add("specular.cubemap", "assets/environments/autumn/specular.cubemap")
+app.loader.add("diffuse.cubemap", "assets/environments/footprint_court/diffuse.cubemap")
+app.loader.add("specular.cubemap", "assets/environments/footprint_court/specular.cubemap")
 app.loader.add("water_dudv.jpg", "assets/textures/water_dudv.jpg")
 
 // Create two post processing sprites, one for the default material and one for 
