@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { Texture, MIPMAP_MODES } from "pixi.js"
 import { Cubemap } from "../cubemap/cubemap"
 
 /**
@@ -7,7 +6,7 @@ import { Cubemap } from "../cubemap/cubemap"
  */
 export class ImageBasedLighting {
   private _diffuse: Cubemap
-  private _brdf: PIXI.Texture
+  private _brdf: Texture
   private _specular: Cubemap
 
   /** Cube texture used for the diffuse component. */
@@ -31,9 +30,11 @@ export class ImageBasedLighting {
    * @param specular Cube mipmap texture used for the specular component.
    * @param brdf BRDF integration map lookup texture.
    */
-  constructor(diffuse: Cubemap, specular: Cubemap, brdf?: PIXI.Texture) {
+  constructor(diffuse: Cubemap, specular: Cubemap, brdf?: Texture) {
     this._diffuse = diffuse
-    this._brdf = brdf || PIXI.Texture.from(require("./assets/brdf.png").default)
+    this._brdf = brdf || Texture.from(require("./assets/lut-ggx.png").default, {
+      mipmap: MIPMAP_MODES.OFF
+    })
     this._specular = specular
   }
 
