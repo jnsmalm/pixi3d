@@ -1,5 +1,5 @@
 import { ArrayResource } from "../resource/array-resource"
-import { Texture, BaseTexture, Renderer, FORMATS, TYPES } from "pixi.js"
+import { Texture, BaseTexture, Renderer, FORMATS, TYPES, ALPHA_MODES } from "pixi.js"
 import { BaseImageResource } from "../resource/base-image-resource"
 import { BufferResource } from "../resource/buffer-resource"
 
@@ -9,6 +9,9 @@ export class MipmapResource extends ArrayResource {
   }
 
   upload(renderer: Renderer, baseTexture: BaseTexture) {
+    renderer.gl.pixelStorei(renderer.gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,
+      baseTexture.alphaMode === ALPHA_MODES.UNPACK)
+
     for (let i = 0; i < this.items.length; i++) {
       const resource = this.items[i].resource
       if (resource instanceof BufferResource) {
