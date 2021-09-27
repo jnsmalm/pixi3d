@@ -14,13 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Meshes rendered using `StandardPipeline` is now sorted by `renderSortOrder`.
 
 ### Changed
-- Renamed `morphWeights` to `targetWeights` for `Mesh3D`.
+- Renamed `morphWeights` to `targetWeights` on `Mesh3D`.
 - Removed `setFromMultiply` from `TransformMatrix`, use `multiply` function instead.
 - Renamed `TransformMatrix` to `Matrix4`.
 - Setting `renderSortType` on `Material` no longer changes `depthMask`.
 - Removed `addRenderPass` and `removeRenderPass` from `StandardPipeline`, use `renderPasses` array instead.
 - `Joint` now extends `Container3D`.
 - Default exposure for `StandardMaterial` was changed from 3 to 1.
+- Changed `enabledRenderPasses` on `Mesh3D` to an object instead of an array.
 
 ### Fixed
 - Fixed issues which caused `Camera`, `PostProcessingSprite` and `PickingHitArea` to not work correctly when renderer resolution was more than 1.
