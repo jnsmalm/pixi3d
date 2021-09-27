@@ -25,7 +25,7 @@ export class Mesh3D extends Container3D {
   skin?: Skin
 
   /** The enabled render passes for this mesh. */
-  enabledRenderPasses = ["material"]
+  enabledRenderPasses: { [name: string]: unknown } = { "material": {} }
 
   /** Used for sorting the mesh before render. */
   renderSortOrder = 0
@@ -76,20 +76,20 @@ export class Mesh3D extends Container3D {
    * Enables the render pass with the specified name.
    * @param name The name of the render pass to enable.
    */
-  enableRenderPass(name: string) {
-    if (this.enabledRenderPasses.indexOf(name) < 0) {
-      this.enabledRenderPasses.push(name)
+  enableRenderPass(name: string, options?: unknown) {
+    if (!this.enabledRenderPasses[name]) {
+      this.enabledRenderPasses[name] = options || {}
     }
   }
 
   /**
    * Disables the render pass with the specified name.
    * @param name The name of the render pass to disable.
+   * @param options The options for the render pass.
    */
   disableRenderPass(name: string) {
-    const index = this.enabledRenderPasses.indexOf(name)
-    if (index >= 0) {
-      this.enabledRenderPasses.splice(index, 1)
+    if (this.enabledRenderPasses[name]) {
+      delete this.enabledRenderPasses[name]
     }
   }
 
@@ -98,7 +98,7 @@ export class Mesh3D extends Container3D {
    * @param name The name of the render pass to check.
    */
   isRenderPassEnabled(name: string) {
-    return this.enabledRenderPasses.indexOf(name) >= 0
+    return !!this.enabledRenderPasses[name]
   }
 
   /**
