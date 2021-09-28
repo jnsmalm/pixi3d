@@ -35,8 +35,10 @@ app.loader.load((loader, resources) => {
   /* Creates a shadow casting light and enables it for the model using the 
   standard pipeline. */
   let shadowCastingLight = new PIXI3D.ShadowCastingLight(
-    app.renderer, dirLight, 512, 15, 1, PIXI3D.ShadowQuality.medium)
-    
+    app.renderer, dirLight, { shadowTextureSize: 512, quality: PIXI3D.ShadowQuality.medium })
+  shadowCastingLight.softness = 1
+  shadowCastingLight.shadowArea = 15
+
   let pipeline = app.renderer.plugins.pipeline
   pipeline.enableShadows(model, shadowCastingLight)
 

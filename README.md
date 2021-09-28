@@ -139,8 +139,11 @@ To enable lights to cast shadows, a shadow casting light is required. It wraps a
 The shadows must also be enabled (using the standard pipeline) for an object to both receive and cast shadows.
 
 ```javascript
-let shadowCastingLight = new PIXI3D.ShadowCastingLight(
-  app.renderer, dirLight, 512, 15, 1, PIXI3D.ShadowQuality.medium)
+let shadowCastingLight = new PIXI3D.ShadowCastingLight(app.renderer, dirLight, { 
+  shadowTextureSize: 512, quality: PIXI3D.ShadowQuality.medium 
+})
+shadowCastingLight.softness = 1
+shadowCastingLight.shadowArea = 15
   
 let pipeline = app.renderer.plugins.pipeline
 pipeline.enableShadows(model, shadowCastingLight)

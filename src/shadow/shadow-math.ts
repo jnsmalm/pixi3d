@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { DEG_TO_RAD } from "pixi.js"
 import { ShadowCastingLight } from "./shadow-casting-light"
 import { Mat4 } from "../math/mat4"
 import { LightType } from "../lighting/light-type"
@@ -11,7 +10,6 @@ export namespace ShadowMath {
 
   const _lightProjection = new Float32Array(16)
   const _lightView = new Float32Array(16)
-  const _up = new Float32Array([0, 1, 0])
   const _conjugateRotation = new Float32Array(4)
   const _lightSpacePosition = new Float32Array(3)
   const _lightSpaceForward = new Float32Array(3)
@@ -59,7 +57,7 @@ export namespace ShadowMath {
     }
     let light = shadowCastingLight.light
 
-    Mat4.perspective(light.outerConeAngle * PIXI.DEG_TO_RAD * 2, 1, 2, light.range, _lightProjection)
+    Mat4.perspective(light.outerConeAngle * DEG_TO_RAD * 2, 1, 2, light.range, _lightProjection)
     Vec3.add(light.worldTransform.position, light.worldTransform.forward, _cameraTarget)
     Mat4.lookAt(light.worldTransform.position, _cameraTarget, light.worldTransform.up, _lightView)
     Mat4.multiply(_lightProjection, _lightView, shadowCastingLight.lightViewProjection)

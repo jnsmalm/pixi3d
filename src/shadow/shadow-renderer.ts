@@ -1,21 +1,19 @@
-import * as PIXI from "pixi.js"
-
+import { State, Renderer, BLEND_MODES } from "pixi.js"
 import { ShadowShader } from "./shadow-shader"
 import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"
 import { SkinningShader } from "./skinning-shader"
 import { TextureShader } from "./texture-shader"
-import { Console } from "../console"
 
 export class ShadowRenderer {
-  private _state = Object.assign(new PIXI.State(), {
-    depthTest: true, clockwiseFrontFace: false, culling: true, blendMode: PIXI.BLEND_MODES.NONE
+  private _state = Object.assign(new State(), {
+    depthTest: true, clockwiseFrontFace: false, culling: true, blendMode: BLEND_MODES.NONE
   })
   private _shadowShader: ShadowShader
   private _skinningShader?: SkinningShader
   private _textureShader?: TextureShader
 
-  constructor(public renderer: PIXI.Renderer) {
+  constructor(public renderer: Renderer) {
     this._shadowShader = new ShadowShader(this.renderer)
   }
 

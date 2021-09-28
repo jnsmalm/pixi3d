@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { Renderer, Program, RenderTexture } from "pixi.js"
 import { MeshShader } from "../mesh/mesh-shader"
 import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"
@@ -8,9 +7,9 @@ export class ShadowFilter {
   private _gaussianBlurShader: MeshShader
   private _mesh: Mesh3D
 
-  constructor(public renderer: PIXI.Renderer) {
+  constructor(public renderer: Renderer) {
     this._mesh = Mesh3D.createQuad()
-    this._gaussianBlurShader = new MeshShader(PIXI.Program.from(
+    this._gaussianBlurShader = new MeshShader(Program.from(
       require("./shader/gaussian-blur.vert"),
       require("./shader/gaussian-blur.frag")
     ))
@@ -23,7 +22,7 @@ export class ShadowFilter {
       new Float32Array([light.softness / light.shadowTexture.width, 0]))
   }
 
-  applyBlurScale(input: PIXI.RenderTexture, output: PIXI.RenderTexture, scale: Float32Array) {
+  applyBlurScale(input: RenderTexture, output: RenderTexture, scale: Float32Array) {
     this.renderer.renderTexture.bind(output)
     this.renderer.renderTexture.clear()
 

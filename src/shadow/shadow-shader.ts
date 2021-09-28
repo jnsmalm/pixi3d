@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { Renderer, Program, Geometry, Buffer } from "pixi.js"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { MeshShader } from "../mesh/mesh-shader"
 import { StandardShaderSource } from "../material/standard/standard-shader-source"
@@ -7,27 +6,27 @@ import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"
 
 export class ShadowShader extends MeshShader {
-  constructor(renderer: PIXI.Renderer, features: string[] = []) {
+  constructor(renderer: Renderer, features: string[] = []) {
     let vert = require("./shader/shadow.vert")
     let frag = require("./shader/shadow.frag")
 
-    super(PIXI.Program.from(
+    super(Program.from(
       StandardShaderSource.build(vert, features, renderer),
       StandardShaderSource.build(frag, features, renderer)))
   }
 
   createShaderGeometry(geometry: MeshGeometry3D) {
-    let result = new PIXI.Geometry()
+    let result = new Geometry()
     if (geometry.indices) {
       if (geometry.indices.buffer.BYTES_PER_ELEMENT === 1) {
         // PIXI seems to have problems with Uint8Array, let's convert to UNSIGNED_SHORT.
-        result.addIndex(new PIXI.Buffer(new Uint16Array(geometry.indices.buffer)))
+        result.addIndex(new Buffer(new Uint16Array(geometry.indices.buffer)))
       } else {
-        result.addIndex(new PIXI.Buffer(geometry.indices.buffer))
+        result.addIndex(new Buffer(geometry.indices.buffer))
       }
     }
     if (geometry.positions) {
-      result.addAttribute("a_Position", new PIXI.Buffer(geometry.positions.buffer),
+      result.addAttribute("a_Position", new Buffer(geometry.positions.buffer),
         3, false, geometry.positions.componentType, geometry.positions.stride)
     }
     return result

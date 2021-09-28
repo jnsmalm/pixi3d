@@ -1,20 +1,41 @@
-import * as PIXI from "pixi.js"
-
+import { RenderTexture, Renderer } from "pixi.js"
 import { Light } from "../lighting/light"
 import { LightType } from "../lighting/light-type"
 import { Camera } from "../camera/camera"
 import { Capabilities } from "../capabilities"
 import { ShadowTexture } from "./shadow-texture"
-import { ShadowQuality } from "./shadow-quality"
 import { ShadowMath } from "./shadow-math"
+import { ShadowQuality } from "./shadow-quality"
+
+export interface ShadowCastingLightOptions {
+  /**
+   * The quality (precision) of the shadow. If the quality is not supported by
+   * current platform, a lower quality will be selected instead.
+   */
+  quality?: ShadowQuality
+  /**
+   * The size (both width and height) in pixels for the shadow texture. 
+   * Increasing the size will improve the quality of the shadow.
+   */
+  shadowTextureSize?: number
+}
 
 /**
  * Contains the required components used for rendering a shadow casted by a light.
  */
 export class ShadowCastingLight {
-  private _shadowTexture: PIXI.RenderTexture
-  private _filterTexture: PIXI.RenderTexture
+  private _shadowTexture: RenderTexture
+  private _filterTexture: RenderTexture
   private _lightViewProjection = new Float32Array(16)
+
+  /** The softness of the edges for the shadow. */
+  softness = 0
+
+  /**
+   * The area in units of the shadow when using directional lights. Reducing
+   * the area will improve the quality of the shadow.
+   */
+  shadowArea = 50
 
   /** The light view projection matrix. */
   get lightViewProjection() {
@@ -49,18 +70,14 @@ export class ShadowCastingLight {
    * Creates a new shadow casting light used for rendering a shadow texture.
    * @param renderer The renderer to use.
    * @param light The light which is casting the shadow.
-   * @param shadowTextureSize The size (width/height) in pixels for the shadow 
-   * texture. Increasing the size will improve the quality of the shadow.
-   * @param shadowArea The area in units of the shadow when using directional 
-   * lights. Reducing the area will improve the quality of the shadow.
-   * @param softness The softness of the edges of the shadow.
-   * @param quality The quality (precision) of the shadow. If the quality is not 
-   * supported by current platform, a lower quality will be selected instead.
+   * @param options The options to use when creating the shadow texture.
    */
-  constructor(public renderer: PIXI.Renderer, public light: Light, shadowTextureSize: number, public shadowArea: number, public softness = 0, quality = ShadowQuality.medium) {
+  constructor(public renderer: Renderer, public light: Light, options?: ShadowCastingLightOptions) {
     if (light.type === LightType.point) {
       throw new Error("PIXI3D: Only directional and spot lights are supported as shadow casters.")
     }
+    const { shadowTextureSize = 1024, quality = ShadowQuality.medium } = options || {}
+
     this._shadowTexture = ShadowTexture.create(renderer, shadowTextureSize, quality)
     this._shadowTexture.baseTexture.framebuffer.addDepthTexture()
     this._filterTexture = ShadowTexture.create(renderer, shadowTextureSize, quality)
@@ -99,7 +116,7 @@ export class ShadowCastingLight {
    * supported by current platform.
    * @param renderer The renderer to use.
    */
-  static isMediumQualitySupported(renderer: PIXI.Renderer) {
+  static isMediumQualitySupported(renderer: Renderer) {
     return Capabilities.isHalfFloatFramebufferSupported(renderer)
   }
 
@@ -108,7 +125,7 @@ export class ShadowCastingLight {
    * supported by current platform.
    * @param renderer The renderer to use.
    */
-  static isHighQualitySupported(renderer: PIXI.Renderer) {
+  static isHighQualitySupported(renderer: Renderer) {
     return Capabilities.isFloatFramebufferSupported(renderer)
   }
 }

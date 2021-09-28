@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { Renderer, Buffer } from "pixi.js"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { Mesh3D } from "../mesh/mesh"
 import { Capabilities } from "../capabilities"
@@ -13,7 +12,7 @@ export class SkinningShader extends ShadowShader {
     return this._maxSupportedJoints
   }
 
-  constructor(renderer: PIXI.Renderer) {
+  constructor(renderer: Renderer) {
     let uniformsRequiredForOtherFeatures = 8
     let availableVertexUniforms =
       Capabilities.getMaxVertexUniformVectors(renderer) - uniformsRequiredForOtherFeatures
@@ -27,11 +26,11 @@ export class SkinningShader extends ShadowShader {
   createShaderGeometry(geometry: MeshGeometry3D) {
     let result = super.createShaderGeometry(geometry)
     if (geometry.joints) {
-      result.addAttribute("a_Joint1", new PIXI.Buffer(geometry.joints.buffer),
+      result.addAttribute("a_Joint1", new Buffer(geometry.joints.buffer),
         4, false, geometry.joints.componentType, geometry.joints.stride)
     }
     if (geometry.weights) {
-      result.addAttribute("a_Weight1", new PIXI.Buffer(geometry.weights.buffer),
+      result.addAttribute("a_Weight1", new Buffer(geometry.weights.buffer),
         4, false, geometry.weights.componentType, geometry.weights.stride)
     }
     return result

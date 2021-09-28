@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Joint` now extends `Container3D`.
 - Default exposure for `StandardMaterial` was changed from 3 to 1.
 - Changed `enabledRenderPasses` on `Mesh3D` to an object instead of an array.
+- Changed the constructor for `ShadowCastingLight` to use an options object. Arguments `softness` and `shadowArea` was added as properties instead.
 
 ### Fixed
 - Fixed issues which caused `Camera`, `PostProcessingSprite` and `PickingHitArea` to not work correctly when renderer resolution was more than 1.

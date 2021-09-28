@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { Renderer } from "pixi.js"
 import { RenderPass } from "../pipeline/render-pass"
 import { Mesh3D } from "../mesh/mesh"
 import { ShadowFilter } from "./shadow-filter"
@@ -19,7 +18,7 @@ export class ShadowRenderPass implements RenderPass {
    * @param renderer The renderer to use.
    * @param name The name for the render pass.
    */
-  constructor(public renderer: PIXI.Renderer, public name = "shadow") {
+  constructor(public renderer: Renderer, public name = "shadow") {
     this._filter = new ShadowFilter(renderer)
     this._shadow = new ShadowRenderer(renderer)
   }
