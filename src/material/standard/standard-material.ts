@@ -1,5 +1,4 @@
-import * as PIXI from "pixi.js"
-
+import { Renderer, Shader, DEG_TO_RAD } from "pixi.js"
 import { LightType } from "../../lighting/light-type"
 import { StandardMaterialFeatureSet } from "./standard-material-feature-set"
 import { StandardShader } from "./standard-shader"
@@ -209,18 +208,6 @@ export class StandardMaterial extends Material {
   }
 
   /**
-   * Creates a standard material factory which can be used when loading models.
-   * @param props Properties to set on the material when created.
-   */
-  static factory(props = {}) {
-    return {
-      create: (source: unknown) => {
-        return <StandardMaterial>Object.assign(StandardMaterial.create(source), props)
-      }
-    }
-  }
-
-  /**
    * Creates a new standard material from the specified source.
    * @param source Source from which the material is created.
    */
@@ -228,7 +215,7 @@ export class StandardMaterial extends Material {
     return new StandardMaterialFactory().create(source)
   }
 
-  render(mesh: Mesh3D, renderer: PIXI.Renderer) {
+  render(mesh: Mesh3D, renderer: Renderer) {
     if (!this._instancingEnabled && mesh.instances.length > 0) {
       // Invalidate shader when instancing was enabled.
       this.invalidateShader()
@@ -251,7 +238,7 @@ export class StandardMaterial extends Material {
     return new InstancedStandardMaterial(this)
   }
 
-  createShader(mesh: Mesh3D, renderer: PIXI.Renderer) {
+  createShader(mesh: Mesh3D, renderer: Renderer) {
     if (renderer.context.webGLVersion === 1) {
       let extensions = ["EXT_shader_texture_lod", "OES_standard_derivatives"]
       for (let ext of extensions) {
@@ -277,7 +264,7 @@ export class StandardMaterial extends Material {
     return shaders[checksum]
   }
 
-  updateUniforms(mesh: Mesh3D, shader: PIXI.Shader) {
+  updateUniforms(mesh: Mesh3D, shader: Shader) {
     this._baseColor.set(this.baseColor.rgb)
     this._baseColor[3] = this.baseColor.a * mesh.worldAlpha
     let camera = this.camera || Camera.main
@@ -325,8 +312,8 @@ export class StandardMaterial extends Material {
       shader.uniforms[`u_Lights[${i}].range`] = light.range
       shader.uniforms[`u_Lights[${i}].color`] = light.color.rgb
       shader.uniforms[`u_Lights[${i}].intensity`] = light.intensity
-      shader.uniforms[`u_Lights[${i}].innerConeCos`] = Math.cos(light.innerConeAngle * PIXI.DEG_TO_RAD)
-      shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle * PIXI.DEG_TO_RAD)
+      shader.uniforms[`u_Lights[${i}].innerConeCos`] = Math.cos(light.innerConeAngle * DEG_TO_RAD)
+      shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle * DEG_TO_RAD)
     }
     let imageBasedLighting = lightingEnvironment.imageBasedLighting
     if (imageBasedLighting?.valid) {
