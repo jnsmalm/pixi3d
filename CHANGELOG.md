@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `factory` from `StandardMaterial`, use `create` function instead.
 - Removed `addRenderPass` and `removeRenderPass` from `StandardPipeline`, use `renderPasses` array instead.
 - `Joint` now extends `Container3D`.
+- Removed ambient lights, use `ImageBasedLighting` with `Cubemap.fromColor` instead.
 - Renamed `TransformMatrix` to `Matrix4`.
 - Renamed `morphWeights` to `targetWeights` on `Mesh3D`.
 - Setting `renderSortType` on `Material` no longer changes `depthMask`.
@@ -27,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fixed issues which caused `Camera`, `PostProcessingSprite` and `PickingHitArea` to not work correctly when renderer resolution was more than 1.
-- Fixed an issue which caused `screenToRay` on `Camera` to return incorrect results when `orthographic = true`
+- Fixed an issue which caused `screenToRay` on `Camera` to return incorrect results when `orthographic = true`.
 - Fixed orientation for default IBL lookup texture.
 
 ## [0.9.8] - 2021-09-23

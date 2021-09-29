@@ -12,14 +12,18 @@ let pointLight = Object.assign(new PIXI3D.Light(), {
   x: 1.1, y: 0.2, z: 2.0, color: new PIXI3D.Color(1, 0, 0), intensity: 10, type: PIXI3D.LightType.point,
 })
 
-// A light that is present all around the scene and doesn’t come from any 
-// specific source object.
-let ambientLight = Object.assign(new PIXI3D.Light(), {
-  color: new PIXI3D.Color(1, 1, 1), intensity: 0.01, type: PIXI3D.LightType.ambient,
-})
+// Create a image based lighting object with solid color cubemaps for diffuse
+// and specular. This will function as a "ambient" light which doesn't have any
+// particular position. This will make the non lit surfaces a bit brighter.
+let ibl = new PIXI3D.ImageBasedLighting(
+  PIXI3D.Cubemap.fromColors(new PIXI3D.Color(0.1, 0.1, 0.1)),
+  PIXI3D.Cubemap.fromColors(new PIXI3D.Color(0.1, 0.1, 0.1))
+)
+
+PIXI3D.LightingEnvironment.main = new PIXI3D.LightingEnvironment(app.renderer)
 
 // Add the point light to the lighting environment.
-PIXI3D.LightingEnvironment.main.lights.push(ambientLight, pointLight)
+PIXI3D.LightingEnvironment.main.lights.push(pointLight)
 
 // A light that, which is located infinitely far away, and emits light in 
 // one direction only.
@@ -35,13 +39,6 @@ let spotLight = Object.assign(new PIXI3D.Light(), {
 let gui = new dat.GUI()
 gui.add(mesh.material, "metallic", 0, 1)
 gui.add(mesh.material, "roughness", 0, 1)
-
-let ambient = gui.addFolder("ambient")
-ambient.addColor({ color: [255, 255, 255] }, "color").onChange(color => {
-  ambientLight.color = new PIXI3D.Color(...color.map(c => c / 255))
-})
-ambient.add(ambientLight, "intensity", 0, 0.1)
-
 
 createDraggableLightElement("Point light", pointLight)
 createDraggableLightElement("Directional light", directionalLight)
@@ -63,7 +60,7 @@ function createDraggableLightElement(text, light) {
     dragging = true
 
     // When a element is clicked only that light is used.
-    PIXI3D.LightingEnvironment.main.lights = [ambientLight, light]
+    PIXI3D.LightingEnvironment.main.lights = [light]
   })
 
   document.addEventListener("mouseup", () => {

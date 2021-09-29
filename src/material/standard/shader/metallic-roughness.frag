@@ -66,7 +66,6 @@ struct Light
 const int LightType_Directional = 0;
 const int LightType_Point = 1;
 const int LightType_Spot = 2;
-const int LightType_Ambient = 3;
 
 #ifdef USE_PUNCTUAL
 uniform Light u_Lights[LIGHT_COUNT];
@@ -267,11 +266,6 @@ vec3 applySpotLight(Light light, MaterialInfo materialInfo, vec3 normal, vec3 vi
     return rangeAttenuation * spotAttenuation * light.intensity * light.color * shade;
 }
 
-vec3 applyAmbientLight(Light light, MaterialInfo materialInfo)
-{
-    return light.intensity * light.color * diffuse(materialInfo);
-}
-
 #ifdef WEBGL2
     out vec4 FRAG_COLOR;
 #endif
@@ -419,10 +413,6 @@ void main()
         {
             color += applySpotLight(light, materialInfo, normal, view, shadow);
         }
-        else if (light.type == LightType_Ambient) 
-        {
- 			color += applyAmbientLight(light, materialInfo);
- 		}
     }
 #endif
 
