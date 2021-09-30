@@ -4,13 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.9.9] - 2021-09-30
 ### Added
 - Added `Sprite3D` which works like regular PixiJS 2D sprites but in 3D space.
 - Improved support for glTF.
 - Added `fromHex` function to `Color`.
 - Added `TextureTransform` which can used to offset, scale and rotate texture coordinates.
-- Added `min` and `max` values for mesh geometry attributes.
+- Added `min` and `max` values for mesh geometry attributes to be able to create bounds for a mesh.
 - Meshes rendered using `StandardPipeline` is now sorted by `renderSortOrder`.
 
 ### Changed
@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed an issue which caused `screenToRay` on `Camera` to return incorrect results when `orthographic = true`.
 - Fixed orientation for default IBL lookup texture.
 
-## [0.9.8] - 2021-09-23
+## [0.9.8] - 2021-08-23
 ### Added
 - Added `scale` function to `Mat4`.
 
