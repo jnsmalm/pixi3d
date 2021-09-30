@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PickingManager | Pixi3D - v0.9.8</title>
+	<title>PickingInteraction | Pixi3D - v0.9.9</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.8</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.9</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="pickingmanager.html">PickingManager</a>
+					<a href="pickinginteraction.html">PickingInteraction</a>
 				</li>
 			</ul>
-			<h1>Class PickingManager</h1>
+			<h1>Class PickingInteraction</h1>
 		</div>
 	</div>
 </header>
@@ -80,7 +80,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PickingManager</span>
+						<span class="target">PickingInteraction</span>
 					</li>
 				</ul>
 			</section>
@@ -97,22 +97,22 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="pickingmanager.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="pickinginteraction.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="pickingmanager.html#_hitareas" class="tsd-kind-icon">_hit<wbr>Areas</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="pickingmanager.html#_map" class="tsd-kind-icon">_map</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pickingmanager.html#renderer" class="tsd-kind-icon">renderer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="pickinginteraction.html#_hitareas" class="tsd-kind-icon">_hit<wbr>Areas</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="pickinginteraction.html#_map" class="tsd-kind-icon">_map</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pickinginteraction.html#renderer" class="tsd-kind-icon">renderer</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pickingmanager.html#containshitarea" class="tsd-kind-icon">contains<wbr>Hit<wbr>Area</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pickingmanager.html#destroy" class="tsd-kind-icon">destroy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pickinginteraction.html#containshitarea" class="tsd-kind-icon">contains<wbr>Hit<wbr>Area</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pickinginteraction.html#destroy" class="tsd-kind-icon">destroy</a></li>
 							</ul>
 						</section>
 					</div>
@@ -124,13 +124,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Picking<wbr>Manager<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Renderer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pickingmanager.html" class="tsd-signature-type">PickingManager</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Picking<wbr>Interaction<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Renderer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="pickinginteraction.html" class="tsd-signature-type">PickingInteraction</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L14">src/picking/picking-manager.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/picking/picking-interaction.ts#L13">src/picking/picking-interaction.ts:13</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -149,7 +149,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="pickingmanager.html" class="tsd-signature-type">PickingManager</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="pickinginteraction.html" class="tsd-signature-type">PickingInteraction</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -162,7 +162,7 @@
 					<div class="tsd-signature tsd-kind-icon">_hit<wbr>Areas<span class="tsd-signature-symbol">:</span> <a href="pickinghitarea.html" class="tsd-signature-type">PickingHitArea</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L14">src/picking/picking-manager.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/picking/picking-interaction.ts#L13">src/picking/picking-interaction.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -172,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">_map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PickingMap</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L13">src/picking/picking-manager.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/picking/picking-interaction.ts#L12">src/picking/picking-interaction.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">renderer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Renderer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L20">src/picking/picking-manager.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/picking/picking-interaction.ts#L19">src/picking/picking-interaction.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -204,7 +204,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L49">src/picking/picking-manager.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/picking/picking-interaction.ts#L45">src/picking/picking-interaction.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/picking/picking-manager.ts#L40">src/picking/picking-manager.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/picking/picking-interaction.ts#L36">src/picking/picking-interaction.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -269,25 +269,25 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="pickingmanager.html" class="tsd-kind-icon">Picking<wbr>Manager</a>
+						<a href="pickinginteraction.html" class="tsd-kind-icon">Picking<wbr>Interaction</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="pickingmanager.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="pickinginteraction.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="pickingmanager.html#_hitareas" class="tsd-kind-icon">_hit<wbr>Areas</a>
+								<a href="pickinginteraction.html#_hitareas" class="tsd-kind-icon">_hit<wbr>Areas</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="pickingmanager.html#_map" class="tsd-kind-icon">_map</a>
+								<a href="pickinginteraction.html#_map" class="tsd-kind-icon">_map</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="pickingmanager.html#renderer" class="tsd-kind-icon">renderer</a>
+								<a href="pickinginteraction.html#renderer" class="tsd-kind-icon">renderer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="pickingmanager.html#containshitarea" class="tsd-kind-icon">contains<wbr>Hit<wbr>Area</a>
+								<a href="pickinginteraction.html#containshitarea" class="tsd-kind-icon">contains<wbr>Hit<wbr>Area</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="pickingmanager.html#destroy" class="tsd-kind-icon">destroy</a>
+								<a href="pickinginteraction.html#destroy" class="tsd-kind-icon">destroy</a>
 							</li>
 						</ul>
 					</li>

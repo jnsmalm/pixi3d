@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Container3D | Pixi3D - v0.9.8</title>
+	<title>Container3D | Pixi3D - v0.9.9</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.8</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.9</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -100,13 +100,25 @@
 										<a href="mesh3d.html" class="tsd-signature-type">Mesh3D</a>
 									</li>
 									<li>
+										<a href="instancedmesh3d.html" class="tsd-signature-type">InstancedMesh3D</a>
+									</li>
+									<li>
 										<a href="model.html" class="tsd-signature-type">Model</a>
+									</li>
+									<li>
+										<a href="instancedmodel.html" class="tsd-signature-type">InstancedModel</a>
 									</li>
 									<li>
 										<a href="light.html" class="tsd-signature-type">Light</a>
 									</li>
 									<li>
 										<a href="skybox.html" class="tsd-signature-type">Skybox</a>
+									</li>
+									<li>
+										<a href="joint.html" class="tsd-signature-type">Joint</a>
+									</li>
+									<li>
+										<a href="sprite3d.html" class="tsd-signature-type">Sprite3D</a>
 									</li>
 								</ul>
 							</li>
@@ -309,7 +321,7 @@
 					<div class="tsd-signature tsd-kind-icon">transform<span class="tsd-signature-symbol">:</span> <a href="transform3d.html" class="tsd-signature-type">Transform3D</a><span class="tsd-signature-symbol"> = new Transform3D()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L11">src/container.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L11">src/container.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -381,16 +393,16 @@
 					<a name="localtransform" class="tsd-anchor"></a>
 					<h3>local<wbr>Transform</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> localTransform<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> localTransform<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="matrix4.html" class="tsd-signature-type">Matrix4</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L48">src/container.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L48">src/container.ts:48</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="matrix4.html" class="tsd-signature-type">Matrix4</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -405,7 +417,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L17">src/container.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L17">src/container.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="observablepoint3d.html" class="tsd-signature-type">ObservablePoint3D</a></h4>
@@ -413,7 +425,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L13">src/container.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L13">src/container.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -437,7 +449,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L34">src/container.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L34">src/container.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -450,7 +462,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L29">src/container.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L29">src/container.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -479,7 +491,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L25">src/container.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L25">src/container.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="observablepoint3d.html" class="tsd-signature-type">ObservablePoint3D</a></h4>
@@ -487,7 +499,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L21">src/container.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L21">src/container.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -553,16 +565,16 @@
 					<a name="worldtransform" class="tsd-anchor"></a>
 					<h3>world<wbr>Transform</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> worldTransform<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> worldTransform<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="matrix4.html" class="tsd-signature-type">Matrix4</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L52">src/container.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L52">src/container.ts:52</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="matrix4.html" class="tsd-signature-type">Matrix4</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -577,7 +589,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L40">src/container.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L40">src/container.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -591,7 +603,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L44">src/container.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L44">src/container.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

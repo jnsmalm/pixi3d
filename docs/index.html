@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Pixi3D - v0.9.8</title>
+	<title>Pixi3D - v0.9.9</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">Pixi3D - v0.9.8</a>
+					<a href="index.html" class="title">Pixi3D - v0.9.9</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Pixi3D - v0.9.8</h1>
+			<h1>Pixi3D - v0.9.9</h1>
 		</div>
 	</div>
 </header>
@@ -73,6 +73,7 @@
 					<li>Physically-based rendering (PBR) and image-based lighting (IBL)</li>
 					<li>Transformation, morphing and skeletal animations</li>
 					<li>Customized materials and shaders</li>
+					<li>Sprites in 3D</li>
 					<li>Built on top of PixiJS, seamless integration with 2D applications.</li>
 				</ul>
 				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
@@ -183,10 +184,13 @@ PIXI3D.LightingEnvironment.main.lights.push(pointLight)</code></pre>
 				</a>
 				<p>To enable lights to cast shadows, a shadow casting light is required. It wraps a light and gives it the ability to cast shadows. It has multiple settings for controlling the quality of the shadow, for example the size of the shadow texture and the softness of the shadow. Both directional and spot light types have support for casting shadows.</p>
 				<p>The shadows must also be enabled (using the standard pipeline) for an object to both receive and cast shadows.</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> shadowCastingLight = <span class="hljs-keyword">new</span> PIXI3D.ShadowCastingLight(
-  app.renderer, dirLight, <span class="hljs-number">512</span>, <span class="hljs-number">15</span>, <span class="hljs-number">1</span>, PIXI3D.ShadowQuality.medium)
+				<pre><code class="language-javascript"><span class="hljs-keyword">let</span> shadowCastingLight = <span class="hljs-keyword">new</span> PIXI3D.ShadowCastingLight(app.renderer, dirLight, {
+  <span class="hljs-attr">shadowTextureSize</span>: <span class="hljs-number">512</span>, <span class="hljs-attr">quality</span>: PIXI3D.ShadowQuality.medium 
+})
+shadowCastingLight.softness = <span class="hljs-number">1</span>
+shadowCastingLight.shadowArea = <span class="hljs-number">15</span>
 
-<span class="hljs-keyword">let</span> pipeline = PIXI3D.StandardPipeline.from(app.renderer)
+<span class="hljs-keyword">let</span> pipeline = app.renderer.plugins.pipeline
 pipeline.enableShadows(model, shadowCastingLight)</code></pre>
 				<p><em>Creates a shadow casting light and enables it for the model using the standard pipeline.</em></p>
 				<a href="#2d-and-3d" id="2d-and-3d" style="color: inherit; text-decoration: none;">
@@ -241,6 +245,9 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 						<a href="enums/shadowquality.html" class="tsd-kind-icon">Shadow<wbr>Quality</a>
 					</li>
 					<li class=" tsd-kind-enum">
+						<a href="enums/spritebillboardtype.html" class="tsd-kind-icon">Sprite<wbr>Billboard<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
 						<a href="enums/standardmaterialalphamode.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Alpha<wbr>Mode</a>
 					</li>
 					<li class=" tsd-kind-enum">
@@ -265,9 +272,21 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 						<a href="classes/cubemap.html" class="tsd-kind-icon">Cubemap</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/imagebasedlighting.html" class="tsd-kind-icon">Image<wbr>Based<wbr>Lighting</a>
+						<a href="classes/cubemapresource.html" class="tsd-kind-icon">Cubemap<wbr>Resource</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/imagebasedlighting.html" class="tsd-kind-icon">Image<wbr>Based<wbr>Lighting</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/instancedmesh3d.html" class="tsd-kind-icon">Instanced<wbr>Mesh3D</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/instancedmodel.html" class="tsd-kind-icon">Instanced<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/instancedstandardmaterial.html" class="tsd-kind-icon">Instanced<wbr>Standard<wbr>Material</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/joint.html" class="tsd-kind-icon">Joint</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
@@ -284,6 +303,9 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/materialrenderpass.html" class="tsd-kind-icon">Material<wbr>Render<wbr>Pass</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/matrix4.html" class="tsd-kind-icon">Matrix4</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/mesh3d.html" class="tsd-kind-icon">Mesh3D</a>
@@ -307,7 +329,7 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 						<a href="classes/pickinghitarea.html" class="tsd-kind-icon">Picking<wbr>Hit<wbr>Area</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/pickingmanager.html" class="tsd-kind-icon">Picking<wbr>Manager</a>
+						<a href="classes/pickinginteraction.html" class="tsd-kind-icon">Picking<wbr>Interaction</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/plane.html" class="tsd-kind-icon">Plane</a>
@@ -333,17 +355,32 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/skybox.html" class="tsd-kind-icon">Skybox</a>
 					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/sprite3d.html" class="tsd-kind-icon">Sprite3D</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/spritebatchrenderer.html" class="tsd-kind-icon">Sprite<wbr>Batch<wbr>Renderer</a>
+					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/standardmaterial.html" class="tsd-kind-icon">Standard<wbr>Material</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/standardmaterialnormaltexture.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Normal<wbr>Texture</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/standardmaterialocclusiontexture.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Occlusion<wbr>Texture</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/standardmaterialtexture.html" class="tsd-kind-icon">Standard<wbr>Material<wbr>Texture</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/standardpipeline.html" class="tsd-kind-icon">Standard<wbr>Pipeline</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/transform3d.html" class="tsd-kind-icon">Transform3D</a>
+						<a href="classes/texturetransform.html" class="tsd-kind-icon">Texture<wbr>Transform</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/transformmatrix.html" class="tsd-kind-icon">Transform<wbr>Matrix</a>
+						<a href="classes/transform3d.html" class="tsd-kind-icon">Transform3D</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/vec3.html" class="tsd-kind-icon">Vec3</a>
@@ -353,6 +390,21 @@ app.ticker.add(<span class="hljs-function"><span class="hljs-params">()</span> =
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/cubemapfaces.html" class="tsd-kind-icon">Cubemap<wbr>Faces</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/meshdestroyoptions.html" class="tsd-kind-icon">Mesh<wbr>Destroy<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/meshgeometryattribute.html" class="tsd-kind-icon">Mesh<wbr>Geometry<wbr>Attribute</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/meshgeometrytarget.html" class="tsd-kind-icon">Mesh<wbr>Geometry<wbr>Target</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/shadowcastinglightoptions.html" class="tsd-kind-icon">Shadow<wbr>Casting<wbr>Light<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gltfresourceloader.html" class="tsd-kind-icon">glTFResource<wbr>Loader</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
 						<a href="globals.html#cubemaploader" class="tsd-kind-icon">Cubemap<wbr>Loader</a>

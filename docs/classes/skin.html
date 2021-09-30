@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Skin | Pixi3D - v0.9.8</title>
+	<title>Skin | Pixi3D - v0.9.9</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.8</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.9</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -94,10 +94,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="skin.html#_arraynormalmatrices" class="tsd-kind-icon">_array<wbr>Normal<wbr>Matrices</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="skin.html#_arrayvertexmatrices" class="tsd-kind-icon">_array<wbr>Vertex<wbr>Matrices</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="skin.html#_jointmatrices" class="tsd-kind-icon">_joint<wbr>Matrices</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="skin.html#_jointnormalmatrices" class="tsd-kind-icon">_joint<wbr>Normal<wbr>Matrices</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="skin.html#_jointvertexmatrices" class="tsd-kind-icon">_joint<wbr>Vertex<wbr>Matrices</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="skin.html#_transformids" class="tsd-kind-icon">_transform<wbr>Ids</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="skin.html#jointmatrices" class="tsd-kind-icon">joint<wbr>Matrices</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="skin.html#jointnormalmatrices" class="tsd-kind-icon">joint<wbr>Normal<wbr>Matrices</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="skin.html#joints" class="tsd-kind-icon">joints</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="skin.html#parent" class="tsd-kind-icon">parent</a></li>
 							</ul>
@@ -123,7 +124,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/skinning/skin.ts#L8">src/skinning/skin.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/skinning/skin.ts#L17">src/skinning/skin.ts:17</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -158,44 +159,64 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_arraynormalmatrices" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _array<wbr>Normal<wbr>Matrices</h3>
-					<div class="tsd-signature tsd-kind-icon">_array<wbr>Normal<wbr>Matrices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
+					<a name="_jointmatrices" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _joint<wbr>Matrices</h3>
+					<div class="tsd-signature tsd-kind-icon">_joint<wbr>Matrices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/skinning/skin.ts#L26">src/skinning/skin.ts:26</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_arrayvertexmatrices" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _array<wbr>Vertex<wbr>Matrices</h3>
-					<div class="tsd-signature tsd-kind-icon">_array<wbr>Vertex<wbr>Matrices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/skinning/skin.ts#L24">src/skinning/skin.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/skinning/skin.ts#L9">src/skinning/skin.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_jointnormalmatrices" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _joint<wbr>Normal<wbr>Matrices</h3>
-					<div class="tsd-signature tsd-kind-icon">_joint<wbr>Normal<wbr>Matrices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span></div>
+					<div class="tsd-signature tsd-kind-icon">_joint<wbr>Normal<wbr>Matrices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/skinning/skin.ts#L25">src/skinning/skin.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/skinning/skin.ts#L10">src/skinning/skin.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_jointvertexmatrices" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _joint<wbr>Vertex<wbr>Matrices</h3>
-					<div class="tsd-signature tsd-kind-icon">_joint<wbr>Vertex<wbr>Matrices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span></div>
+					<a name="_transformids" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _transform<wbr>Ids</h3>
+					<div class="tsd-signature tsd-kind-icon">_transform<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/skinning/skin.ts#L23">src/skinning/skin.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/skinning/skin.ts#L11">src/skinning/skin.ts:11</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="jointmatrices" class="tsd-anchor"></a>
+					<h3>joint<wbr>Matrices</h3>
+					<div class="tsd-signature tsd-kind-icon">joint<wbr>Matrices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> = new Float32Array(this.joints.length * 16)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/skinning/skin.ts#L17">src/skinning/skin.ts:17</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The joint matrices which has been calculated.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="jointnormalmatrices" class="tsd-anchor"></a>
+					<h3>joint<wbr>Normal<wbr>Matrices</h3>
+					<div class="tsd-signature tsd-kind-icon">joint<wbr>Normal<wbr>Matrices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> = new Float32Array(this.joints.length * 16)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/skinning/skin.ts#L14">src/skinning/skin.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The joint normal matrices which has been calculated.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="joints" class="tsd-anchor"></a>
@@ -203,7 +224,7 @@
 					<div class="tsd-signature tsd-kind-icon">joints<span class="tsd-signature-symbol">:</span> <a href="joint.html" class="tsd-signature-type">Joint</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/skinning/skin.ts#L14">src/skinning/skin.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/skinning/skin.ts#L24">src/skinning/skin.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -218,7 +239,7 @@
 					<div class="tsd-signature tsd-kind-icon">parent<span class="tsd-signature-symbol">:</span> <a href="container3d.html" class="tsd-signature-type">Container3D</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/skinning/skin.ts#L14">src/skinning/skin.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/skinning/skin.ts#L24">src/skinning/skin.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -234,13 +255,13 @@
 					<a name="calculatejointmatrices" class="tsd-anchor"></a>
 					<h3>calculate<wbr>Joint<wbr>Matrices</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">calculate<wbr>Joint<wbr>Matrices<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>jointNormalMatrices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">; </span>jointVertexMatrices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">calculate<wbr>Joint<wbr>Matrices<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/skinning/skin.ts#L31">src/skinning/skin.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/skinning/skin.ts#L37">src/skinning/skin.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -248,15 +269,7 @@
 									<p>Calculates the joint matrices.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>jointNormalMatrices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol">; </span>jointVertexMatrices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> }</span></h4>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>joint<wbr>Normal<wbr>Matrices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>joint<wbr>Vertex<wbr>Matrices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32Array</span></h5>
-								</li>
-							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -281,16 +294,19 @@
 								<a href="skin.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="skin.html#_arraynormalmatrices" class="tsd-kind-icon">_array<wbr>Normal<wbr>Matrices</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="skin.html#_arrayvertexmatrices" class="tsd-kind-icon">_array<wbr>Vertex<wbr>Matrices</a>
+								<a href="skin.html#_jointmatrices" class="tsd-kind-icon">_joint<wbr>Matrices</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="skin.html#_jointnormalmatrices" class="tsd-kind-icon">_joint<wbr>Normal<wbr>Matrices</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="skin.html#_jointvertexmatrices" class="tsd-kind-icon">_joint<wbr>Vertex<wbr>Matrices</a>
+								<a href="skin.html#_transformids" class="tsd-kind-icon">_transform<wbr>Ids</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="skin.html#jointmatrices" class="tsd-kind-icon">joint<wbr>Matrices</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="skin.html#jointnormalmatrices" class="tsd-kind-icon">joint<wbr>Normal<wbr>Matrices</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="skin.html#joints" class="tsd-kind-icon">joints</a>

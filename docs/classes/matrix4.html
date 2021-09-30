@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TransformMatrix | Pixi3D - v0.9.8</title>
+	<title>Matrix4 | Pixi3D - v0.9.9</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.8</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.9</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="transformmatrix.html">TransformMatrix</a>
+					<a href="matrix4.html">Matrix4</a>
 				</li>
 			</ul>
-			<h1>Class TransformMatrix</h1>
+			<h1>Class Matrix4</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents the matrix for a transform.</p>
+						<p>Represents a 4x4 matrix.</p>
 					</div>
 				</div>
 			</section>
@@ -80,7 +80,7 @@
 						<span class="tsd-signature-type">Matrix</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">TransformMatrix</span>
+								<span class="target">Matrix4</span>
 							</li>
 						</ul>
 					</li>
@@ -99,71 +99,71 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="transformmatrix.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="matrix4.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_backward" class="tsd-kind-icon">_backward</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_down" class="tsd-kind-icon">_down</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_forward" class="tsd-kind-icon">_forward</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_left" class="tsd-kind-icon">_left</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_position" class="tsd-kind-icon">_position</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_right" class="tsd-kind-icon">_right</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_rotation" class="tsd-kind-icon">_rotation</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_scaling" class="tsd-kind-icon">_scaling</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_transformid" class="tsd-kind-icon">_transform<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="transformmatrix.html#_up" class="tsd-kind-icon">_up</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#a" class="tsd-kind-icon">a</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="transformmatrix.html#array" class="tsd-kind-icon">array</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#b" class="tsd-kind-icon">b</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#c" class="tsd-kind-icon">c</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#d" class="tsd-kind-icon">d</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#tx" class="tsd-kind-icon">tx</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#ty" class="tsd-kind-icon">ty</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_backward" class="tsd-kind-icon">_backward</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_down" class="tsd-kind-icon">_down</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_forward" class="tsd-kind-icon">_forward</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_left" class="tsd-kind-icon">_left</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_position" class="tsd-kind-icon">_position</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_right" class="tsd-kind-icon">_right</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_rotation" class="tsd-kind-icon">_rotation</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_scaling" class="tsd-kind-icon">_scaling</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_transformid" class="tsd-kind-icon">_transform<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="matrix4.html#_up" class="tsd-kind-icon">_up</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#a" class="tsd-kind-icon">a</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="matrix4.html#array" class="tsd-kind-icon">array</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#b" class="tsd-kind-icon">b</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#c" class="tsd-kind-icon">c</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#d" class="tsd-kind-icon">d</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#tx" class="tsd-kind-icon">tx</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#ty" class="tsd-kind-icon">ty</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#backward" class="tsd-kind-icon">backward</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#down" class="tsd-kind-icon">down</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#forward" class="tsd-kind-icon">forward</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#left" class="tsd-kind-icon">left</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#position" class="tsd-kind-icon">position</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#right" class="tsd-kind-icon">right</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#rotation" class="tsd-kind-icon">rotation</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#scaling" class="tsd-kind-icon">scaling</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#transformid" class="tsd-kind-icon">transform<wbr>Id</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="transformmatrix.html#up" class="tsd-kind-icon">up</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="transformmatrix.html#identity" class="tsd-kind-icon">IDENTITY</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="transformmatrix.html#temp_matrix" class="tsd-kind-icon">TEMP_<wbr>MATRIX</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#backward" class="tsd-kind-icon">backward</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#down" class="tsd-kind-icon">down</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#forward" class="tsd-kind-icon">forward</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#left" class="tsd-kind-icon">left</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#position" class="tsd-kind-icon">position</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#right" class="tsd-kind-icon">right</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#rotation" class="tsd-kind-icon">rotation</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#scaling" class="tsd-kind-icon">scaling</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#transformid" class="tsd-kind-icon">transform<wbr>Id</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="matrix4.html#up" class="tsd-kind-icon">up</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="matrix4.html#identity" class="tsd-kind-icon">IDENTITY</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="matrix4.html#temp_matrix" class="tsd-kind-icon">TEMP_<wbr>MATRIX</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#append" class="tsd-kind-icon">append</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="transformmatrix.html#apply" class="tsd-kind-icon">apply</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="transformmatrix.html#applyinverse" class="tsd-kind-icon">apply<wbr>Inverse</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#clone" class="tsd-kind-icon">clone</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="transformmatrix.html#copyfrom" class="tsd-kind-icon">copy<wbr>From</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#copyto" class="tsd-kind-icon">copy<wbr>To</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#decompose" class="tsd-kind-icon">decompose</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#fromarray" class="tsd-kind-icon">from<wbr>Array</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#identity-1" class="tsd-kind-icon">identity</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#invert" class="tsd-kind-icon">invert</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#prepend" class="tsd-kind-icon">prepend</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#rotate" class="tsd-kind-icon">rotate</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#scale" class="tsd-kind-icon">scale</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#set" class="tsd-kind-icon">set</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="transformmatrix.html#setfrommultiply" class="tsd-kind-icon">set<wbr>From<wbr>Multiply</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="transformmatrix.html#setfromrotationpositionscale" class="tsd-kind-icon">set<wbr>From<wbr>Rotation<wbr>Position<wbr>Scale</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#settransform" class="tsd-kind-icon">set<wbr>Transform</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="transformmatrix.html#toarray" class="tsd-kind-icon">to<wbr>Array</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="transformmatrix.html#translate" class="tsd-kind-icon">translate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#append" class="tsd-kind-icon">append</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="matrix4.html#apply" class="tsd-kind-icon">apply</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="matrix4.html#applyinverse" class="tsd-kind-icon">apply<wbr>Inverse</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#clone" class="tsd-kind-icon">clone</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="matrix4.html#copyfrom" class="tsd-kind-icon">copy<wbr>From</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#copyto" class="tsd-kind-icon">copy<wbr>To</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#decompose" class="tsd-kind-icon">decompose</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#fromarray" class="tsd-kind-icon">from<wbr>Array</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#identity-1" class="tsd-kind-icon">identity</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#invert" class="tsd-kind-icon">invert</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="matrix4.html#multiply" class="tsd-kind-icon">multiply</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#prepend" class="tsd-kind-icon">prepend</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#rotate" class="tsd-kind-icon">rotate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#scale" class="tsd-kind-icon">scale</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#set" class="tsd-kind-icon">set</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="matrix4.html#setfromrotationpositionscale" class="tsd-kind-icon">set<wbr>From<wbr>Rotation<wbr>Position<wbr>Scale</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#settransform" class="tsd-kind-icon">set<wbr>Transform</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="matrix4.html#toarray" class="tsd-kind-icon">to<wbr>Array</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="matrix4.html#translate" class="tsd-kind-icon">translate</a></li>
 							</ul>
 						</section>
 					</div>
@@ -175,14 +175,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Transform<wbr>Matrix<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ArrayLike</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Matrix4<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ArrayLike</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="matrix4.html" class="tsd-signature-type">Matrix4</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides Matrix.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L32">src/transform/transform-matrix.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L31">src/transform/matrix4.ts:31</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -202,7 +202,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="matrix4.html" class="tsd-signature-type">Matrix4</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -215,7 +215,7 @@
 					<div class="tsd-signature tsd-kind-icon">_backward<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L25">src/transform/transform-matrix.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L24">src/transform/matrix4.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -225,7 +225,7 @@
 					<div class="tsd-signature tsd-kind-icon">_down<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L21">src/transform/transform-matrix.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L20">src/transform/matrix4.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -235,7 +235,7 @@
 					<div class="tsd-signature tsd-kind-icon">_forward<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L22">src/transform/transform-matrix.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L21">src/transform/matrix4.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -245,7 +245,7 @@
 					<div class="tsd-signature tsd-kind-icon">_left<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L23">src/transform/transform-matrix.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L22">src/transform/matrix4.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -255,7 +255,7 @@
 					<div class="tsd-signature tsd-kind-icon">_position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L17">src/transform/transform-matrix.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L16">src/transform/matrix4.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -265,7 +265,7 @@
 					<div class="tsd-signature tsd-kind-icon">_right<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L24">src/transform/transform-matrix.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L23">src/transform/matrix4.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -275,7 +275,7 @@
 					<div class="tsd-signature tsd-kind-icon">_rotation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L19">src/transform/transform-matrix.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L18">src/transform/matrix4.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -285,7 +285,7 @@
 					<div class="tsd-signature tsd-kind-icon">_scaling<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L18">src/transform/transform-matrix.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L17">src/transform/matrix4.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -295,7 +295,7 @@
 					<div class="tsd-signature tsd-kind-icon">_transform<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L16">src/transform/transform-matrix.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L15">src/transform/matrix4.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -305,7 +305,7 @@
 					<div class="tsd-signature tsd-kind-icon">_up<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MatrixComponent</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L20">src/transform/transform-matrix.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L19">src/transform/matrix4.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -314,7 +314,7 @@
 					<h3>a</h3>
 					<div class="tsd-signature tsd-kind-icon">a<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#a">a</a></p>
+						<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#a">a</a></p>
 						<ul>
 							<li>Defined in node_modules/@pixi/math/index.d.ts:364</li>
 						</ul>
@@ -327,7 +327,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides Matrix.array</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L32">src/transform/transform-matrix.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L31">src/transform/matrix4.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -341,7 +341,7 @@
 					<h3>b</h3>
 					<div class="tsd-signature tsd-kind-icon">b<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#b">b</a></p>
+						<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#b">b</a></p>
 						<ul>
 							<li>Defined in node_modules/@pixi/math/index.d.ts:365</li>
 						</ul>
@@ -352,7 +352,7 @@
 					<h3>c</h3>
 					<div class="tsd-signature tsd-kind-icon">c<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#c">c</a></p>
+						<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#c">c</a></p>
 						<ul>
 							<li>Defined in node_modules/@pixi/math/index.d.ts:366</li>
 						</ul>
@@ -363,7 +363,7 @@
 					<h3>d</h3>
 					<div class="tsd-signature tsd-kind-icon">d<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#d">d</a></p>
+						<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#d">d</a></p>
 						<ul>
 							<li>Defined in node_modules/@pixi/math/index.d.ts:367</li>
 						</ul>
@@ -374,7 +374,7 @@
 					<h3>tx</h3>
 					<div class="tsd-signature tsd-kind-icon">tx<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#tx">tx</a></p>
+						<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#tx">tx</a></p>
 						<ul>
 							<li>Defined in node_modules/@pixi/math/index.d.ts:368</li>
 						</ul>
@@ -385,7 +385,7 @@
 					<h3>ty</h3>
 					<div class="tsd-signature tsd-kind-icon">ty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#ty">ty</a></p>
+						<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#ty">ty</a></p>
 						<ul>
 							<li>Defined in node_modules/@pixi/math/index.d.ts:369</li>
 						</ul>
@@ -404,7 +404,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L143">src/transform/transform-matrix.ts:143</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L142">src/transform/matrix4.ts:142</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -426,7 +426,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L103">src/transform/transform-matrix.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L102">src/transform/matrix4.ts:102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -448,7 +448,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L133">src/transform/transform-matrix.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L132">src/transform/matrix4.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -470,7 +470,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L123">src/transform/transform-matrix.ts:123</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L122">src/transform/matrix4.ts:122</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -492,7 +492,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L56">src/transform/transform-matrix.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L55">src/transform/matrix4.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -514,7 +514,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L113">src/transform/transform-matrix.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L112">src/transform/matrix4.ts:112</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -536,7 +536,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L76">src/transform/transform-matrix.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L75">src/transform/matrix4.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -558,7 +558,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L66">src/transform/transform-matrix.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L65">src/transform/matrix4.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -580,7 +580,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L27">src/transform/transform-matrix.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L26">src/transform/matrix4.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -597,7 +597,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L93">src/transform/transform-matrix.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L92">src/transform/matrix4.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -618,7 +618,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#identity">IDENTITY</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#identity">IDENTITY</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:531</li>
 								</ul>
@@ -650,7 +650,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#temp_matrix">TEMP_MATRIX</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#temp_matrix">TEMP_MATRIX</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:539</li>
 								</ul>
@@ -685,7 +685,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#append">append</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#append">append</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:461</li>
 								</ul>
@@ -718,7 +718,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#apply">apply</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#apply">apply</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:422</li>
 								</ul>
@@ -761,7 +761,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#applyinverse">applyInverse</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#applyinverse">applyInverse</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:431</li>
 								</ul>
@@ -804,7 +804,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#clone">clone</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#clone">clone</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:508</li>
 								</ul>
@@ -823,20 +823,20 @@
 					<a name="copyfrom" class="tsd-anchor"></a>
 					<h3>copy<wbr>From</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">copy<wbr>From<span class="tsd-signature-symbol">(</span>matrix<span class="tsd-signature-symbol">: </span><a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">copy<wbr>From<span class="tsd-signature-symbol">(</span>matrix<span class="tsd-signature-symbol">: </span><a href="matrix4.html" class="tsd-signature-type">Matrix4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides Matrix.copyFrom</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L152">src/transform/transform-matrix.ts:152</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L151">src/transform/matrix4.ts:151</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>matrix: <a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></h5>
+									<h5>matrix: <a href="matrix4.html" class="tsd-signature-type">Matrix4</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -852,7 +852,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#copyto">copyTo</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#copyto">copyTo</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:515</li>
 								</ul>
@@ -885,7 +885,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#decompose">decompose</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#decompose">decompose</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:490</li>
 								</ul>
@@ -918,7 +918,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#fromarray">fromArray</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#fromarray">fromArray</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:392</li>
 								</ul>
@@ -956,7 +956,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#identity-1">identity</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#identity-1">identity</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:502</li>
 								</ul>
@@ -980,7 +980,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#invert">invert</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#invert">invert</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:496</li>
 								</ul>
@@ -995,6 +995,37 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="multiply" class="tsd-anchor"></a>
+					<h3>multiply</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">multiply<span class="tsd-signature-symbol">(</span>matrix<span class="tsd-signature-symbol">: </span><a href="matrix4.html" class="tsd-signature-type">Matrix4</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L175">src/transform/matrix4.ts:175</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Multiplies this matrix with another matrix.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>matrix: <a href="matrix4.html" class="tsd-signature-type">Matrix4</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The matrix to multiply with.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="prepend" class="tsd-anchor"></a>
 					<h3>prepend</h3>
@@ -1004,7 +1035,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#prepend">prepend</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#prepend">prepend</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:483</li>
 								</ul>
@@ -1037,7 +1068,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#rotate">rotate</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#rotate">rotate</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:454</li>
 								</ul>
@@ -1070,7 +1101,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#scale">scale</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#scale">scale</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:447</li>
 								</ul>
@@ -1109,7 +1140,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#set">set</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#set">set</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:405</li>
 								</ul>
@@ -1164,43 +1195,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="setfrommultiply" class="tsd-anchor"></a>
-					<h3>set<wbr>From<wbr>Multiply</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>From<wbr>Multiply<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a>, b<span class="tsd-signature-symbol">: </span><a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L177">src/transform/transform-matrix.ts:177</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Sets the multiplication result of two matrix transforms.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>a: <a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The first operand.</p>
-									</div>
-								</li>
-								<li>
-									<h5>b: <a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The second operand.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="setfromrotationpositionscale" class="tsd-anchor"></a>
 					<h3>set<wbr>From<wbr>Rotation<wbr>Position<wbr>Scale</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -1210,7 +1204,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L165">src/transform/transform-matrix.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L164">src/transform/matrix4.ts:164</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1252,7 +1246,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#settransform">setTransform</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#settransform">setTransform</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:476</li>
 								</ul>
@@ -1335,7 +1329,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Matrix.toArray</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/transform/transform-matrix.ts#L48">src/transform/transform-matrix.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/transform/matrix4.ts#L47">src/transform/matrix4.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1360,7 +1354,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#tostring">toString</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#tostring">toString</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:523</li>
 								</ul>
@@ -1378,7 +1372,7 @@
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="transformmatrix.html">TransformMatrix</a>.<a href="transformmatrix.html#translate">translate</a></p>
+								<p>Inherited from <a href="matrix4.html">Matrix4</a>.<a href="matrix4.html#translate">translate</a></p>
 								<ul>
 									<li>Defined in node_modules/@pixi/math/index.d.ts:439</li>
 								</ul>
@@ -1423,157 +1417,157 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="transformmatrix.html" class="tsd-kind-icon">Transform<wbr>Matrix</a>
+						<a href="matrix4.html" class="tsd-kind-icon">Matrix4</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="transformmatrix.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="matrix4.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_backward" class="tsd-kind-icon">_backward</a>
+								<a href="matrix4.html#_backward" class="tsd-kind-icon">_backward</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_down" class="tsd-kind-icon">_down</a>
+								<a href="matrix4.html#_down" class="tsd-kind-icon">_down</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_forward" class="tsd-kind-icon">_forward</a>
+								<a href="matrix4.html#_forward" class="tsd-kind-icon">_forward</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_left" class="tsd-kind-icon">_left</a>
+								<a href="matrix4.html#_left" class="tsd-kind-icon">_left</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_position" class="tsd-kind-icon">_position</a>
+								<a href="matrix4.html#_position" class="tsd-kind-icon">_position</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_right" class="tsd-kind-icon">_right</a>
+								<a href="matrix4.html#_right" class="tsd-kind-icon">_right</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_rotation" class="tsd-kind-icon">_rotation</a>
+								<a href="matrix4.html#_rotation" class="tsd-kind-icon">_rotation</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_scaling" class="tsd-kind-icon">_scaling</a>
+								<a href="matrix4.html#_scaling" class="tsd-kind-icon">_scaling</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_transformid" class="tsd-kind-icon">_transform<wbr>Id</a>
+								<a href="matrix4.html#_transformid" class="tsd-kind-icon">_transform<wbr>Id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="transformmatrix.html#_up" class="tsd-kind-icon">_up</a>
+								<a href="matrix4.html#_up" class="tsd-kind-icon">_up</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#a" class="tsd-kind-icon">a</a>
+								<a href="matrix4.html#a" class="tsd-kind-icon">a</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
-								<a href="transformmatrix.html#array" class="tsd-kind-icon">array</a>
+								<a href="matrix4.html#array" class="tsd-kind-icon">array</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#b" class="tsd-kind-icon">b</a>
+								<a href="matrix4.html#b" class="tsd-kind-icon">b</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#c" class="tsd-kind-icon">c</a>
+								<a href="matrix4.html#c" class="tsd-kind-icon">c</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#d" class="tsd-kind-icon">d</a>
+								<a href="matrix4.html#d" class="tsd-kind-icon">d</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#tx" class="tsd-kind-icon">tx</a>
+								<a href="matrix4.html#tx" class="tsd-kind-icon">tx</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#ty" class="tsd-kind-icon">ty</a>
+								<a href="matrix4.html#ty" class="tsd-kind-icon">ty</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#backward" class="tsd-kind-icon">backward</a>
+								<a href="matrix4.html#backward" class="tsd-kind-icon">backward</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#down" class="tsd-kind-icon">down</a>
+								<a href="matrix4.html#down" class="tsd-kind-icon">down</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#forward" class="tsd-kind-icon">forward</a>
+								<a href="matrix4.html#forward" class="tsd-kind-icon">forward</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#left" class="tsd-kind-icon">left</a>
+								<a href="matrix4.html#left" class="tsd-kind-icon">left</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#position" class="tsd-kind-icon">position</a>
+								<a href="matrix4.html#position" class="tsd-kind-icon">position</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#right" class="tsd-kind-icon">right</a>
+								<a href="matrix4.html#right" class="tsd-kind-icon">right</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#rotation" class="tsd-kind-icon">rotation</a>
+								<a href="matrix4.html#rotation" class="tsd-kind-icon">rotation</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#scaling" class="tsd-kind-icon">scaling</a>
+								<a href="matrix4.html#scaling" class="tsd-kind-icon">scaling</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#transformid" class="tsd-kind-icon">transform<wbr>Id</a>
+								<a href="matrix4.html#transformid" class="tsd-kind-icon">transform<wbr>Id</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="transformmatrix.html#up" class="tsd-kind-icon">up</a>
+								<a href="matrix4.html#up" class="tsd-kind-icon">up</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-								<a href="transformmatrix.html#identity" class="tsd-kind-icon">IDENTITY</a>
+								<a href="matrix4.html#identity" class="tsd-kind-icon">IDENTITY</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-								<a href="transformmatrix.html#temp_matrix" class="tsd-kind-icon">TEMP_<wbr>MATRIX</a>
+								<a href="matrix4.html#temp_matrix" class="tsd-kind-icon">TEMP_<wbr>MATRIX</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#append" class="tsd-kind-icon">append</a>
+								<a href="matrix4.html#append" class="tsd-kind-icon">append</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-								<a href="transformmatrix.html#apply" class="tsd-kind-icon">apply</a>
+								<a href="matrix4.html#apply" class="tsd-kind-icon">apply</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-								<a href="transformmatrix.html#applyinverse" class="tsd-kind-icon">apply<wbr>Inverse</a>
+								<a href="matrix4.html#applyinverse" class="tsd-kind-icon">apply<wbr>Inverse</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#clone" class="tsd-kind-icon">clone</a>
+								<a href="matrix4.html#clone" class="tsd-kind-icon">clone</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="transformmatrix.html#copyfrom" class="tsd-kind-icon">copy<wbr>From</a>
+								<a href="matrix4.html#copyfrom" class="tsd-kind-icon">copy<wbr>From</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#copyto" class="tsd-kind-icon">copy<wbr>To</a>
+								<a href="matrix4.html#copyto" class="tsd-kind-icon">copy<wbr>To</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#decompose" class="tsd-kind-icon">decompose</a>
+								<a href="matrix4.html#decompose" class="tsd-kind-icon">decompose</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#fromarray" class="tsd-kind-icon">from<wbr>Array</a>
+								<a href="matrix4.html#fromarray" class="tsd-kind-icon">from<wbr>Array</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#identity-1" class="tsd-kind-icon">identity</a>
+								<a href="matrix4.html#identity-1" class="tsd-kind-icon">identity</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#invert" class="tsd-kind-icon">invert</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#prepend" class="tsd-kind-icon">prepend</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#rotate" class="tsd-kind-icon">rotate</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#scale" class="tsd-kind-icon">scale</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#set" class="tsd-kind-icon">set</a>
+								<a href="matrix4.html#invert" class="tsd-kind-icon">invert</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="transformmatrix.html#setfrommultiply" class="tsd-kind-icon">set<wbr>From<wbr>Multiply</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="transformmatrix.html#setfromrotationpositionscale" class="tsd-kind-icon">set<wbr>From<wbr>Rotation<wbr>Position<wbr>Scale</a>
+								<a href="matrix4.html#multiply" class="tsd-kind-icon">multiply</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#settransform" class="tsd-kind-icon">set<wbr>Transform</a>
+								<a href="matrix4.html#prepend" class="tsd-kind-icon">prepend</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="matrix4.html#rotate" class="tsd-kind-icon">rotate</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="matrix4.html#scale" class="tsd-kind-icon">scale</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="matrix4.html#set" class="tsd-kind-icon">set</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="matrix4.html#setfromrotationpositionscale" class="tsd-kind-icon">set<wbr>From<wbr>Rotation<wbr>Position<wbr>Scale</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="matrix4.html#settransform" class="tsd-kind-icon">set<wbr>Transform</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="transformmatrix.html#toarray" class="tsd-kind-icon">to<wbr>Array</a>
+								<a href="matrix4.html#toarray" class="tsd-kind-icon">to<wbr>Array</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
+								<a href="matrix4.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="transformmatrix.html#translate" class="tsd-kind-icon">translate</a>
+								<a href="matrix4.html#translate" class="tsd-kind-icon">translate</a>
 							</li>
 						</ul>
 					</li>

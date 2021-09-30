@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Mesh3D | Pixi3D - v0.9.8</title>
+	<title>Mesh3D | Pixi3D - v0.9.9</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Pixi3D - v0.9.8</a>
+					<a href="../index.html" class="title">Pixi3D - v0.9.9</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -108,12 +108,12 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="mesh3d.html#_instances" class="tsd-kind-icon">_instances</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mesh3d.html#enabledrenderpasses" class="tsd-kind-icon">enabled<wbr>Render<wbr>Passes</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mesh3d.html#geometry" class="tsd-kind-icon">geometry</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mesh3d.html#material" class="tsd-kind-icon">material</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mesh3d.html#morphweights" class="tsd-kind-icon">morph<wbr>Weights</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mesh3d.html#pluginname" class="tsd-kind-icon">plugin<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mesh3d.html#rendersortorder" class="tsd-kind-icon">render<wbr>Sort<wbr>Order</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mesh3d.html#skin" class="tsd-kind-icon">skin</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mesh3d.html#targetweights" class="tsd-kind-icon">target<wbr>Weights</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="mesh3d.html#transform" class="tsd-kind-icon">transform</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="mesh3d.html#prefixed" class="tsd-kind-icon">prefixed</a></li>
 							</ul>
@@ -153,7 +153,12 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="mesh3d.html#createcube" class="tsd-kind-icon">create<wbr>Cube</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="mesh3d.html#createplane" class="tsd-kind-icon">create<wbr>Plane</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="mesh3d.html#createquad" class="tsd-kind-icon">create<wbr>Quad</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="mesh3d.html#isinstancingsupported" class="tsd-kind-icon">is<wbr>Instancing<wbr>Supported</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal tsd-parent-kind-class"><a href="mesh3d.html#enabledrenderpasses" class="tsd-kind-icon">enabled<wbr>Render<wbr>Passes</a></li>
 							</ul>
 						</section>
 					</div>
@@ -171,7 +176,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L29">src/mesh/mesh.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L31">src/mesh/mesh.ts:31</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -208,27 +213,12 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_instances" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _instances</h3>
-					<div class="tsd-signature tsd-kind-icon">_instances<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">InstancedMesh3D</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
+					<div class="tsd-signature tsd-kind-icon">_instances<span class="tsd-signature-symbol">:</span> <a href="instancedmesh3d.html" class="tsd-signature-type">InstancedMesh3D</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L51">src/mesh/mesh.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L45">src/mesh/mesh.ts:45</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="enabledrenderpasses" class="tsd-anchor"></a>
-					<h3>enabled<wbr>Render<wbr>Passes</h3>
-					<div class="tsd-signature tsd-kind-icon">enabled<wbr>Render<wbr>Passes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [&quot;material&quot;]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L29">src/mesh/mesh.ts:29</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The enabled render passes for this mesh.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="geometry" class="tsd-anchor"></a>
@@ -236,7 +226,7 @@
 					<div class="tsd-signature tsd-kind-icon">geometry<span class="tsd-signature-symbol">:</span> <a href="meshgeometry3d.html" class="tsd-signature-type">MeshGeometry3D</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L36">src/mesh/mesh.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L38">src/mesh/mesh.ts:38</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -251,7 +241,7 @@
 					<div class="tsd-signature tsd-kind-icon">material<span class="tsd-signature-symbol">:</span> <a href="material.html" class="tsd-signature-type">Material</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L36">src/mesh/mesh.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L38">src/mesh/mesh.ts:38</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -261,27 +251,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="morphweights" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> morph<wbr>Weights</h3>
-					<div class="tsd-signature tsd-kind-icon">morph<wbr>Weights<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L23">src/mesh/mesh.ts:23</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Array of weights used for morphing between geometry targets.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="pluginname" class="tsd-anchor"></a>
 					<h3>plugin<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">plugin<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;pipeline&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L20">src/mesh/mesh.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L19">src/mesh/mesh.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -291,17 +266,47 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="rendersortorder" class="tsd-anchor"></a>
+					<h3>render<wbr>Sort<wbr>Order</h3>
+					<div class="tsd-signature tsd-kind-icon">render<wbr>Sort<wbr>Order<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L31">src/mesh/mesh.ts:31</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Used for sorting the mesh before render.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="skin" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> skin</h3>
 					<div class="tsd-signature tsd-kind-icon">skin<span class="tsd-signature-symbol">:</span> <a href="skin.html" class="tsd-signature-type">Skin</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L26">src/mesh/mesh.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L25">src/mesh/mesh.ts:25</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The skin used for vertex skinning.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="targetweights" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> target<wbr>Weights</h3>
+					<div class="tsd-signature tsd-kind-icon">target<wbr>Weights<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L22">src/mesh/mesh.ts:22</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Array of weights used for morphing between geometry targets.</p>
 						</div>
 					</div>
 				</section>
@@ -312,7 +317,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#transform">transform</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L11">src/container.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L11">src/container.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -334,13 +339,13 @@
 					<a name="instances" class="tsd-anchor"></a>
 					<h3>instances</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> instances<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InstancedMesh3D</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> instances<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="instancedmesh3d.html" class="tsd-signature-type">InstancedMesh3D</a><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L54">src/mesh/mesh.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L48">src/mesh/mesh.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -348,7 +353,7 @@
 									<p>An array of instances created from this mesh.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">InstancedMesh3D</span><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="instancedmesh3d.html" class="tsd-signature-type">InstancedMesh3D</a><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -356,17 +361,17 @@
 					<a name="localtransform" class="tsd-anchor"></a>
 					<h3>local<wbr>Transform</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> localTransform<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> localTransform<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="matrix4.html" class="tsd-signature-type">Matrix4</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#localtransform">localTransform</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L48">src/container.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L48">src/container.ts:48</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="matrix4.html" class="tsd-signature-type">Matrix4</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -382,7 +387,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#position">position</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L17">src/container.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L17">src/container.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="observablepoint3d.html" class="tsd-signature-type">ObservablePoint3D</a></h4>
@@ -391,7 +396,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#position">position</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L13">src/container.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L13">src/container.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -416,7 +421,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#rotationquaternion">rotationQuaternion</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L34">src/container.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L34">src/container.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -430,7 +435,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#rotationquaternion">rotationQuaternion</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L29">src/container.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L29">src/container.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -460,7 +465,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#scale">scale</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L25">src/container.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L25">src/container.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="observablepoint3d.html" class="tsd-signature-type">ObservablePoint3D</a></h4>
@@ -469,7 +474,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#scale">scale</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L21">src/container.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L21">src/container.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -486,17 +491,17 @@
 					<a name="worldtransform" class="tsd-anchor"></a>
 					<h3>world<wbr>Transform</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> worldTransform<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> worldTransform<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="matrix4.html" class="tsd-signature-type">Matrix4</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#worldtransform">worldTransform</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L52">src/container.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L52">src/container.ts:52</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="transformmatrix.html" class="tsd-signature-type">TransformMatrix</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="matrix4.html" class="tsd-signature-type">Matrix4</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -512,7 +517,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#z">z</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L40">src/container.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L40">src/container.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -527,7 +532,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="container3d.html">Container3D</a>.<a href="container3d.html#z">z</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/container.ts#L44">src/container.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/container.ts#L44">src/container.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -559,7 +564,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L121">src/mesh/mesh.ts:121</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L119">src/mesh/mesh.ts:119</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -606,13 +611,13 @@
 					<a name="createinstance" class="tsd-anchor"></a>
 					<h3>create<wbr>Instance</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Instance<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InstancedMesh3D</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Instance<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="instancedmesh3d.html" class="tsd-signature-type">InstancedMesh3D</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L61">src/mesh/mesh.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L55">src/mesh/mesh.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -620,7 +625,7 @@
 									<p>Creates a new instance of this mesh.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">InstancedMesh3D</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="instancedmesh3d.html" class="tsd-signature-type">InstancedMesh3D</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -628,13 +633,13 @@
 					<a name="destroy" class="tsd-anchor"></a>
 					<h3>destroy</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/meshdestroyoptions.html" class="tsd-signature-type">MeshDestroyOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L113">src/mesh/mesh.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L107">src/mesh/mesh.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -642,6 +647,12 @@
 									<p>Destroys the mesh and it&#39;s used resources.</p>
 								</div>
 							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/meshdestroyoptions.html" class="tsd-signature-type">MeshDestroyOptions</a></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -656,7 +667,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L95">src/mesh/mesh.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L90">src/mesh/mesh.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -713,13 +724,13 @@
 					<a name="enablerenderpass" class="tsd-anchor"></a>
 					<h3>enable<wbr>Render<wbr>Pass</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">enable<wbr>Render<wbr>Pass<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">enable<wbr>Render<wbr>Pass<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L85">src/mesh/mesh.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L79">src/mesh/mesh.ts:79</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -734,6 +745,9 @@
 									<div class="tsd-comment tsd-typography">
 										<p>The name of the render pass to enable.</p>
 									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">unknown</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -774,7 +788,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L106">src/mesh/mesh.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L100">src/mesh/mesh.ts:100</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -989,24 +1003,24 @@
 					<a name="removeinstance" class="tsd-anchor"></a>
 					<h3>remove<wbr>Instance</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">remove<wbr>Instance<span class="tsd-signature-symbol">(</span>instance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">InstancedMesh3D</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>Instance<span class="tsd-signature-symbol">(</span>instance<span class="tsd-signature-symbol">: </span><a href="instancedmesh3d.html" class="tsd-signature-type">InstancedMesh3D</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L74">src/mesh/mesh.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L68">src/mesh/mesh.ts:68</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Removes a instanced mesh from this mesh.</p>
+									<p>Removes an instance from this mesh.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>instance: <span class="tsd-signature-type">InstancedMesh3D</span></h5>
+									<h5>instance: <a href="instancedmesh3d.html" class="tsd-signature-type">InstancedMesh3D</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The instance to remove.</p>
 									</div>
@@ -1064,7 +1078,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L140">src/mesh/mesh.ts:140</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L141">src/mesh/mesh.ts:141</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1095,7 +1109,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L148">src/mesh/mesh.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L149">src/mesh/mesh.ts:149</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1126,7 +1140,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L132">src/mesh/mesh.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L133">src/mesh/mesh.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1147,36 +1161,38 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="isinstancingsupported" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Instancing<wbr>Supported</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Instancing<wbr>Supported<span class="tsd-signature-symbol">(</span>renderer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Renderer</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/3e863ab/src/mesh/mesh.ts#L47">src/mesh/mesh.ts:47</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns a value indicating if specified renderer supports instancing.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>renderer: <span class="tsd-signature-type">Renderer</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The renderer.</p>
-									</div>
-								</li>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class">
+					<a name="enabledrenderpasses" class="tsd-anchor"></a>
+					<h3>enabled<wbr>Render<wbr>Passes</h3>
+					<div class="tsd-signature tsd-kind-icon">enabled<wbr>Render<wbr>Passes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L28">src/mesh/mesh.ts:28</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The enabled render passes for this mesh.</p>
+						</div>
+					</div>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="enabledrenderpasses.material-1" class="tsd-anchor"></a>
+						<h3>material</h3>
+						<div class="tsd-signature tsd-kind-icon">material<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/jnsmalm/pixi3d/blob/af57021/src/mesh/mesh.ts#L28">src/mesh/mesh.ts:28</a></li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
+						</aside>
+						<div class="tsd-type-declaration">
+							<h4>Type declaration</h4>
+							<ul class="tsd-parameters">
+							</ul>
+						</div>
+					</section>
 				</section>
 			</section>
 		</div>
@@ -1202,22 +1218,22 @@
 								<a href="mesh3d.html#_instances" class="tsd-kind-icon">_instances</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="mesh3d.html#enabledrenderpasses" class="tsd-kind-icon">enabled<wbr>Render<wbr>Passes</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="mesh3d.html#geometry" class="tsd-kind-icon">geometry</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="mesh3d.html#material" class="tsd-kind-icon">material</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="mesh3d.html#morphweights" class="tsd-kind-icon">morph<wbr>Weights</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="mesh3d.html#pluginname" class="tsd-kind-icon">plugin<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="mesh3d.html#rendersortorder" class="tsd-kind-icon">render<wbr>Sort<wbr>Order</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="mesh3d.html#skin" class="tsd-kind-icon">skin</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="mesh3d.html#targetweights" class="tsd-kind-icon">target<wbr>Weights</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="mesh3d.html#transform" class="tsd-kind-icon">transform</a>
@@ -1306,8 +1322,8 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="mesh3d.html#createquad" class="tsd-kind-icon">create<wbr>Quad</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="mesh3d.html#isinstancingsupported" class="tsd-kind-icon">is<wbr>Instancing<wbr>Supported</a>
+							<li class=" tsd-kind-object-literal tsd-parent-kind-class">
+								<a href="mesh3d.html#enabledrenderpasses" class="tsd-kind-icon">enabled<wbr>Render<wbr>Passes</a>
 							</li>
 						</ul>
 					</li>

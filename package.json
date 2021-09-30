@@ -1,6 +1,6 @@
 {
   "name": "pixi3d",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "The 3D renderer for PixiJS. Seamless integration with 2D applications.",
   "main": "dist/pixi3d.js",
   "files": [
