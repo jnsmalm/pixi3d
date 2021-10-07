@@ -12,13 +12,16 @@ export class SkinningShader extends ShadowShader {
     return this._maxSupportedJoints
   }
 
-  constructor(renderer: Renderer) {
+  static getMaxJointCount(renderer: Renderer) {
     let uniformsRequiredForOtherFeatures = 8
     let availableVertexUniforms =
       Capabilities.getMaxVertexUniformVectors(renderer) - uniformsRequiredForOtherFeatures
     let uniformsRequiredPerJoint = 4
-    let maxJointCount = Math.floor(availableVertexUniforms / uniformsRequiredPerJoint)
+    return Math.floor(availableVertexUniforms / uniformsRequiredPerJoint)
+  }
 
+  constructor(renderer: Renderer) {
+    const maxJointCount = SkinningShader.getMaxJointCount(renderer)
     super(renderer, ["USE_SKINNING 1", "MAX_JOINT_COUNT " + maxJointCount])
     this._maxSupportedJoints = maxJointCount
   }

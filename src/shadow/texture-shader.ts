@@ -14,6 +14,10 @@ export class TextureShader extends ShadowShader {
     return StandardMaterialMatrixTexture.isSupported(renderer)
   }
 
+  get maxSupportedJoints() {
+    return MAX_SUPPORTED_JOINTS
+  }
+
   constructor(renderer: Renderer) {
     super(renderer, [
       "USE_SKINNING 1", "USE_SKINNING_TEXTURE 1", "MAX_JOINT_COUNT " + MAX_SUPPORTED_JOINTS

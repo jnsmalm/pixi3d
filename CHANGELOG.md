@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Debug object which can be used to more easily debug on mobile devices.
+
+### Changed
+- Vertex skinning now uses textures for joint matrices as default.
+- Better error handling when vertex skinning is not supported on device/environment.
+
 ## [0.9.9] - 2021-09-30
 ### Added
 - Added `Sprite3D` which works like regular PixiJS 2D sprites but in 3D space.

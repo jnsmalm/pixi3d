@@ -1,3 +1,5 @@
+PIXI.settings.PREFER_ENV = PIXI.ENV.WEBGL2
+
 let app = new PIXI.Application({
   backgroundColor: 0xdddddd, resizeTo: window, antialias: true
 })

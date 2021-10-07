@@ -6,7 +6,7 @@ export class StandardMaterialMatrixTexture extends Texture {
   private _buffer: Float32Array
 
   static isSupported(renderer: Renderer) {
-    return Capabilities.isFloatTextureSupported(renderer)
+    return Capabilities.isFloatingPointTextureSupported(renderer)
   }
 
   constructor(matrixCount: number) {
@@ -24,10 +24,7 @@ export class StandardMaterialMatrixTexture extends Texture {
   }
 
   updateBuffer(buffer: Float32Array) {
-    for (let i = 0; i < buffer.length; i++) {
-      // Normalize the values between 0 and 1 because textures can't have negative values
-      this._buffer[i] = (buffer[i] + 1) / 2
-    }
+    this._buffer.set(buffer)
     this.baseTexture.resource.update()
   }
 }

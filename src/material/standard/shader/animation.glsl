@@ -103,10 +103,10 @@ mat4 getJointMatrix(float boneNdx) {
     #ifdef USE_SKINNING_TEXTURE
     float v = (boneNdx + 0.5) / float(JOINT_COUNT);
     return mat4(
-        _texture(u_jointMatrixSampler, vec2(ROW0_U, v)) * 2.0 - 1.0,
-        _texture(u_jointMatrixSampler, vec2(ROW1_U, v)) * 2.0 - 1.0,
-        _texture(u_jointMatrixSampler, vec2(ROW2_U, v)) * 2.0 - 1.0,
-        _texture(u_jointMatrixSampler, vec2(ROW3_U, v)) * 2.0 - 1.0
+        _texture(u_jointMatrixSampler, vec2(ROW0_U, v)),
+        _texture(u_jointMatrixSampler, vec2(ROW1_U, v)),
+        _texture(u_jointMatrixSampler, vec2(ROW2_U, v)),
+        _texture(u_jointMatrixSampler, vec2(ROW3_U, v))
     );
     #else
     return u_jointMatrix[int(boneNdx)];
@@ -117,10 +117,10 @@ mat4 getJointNormalMatrix(float boneNdx) {
     #ifdef USE_SKINNING_TEXTURE
     float v = (boneNdx + 0.5) / float(JOINT_COUNT);
     return mat4(
-        _texture(u_jointNormalMatrixSampler, vec2(ROW0_U, v)) * 2.0 - 1.0,
-        _texture(u_jointNormalMatrixSampler, vec2(ROW1_U, v)) * 2.0 - 1.0,
-        _texture(u_jointNormalMatrixSampler, vec2(ROW2_U, v)) * 2.0 - 1.0,
-        _texture(u_jointNormalMatrixSampler, vec2(ROW3_U, v)) * 2.0 - 1.0
+        _texture(u_jointNormalMatrixSampler, vec2(ROW0_U, v)),
+        _texture(u_jointNormalMatrixSampler, vec2(ROW1_U, v)),
+        _texture(u_jointNormalMatrixSampler, vec2(ROW2_U, v)),
+        _texture(u_jointNormalMatrixSampler, vec2(ROW3_U, v))
     );
     #else
     return u_jointNormalMatrix[int(boneNdx)];

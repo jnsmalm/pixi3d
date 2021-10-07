@@ -15,6 +15,10 @@ export class ShadowShader extends MeshShader {
       StandardShaderSource.build(frag, features, renderer)))
   }
 
+  get maxSupportedJoints() {
+    return 0
+  }
+
   createShaderGeometry(geometry: MeshGeometry3D) {
     let result = new Geometry()
     if (geometry.indices) {

@@ -4,6 +4,8 @@ import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"
 import { SkinningShader } from "./skinning-shader"
 import { TextureShader } from "./texture-shader"
+import { Debug } from ".."
+import { Message } from "../message"
 
 export class ShadowRenderer {
   private _state = Object.assign(new State(), {
@@ -17,20 +19,27 @@ export class ShadowRenderer {
     this._shadowShader = new ShadowShader(this.renderer)
   }
 
+  getSkinningShader() {
+    if (this._textureShader || this._skinningShader) {
+      return this._textureShader || this._skinningShader
+    }
+    if (TextureShader.isSupported(this.renderer)) {
+      this._textureShader = new TextureShader(this.renderer)
+    } else {
+      Debug.warn(Message.meshVertexSkinningFloatingPointTexturesNotSupported)
+      this._skinningShader = new SkinningShader(this.renderer)
+    }
+    return this._textureShader || this._skinningShader
+  }
+
   render(mesh: Mesh3D, shadowCastingLight: ShadowCastingLight) {
     let shader: ShadowShader | undefined = this._shadowShader
-    if (mesh.skin && mesh.geometry.joints && mesh.geometry.weights) {
-      if (!this._skinningShader) {
-        this._skinningShader = new SkinningShader(this.renderer)
-      }
-      shader = this._skinningShader
-      if (mesh.skin.joints.length > this._skinningShader.maxSupportedJoints) {
-        if (!this._textureShader) {
-          if (TextureShader.isSupported(this.renderer)) {
-            this._textureShader = new TextureShader(this.renderer)
-          }
-        }
-        shader = this._textureShader
+    if (mesh.skin) {
+      let skinningShader = this.getSkinningShader()
+      if (skinningShader && mesh.skin.joints.length > skinningShader.maxSupportedJoints) {
+        Debug.error(Message.meshVertexSkinningNumberOfJointsNotSupported)
+      } else {
+        shader = skinningShader
       }
     }
     if (shader) {

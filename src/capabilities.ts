@@ -14,7 +14,7 @@ export namespace Capabilities {
 
   let _isFloatTextureSupported: boolean | undefined
 
-  export function isFloatTextureSupported(renderer: Renderer) {
+  export function isFloatingPointTextureSupported(renderer: Renderer) {
     if (renderer.context.webGLVersion === 2) {
       return true
     }
@@ -22,15 +22,7 @@ export namespace Capabilities {
       return _isFloatTextureSupported
     }
     const gl = renderer.gl
-    const ext = gl.getExtension("OES_texture_float")
-    if (ext) {
-      return true
-    }
-    const texture = gl.createTexture()
-    gl.bindTexture(gl.TEXTURE_2D, texture)
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 8, 8, 0, gl.RGBA, gl.FLOAT, null)
-    _isFloatTextureSupported = gl.getError() === gl.NO_ERROR
-    gl.deleteTexture(texture)
+    _isFloatTextureSupported = !!gl.getExtension("OES_texture_float")
     return _isFloatTextureSupported
   }
 

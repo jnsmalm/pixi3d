@@ -16,6 +16,7 @@ import { StandardMaterialOcclusionTexture } from "./standard-material-occlusion-
 import { StandardMaterialNormalTexture } from "./standard-material-normal-texture"
 import { StandardMaterialTexture } from "./standard-material-texture"
 import { StandardMaterialFactory } from "./standard-material-factory"
+import { Debug } from "../.."
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -243,7 +244,7 @@ export class StandardMaterial extends Material {
       let extensions = ["EXT_shader_texture_lod", "OES_standard_derivatives"]
       for (let ext of extensions) {
         if (!renderer.gl.getExtension(ext)) {
-          console.warn(`PIXI3D: Extension "${ext}" is not supported by current platform, the material may not be displayed correctly.`)
+          // Log warning?
         }
       }
     }
