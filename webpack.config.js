@@ -1,3 +1,6 @@
+const package = require('./package.json')
+const webpack = require("webpack")
+
 const shared = {
   entry: "./src/index.ts",
   module: {
@@ -24,6 +27,9 @@ const shared = {
       }
     ]
   },
+  plugins: [
+    new webpack.BannerPlugin({ banner: `Pixi3D v${package.version}` })
+  ],
   resolve: {
     extensions: [".ts", ".js", ".glsl", ".vert", ".frag"]
   },
