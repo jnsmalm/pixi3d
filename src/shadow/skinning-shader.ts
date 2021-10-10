@@ -21,7 +21,9 @@ export class SkinningShader extends ShadowShader {
   }
 
   constructor(renderer: Renderer) {
-    const maxJointCount = SkinningShader.getMaxJointCount(renderer)
+    // When setting the MAX_JOINT_COUNT, it needs to be subtracted by 1 for
+    // some reason. Otherwise it will exceeed maximum vertex uniforms.
+    const maxJointCount = SkinningShader.getMaxJointCount(renderer) - 1
     super(renderer, ["USE_SKINNING 1", "MAX_JOINT_COUNT " + maxJointCount])
     this._maxSupportedJoints = maxJointCount
   }

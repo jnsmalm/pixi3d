@@ -9,21 +9,30 @@ export namespace Debug {
     eventEmitter.on(event, fn, context)
   }
 
-  export function warn(message: Message) {
-    if (messages.includes(message)) {
-      return
+  export function warn(message: Message, args?: any) {
+    if (!messages.includes(message)) {
+      messages.push(message)
+      let formatted = formatMessage(message, args)
+      console.warn(`PIXI3D: ${formatted}`)
+      eventEmitter.emit("warn", formatted)
     }
-    messages.push(message)
-    console.warn(`PIXI3D: ${message}`)
-    eventEmitter.emit("warn", message)
   }
 
-  export function error(message: Message) {
-    if (messages.includes(message)) {
-      return
+  export function error(message: Message, args?: any) {
+    if (!messages.includes(message)) {
+      messages.push(message)
+      let formatted = formatMessage(message, args)
+      console.error(`PIXI3D: ${formatted}`)
+      eventEmitter.emit("error", formatted)
     }
-    messages.push(message)
-    console.error(`PIXI3D: ${message}`)
-    eventEmitter.emit("error", message)
+  }
+
+  function formatMessage(message: Message, args?: any) {
+    let formatted = <string>message
+    let match: RegExpExecArray | null
+    while ((match = /{(\w*)}/g.exec(formatted)) !== null && args) {
+      formatted = formatted.replace(match[0], args[match[1]])
+    }
+    return formatted
   }
 }

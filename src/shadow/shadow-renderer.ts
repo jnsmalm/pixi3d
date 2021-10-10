@@ -37,7 +37,10 @@ export class ShadowRenderer {
     if (mesh.skin) {
       let skinningShader = this.getSkinningShader()
       if (skinningShader && mesh.skin.joints.length > skinningShader.maxSupportedJoints) {
-        Debug.error(Message.meshVertexSkinningNumberOfJointsNotSupported)
+        Debug.error(Message.meshVertexSkinningNumberOfJointsNotSupported, {
+          joints: mesh.skin.joints.length,
+          maxJoints: skinningShader.maxSupportedJoints
+        })
       } else {
         shader = skinningShader
       }

@@ -1,4 +1,4 @@
-import { Renderer } from "pixi.js"
+import { Renderer, settings } from "pixi.js"
 import { MeshGeometry3D } from "../../mesh/geometry/mesh-geometry"
 import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
@@ -178,22 +178,49 @@ export namespace StandardMaterialFeatureSet {
     if (!mesh.skin) {
       return
     }
-    if (StandardMaterialMatrixTexture.isSupported(renderer)) {
+    let uniformsRequiredForOtherFeatures = 20
+    let availableVertexUniforms =
+      Capabilities.getMaxVertexUniformVectors(renderer) - uniformsRequiredForOtherFeatures
+    let uniformsRequiredPerJoint = 8 // 4 per matrix times 2 (matrices and normals)
+    let maxJointCount = Math.floor(availableVertexUniforms / uniformsRequiredPerJoint)
+    let uniformsSupported = mesh.skin.joints.length <= maxJointCount
+
+    const addFeatureSetForUniforms = () => {
       features.push("USE_SKINNING 1")
-      features.push(`JOINT_COUNT ${mesh.skin.joints.length}`)
+      features.push(`JOINT_COUNT ${mesh.skin?.joints.length}`)
+    }
+
+    const addFeatureSetForTextures = () => {
+      features.push("USE_SKINNING 1")
+      features.push(`JOINT_COUNT ${mesh.skin?.joints.length}`)
       features.push("USE_SKINNING_TEXTURE 1")
-    } else {
-      Debug.warn(Message.meshVertexSkinningFloatingPointTexturesNotSupported)
-      let uniformsRequiredForOtherFeatures = 20
-      let availableVertexUniforms =
-        Capabilities.getMaxVertexUniformVectors(renderer) - uniformsRequiredForOtherFeatures
-      let uniformsRequiredPerJoint = 8 // 4 per matrix times 2 (matrices and normals)
-      let maxJointCount = Math.floor(availableVertexUniforms / uniformsRequiredPerJoint)
-      if (mesh.skin.joints.length > maxJointCount) {
-        Debug.error(Message.meshVertexSkinningNumberOfJointsNotSupported)
+    }
+
+    // @ts-ignore Use PixiJS's already existing settings object for now.
+    if (settings.PREFER_UNIFORMS_WHEN_UPLOADING_SKIN_JOINTS) {
+      if (uniformsSupported) {
+        addFeatureSetForUniforms(); return
+      }
+      if (StandardMaterialMatrixTexture.isSupported(renderer)) {
+        addFeatureSetForTextures(); return
       } else {
-        features.push("USE_SKINNING 1")
-        features.push(`JOINT_COUNT ${mesh.skin.joints.length}`)
+        Debug.error(Message.meshVertexSkinningNumberOfJointsNotSupported, {
+          joints: mesh.skin.joints.length,
+          maxJoints: maxJointCount
+        })
+      }
+    } else {
+      if (StandardMaterialMatrixTexture.isSupported(renderer)) {
+        addFeatureSetForTextures(); return
+      }
+      Debug.warn(Message.meshVertexSkinningFloatingPointTexturesNotSupported)
+      if (uniformsSupported) {
+        addFeatureSetForUniforms()
+      } else {
+        Debug.error(Message.meshVertexSkinningNumberOfJointsNotSupported, {
+          joints: mesh.skin.joints.length,
+          maxJoints: maxJointCount
+        })
       }
     }
   }
