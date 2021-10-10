@@ -16,9 +16,13 @@ import { StandardMaterialOcclusionTexture } from "./standard-material-occlusion-
 import { StandardMaterialNormalTexture } from "./standard-material-normal-texture"
 import { StandardMaterialTexture } from "./standard-material-texture"
 import { StandardMaterialFactory } from "./standard-material-factory"
-import { Debug } from "../.."
+import { ImageBasedLighting } from "../.."
 
 const shaders: { [features: string]: StandardShader } = {}
+
+const getLightingEnvironmentConfigId = (env?: LightingEnvironment) => {
+  return env ? (env.lights.length + (env.imageBasedLighting ? 0.5 : 0)) : 0
+}
 
 /**
  * The standard material is using Physically-Based Rendering (PBR) which makes 
@@ -27,6 +31,7 @@ const shaders: { [features: string]: StandardShader } = {}
  */
 export class StandardMaterial extends Material {
   private _lightingEnvironment?: LightingEnvironment
+  private _lightingEnvironmentConfigId = 0
   private _unlit = false
   private _alphaMode = StandardMaterialAlphaMode.opaque
   private _debugMode?: StandardMaterialDebugMode
@@ -37,7 +42,6 @@ export class StandardMaterial extends Material {
   private _emissiveTexture?: StandardMaterialTexture
   private _metallicRoughnessTexture?: StandardMaterialTexture
   private _shadowCastingLight?: ShadowCastingLight
-  private _lightsCount?: number
   private _instancingEnabled = false
 
   private _skinUniforms = new StandardMaterialSkinUniforms()
@@ -173,6 +177,7 @@ export class StandardMaterial extends Material {
   set lightingEnvironment(value: LightingEnvironment | undefined) {
     if (value !== this._lightingEnvironment) {
       this.invalidateShader()
+      this._lightingEnvironmentConfigId = getLightingEnvironmentConfigId(value)
       this._lightingEnvironment = value
     }
   }
@@ -222,11 +227,12 @@ export class StandardMaterial extends Material {
       this.invalidateShader()
       this._instancingEnabled = mesh.instances.length > 0
     }
-    let lightingEnvironment = this.lightingEnvironment || LightingEnvironment.main
-    if (lightingEnvironment.lights.length !== this._lightsCount) {
-      // Invalidate shader when the number of punctual lights has changed.
+    let lighting = this.lightingEnvironment || LightingEnvironment.main
+    let configId = getLightingEnvironmentConfigId(lighting)
+    if (configId !== this._lightingEnvironmentConfigId) {
+      // Invalidate shader when the lighting config has changed.
       this.invalidateShader()
-      this._lightsCount = lightingEnvironment.lights.length
+      this._lightingEnvironmentConfigId = configId
     }
     super.render(mesh, renderer)
   }
@@ -319,7 +325,7 @@ export class StandardMaterial extends Material {
     if (imageBasedLighting?.valid) {
       shader.uniforms.u_DiffuseEnvSampler = imageBasedLighting.diffuse
       shader.uniforms.u_SpecularEnvSampler = imageBasedLighting.specular
-      shader.uniforms.u_brdfLUT = imageBasedLighting.brdf
+      shader.uniforms.u_brdfLUT = imageBasedLighting.lookupBrdf || ImageBasedLighting.defaultLookupBrdf
       shader.uniforms.u_MipCount = imageBasedLighting.specular.levels - 1
     }
     if (this.emissiveTexture?.valid) {

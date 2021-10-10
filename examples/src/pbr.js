@@ -19,10 +19,7 @@ app.loader.load((loader, resources) => {
   model.scale.set(15)
   model.rotationQuaternion.setEulerAngles(0, -30, 20)
 
-  let imageBasedLighting = new PIXI3D.ImageBasedLighting(
+  PIXI3D.LightingEnvironment.main.imageBasedLighting = new PIXI3D.ImageBasedLighting(
     resources["diffuse.cubemap"].cubemap,
     resources["specular.cubemap"].cubemap)
-
-  PIXI3D.LightingEnvironment.main =
-    new PIXI3D.LightingEnvironment(app.renderer, imageBasedLighting)
 })

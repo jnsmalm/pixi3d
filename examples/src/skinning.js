@@ -28,12 +28,9 @@ app.loader.load((loader, resources) => {
   ground.material.roughness = 0.5
   ground.material.metallic = 0
 
-  let imageBasedLighting = new PIXI3D.ImageBasedLighting(
+  PIXI3D.LightingEnvironment.main.imageBasedLighting = new PIXI3D.ImageBasedLighting(
     resources["diffuse.cubemap"].cubemap,
     resources["specular.cubemap"].cubemap)
-
-  PIXI3D.LightingEnvironment.main =
-    new PIXI3D.LightingEnvironment(app.renderer, imageBasedLighting)
 
   let dirLight = Object.assign(new PIXI3D.Light(), {
     type: "directional", intensity: 0.75, x: -4, y: 7, z: -4

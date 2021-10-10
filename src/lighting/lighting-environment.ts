@@ -7,7 +7,8 @@ import { Light } from "./light"
  * specific object or an entire scene.
  */
 export class LightingEnvironment implements IRendererPlugin {
-  private _imageBasedLighting?: ImageBasedLighting
+  /** The image-based lighting object. */
+  imageBasedLighting?: ImageBasedLighting
 
   /** The lights affecting this lighting environment. */
   lights: Light[] = []
@@ -32,19 +33,15 @@ export class LightingEnvironment implements IRendererPlugin {
     if (!LightingEnvironment.main) {
       LightingEnvironment.main = this
     }
-    this._imageBasedLighting = imageBasedLighting
+    this.imageBasedLighting = imageBasedLighting
   }
 
-  get imageBasedLighting() {
-    return this._imageBasedLighting
+  destroy() {
   }
 
   /** Value indicating if this object is valid to be used for rendering. */
   get valid() {
-    return !this._imageBasedLighting || this._imageBasedLighting.valid
-  }
-
-  destroy() {
+    return !this.imageBasedLighting || this.imageBasedLighting.valid
   }
 }
 

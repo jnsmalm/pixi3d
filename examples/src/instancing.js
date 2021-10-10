@@ -32,12 +32,9 @@ app.loader.load((loader, resources) => {
     }
   }
 
-  let imageBasedLighting = new PIXI3D.ImageBasedLighting(
+  PIXI3D.LightingEnvironment.main.imageBasedLighting = new PIXI3D.ImageBasedLighting(
     resources["diffuse.cubemap"].cubemap,
     resources["specular.cubemap"].cubemap)
-
-  PIXI3D.LightingEnvironment.main =
-    new PIXI3D.LightingEnvironment(app.renderer, imageBasedLighting)
 })
 
 let control = new PIXI3D.CameraOrbitControl(app.view)
