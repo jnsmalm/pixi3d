@@ -49,14 +49,19 @@ Pixi3D is also available as a npm package, to install the latest release you can
 
 This requires that an up-to-date version of Node.js is already installed.
 
-### Examples
-The source code includes a collection of examples which shows how to use some of the different features of Pixi3D. To be able to run the examples, download or clone the repository from https://github.com/jnsmalm/pixi3d and run *npm install*. Browse the examples inside the *examples/src* folder and run them using the *serve* script. For example, to run the *getting-started* application:
+## Examples
+Examples are available as sandboxes at https://codesandbox.io to quickly get started.
+
+| Example           | Description                                                             | Sandbox |
+|-------------------|-------------------------------------------------------------------------|:-------:|
+| Getting started   | Basic setup, rotating cube                                              | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/getting-started)   |
+| Standard material | Load glTF model, setup image-based lighting, physically-based rendering | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/standard-material) |
+| Animation         | Skinning animation, shadows                                             | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/animation)         |
+| Custom material   | Setup for custom material/shader                                        | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/custom-material)   |
+
+The source code also includes a collection of additional examples. To be able to run these examples, download or clone the repository from https://github.com/jnsmalm/pixi3d and run *npm install*. Browse the examples inside the *examples/src* folder and run them using the *serve* script. For example, to run the *getting-started* application:
 
 `npm run serve -- --env.example=getting-started`
-
-The *serve* script can also be used for trying out Pixi3D without having to do any additional setup. Just create a new file i.e. *testing-feature.js* in the examples folder and run it with the *serve* script:
-
-`npm run serve -- --env.example=testing-feature`
 
 ## Quick guide
 The overall goal of Pixi3D is to make it easy to render 3D graphics on the web. It's built on top of PixiJS, which is at it's core, an established 2D rendering library. Even though Pixi3D targets developers already familiar and productive using PixiJS, it's easy to get started without any previous knowledge of PixiJS. PixiJS contains many features which makes it easier to create interactive graphic intense applications. For example: loading assets, managing a scene graph or handling user interaction. Because Pixi3D is built on top of PixiJS, all of those features are available in Pixi3D as well. Learn more about PixiJS at https://www.pixijs.com
