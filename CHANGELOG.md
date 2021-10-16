@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Vertex skinning now uses textures for joint matrices as default.
 - Better error handling when vertex skinning is not supported on device/environment.
+- Use lower case for `SpriteBillboardType` "spherical" and "cylindrical".
 
 ## [0.9.9] - 2021-09-30
 ### Added

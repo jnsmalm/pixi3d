@@ -88,7 +88,7 @@ export class Sprite3D extends Container3D {
       const scaling = this.worldTransform.scaling
       Mat4.multiply(camera.view, this.worldTransform.array, this._modelView)
       switch (this._billboardType) {
-        case SpriteBillboardType.Spherical: {
+        case SpriteBillboardType.spherical: {
           this._modelView[0] = scaling[0]
           this._modelView[1] = 0
           this._modelView[2] = 0
@@ -99,7 +99,7 @@ export class Sprite3D extends Container3D {
           this._modelView[7] = 0
           break
         }
-        case SpriteBillboardType.Cylindrical: {
+        case SpriteBillboardType.cylindrical: {
           this._modelView[0] = scaling[0]
           this._modelView[1] = 0
           this._modelView[2] = 0
