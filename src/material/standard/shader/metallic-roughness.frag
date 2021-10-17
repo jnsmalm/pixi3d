@@ -91,6 +91,10 @@ uniform float u_GlossinessFactor;
 uniform float u_AlphaCutoff;
 #endif
 
+#ifdef USE_SHADOW_MAPPING
+uniform int u_ShadowLightIndex;
+#endif
+
 uniform vec3 u_Camera;
 
 uniform int u_MipCount;
@@ -400,10 +404,17 @@ void main()
 #ifdef USE_PUNCTUAL
     for (int i = 0; i < LIGHT_COUNT; ++i)
     {
+        float shadowContribution = shadow;
+        #ifdef USE_SHADOW_MAPPING
+        if (u_ShadowLightIndex != i) 
+        {
+            shadowContribution = 1.0;
+        }
+        #endif
         Light light = u_Lights[i];
         if (light.type == LightType_Directional)
         {
-            color += applyDirectionalLight(light, materialInfo, normal, view, shadow);
+            color += applyDirectionalLight(light, materialInfo, normal, view, shadowContribution);
         }
         else if (light.type == LightType_Point)
         {
@@ -411,7 +422,7 @@ void main()
         }
         else if (light.type == LightType_Spot)
         {
-            color += applySpotLight(light, materialInfo, normal, view, shadow);
+            color += applySpotLight(light, materialInfo, normal, view, shadowContribution);
         }
     }
 #endif

@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Better error handling when vertex skinning is not supported on device/environment.
 - Use lower case for `SpriteBillboardType` "spherical" and "cylindrical".
 
+### Fixed
+- Fixed an issues which caused shadows to be displayed incorrectly when using multiple lights.
+
 ## [0.9.9] - 2021-09-30
 ### Added
 - Added `Sprite3D` which works like regular PixiJS 2D sprites but in 3D space.
