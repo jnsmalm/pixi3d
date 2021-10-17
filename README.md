@@ -55,9 +55,11 @@ Examples are available as sandboxes at https://codesandbox.io to quickly get sta
 | Example           | Description                                                             | Sandbox |
 |-------------------|-------------------------------------------------------------------------|:-------:|
 | Getting started   | Basic setup, rotating cube                                              | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/getting-started)   |
-| Standard material | Load glTF model, setup image-based lighting, physically-based rendering | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/standard-material) |
-| Animation         | Skinning animation, shadows                                             | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/animation)         |
-| Custom material   | Setup for custom material/shader                                        | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/custom-material)   |
+| Standard material | Load glTF model, image-based lighting, physically-based rendering       | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/standard-material) |
+| Animation         | Skinning animation, dynamic shadows                                     | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/animation)         |
+| Custom material   | Custom material/shader                                                  | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/custom-material)   |
+| Sprites           | Billboard sprites in 3D space                                           | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/sprites)           |
+| Punctual lights   | Directional light, spot light, point light                              | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/punctual-lights)   |
 
 The source code also includes a collection of additional examples. To be able to run these examples, download or clone the repository from https://github.com/jnsmalm/pixi3d and run *npm install*. Browse the examples inside the *examples/src* folder and run them using the *serve* script. For example, to run the *getting-started* application:
 
