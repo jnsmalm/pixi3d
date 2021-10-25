@@ -4,7 +4,7 @@ import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"
 import { SkinningShader } from "./skinning-shader"
 import { TextureShader } from "./texture-shader"
-import { Debug } from ".."
+import { Debug } from "../debug"
 import { Message } from "../message"
 
 export class ShadowRenderer {

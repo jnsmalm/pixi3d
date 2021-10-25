@@ -12,7 +12,7 @@
     "build": "webpack",
     "prepare": "rimraf dist types && npm run build",
     "serve": "webpack-dev-server --open --config examples/example.config.js",
-    "docs": "typedoc src/index.ts",
+    "docs": "typedoc",
     "preversion": "npm run build",
     "version": "npm run docs && git add . && git reset -- docs/CNAME"
   },
@@ -32,7 +32,7 @@
     "rimraf": "^3.0.2",
     "ts-loader": "^6.2.0",
     "tslib": "^2.3.0",
-    "typedoc": "^0.17.0-3",
+    "typedoc": "^0.22.6",
     "typescript": "^4.2.4",
     "url-loader": "^3.0.0",
     "webpack": "^4.41.0",

@@ -1,6 +1,10 @@
 {
-  "mode": "library",
+  "entryPoints": [
+    "src/index.ts"
+  ],
   "out": "docs",
   "name": "Pixi3D",
-  "includeVersion": true
+  "includeVersion": true,
+  "excludeExternals": false,
+  "excludePrivate": true
 }
