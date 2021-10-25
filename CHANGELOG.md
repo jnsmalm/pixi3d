@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use lower case for `SpriteBillboardType` "spherical" and "cylindrical".
 
 ### Fixed
-- Fixed an issues which caused shadows to be displayed incorrectly when using multiple lights.
+- Fixed an issue which caused shadows to be displayed incorrectly when using multiple lights.
+- Fixed an issue which caused a crash if application/renderer was destroyed.
 
 ## [0.9.9] - 2021-09-30
 ### Added

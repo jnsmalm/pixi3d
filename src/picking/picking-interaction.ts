@@ -18,22 +18,26 @@ export class PickingInteraction implements IRendererPlugin {
    */
   constructor(public renderer: Renderer) {
     this._map = new PickingMap(this.renderer, 128)
+    Ticker.shared.add(this._update, this, UPDATE_PRIORITY.LOW)
+  }
 
-    Ticker.shared.add(() => {
-      // Because of how PixiJS interaction works and the design of the picking,
-      // the "hitTest" function needs to be called. Otherwise, in some 
-      // circumstances; the picking is affected by in which order the interaction 
-      // object was added to the heirarchy.
-      this.renderer.plugins.interaction.hitTest(new Point(0, 0))
-
-      if (this._hitAreas.length > 0) {
-        this._map.resizeToAspect()
-        this._map.update(this._hitAreas); this._hitAreas = []
-      }
-    }, UPDATE_PRIORITY.LOW)
+  private _update() {
+    if (!this.renderer.plugins) {
+      return
+    }
+    // Because of how PixiJS interaction works and the design of the picking,
+    // the "hitTest" function needs to be called. Otherwise, in some 
+    // circumstances; the picking is affected by in which order the interaction 
+    // object was added to the heirarchy.
+    this.renderer.plugins.interaction.hitTest(new Point(0, 0))
+    if (this._hitAreas.length > 0) {
+      this._map.resizeToAspect()
+      this._map.update(this._hitAreas); this._hitAreas = []
+    }
   }
 
   destroy() {
+    Ticker.shared.remove(this._update, this)
   }
 
   /**
