@@ -1,5 +1,7 @@
 async function getObjectURLFromRender(render, resources, width = 1280, height = 720) {
-  let renderer = new PIXI.Renderer({ width, height, backgroundColor: 0xcccccc })
+  let renderer = new PIXI.Renderer({
+    width, height, backgroundColor: 0xcccccc
+  })
   let loader = new PIXI.Loader()
   if (resources) {
     resources.forEach(res => { loader.add(res) })
@@ -7,6 +9,11 @@ async function getObjectURLFromRender(render, resources, width = 1280, height = 
   let result = new Promise((resolve, reject) => {
     loader.load((_, resources) => {
       render(renderer, resources)
+      // Sprite is added as watermark to be able to tell orientation of the
+      // image, due to a bug in Safari where the image is read upside-down.
+      renderer.render(Object.assign(new PIXI.Sprite(PIXI.Texture.WHITE), {
+        alpha: 0.5, width: 1, height: 1,
+      }), undefined, false)
       setTimeout(() => {
         renderer.view.toBlob(blob => {
           resolve(URL.createObjectURL(blob))
@@ -18,18 +25,24 @@ async function getObjectURLFromRender(render, resources, width = 1280, height = 
   return result
 }
 
-export async function getImageDataFromUrl(url, width = 1280, height = 720) {
+export async function getImageDataFromUrl(url, flipped) {
   return new Promise((resolve, reject) => {
-    let canvas = document.createElement("canvas")
-    canvas.width = width
-    canvas.height = height
-    let context = canvas.getContext("2d")
     let image = new Image()
     image.src = url
     image.onload = () => {
+      let canvas = document.createElement("canvas")
+      canvas.width = image.width
+      canvas.height = image.height
+      let context = canvas.getContext("2d")
+      if (flipped) {
+        context.scale(1, -1)
+      }
       context.drawImage(image, 0, 0)
+      let imageData = context.getImageData(0, 0, image.width, image.height)
       setTimeout(() => resolve({
-        imageData: context.getImageData(0, 0, width, height),
+        data: imageData.data,
+        height: imageData.height,
+        width: imageData.width,
         url
       }), 100)
     }
@@ -37,6 +50,11 @@ export async function getImageDataFromUrl(url, width = 1280, height = 720) {
 }
 
 export async function getImageDataFromRender(render, resources, width = 1280, height = 720) {
-  return await getImageDataFromUrl(
-    await getObjectURLFromRender(render, resources, width, height), width, height)
+  let url = await getObjectURLFromRender(render, resources, width, height)
+  let imageData = await getImageDataFromUrl(url, false)
+  let flipped = imageData.data[0] !== 230
+  if (flipped) {
+    imageData = await getImageDataFromUrl(url, true)
+  }
+  return imageData
 }
