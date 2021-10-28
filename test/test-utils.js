@@ -33,12 +33,13 @@ export async function getImageDataFromUrl(url, flipped) {
       let canvas = document.createElement("canvas")
       canvas.width = image.width
       canvas.height = image.height
-      let context = canvas.getContext("2d")
+      let ctx = canvas.getContext("2d")
       if (flipped) {
-        context.scale(1, -1)
+        ctx.translate(0, canvas.height)
+        ctx.scale(1, -1)
       }
-      context.drawImage(image, 0, 0)
-      let imageData = context.getImageData(0, 0, image.width, image.height)
+      ctx.drawImage(image, 0, 0)
+      let imageData = ctx.getImageData(0, 0, image.width, image.height)
       setTimeout(() => resolve({
         data: imageData.data,
         height: imageData.height,
