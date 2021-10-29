@@ -37,7 +37,7 @@ describe("Shadow", () => {
       "assets/teapot/teapot.gltf"
     ])
     expect(render).to.match(
-      await getImageDataFromUrl("snapshots/zjehs.png"))
+      await getImageDataFromUrl("snapshots/zjehs.png"), { maxDiff: 200 })
   })
 
   it("should render correctly with spot light", async () => {
