@@ -11,7 +11,7 @@
   "scripts": {
     "build": "webpack",
     "prepare": "rimraf dist types && npm run build",
-    "serve": "webpack-dev-server --open --config examples/example.config.js",
+    "serve": "webpack-dev-server --open --config serve/serve.config.js",
     "docs": "typedoc",
     "preversion": "npm run build",
     "version": "npm run docs && git add . && git reset -- docs/CNAME",

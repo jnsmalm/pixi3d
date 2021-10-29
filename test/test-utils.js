@@ -11,15 +11,19 @@ async function getObjectURLFromRender(render, resources, width = 1280, height = 
       render(renderer, resources)
       // Sprite is added as watermark to be able to tell orientation of the
       // image, due to a bug in Safari where the image is read upside-down.
-      renderer.render(Object.assign(new PIXI.Sprite(PIXI.Texture.WHITE), {
-        alpha: 0.5, width: 1, height: 1,
-      }), undefined, false)
-      setTimeout(() => {
-        renderer.view.toBlob(blob => {
-          resolve(URL.createObjectURL(blob))
-          renderer.destroy()
-        })
-      }, 100)
+      let watermark = Object.assign(
+        new PIXI.Sprite(PIXI.Texture.WHITE), { width: 1, height: 1, })
+      if (PIXI.VERSION.substring(0, 1) === "5") {
+        renderer.render(watermark, undefined, false)
+      }
+      if (PIXI.VERSION.substring(0, 1) === "6") {
+        renderer.render(watermark, { clear: false })
+      }
+      renderer.view.toBlob(blob => {
+        resolve(URL.createObjectURL(blob))
+        renderer.destroy()
+        PIXI.utils.clearTextureCache()
+      })
     })
   })
   return result
@@ -40,12 +44,12 @@ export async function getImageDataFromUrl(url, flipped) {
       }
       ctx.drawImage(image, 0, 0)
       let imageData = ctx.getImageData(0, 0, image.width, image.height)
-      setTimeout(() => resolve({
+      resolve({
         data: imageData.data,
         height: imageData.height,
         width: imageData.width,
         url
-      }), 100)
+      })
     }
   })
 }
@@ -53,7 +57,7 @@ export async function getImageDataFromUrl(url, flipped) {
 export async function getImageDataFromRender(render, resources, width = 1280, height = 720) {
   let url = await getObjectURLFromRender(render, resources, width, height)
   let imageData = await getImageDataFromUrl(url, false)
-  let flipped = imageData.data[0] !== 230
+  let flipped = imageData.data[0] !== 255
   if (flipped) {
     imageData = await getImageDataFromUrl(url, true)
   }

@@ -61,14 +61,10 @@ Examples are available as sandboxes at https://codesandbox.io to quickly get sta
 | Sprites           | Billboard sprites in 3D space                                           | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/sprites)           |
 | Punctual lights   | Directional light, spot light, point light                              | [View](https://codesandbox.io/s/github/jnsmalm/pixi3d-examples/tree/master/punctual-lights)   |
 
-The source code also includes a collection of additional examples. To be able to run these examples, download or clone the repository from https://github.com/jnsmalm/pixi3d and run *npm install*. Browse the examples inside the *examples/src* folder and run them using the *serve* script. For example, to run the *getting-started* application:
-
-`npm run serve -- --env.example=getting-started`
-
 ## Quick guide
 The overall goal of Pixi3D is to make it easy to render 3D graphics on the web. It's built on top of PixiJS, which is at it's core, an established 2D rendering library. Even though Pixi3D targets developers already familiar and productive using PixiJS, it's easy to get started without any previous knowledge of PixiJS. PixiJS contains many features which makes it easier to create interactive graphic intense applications. For example: loading assets, managing a scene graph or handling user interaction. Because Pixi3D is built on top of PixiJS, all of those features are available in Pixi3D as well. Learn more about PixiJS at https://www.pixijs.com
 
-Go to https://pixi3d.org/demo/drone/ to view a real-time demo of the scene created with this guide. The source code is available at [examples/src/quick-guide.js](examples/src/quick-guide.js) and assets used can be found in the examples/assets folder.
+Go to https://pixi3d.org/demo/drone/ to view a real-time demo of the scene created with this guide.
 
 ### Creating an application
 The quickest way to get started is by creating an PixiJS application object. The application object creates a renderer and automatically starts the render loop. It also creates a canvas element which should be added to the HTML document.
@@ -183,6 +179,9 @@ The camera is used for controlling from which position and direction the 3D scen
 let control = new PIXI3D.CameraOrbitControl(app.view)
 ```
 *Gives the user orbit control over the main camera using mouse/trackpad. Hold left mouse button and drag to orbit, use scroll wheel to zoom in/out.*
+
+## Development
+For developing new features or fixing bugs, use *serve/src/index.js* and run it with `npm run serve`.
 
 ## API
 The API documentation is available at https://api.pixi3d.org
