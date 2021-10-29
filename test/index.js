@@ -2,7 +2,7 @@ import { use } from "chai"
 import * as pixelmatch from "pixelmatch"
 
 use(function (chai) {
-  chai.Assertion.addMethod("match", function (expected, { threshold = 0.1, maxDiff = 0 } = {}) {
+  chai.Assertion.addMethod("match", function (expected, { threshold = 0.1, maxDiff = 10 } = {}) {
     const actual = this._obj
     const diff = pixelmatch(actual.data, expected.data, undefined, actual.width, actual.height, { threshold })
     this.assert(
