@@ -1,14 +1,28 @@
 import { use } from "chai"
 import * as pixelmatch from "pixelmatch"
 
+class HTMLMessageError extends Error {
+  constructor(actualImageUrl, expectedImageUrl) {
+    super()
+    this.htmlMessage = `
+    <div>
+      <a href="${actualImageUrl}" target="new">
+        <img src="${actualImageUrl}" class="image" />
+      </a>
+      <a href="${expectedImageUrl}" target="new">
+        <img src="${expectedImageUrl}" class="image" />
+      </a>
+    </div>`
+  }
+}
+
 use(function (chai) {
   chai.Assertion.addMethod("match", function (expected, { threshold = 0.1, maxDiff = 10 } = {}) {
     const actual = this._obj
     const diff = pixelmatch(actual.data, expected.data, undefined, actual.width, actual.height, { threshold })
-    this.assert(
-      diff <= maxDiff,
-      `expected image to match given image, but ${diff} pixels was different, actual: ${actual.url}, expected: ${expected.url}`
-    )
+    if (diff > maxDiff) {
+      throw new HTMLMessageError(actual.url, expected.url)
+    }
   })
 })
 

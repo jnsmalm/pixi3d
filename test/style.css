@@ -1,0 +1,16 @@
+#mocha .test .html-error {
+  padding: 0 !important;
+  max-height: inherit !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#mocha .test .html-error pre.error {
+  display: none;
+}
+
+#mocha .test .html-error img.image {
+  max-width: 640px;
+  width: 100%;
+  border-radius: 5px;
+}

@@ -14,7 +14,13 @@ module.exports = env => {
       rules: [
         {
           test: /test\.js$/,
-          use: "mocha-loader",
+          use: {
+            loader: "mocha-loader",
+            options: {
+              timeout: 10000,
+              slow: 5000
+            },
+          },
           exclude: /node_modules/,
         },
       ],
