@@ -17,7 +17,7 @@ class HTMLMessageError extends Error {
 }
 
 use(function (chai) {
-  chai.Assertion.addMethod("match", function (expected, { threshold = 0.1, maxDiff = 10 } = {}) {
+  chai.Assertion.addMethod("match", function (expected, { threshold = 0.1, maxDiff = 50 } = {}) {
     const actual = this._obj
     const diff = pixelmatch(actual.data, expected.data, undefined, actual.width, actual.height, { threshold })
     if (diff > maxDiff) {
