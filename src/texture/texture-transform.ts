@@ -1,4 +1,4 @@
-import { ObservablePoint } from "pixi.js"
+import { ObservablePoint, Texture, DEG_TO_RAD } from "pixi.js"
 import { Mat3 } from "../math/mat3"
 
 /**
@@ -55,5 +55,39 @@ export class TextureTransform {
       this._dirty = false
     }
     return this._array
+  }
+
+  /**
+   * Creates a transform from the specified texture frame. Can be used when
+   * texture is in a spritesheet.
+   * @param texture The texture to use.
+   */
+  static fromTexture(texture: Texture) {
+    const transform = new TextureTransform()
+    if (!texture.frame) {
+      return transform
+    }
+    let { x, y, width, height } = texture.frame
+    if (texture.rotate === 0) {
+      transform.offset.set(
+        x / texture.baseTexture.width, y / texture.baseTexture.height
+      )
+      transform.scale.set(
+        width / texture.baseTexture.width, 
+        height / texture.baseTexture.height
+      )
+    }
+    if (texture.rotate === 2) {
+      x = texture.frame.x + texture.frame.width
+      transform.offset.set(
+        x / texture.baseTexture.width, y / texture.baseTexture.height
+      )
+      transform.scale.set(
+        height / texture.baseTexture.height, 
+        width / texture.baseTexture.width
+      )
+      transform.rotation = -90 * DEG_TO_RAD
+    }
+    return transform
   }
 }

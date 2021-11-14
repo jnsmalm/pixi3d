@@ -17,6 +17,7 @@ import { StandardMaterialNormalTexture } from "./standard-material-normal-textur
 import { StandardMaterialTexture } from "./standard-material-texture"
 import { StandardMaterialFactory } from "./standard-material-factory"
 import { ImageBasedLighting } from "../../lighting/image-based-lighting"
+import { TextureTransform } from "../.."
 
 const shaders: { [features: string]: StandardShader } = {}
 
@@ -72,6 +73,9 @@ export class StandardMaterial extends Material {
   set baseColorTexture(value: StandardMaterialTexture | undefined) {
     if (value !== this._baseColorTexture) {
       this.invalidateShader()
+      if (!value?.transform && value?.frame) {
+        value.transform = TextureTransform.fromTexture(value)
+      }
       this._baseColorTexture = value
     }
   }
@@ -84,6 +88,9 @@ export class StandardMaterial extends Material {
   set metallicRoughnessTexture(value: StandardMaterialTexture | undefined) {
     if (value !== this._metallicRoughnessTexture) {
       this.invalidateShader()
+      if (!value?.transform && value?.frame) {
+        value.transform = TextureTransform.fromTexture(value)
+      }
       this._metallicRoughnessTexture = value
     }
   }
@@ -96,6 +103,9 @@ export class StandardMaterial extends Material {
   set normalTexture(value: StandardMaterialNormalTexture | undefined) {
     if (value !== this._normalTexture) {
       this.invalidateShader()
+      if (!value?.transform && value?.frame) {
+        value.transform = TextureTransform.fromTexture(value)
+      }
       this._normalTexture = value
     }
   }
@@ -108,6 +118,9 @@ export class StandardMaterial extends Material {
   set occlusionTexture(value: StandardMaterialOcclusionTexture | undefined) {
     if (value !== this._occlusionTexture) {
       this.invalidateShader()
+      if (!value?.transform && value?.frame) {
+        value.transform = TextureTransform.fromTexture(value)
+      }
       this._occlusionTexture = value
     }
   }
@@ -120,6 +133,9 @@ export class StandardMaterial extends Material {
   set emissiveTexture(value: StandardMaterialTexture | undefined) {
     if (value !== this._emissiveTexture) {
       this.invalidateShader()
+      if (!value?.transform && value?.frame) {
+        value.transform = TextureTransform.fromTexture(value)
+      }
       this._emissiveTexture = value
     }
   }
