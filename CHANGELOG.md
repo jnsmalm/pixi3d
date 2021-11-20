@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Added support to use textures included in spritesheets when using `StandardMaterial`.
+- Added support for camera obliqueness.
 
 ## [1.0.0] - 2021-11-01
 ### Added

@@ -28,6 +28,22 @@ export class Camera extends Container3D implements TransformId {
   private _viewProjection?: MatrixComponent
   private _orthographic = false
   private _orthographicSize = 10
+  private _obliqueness = new PIXI.ObservablePoint(() => {
+    this._transformId++
+  }, undefined)
+
+  /**
+   * Used for making the frustum oblique, which means that one side is at a
+   * smaller angle to the centre line than the opposite side. Only works with
+   * perspective projection.
+   */
+  get obliqueness() {
+    return this._obliqueness
+  }
+
+  set obliqueness(value: PIXI.IPointData) {
+    this._obliqueness.copyFrom(value)
+  }
 
   /** Main camera which is used by default. */
   static main: Camera
@@ -90,7 +106,6 @@ export class Camera extends Container3D implements TransformId {
       this._orthographicSize = value; this._transformId++
     }
   }
-
 
   /**
    * Camera will render objects uniformly, with no sense of perspective.
@@ -246,6 +261,8 @@ export class Camera extends Container3D implements TransformId {
           Mat4.ortho(-this._orthographicSize * aspect, this._orthographicSize * aspect, -this._orthographicSize, this._orthographicSize, this._near, this._far, data)
         } else {
           Mat4.perspective(this._fieldOfView * PIXI.DEG_TO_RAD, aspect, this._near, this._far, data)
+          data[8] = this._obliqueness.x
+          data[9] = this._obliqueness.y
         }
       })
     }
