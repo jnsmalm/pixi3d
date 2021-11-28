@@ -18,4 +18,11 @@ describe("Post processing sprite", () => {
     expect(render).to.match(
       await getImageDataFromUrl("snapshots/omohh.png"))
   })
+  it("should not try to render when renderer was destroyed", async () => {
+    let renderer = new PIXI.Renderer()
+    let sprite = new PIXI3D.PostProcessingSprite(renderer, {
+      objectToRender: PIXI3D.Mesh3D.createCube()
+    })
+    renderer.destroy()
+  })
 })

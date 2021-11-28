@@ -1,4 +1,4 @@
-import { DisplayObject, Sprite, RenderTexture, Renderer, Ticker } from "pixi.js"
+import { DisplayObject, Sprite, RenderTexture, Renderer, Ticker, IDestroyOptions } from "pixi.js"
 
 export interface PostProcessingSpriteOptions {
   /**
@@ -21,6 +21,7 @@ export interface PostProcessingSpriteOptions {
  * rendering 3D objects as 2D sprites.
  */
 export class PostProcessingSprite extends Sprite {
+  private _tickerRender = () => { }
   private _renderTexture: RenderTexture
 
   /** The render texture. */
@@ -59,12 +60,21 @@ export class PostProcessingSprite extends Sprite {
       })
     }
     if (objectToRender) {
-      Ticker.shared.add(() => {
+      this._tickerRender = () => {
+        if (!renderer.gl) {
+          // The renderer was probably destroyed.
+          Ticker.shared.remove(this._tickerRender); return
+        }
         if (this.worldVisible && this.worldAlpha > 0 && this.renderable) {
           objectToRender && this.renderObject(objectToRender)
         }
-      })
+      }
+      Ticker.shared.add(this._tickerRender)
     }
+  }
+
+  destroy(options?: boolean | IDestroyOptions) {
+    Ticker.shared.remove(this._tickerRender); super.destroy(options)
   }
 
   /**
