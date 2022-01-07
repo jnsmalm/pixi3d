@@ -103,10 +103,11 @@ export class glTFAsset {
       cb(new glTFAsset(descriptor, buffers))
     }
     const images: Texture[] = []
-    for (let i = 0; descriptor.images && i < descriptor.images.length; i++) {
-      const image = descriptor.images[i]
+    let loaded = 0
+    const loadImageFromBuffer = (index: number) => {
+      const image = descriptor.images[index]
       if (image.bufferView === undefined) {
-        continue
+        return
       }
       const view = descriptor.bufferViews[image.bufferView]
       const buffer = buffers[view.buffer]
@@ -114,12 +115,15 @@ export class glTFAsset {
       const blob = new Blob([array], { "type": image.mimeType })
       const reader = new FileReader()
       reader.onload = () => {
-        images[i] = Texture.from(<string>reader.result)
-        if (images.length === descriptor.images.length) {
+        images[index] = Texture.from(<string>reader.result)
+        if (++loaded === descriptor.images.length) {
           cb(new glTFAsset(descriptor, buffers, images))
         }
       }
       reader.readAsDataURL(blob)
+    }
+    for (let i = 0; descriptor.images && i < descriptor.images.length; i++) {
+      loadImageFromBuffer(i)
     }
   }
 }
