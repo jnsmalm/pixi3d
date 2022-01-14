@@ -5,6 +5,7 @@ import { Mesh3D } from "./mesh/mesh"
 import { Animation } from "./animation"
 import { Container3D } from "./container"
 import { InstancedModel } from "./instanced-model"
+import { AABB } from "./math/aabb"
 
 /**
  * Represents a model which has been loaded from a file. Contains a hierarchy of meshes and animations.
@@ -33,5 +34,28 @@ export class Model extends Container3D {
    */
   createInstance() {
     return new InstancedModel(this)
+  }
+
+  /**
+   * Calculates and returns a axis-aligned bounding box of the model in world
+   * space. The bounding box will encapsulate the meshes included in the model.
+   */
+  getBoundingBox() {
+    this.updateTransform()
+
+    let aabb = new AABB()
+    let mesh = this.meshes[0].getBoundingBox()
+    if (mesh) {
+      aabb.min = mesh.min
+      aabb.max = mesh.max
+    }
+    for (let i = 1; i < this.meshes.length; i++) {
+      let mesh = this.meshes[i].getBoundingBox()
+      if (mesh) {
+        aabb.encapsulate(mesh.min)
+        aabb.encapsulate(mesh.max)
+      }
+    }
+    return aabb
   }
 }

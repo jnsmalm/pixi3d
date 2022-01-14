@@ -9,6 +9,8 @@ import { InstancedMesh3D } from "./instanced-mesh"
 import { Material } from "../material/material"
 import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshDestroyOptions } from "./mesh-destroy-options"
+import { Vec3 } from ".."
+import { AABB } from "../math/aabb"
 
 /**
  * Represents a mesh which contains geometry and has a material.
@@ -124,6 +126,28 @@ export class Mesh3D extends Container3D {
       this.skin.calculateJointMatrices()
     }
     <ObjectRenderer>(<any>renderer.plugins)[this.pluginName].render(this)
+  }
+
+  /**
+   * Calculates and returns a axis-aligned bounding box of the mesh in world space.
+   */
+  getBoundingBox() {
+    if (!this.geometry.positions?.min) {
+      return undefined
+    }
+    if (!this.geometry.positions?.max) {
+      return undefined
+    }
+    let min = Vec3.transformMat4(
+      <any>this.geometry.positions.min, this.worldTransform.array)
+    let max = Vec3.transformMat4(
+      <any>this.geometry.positions.max, this.worldTransform.array)
+    for (let i = 0; i < 3; i++) {
+      let temp = min[i]
+      min[i] = Math.min(min[i], max[i])
+      max[i] = Math.max(temp, max[i])
+    }
+    return AABB.from({ min, max })
   }
 
   /**

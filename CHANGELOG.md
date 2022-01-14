@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Added `AABB` (axis-aligned bounding box).
+- Added support for calculating the bounding box (AABB) for a model and mesh.
+
 ## [1.1.2] - 2022-01-07
 ### Fixed
 - Fixed an issue which caused some binary glTF files (glb) to not load correctly.
