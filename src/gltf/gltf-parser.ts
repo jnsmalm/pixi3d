@@ -73,8 +73,8 @@ export class glTFParser {
       offset += bufferView.byteOffset
     }
     let size = accessor.count * componentCount[accessor.type]
-    if (bufferView.byteStride !== undefined) {
-      size *= bufferView.byteStride / componentSize[accessor.componentType] / componentCount[accessor.type]
+    if (bufferView.byteStride !== undefined && bufferView.byteStride !== 0) {
+      size = bufferView.byteStride / componentSize[accessor.componentType] * (accessor.count - 1) + componentCount[accessor.type]
     }
     let buffer = this._asset.buffers[bufferView.buffer]
 
@@ -262,7 +262,7 @@ export class glTFParser {
     if (typeof skin === "number") {
       skin = this._asset.descriptor.skins[skin]
     }
-    return new Skin(target, 
+    return new Skin(target,
       skin.joints.map((joint: number) => <Joint>nodes[joint]))
   }
 

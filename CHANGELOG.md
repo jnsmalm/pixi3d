@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `AABB` (axis-aligned bounding box).
 - Added support for calculating the bounding box (AABB) for a model and mesh.
 
+### Fixed
+- Fixed an issue which caused some glTF files to not load correctly when byte stride was set.
+
 ## [1.1.2] - 2022-01-07
 ### Fixed
 - Fixed an issue which caused some binary glTF files (glb) to not load correctly.
