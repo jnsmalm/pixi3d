@@ -173,8 +173,8 @@ export class glTFParser {
       result.metallicRoughnessTexture.texCoord = pbr.metallicRoughnessTexture.texCoord
       if (pbr.metallicRoughnessTexture.extensions && pbr.metallicRoughnessTexture.extensions.KHR_texture_transform) {
         result.metallicRoughnessTexture.transform = pbr.metallicRoughnessTexture.extensions.KHR_texture_transform
-        if (material.metallicRoughnessTexture.extensions.KHR_texture_transform.texCoord !== undefined) {
-          result.metallicRoughnessTexture.texCoord = material.metallicRoughnessTexture.extensions.KHR_texture_transform.texCoord
+        if (pbr.metallicRoughnessTexture.extensions.KHR_texture_transform.texCoord !== undefined) {
+          result.metallicRoughnessTexture.texCoord = pbr.metallicRoughnessTexture.extensions.KHR_texture_transform.texCoord
         }
       }
     }
