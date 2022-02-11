@@ -13,7 +13,11 @@ export interface PostProcessingSpriteOptions {
    * The object to render. When set, it will automatically be rendered to the 
    * sprite's texture each frame.
    */
-  objectToRender?: DisplayObject
+  objectToRender?: DisplayObject,
+  /**
+   * The resolution of the texture for the sprite.
+   */
+  resolution?: number
 }
 
 /**
@@ -45,9 +49,11 @@ export class PostProcessingSprite extends Sprite {
   constructor(public renderer: Renderer, options?: PostProcessingSpriteOptions) {
     super()
 
-    let { width = 512, height = 512, objectToRender } = options || {}
+    let {
+      width = 512, height = 512, objectToRender, resolution = 1
+    } = options || {}
 
-    this._renderTexture = RenderTexture.create({ width, height })
+    this._renderTexture = RenderTexture.create({ width, height, resolution })
     /* When rendering to a texture, it's flipped vertically for some reason.
     This will flip it back to it's expected orientation. */
     this._renderTexture.rotate = 8
