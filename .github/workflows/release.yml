@@ -29,7 +29,7 @@ jobs:
       with:
         files: dist/*.js
         token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-        draft: true
+        draft: false
 
     - name: Publish
       run: npm publish
