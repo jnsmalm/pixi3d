@@ -45,7 +45,7 @@ Then create *index.html* and include the required scripts.
 Pixi3D is also available as a npm package. Install the latest release with `npm install pixi3d --save-dev`. This requires that an up-to-date version of Node.js is already installed.
 
 ## Examples
-Examples are available as sandboxes at https://codesandbox.io to quickly get started.
+Examples are available as sandboxes at https://codesandbox.io to quickly get started. Download repo at https://github.com/jnsmalm/pixi3d-sandbox to instead run them locally.
 
 | Example           | Description                                                             | Sandbox |
 |-------------------|-------------------------------------------------------------------------|:-------:|
