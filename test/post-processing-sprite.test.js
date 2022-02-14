@@ -18,6 +18,22 @@ describe("Post processing sprite", () => {
     expect(render).to.match(
       await getImageDataFromUrl("snapshots/omohh.png"))
   })
+  it("should render correctly after changing resolution", async () => {
+    let render = await getImageDataFromRender((renderer, resources) => {
+      let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
+      model.y = -0.8
+
+      let sprite = new PIXI3D.PostProcessingSprite(renderer)
+      sprite.setResolution(0.1)
+      sprite.renderObject(model)
+
+      renderer.render(sprite)
+    }, [
+      "assets/teapot/teapot.gltf",
+    ])
+    expect(render).to.match(
+      await getImageDataFromUrl("snapshots/qsoqc.png"))
+  })
   it("should not try to render when renderer was destroyed", async () => {
     let renderer = new PIXI.Renderer()
     let sprite = new PIXI3D.PostProcessingSprite(renderer, {

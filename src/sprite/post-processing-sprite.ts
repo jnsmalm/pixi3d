@@ -79,6 +79,16 @@ export class PostProcessingSprite extends Sprite {
     }
   }
 
+  /**
+   * Sets the resolution of the render texture.
+   * @param resolution The resolution to set.
+   */
+  setResolution(resolution: number) {
+    this._renderTexture.setResolution(resolution)
+    this._renderTexture.resize(
+      this._renderTexture.width, this._renderTexture.height, true)
+  }
+
   destroy(options?: boolean | IDestroyOptions) {
     Ticker.shared.remove(this._tickerRender); super.destroy(options)
   }
