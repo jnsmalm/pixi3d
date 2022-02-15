@@ -1,4 +1,7 @@
 # Pixi3D
+
+![alt text](https://github.com/jnsmalm/pixi3d/blob/master/spy-hypersport.jpg?raw=true)
+
 Pixi3D is a 3D rendering library for the web. It's built on top of PixiJS (which is at it's core, an established 2D rendering library). This makes Pixi3D have seamless integration with already existing 2D applications.
 
 * Load models from file (glTF) or create procedural generated meshes
