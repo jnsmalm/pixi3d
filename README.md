@@ -9,7 +9,7 @@ Pixi3D is a 3D rendering library for the web. It's built on top of PixiJS (which
 
 ![alt text](https://github.com/jnsmalm/pixi3d/blob/develop/spy-hypersport.jpg)
 
-*"SPY-HYPERSPORT" (https://skfb.ly/o8z7t) by Amvall is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).*
+*"SPY-HYPERSPORT" (https://skfb.ly/o8z7t) by Amvall is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/). Rendered using Pixi3D.*
 
 ## Getting started
 Let's create a simple application which renders a rotating cube. Start by [getting the latest version of Pixi3D](https://github.com/jnsmalm/pixi3d/releases). Also [get an up-to-date version of PixiJS](https://github.com/pixijs/pixi.js/releases) (v5.3+) which is needed to use Pixi3D.
