@@ -1,6 +1,8 @@
 # Pixi3D
 
-![alt text](https://github.com/jnsmalm/pixi3d/blob/master/spy-hypersport.jpg?raw=true)
+![alt text](https://github.com/jnsmalm/pixi3d/blob/develop/spy-hypersport.jpg)
+
+*"SPY-HYPERSPORT" (https://skfb.ly/o8z7t) by Amvall is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).*
 
 Pixi3D is a 3D rendering library for the web. It's built on top of PixiJS (which is at it's core, an established 2D rendering library). This makes Pixi3D have seamless integration with already existing 2D applications.
 
