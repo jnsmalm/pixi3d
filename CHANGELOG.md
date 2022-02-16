@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added a function to set resolution for `PostProcessingSprite`.
 
+### Fixed
+- Fixed an issue which caused `StandardMaterial` to set incorrect transforms on some textures.
+
 ## [1.2.1] - 2022-02-11
 ### Fixed
 - Fixed an issue which caused some glTF materials to not load correctly.

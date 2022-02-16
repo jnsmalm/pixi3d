@@ -64,7 +64,7 @@ export class TextureTransform {
    */
   static fromTexture(texture: Texture) {
     const transform = new TextureTransform()
-    if (!texture.frame) {
+    if (!texture.frame || texture.noFrame) {
       return transform
     }
     let { x, y, width, height } = texture.frame
