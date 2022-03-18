@@ -18,7 +18,8 @@ export class StandardMaterialMatrixTexture extends Texture {
       scaleMode: SCALE_MODES.NEAREST,
       format: FORMATS.RGBA,
       type: TYPES.FLOAT,
-      alphaMode: ALPHA_MODES.NO_PREMULTIPLIED_ALPHA
+      alphaMode: ALPHA_MODES.NO_PREMULTIPLIED_ALPHA,
+      resolution: 1
     }))
     this._buffer = buffer
   }
