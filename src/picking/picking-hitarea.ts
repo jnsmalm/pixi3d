@@ -30,7 +30,7 @@ export class PickingHitArea implements IHitArea {
   }
 
   /**
-   * Creates a new hitarea using the specified object without the need of renderer
+   * Creates a new hitarea using the specified object with camera's main renderer
    * @param object
    */
   static fromObject(object: Mesh3D | Model): PickingHitArea {
