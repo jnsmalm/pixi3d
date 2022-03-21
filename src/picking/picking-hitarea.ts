@@ -28,4 +28,12 @@ export class PickingHitArea implements IHitArea {
   contains(x: number, y: number) {
     return this._picking.containsHitArea(x, y, this)
   }
+
+  /**
+   * Creates a new hitarea using the specified object without the need of renderer
+   * @param object
+   */
+  static fromObject(object: Mesh3D | Model): PickingHitArea {
+    return new PickingHitArea(Camera.main.renderer, object)
+  }
 }
