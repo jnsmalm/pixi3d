@@ -9,8 +9,7 @@ import { Camera } from "../camera/camera"
  * Hit area which uses the shape of an object to determine interaction.
  */
 export class PickingHitArea implements IHitArea {
-  private _picking: PickingInteraction
-
+  
   /** The id which maps to the object. */
   id = PickingId.next()
 
@@ -21,19 +20,18 @@ export class PickingHitArea implements IHitArea {
    * @param camera The camera to use when rendering the object picking shape.
    * If not set, the main camera will be used as default.
    */
-  constructor(renderer: Renderer, public object: Mesh3D | Model, public camera?: Camera) {
-    this._picking = renderer.plugins.picking
+  constructor(renderer: Renderer | undefined, public object: Mesh3D | Model, public camera?: Camera) {
   }
 
   contains(x: number, y: number) {
-    return this._picking.containsHitArea(x, y, this)
+    return PickingInteraction.main.containsHitArea(x, y, this)
   }
 
   /**
-   * Creates a new hitarea using the specified object with camera's main renderer
-   * @param object
+   * Creates a new hitarea using the specified object.
+   * @param object The model or mesh to use as the shape for hit testing.
    */
-  static fromObject(object: Mesh3D | Model): PickingHitArea {
-    return new PickingHitArea(Camera.main.renderer, object)
+  static fromObject(object: Mesh3D | Model) {
+    return new PickingHitArea(undefined, object)
   }
 }

@@ -19,7 +19,13 @@ export class PickingInteraction implements IRendererPlugin {
   constructor(public renderer: Renderer) {
     this._map = new PickingMap(this.renderer, 128)
     Ticker.shared.add(this._update, this, UPDATE_PRIORITY.LOW)
+    if (!PickingInteraction.main) {
+      PickingInteraction.main = this
+    }
   }
+
+  /** The main picking interaction which is used by default. */
+  static main: PickingInteraction
 
   private _update() {
     if (!this.renderer.plugins) {
