@@ -43,6 +43,10 @@ export class PickingInteraction implements IRendererPlugin {
   }
 
   destroy() {
+    if (this === PickingInteraction.main) {
+      // @ts-ignore It's ok, main picking interaction was destroyed.
+      PickingInteraction.main = undefined
+    }
     Ticker.shared.remove(this._update, this)
   }
 
