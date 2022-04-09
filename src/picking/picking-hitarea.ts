@@ -15,7 +15,7 @@ export class PickingHitArea implements IHitArea {
 
   /**
    * Creates a new hitarea using the specified object.
-   * @param renderer The renderer to use.
+   * @param renderer Not used, accepts any value. Only here for compatibility reasons.
    * @param object The model or mesh to use as the shape for hit testing.
    * @param camera The camera to use when rendering the object picking shape.
    * If not set, the main camera will be used as default.
