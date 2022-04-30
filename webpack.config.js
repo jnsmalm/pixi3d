@@ -51,7 +51,8 @@ module.exports = [
       filename: "pixi3d.js",
       library: "PIXI3D",
       libraryTarget: "umd",
-      umdNamedDefine: true
+      umdNamedDefine: true,
+      pathinfo: false
     }
   }),
   Object.assign({ ...shared }, {
