@@ -53,9 +53,9 @@ export class CameraOrbitControl {
         this._angles.y -= event.movementX * 0.5
       }
     })
-    element.addEventListener("mousewheel", (event: Event) => {
+    element.addEventListener("wheel", (event) => {
       if (this.allowControl) {
-        this.distance += (<WheelEvent>event).deltaY * 0.01
+        this.distance += event.deltaY * 0.01
         event.preventDefault()
       }
     })
