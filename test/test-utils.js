@@ -1,4 +1,14 @@
-async function getObjectURLFromRender(render, resources, width = 1280, height = 720) {
+async function getObjectURLFromRender(render, resources, { width = 1280, height = 720, webGL = 1 } = {}) {
+  // switch (webGL) {
+  //   case 1: {
+  //     PIXI.settings.PREFER_ENV = PIXI.ENV.WEBGL1
+  //     break
+  //   }
+  //   case 2: {
+  //     PIXI.settings.PREFER_ENV = PIXI.ENV.WEBGL2
+  //     break
+  //   }
+  // }
   let renderer = new PIXI.Renderer({
     width, height, backgroundColor: 0xcccccc
   })
@@ -45,7 +55,7 @@ export async function getImageDataFromUrl(url) {
   })
 }
 
-export async function getImageDataFromRender(render, resources, width = 1280, height = 720) {
+export async function getImageDataFromRender(render, resources, options = {}) {
   return await getImageDataFromUrl(
-    await getObjectURLFromRender(render, resources, width, height), false)
+    await getObjectURLFromRender(render, resources, { ...options }), false)
 }
