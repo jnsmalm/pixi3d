@@ -34,14 +34,14 @@ class glTFExternalResourceLoader implements glTFResourceLoader {
     if (!this._loader.resources[url]) {
       // The resource does not exists and needs to be loaded.
       // @ts-ignore
-      this._loader.add({ parentResource: this._resource, url, onComplete })
+      this._loader.add({ parentResource: this._resource, name: url, url: url, onComplete: onComplete })
     } else if (this._loader.resources[url].data) {
       // The resource already exists, just use that one.
       onComplete(this._loader.resources[url])
     } else {
       // The resource is in queue to be loaded, wait for it.
       let binding = this._loader.onProgress.add((_, resource) => {
-        if (resource.url === url) {
+        if (resource.name === url) {
           onComplete(resource); binding.detach()
         }
       })

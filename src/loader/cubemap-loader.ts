@@ -21,13 +21,13 @@ export const CubemapLoader = {
     let urls = mipmaps.reduce((acc, val) => acc.concat(val), [])
 
     loader.add(urls.filter(url => !loader.resources[url]).map((url) => {
-      return { parentResource: resource, url: url }
+      return { parentResource: resource, name: url, url: url }
     }))
     let completed = 0
 
     // Listen for resources being loaded.
     let binding = loader.onLoad.add((loader: any, res: any) => {
-      if (urls.includes(res.url)) {
+      if (urls.includes(res.name)) {
         if (++completed === urls.length) {
           // All resources used by cubemap has been loaded.
           const textures = mipmaps.map(face => {
