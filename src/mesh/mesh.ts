@@ -4,6 +4,7 @@ import { CubeGeometry } from "./geometry/cube-geometry"
 import { MeshGeometry3D } from "./geometry/mesh-geometry"
 import { Container3D } from "../container"
 import { QuadGeometry } from "./geometry/quad-geometry"
+import { SphereGeometry } from "./geometry/sphere-geometry"
 import { Skin } from "../skinning/skin"
 import { InstancedMesh3D } from "./instanced-mesh"
 import { Material } from "../material/material"
@@ -172,5 +173,14 @@ export class Mesh3D extends Container3D {
    */
   static createPlane(material: Material = new StandardMaterial()) {
     return new Mesh3D(PlaneGeometry.create(), material)
+  }
+
+  /**
+   * Creates a new sphere mesh with the specified material.
+   * @param material The material to use.
+   */
+  static createSphere(material?: Material, radius = 1, widthSegments = 32, heightSegments = 16, phiStart = 0, phiLength = Math.PI * 2, thetaStart = 0, thetaLength = Math.PI) {
+    material = material || new StandardMaterial();
+    return new Mesh3D(SphereGeometry.create(radius, widthSegments, heightSegments, phiStart, phiLength, thetaStart, thetaLength), material)
   }
 }
