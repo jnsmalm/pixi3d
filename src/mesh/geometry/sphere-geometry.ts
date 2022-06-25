@@ -2,6 +2,16 @@ import { Vec3 } from "../../math/vec3";
 import { MeshGeometry3D } from "./mesh-geometry"
 
 export namespace SphereGeometry {
+  /**
+   * The geometry is created by sweeping and calculating vertexes around the Y axis (horizontal sweep) and the Z axis (vertical sweep). Thus, incomplete spheres (akin to 'sphere slices') can be created through the use of different values of phiStart, phiLength, thetaStart and thetaLength, in order to define the points in which we start (or end) calculating those vertices.
+   * @param radius Sphere radius. Default is 1.
+   * @param widthSegments Number of horizontal segments. Minimum value is 3, and the default is 32.
+   * @param heightSegments Number of vertical segments. Minimum value is 2, and the default is 16.
+   * @param phiStart Specify horizontal starting angle. Default is 0.
+   * @param phiLength Specify horizontal sweep angle size. Default is Math.PI * 2.
+   * @param thetaStart Specify vertical starting angle. Default is 0.
+   * @param thetaLength Specify vertical sweep angle size. Default is Math.PI.  
+   */
   export function create(radius = 1, widthSegments = 32, heightSegments = 16, phiStart = 0, phiLength = Math.PI * 2, thetaStart = 0, thetaLength = Math.PI) {
 
     // based on

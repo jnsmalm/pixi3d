@@ -178,6 +178,13 @@ export class Mesh3D extends Container3D {
   /**
    * Creates a new sphere mesh with the specified material.
    * @param material The material to use.
+   * @param radius Sphere radius. Default is 1.
+   * @param widthSegments Number of horizontal segments. Minimum value is 3, and the default is 32.
+   * @param heightSegments Number of vertical segments. Minimum value is 2, and the default is 16.
+   * @param phiStart Specify horizontal starting angle. Default is 0.
+   * @param phiLength Specify horizontal sweep angle size. Default is Math.PI * 2.
+   * @param thetaStart Specify vertical starting angle. Default is 0.
+   * @param thetaLength Specify vertical sweep angle size. Default is Math.PI.  
    */
   static createSphere(material?: Material, radius = 1, widthSegments = 32, heightSegments = 16, phiStart = 0, phiLength = Math.PI * 2, thetaStart = 0, thetaLength = Math.PI) {
     material = material || new StandardMaterial();
