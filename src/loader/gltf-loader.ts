@@ -41,7 +41,7 @@ class glTFExternalResourceLoader implements glTFResourceLoader {
     } else {
       // The resource is in queue to be loaded, wait for it.
       let binding = this._loader.onProgress.add((_, resource) => {
-        if (resource.name === url) {
+        if (resource.url === url || resource.name === url) {
           onComplete(resource); binding.detach()
         }
       })
