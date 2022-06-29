@@ -47,7 +47,7 @@ export class MeshShader extends Shader {
         4, false, geometry.tangents.componentType, geometry.tangents.stride)
     }
     if (geometry.colors) {
-      result.addAttribute('a_Color', new Buffer(geometry.colors.buffer),
+      result.addAttribute("a_Color", new Buffer(geometry.colors.buffer),
         4, true, geometry.colors.componentType, geometry.colors.stride)
     }
     return result
