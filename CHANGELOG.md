@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Added functionality to create a sphere mesh.
+- Added support for vertex colors in standard material.
 
 ## [1.4.1] - 2022-06-14
 ### Fixed
