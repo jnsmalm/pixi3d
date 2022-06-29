@@ -1,4 +1,4 @@
-import { Renderer, settings } from "pixi.js"
+import { BLEND_MODES, Renderer, settings } from "pixi.js"
 import { MeshGeometry3D } from "../../mesh/geometry/mesh-geometry"
 import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"
@@ -22,6 +22,13 @@ export namespace StandardMaterialFeatureSet {
     }
     if (renderer.context.webGLVersion === 2) {
       features.push("WEBGL2 1")
+    }
+    if (geometry.colors) {
+      if (material.alphaMode === StandardMaterialAlphaMode.blend) {
+        features.push('HAS_VERTEX_COLOR_VEC4 1');
+      } else {
+        features.push('HAS_VERTEX_COLOR_VEC3 1');
+      }
     }
     if (geometry.normals) {
       features.push("HAS_NORMALS 1")

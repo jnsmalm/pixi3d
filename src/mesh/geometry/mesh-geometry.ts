@@ -17,6 +17,7 @@ export class MeshGeometry3D {
   targets?: MeshGeometryTarget[]
   joints?: MeshGeometryAttribute
   weights?: MeshGeometryAttribute
+  colors?: MeshGeometryAttribute
 
   /**
    * Returns geometry with attributes required by the specified shader.

@@ -272,7 +272,6 @@ export class glTFParser {
    */
   parsePrimitive(primitive: any) {
     let { attributes, targets } = primitive
-
     let geometry = Object.assign<MeshGeometry3D, Partial<MeshGeometry3D>>(new MeshGeometry3D(), {
       indices: this.parseBuffer(primitive.indices),
       positions: this.parseBuffer(attributes["POSITION"]),
@@ -280,6 +279,7 @@ export class glTFParser {
       tangents: this.parseBuffer(attributes["TANGENT"]),
       joints: this.parseBuffer(attributes["JOINTS_0"]),
       weights: this.parseBuffer(attributes["WEIGHTS_0"]),
+      colors: this.parseBuffer(attributes["COLOR_0"])
     })
     for (let i = 0; true; i++) {
       let buffer = this.parseBuffer(attributes[`TEXCOORD_${i}`])
