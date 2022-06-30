@@ -8,7 +8,7 @@ Object.keys(package.peerDependencies).forEach(function(key) {
     commonjs: key,
     commonjs2: key,
     amd: key,
-    root: namespace,
+    root: namespace.split('.'),
   }
 })
 
