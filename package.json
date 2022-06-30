@@ -27,6 +27,19 @@
     "url": "https://github.com/jnsmalm/pixi3d/issues"
   },
   "homepage": "https://github.com/jnsmalm/pixi3d#readme",
+  "peerDependencies": {
+    "@pixi/core": "^6.0.2",
+    "@pixi/constants": "^6.0.2",
+    "@pixi/display": "^6.0.2",
+    "@pixi/interaction": "^6.0.2",
+    "@pixi/loaders": "^6.0.2",
+    "@pixi/math": "^6.0.2",
+    "@pixi/mixin-get-child-by-name": "^6.0.2",
+    "@pixi/settings": "^6.0.2",
+    "@pixi/sprite": "^6.0.2",
+    "@pixi/ticker": "^6.0.2",
+    "@pixi/utils": "^6.0.2"
+  },
   "devDependencies": {
     "chai": "^4.3.4",
     "gl-matrix": "^3.3.0",

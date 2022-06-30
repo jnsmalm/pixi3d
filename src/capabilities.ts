@@ -1,4 +1,4 @@
-import { Renderer } from "pixi.js"
+import { Renderer } from "@pixi/core"
 
 export namespace Capabilities {
   let _maxVertexUniformVectors: number | undefined

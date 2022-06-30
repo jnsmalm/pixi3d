@@ -1,4 +1,6 @@
-import { IRendererPlugin, Renderer, Point, Ticker, UPDATE_PRIORITY } from "pixi.js"
+import { Ticker, UPDATE_PRIORITY } from "@pixi/ticker"
+import { IRendererPlugin, Renderer } from "@pixi/core"
+import { Point } from "@pixi/math"
 import { PickingMap } from "./picking-map"
 import { PickingHitArea } from "./picking-hitarea"
 

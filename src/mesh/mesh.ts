@@ -1,4 +1,4 @@
-import { Renderer, ObjectRenderer } from "pixi.js"
+import { Renderer, ObjectRenderer } from "@pixi/core"
 import { PlaneGeometry } from "./geometry/plane-geometry"
 import { CubeGeometry } from "./geometry/cube-geometry"
 import { MeshGeometry3D } from "./geometry/mesh-geometry"

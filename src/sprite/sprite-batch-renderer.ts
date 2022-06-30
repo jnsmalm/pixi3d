@@ -1,12 +1,12 @@
-import * as PIXI from "pixi.js"
-
+import { Renderer, AbstractBatchRenderer, BatchShaderGenerator, IBatchableElement, ViewableBuffer } from "@pixi/core"
+import { premultiplyTint } from "@pixi/utils"
 import { SpriteBatchGeometry } from "./sprite-batch-geometry"
 
-export class SpriteBatchRenderer extends PIXI.AbstractBatchRenderer {
-  constructor(renderer: PIXI.Renderer) {
+export class SpriteBatchRenderer extends AbstractBatchRenderer {
+  constructor(renderer: Renderer) {
     super(renderer)
 
-    this.shaderGenerator = new PIXI.BatchShaderGenerator(
+    this.shaderGenerator = new BatchShaderGenerator(
       require("./shader/sprite.vert"), require("./shader/sprite.frag"))
     this.geometryClass = SpriteBatchGeometry
 
@@ -19,7 +19,7 @@ export class SpriteBatchRenderer extends PIXI.AbstractBatchRenderer {
     })
   }
 
-  packInterleavedGeometry(element: PIXI.IBatchableElement, attributeBuffer: PIXI.ViewableBuffer, indexBuffer: Uint16Array, aIndex: number, iIndex: number) {
+  packInterleavedGeometry(element: IBatchableElement, attributeBuffer: ViewableBuffer, indexBuffer: Uint16Array, aIndex: number, iIndex: number) {
     const { uint32View, float32View } = attributeBuffer
     const packedVertices = aIndex / this.vertexSize
     const uvs = element.uvs
@@ -30,7 +30,7 @@ export class SpriteBatchRenderer extends PIXI.AbstractBatchRenderer {
     const alpha = Math.min(element.worldAlpha, 1.0)
     const argb = (alpha < 1.0
       && element._texture.baseTexture.alphaMode)
-      ? PIXI.utils.premultiplyTint(element._tintRGB, alpha)
+      ? premultiplyTint(element._tintRGB, alpha)
       : element._tintRGB + (alpha * 255 << 24)
 
     for (let i = 0; i < vertexData.length; i += 2) {
@@ -51,4 +51,4 @@ export class SpriteBatchRenderer extends PIXI.AbstractBatchRenderer {
   }
 }
 
-PIXI.Renderer.registerPlugin("sprite3d", SpriteBatchRenderer)
+Renderer.registerPlugin("sprite3d", SpriteBatchRenderer)

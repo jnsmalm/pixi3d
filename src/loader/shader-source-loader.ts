@@ -1,4 +1,4 @@
-import * as PIXI from "pixi.js"
+import { Loader, LoaderResource } from "@pixi/loaders"
 
 const EXTENSIONS = ["glsl", "vert", "frag"]
 
@@ -11,10 +11,10 @@ export const ShaderSourceLoader = {
   },
   add: () => {
     for (let ext of EXTENSIONS) {
-      PIXI.LoaderResource.setExtensionXhrType(
-        ext, PIXI.LoaderResource.XHR_RESPONSE_TYPE.TEXT)
+      LoaderResource.setExtensionXhrType(
+        ext, LoaderResource.XHR_RESPONSE_TYPE.TEXT)
     }
   }
 }
 
-PIXI.Loader.registerPlugin(ShaderSourceLoader)
+Loader.registerPlugin(ShaderSourceLoader)

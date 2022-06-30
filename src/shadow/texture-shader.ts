@@ -1,4 +1,4 @@
-import { Renderer, Buffer } from "pixi.js"
+import { Renderer, Buffer } from "@pixi/core"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"

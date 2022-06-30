@@ -1,11 +1,13 @@
-import * as PIXI from "pixi.js"
+import { Sprite } from "@pixi/sprite"
+import { Texture, Resource } from "@pixi/core"
+import { settings } from "@pixi/settings"
 
-export class ProjectionSprite extends PIXI.Sprite {
+export class ProjectionSprite extends Sprite {
   private _pixelsPerUnit = 100
 
   modelViewProjection = new Float32Array(16)
   
-  constructor(texture?: PIXI.Texture<PIXI.Resource>) {
+  constructor(texture?: Texture<Resource>) {
     super(texture)
     this.pluginName = "sprite3d"
   }
@@ -57,7 +59,7 @@ export class ProjectionSprite extends PIXI.Sprite {
     this.vertexData[7] = ((wt.d * -h0) + (wt.b * w1)) / this._pixelsPerUnit
 
     if (this.roundPixels) {
-      const resolution = PIXI.settings.RESOLUTION
+      const resolution = settings.RESOLUTION
       for (var i = 0; i < this.vertexData.length; ++i) {
         this.vertexData[i] = Math.round((this.vertexData[i] * resolution | 0) / resolution)
       }

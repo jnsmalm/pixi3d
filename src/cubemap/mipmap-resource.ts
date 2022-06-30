@@ -1,5 +1,6 @@
 import { ArrayResource } from "../resource/array-resource"
-import { Texture, BaseTexture, Renderer, FORMATS, TYPES, ALPHA_MODES } from "pixi.js"
+import { FORMATS, TYPES, ALPHA_MODES } from "@pixi/constants"
+import { Texture, BaseTexture, Renderer } from "@pixi/core"
 import { BaseImageResource } from "../resource/base-image-resource"
 import { BufferResource } from "../resource/buffer-resource"
 

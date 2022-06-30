@@ -1,4 +1,4 @@
-import { Transform } from "pixi.js"
+import { Transform } from "@pixi/math"
 import { Matrix4 } from "./matrix4"
 import { ObservablePoint3D } from "./observable-point"
 import { ObservableQuaternion } from "./observable-quaternion"

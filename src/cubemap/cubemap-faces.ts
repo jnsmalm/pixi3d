@@ -1,16 +1,16 @@
-import * as PIXI from "pixi.js"
+import { Texture } from "@pixi/core"
 
 export interface CubemapFaces {
   /** The texture or url for positive x. */
-  posx: PIXI.Texture | string
+  posx: Texture | string
   /** The texture or url for negative x. */
-  negx: PIXI.Texture | string
+  negx: Texture | string
   /** The texture or url for positive y. */
-  posy: PIXI.Texture | string
+  posy: Texture | string
   /** The texture or url for negative y. */
-  negy: PIXI.Texture | string
+  negy: Texture | string
   /** The texture or url for positive z. */
-  posz: PIXI.Texture | string
+  posz: Texture | string
   /** The texture or url for negative z. */
-  negz: PIXI.Texture | string
+  negz: Texture | string
 }

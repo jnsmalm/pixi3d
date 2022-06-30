@@ -1,4 +1,4 @@
-import { ILoaderResource, LoaderResource, Loader } from "pixi.js"
+import { ILoaderResource, LoaderResource, Loader } from "@pixi/loaders"
 import { glTFAsset } from "../gltf/gltf-asset"
 
 export const glTFBinaryLoader = {

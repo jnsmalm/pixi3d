@@ -1,6 +1,17 @@
 const package = require('./package.json')
 const webpack = require("webpack")
 
+const externals = {};
+Object.keys(package.peerDependencies).forEach(function(key) {
+  const { namespace = "PIXI" } = require(`${key}/package.json`);
+  externals[key] = {
+    commonjs: key,
+    commonjs2: key,
+    amd: key,
+    root: namespace,
+  }
+})
+
 const shared = {
   entry: "./src/index.ts",
   module: {
@@ -33,14 +44,7 @@ const shared = {
   resolve: {
     extensions: [".ts", ".js", ".glsl", ".vert", ".frag"]
   },
-  externals: {
-    "pixi.js": {
-      commonjs: "pixi.js",
-      commonjs2: "pixi.js",
-      amd: "pixi.js",
-      root: "PIXI"
-    }
-  }
+  externals: externals
 }
 
 module.exports = [

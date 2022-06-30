@@ -1,4 +1,4 @@
-import { Renderer, Program, Geometry, Buffer } from "pixi.js"
+import { Renderer, Program, Geometry, Buffer } from "@pixi/core"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { MeshShader } from "../mesh/mesh-shader"
 import { StandardShaderSource } from "../material/standard/standard-shader-source"

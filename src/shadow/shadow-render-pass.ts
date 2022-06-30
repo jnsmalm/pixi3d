@@ -1,4 +1,4 @@
-import { Renderer } from "pixi.js"
+import { Renderer } from "@pixi/core"
 import { RenderPass } from "../pipeline/render-pass"
 import { Mesh3D } from "../mesh/mesh"
 import { ShadowFilter } from "./shadow-filter"

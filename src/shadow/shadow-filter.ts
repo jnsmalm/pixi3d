@@ -1,4 +1,4 @@
-import { Renderer, Program, RenderTexture } from "pixi.js"
+import { Renderer, Program, RenderTexture } from "@pixi/core"
 import { MeshShader } from "../mesh/mesh-shader"
 import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"

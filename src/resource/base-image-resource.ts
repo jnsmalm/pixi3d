@@ -1,4 +1,4 @@
-import * as PIXI from "pixi.js"
+import { BaseImageResource as PixiBaseImageResource, resources } from "@pixi/core"
 
 // @ts-ignore
-export const BaseImageResource: typeof PIXI.BaseImageResource = PIXI.BaseImageResource || PIXI.resources.BaseImageResource
+export const BaseImageResource: typeof PixiBaseImageResource = PixiBaseImageResource || resources.BaseImageResource
