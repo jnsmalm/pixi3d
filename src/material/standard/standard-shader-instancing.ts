@@ -1,4 +1,4 @@
-import * as PIXI from "pixi.js"
+import { Buffer, Geometry } from "@pixi/core"
 
 import { InstancedMesh3D } from "../../mesh/instanced-mesh"
 import { InstancedStandardMaterial } from "./instanced-standard-material"
@@ -6,13 +6,13 @@ import { InstancedStandardMaterial } from "./instanced-standard-material"
 export class StandardShaderInstancing {
   private _maxInstances = 200
 
-  private _modelMatrix: PIXI.Buffer[] = [
-    new PIXI.Buffer(), new PIXI.Buffer(), new PIXI.Buffer(), new PIXI.Buffer()
+  private _modelMatrix: Buffer[] = [
+    new Buffer(), new Buffer(), new Buffer(), new Buffer()
   ]
-  private _normalMatrix: PIXI.Buffer[] = [
-    new PIXI.Buffer(), new PIXI.Buffer(), new PIXI.Buffer(), new PIXI.Buffer()
+  private _normalMatrix: Buffer[] = [
+    new Buffer(), new Buffer(), new Buffer(), new Buffer()
   ]
-  private _baseColor = new PIXI.Buffer()
+  private _baseColor = new Buffer()
 
   constructor() {
     this.expandBuffers(this._maxInstances)
@@ -61,7 +61,7 @@ export class StandardShaderInstancing {
     this._baseColor.update()
   }
 
-  addGeometryAttributes(geometry: PIXI.Geometry) {
+  addGeometryAttributes(geometry: Geometry) {
     for (let i = 0; i < 4; i++) {
       geometry.addAttribute(`a_ModelMatrix${i}`,
         this._modelMatrix[i], 4, false, undefined, 0, undefined, true)

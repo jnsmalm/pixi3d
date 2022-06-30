@@ -1,4 +1,4 @@
-import { IDestroyOptions } from "pixi.js"
+import { IDestroyOptions } from "@pixi/display"
 import { Container3D } from "../container"
 import { Mesh3D } from "./mesh"
 

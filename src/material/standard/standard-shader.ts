@@ -1,4 +1,5 @@
-import * as PIXI from "pixi.js"
+import { Program, Renderer, State, Buffer } from "@pixi/core"
+import { DRAW_MODES } from "@pixi/constants"
 
 import { MeshGeometry3D } from "../../mesh/geometry/mesh-geometry"
 import { Mesh3D } from "../../mesh/mesh"
@@ -9,11 +10,11 @@ import { StandardShaderSource } from "./standard-shader-source"
 export class StandardShader extends MeshShader {
   private _instancing = new StandardShaderInstancing()
 
-  static build(renderer: PIXI.Renderer, features: string[]) {
+  static build(renderer: Renderer, features: string[]) {
     let vert = require(`./shader/primitive.vert`)
     let frag = require(`./shader/metallic-roughness.frag`)
 
-    let program = PIXI.Program.from(
+    let program = Program.from(
       StandardShaderSource.build(vert, features, renderer),
       StandardShaderSource.build(frag, features, renderer))
 
@@ -33,37 +34,37 @@ export class StandardShader extends MeshShader {
       for (let i = 0; i < geometry.targets.length; i++) {
         let positions = geometry.targets[i].positions
         if (positions) {
-          result.addAttribute(`a_Target_Position${i}`, new PIXI.Buffer(positions.buffer),
+          result.addAttribute(`a_Target_Position${i}`, new Buffer(positions.buffer),
             3, false, positions.componentType, positions.stride)
         }
         let normals = geometry.targets[i].normals
         if (normals) {
-          result.addAttribute(`a_Target_Normal${i}`, new PIXI.Buffer(normals.buffer),
+          result.addAttribute(`a_Target_Normal${i}`, new Buffer(normals.buffer),
             3, false, normals.componentType, normals.stride)
         }
         let tangents = geometry.targets[i].tangents
         if (tangents) {
-          result.addAttribute(`a_Target_Tangent${i}`, new PIXI.Buffer(tangents.buffer),
+          result.addAttribute(`a_Target_Tangent${i}`, new Buffer(tangents.buffer),
             3, false, tangents.componentType, tangents.stride)
         }
       }
     }
     if (geometry.uvs && geometry.uvs[1]) {
-      result.addAttribute("a_UV2", new PIXI.Buffer(geometry.uvs[1].buffer),
+      result.addAttribute("a_UV2", new Buffer(geometry.uvs[1].buffer),
         2, false, geometry.uvs[1].componentType, geometry.uvs[1].stride)
     }
     if (geometry.joints) {
-      result.addAttribute("a_Joint1", new PIXI.Buffer(geometry.joints.buffer),
+      result.addAttribute("a_Joint1", new Buffer(geometry.joints.buffer),
         4, false, geometry.joints.componentType, geometry.joints.stride)
     }
     if (geometry.weights) {
-      result.addAttribute("a_Weight1", new PIXI.Buffer(geometry.weights.buffer),
+      result.addAttribute("a_Weight1", new Buffer(geometry.weights.buffer),
         4, false, geometry.weights.componentType, geometry.weights.stride)
     }
     return result
   }
 
-  render(mesh: Mesh3D, renderer: PIXI.Renderer, state: PIXI.State, drawMode: PIXI.DRAW_MODES) {
+  render(mesh: Mesh3D, renderer: Renderer, state: State, drawMode: DRAW_MODES) {
     if (mesh.instances.length > 0) {
       this._instancing.updateBuffers(mesh.instances)
     }

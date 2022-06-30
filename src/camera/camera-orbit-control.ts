@@ -1,4 +1,5 @@
-import * as PIXI from "pixi.js"
+import { ObservablePoint } from "@pixi/math"
+import { InteractionEvent } from "@pixi/interaction"
 
 import { Camera } from "./camera"
 import { Quat } from "../math/quat"
@@ -11,7 +12,7 @@ export class CameraOrbitControl {
   private _distance = 5
   private _grabbed = false
 
-  private _angles = new PIXI.ObservablePoint(() => {
+  private _angles = new ObservablePoint(() => {
     this._angles.x = Math.min(Math.max(-85, this._angles.x), 85)
   }, undefined, 0, 180)
 
@@ -39,7 +40,7 @@ export class CameraOrbitControl {
     this.camera.renderer.on("prerender", () => {
       this.updateCamera()
     })
-    this.camera.renderer.plugins.interaction.on("mousedown", (e: PIXI.InteractionEvent) => {
+    this.camera.renderer.plugins.interaction.on("mousedown", (e: InteractionEvent) => {
       if (!e.stopped) {
         this._grabbed = true
       }

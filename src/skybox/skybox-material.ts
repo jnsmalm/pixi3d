@@ -1,4 +1,4 @@
-import { State, Renderer, Program } from "pixi.js"
+import { State, Renderer, Program } from "@pixi/core"
 import { Cubemap } from "../cubemap/cubemap"
 import { MeshShader } from "../mesh/mesh-shader"
 import { Camera } from "../camera/camera"

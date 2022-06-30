@@ -1,7 +1,7 @@
-import * as PIXI from "pixi.js"
+import { Renderer } from "@pixi/core"
 
 export namespace StandardShaderSource {
-  export function build(source: string, features: string[], renderer: PIXI.Renderer) {
+  export function build(source: string, features: string[], renderer: Renderer) {
     if (renderer.context.webGLVersion === 1) {
       source = source.replace(/VERSION/, "100")
         .replace(/VERT_IN/g, "attribute")

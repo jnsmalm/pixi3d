@@ -1,4 +1,4 @@
-import { BaseTexture, Texture } from "pixi.js"
+import { BaseTexture, Texture } from "@pixi/core"
 import { TextureTransform } from "../../texture/texture-transform"
 
 /**

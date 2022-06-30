@@ -1,5 +1,5 @@
-import * as PIXI from "pixi.js"
-
+import { Loader, LoaderResource } from "@pixi/loaders"
+import { Texture } from "@pixi/core"
 import { Cubemap } from "../cubemap/cubemap"
 import { CubemapFaces } from "../cubemap/cubemap-faces"
 
@@ -8,7 +8,7 @@ export const CubemapLoader = {
     if (resource.extension !== "cubemap") {
       return next()
     }
-    let loader = <PIXI.Loader><unknown>this
+    let loader = <Loader><unknown>this
 
     const mipmaps = (<string[]>resource.data).map(mipmap => {
       return Cubemap.faces.map(face => {
@@ -32,12 +32,12 @@ export const CubemapLoader = {
           // All resources used by cubemap has been loaded.
           const textures = mipmaps.map(face => {
             return <CubemapFaces>{
-              posx: PIXI.Texture.from(face[0]),
-              negx: PIXI.Texture.from(face[1]),
-              posy: PIXI.Texture.from(face[2]),
-              negy: PIXI.Texture.from(face[3]),
-              posz: PIXI.Texture.from(face[4]),
-              negz: PIXI.Texture.from(face[5]),
+              posx: Texture.from(face[0]),
+              negx: Texture.from(face[1]),
+              posy: Texture.from(face[2]),
+              negy: Texture.from(face[3]),
+              posz: Texture.from(face[4]),
+              negz: Texture.from(face[5]),
             }
           })
           resource.cubemap = Cubemap.fromFaces(textures)
@@ -48,9 +48,9 @@ export const CubemapLoader = {
     next()
   },
   add: () => {
-    PIXI.LoaderResource.setExtensionXhrType(
-      "cubemap", PIXI.LoaderResource.XHR_RESPONSE_TYPE.JSON)
+    LoaderResource.setExtensionXhrType(
+      "cubemap", LoaderResource.XHR_RESPONSE_TYPE.JSON)
   }
 }
 
-PIXI.Loader.registerPlugin(CubemapLoader)
+Loader.registerPlugin(CubemapLoader)

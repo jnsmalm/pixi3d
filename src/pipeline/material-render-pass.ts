@@ -1,5 +1,5 @@
 import { Color } from "../color"
-import { RenderTexture, Renderer } from "pixi.js"
+import { RenderTexture, Renderer } from "@pixi/core"
 import { RenderPass } from "./render-pass"
 import { Mesh3D } from "../mesh/mesh"
 

@@ -1,4 +1,5 @@
-import { IHitArea, Renderer } from "pixi.js"
+import { Renderer } from "@pixi/core"
+import { IHitArea } from "@pixi/interaction"
 import { PickingInteraction } from "./picking-interaction"
 import { Mesh3D } from "../mesh/mesh"
 import { Model } from "../model"

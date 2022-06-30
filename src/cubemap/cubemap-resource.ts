@@ -1,5 +1,5 @@
 import { CubeResource } from "../resource/cube-resource"
-import { Renderer } from "pixi.js"
+import { Renderer } from "@pixi/core"
 import { MipmapResource } from "./mipmap-resource"
 
 export type MipmapResourceArray = [

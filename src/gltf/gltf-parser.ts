@@ -1,4 +1,5 @@
-import * as PIXI from "pixi.js"
+import { Texture, BaseTexture } from "@pixi/core"
+import { ALPHA_MODES, WRAP_MODES } from "@pixi/constants"
 
 import { glTFChannel } from "./animation/gltf-channel"
 import { glTFAsset } from "./gltf-asset"
@@ -23,7 +24,7 @@ export class glTFParser {
   private _asset: glTFAsset
   private _materialFactory: MaterialFactory
   private _descriptor: any
-  private _textures: PIXI.Texture[] = []
+  private _textures: Texture[] = []
 
   /**
    * Creates a new parser using the specified asset.
@@ -210,8 +211,8 @@ export class glTFParser {
   parseTexture(index: number) {
     const texture = this._descriptor.textures[index]
     const image = this._asset.images[texture.source]
-    const result = new PIXI.Texture(new PIXI.BaseTexture(image.baseTexture.resource, {
-      wrapMode: PIXI.WRAP_MODES.REPEAT,
+    const result = new Texture(new BaseTexture(image.baseTexture.resource, {
+      wrapMode: WRAP_MODES.REPEAT,
       // Went back and forth about NO_PREMULTIPLIED_ALPHA. The default in
       // PixiJS is to have premultiplied alpha textures, but this may not work
       // so well when rendering objects as opaque (which have alpha equal to 0).
@@ -219,14 +220,14 @@ export class glTFParser {
       // because they are all zero when using premultiplied alpha. Both the glTF
       // Sample Viewer and Babylon.js uses NO_PREMULTIPLIED_ALPHA so decided to
       // do the same.
-      alphaMode: PIXI.ALPHA_MODES.NO_PREMULTIPLIED_ALPHA
+      alphaMode: ALPHA_MODES.NO_PREMULTIPLIED_ALPHA
     }))
     if (this._descriptor.samplers && texture.sampler !== undefined) {
       const sampler = this._descriptor.samplers[texture.sampler]
       switch (sampler.wrapS) {
-        case 10497: result.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT; break
-        case 33648: result.baseTexture.wrapMode = PIXI.WRAP_MODES.MIRRORED_REPEAT; break
-        case 33071: result.baseTexture.wrapMode = PIXI.WRAP_MODES.CLAMP; break
+        case 10497: result.baseTexture.wrapMode = WRAP_MODES.REPEAT; break
+        case 33648: result.baseTexture.wrapMode = WRAP_MODES.MIRRORED_REPEAT; break
+        case 33071: result.baseTexture.wrapMode = WRAP_MODES.CLAMP; break
       }
     }
     return result

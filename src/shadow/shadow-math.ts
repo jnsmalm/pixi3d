@@ -1,4 +1,4 @@
-import { DEG_TO_RAD } from "pixi.js"
+import { DEG_TO_RAD } from "@pixi/math"
 import { ShadowCastingLight } from "./shadow-casting-light"
 import { Mat4 } from "../math/mat4"
 import { LightType } from "../lighting/light-type"

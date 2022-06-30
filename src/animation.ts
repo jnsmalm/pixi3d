@@ -1,10 +1,11 @@
-import * as PIXI from "pixi.js"
+import { Ticker } from '@pixi/ticker';
+import { EventEmitter } from '@pixi/utils';
 
 /**
  * Represents an animation.
  */
-export abstract class Animation extends PIXI.utils.EventEmitter {
-  private _ticker?: PIXI.Ticker
+export abstract class Animation extends EventEmitter {
+  private _ticker?: Ticker
   private _update?: (...params: any[]) => void
 
   /** The duration (in seconds) of this animation. */
@@ -32,7 +33,7 @@ export abstract class Animation extends PIXI.utils.EventEmitter {
    * @param ticker The ticker to use for updating the animation. If a ticker 
    * is not given, the shared ticker will be used.
    */
-  play(ticker = PIXI.Ticker.shared) {
+  play(ticker = Ticker.shared) {
     this.position = 0
     if (!this._ticker) {
       this._update = () => {

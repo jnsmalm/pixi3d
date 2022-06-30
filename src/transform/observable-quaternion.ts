@@ -1,4 +1,4 @@
-import { ObservablePoint, IPoint } from "pixi.js"
+import { ObservablePoint, IPoint } from "@pixi/math"
 import { Quat } from "../math/quat"
 
 /**

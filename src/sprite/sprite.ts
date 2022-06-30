@@ -1,4 +1,7 @@
-import * as PIXI from "pixi.js"
+import { Renderer, Texture, Resource } from "@pixi/core"
+import { IDestroyOptions } from "@pixi/display"
+import { BLEND_MODES } from "@pixi/constants"
+import { ObservablePoint } from "@pixi/math"
 
 import { Camera } from "../camera/camera"
 import { SpriteBillboardType } from "./sprite-billboard-type"
@@ -25,7 +28,7 @@ export class Sprite3D extends Container3D {
    * Creates a new sprite using the specified texture.
    * @param texture The texture to use.
    */
-  constructor(texture: PIXI.Texture<PIXI.Resource>) {
+  constructor(texture: Texture<Resource>) {
     super()
     this._sprite = new ProjectionSprite(texture)
     this._sprite.anchor.set(0.5)
@@ -70,7 +73,7 @@ export class Sprite3D extends Container3D {
   /**
    * Destroys this sprite and optionally its texture and children.
    */
-  destroy(options?: boolean | PIXI.IDestroyOptions) {
+  destroy(options?: boolean | IDestroyOptions) {
     super.destroy(options)
     this._sprite.destroy(options)
   }
@@ -79,7 +82,7 @@ export class Sprite3D extends Container3D {
    * Renders the sprite.
    * @param renderer The renderer to use.
    */
-  _render(renderer: PIXI.Renderer) {
+  _render(renderer: Renderer) {
     const camera = this.camera || Camera.main
     const update = camera.transformId !== this._cameraTransformId ||
       this._parentID !== this.transform._worldID
@@ -127,7 +130,7 @@ export class Sprite3D extends Container3D {
     return this._sprite.anchor
   }
 
-  set anchor(value: PIXI.ObservablePoint) {
+  set anchor(value: ObservablePoint) {
     this._sprite.anchor = value
   }
 
@@ -136,7 +139,7 @@ export class Sprite3D extends Container3D {
     return this._sprite.texture
   }
 
-  set texture(value: PIXI.Texture<PIXI.Resource>) {
+  set texture(value: Texture<Resource>) {
     this._sprite.texture = value
   }
 
@@ -145,7 +148,7 @@ export class Sprite3D extends Container3D {
     return this._sprite.blendMode
   }
 
-  set blendMode(value: PIXI.BLEND_MODES) {
+  set blendMode(value: BLEND_MODES) {
     this._sprite.blendMode = value
   }
 }

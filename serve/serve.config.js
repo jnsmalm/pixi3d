@@ -1,4 +1,18 @@
 const path = require("path")
+const package = require('../package.json');
+
+const externals = {};
+Object.keys(package.peerDependencies).forEach(function(key) {
+  const { namespace = "PIXI" } = require(`${key}/package.json`);
+  externals[key] = {
+    commonjs: key,
+    commonjs2: key,
+    amd: key,
+    root: namespace.split('.'),
+  }
+})
+
+console.log(externals);
 
 module.exports = env => {
   return [{
@@ -36,14 +50,7 @@ module.exports = env => {
     resolve: {
       extensions: [".ts", ".js", ".glsl", ".vert", ".frag"]
     },
-    externals: {
-      "pixi.js": {
-        commonjs: "pixi.js",
-        commonjs2: "pixi.js",
-        amd: "pixi.js",
-        root: "PIXI"
-      }
-    },
+    externals: externals,
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "pixi3d.js",

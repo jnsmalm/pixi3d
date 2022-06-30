@@ -1,9 +1,9 @@
-import * as PIXI from "pixi.js"
+import { ObservablePoint, IPoint } from "@pixi/math"
 
 /**
  * Represents a point in 3D space.
  */
-export class ObservablePoint3D extends PIXI.ObservablePoint {
+export class ObservablePoint3D extends ObservablePoint {
   private _array = new Float32Array(3)
 
   /** Array containing the x, y, z values. */
@@ -84,7 +84,7 @@ export class ObservablePoint3D extends PIXI.ObservablePoint {
     return this
   }
 
-  copyTo<T extends PIXI.IPoint>(p: T) {
+  copyTo<T extends IPoint>(p: T) {
     if (p instanceof ObservablePoint3D) {
       p.set(this.x, this.y, this.z)
     }

@@ -1,4 +1,4 @@
-import * as PIXI from "pixi.js"
+import { Container } from '@pixi/display';
 
 import { ObservableQuaternion } from "./transform/observable-quaternion"
 import { Transform3D } from "./transform/transform"
@@ -7,7 +7,7 @@ import { ObservablePoint3D } from "./transform/observable-point"
 /**
  * A container represents a collection of 3D objects.
  */
-export class Container3D extends PIXI.Container {
+export class Container3D extends Container {
   transform = new Transform3D()
 
   set position(value: ObservablePoint3D) {

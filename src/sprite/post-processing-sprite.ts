@@ -1,4 +1,7 @@
-import { DisplayObject, Sprite, RenderTexture, Renderer, Ticker, IDestroyOptions } from "pixi.js"
+import { RenderTexture, Renderer } from "@pixi/core"
+import { DisplayObject, IDestroyOptions } from "@pixi/display"
+import { Sprite } from "@pixi/sprite"
+import { Ticker } from "@pixi/ticker"
 
 export interface PostProcessingSpriteOptions {
   /**

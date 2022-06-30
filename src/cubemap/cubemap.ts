@@ -1,4 +1,5 @@
-import { BaseTexture, Texture, TARGETS, TYPES, FORMATS, ALPHA_MODES } from "pixi.js"
+import { TARGETS, TYPES, FORMATS, ALPHA_MODES } from "@pixi/constants"
+import { BaseTexture, Texture } from "@pixi/core"
 import { MipmapResource } from "./mipmap-resource"
 import { CubemapResource, MipmapResourceArray } from "./cubemap-resource"
 import { Color } from "../color"

@@ -1,4 +1,4 @@
-import { IDestroyOptions } from "pixi.js"
+import { IDestroyOptions } from "@pixi/display"
 
 export interface MeshDestroyOptions extends IDestroyOptions {
   geometry?: boolean

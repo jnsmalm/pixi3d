@@ -1,4 +1,4 @@
-import { Texture } from "pixi.js"
+import { Texture } from "@pixi/core"
 import { glTFResourceLoader } from "./gltf-resource-loader"
 
 /**

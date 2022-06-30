@@ -1,7 +1,7 @@
 import { PickingHitArea } from "./picking-hitarea"
 import { Mesh3D } from "../mesh/mesh"
 import { Camera } from "../camera/camera"
-import { RenderTexture, Renderer, Program } from "pixi.js"
+import { RenderTexture, Renderer, Program } from "@pixi/core"
 import { Mat4 } from "../math/mat4"
 import { MeshShader } from "../mesh/mesh-shader"
 
