@@ -5,16 +5,27 @@
   <meta charset="utf-8" />
   <title>Mocha Tests</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="mocha.css" />
 </head>
 
 <body>
-  <!-- <script src="https://pixijs.download/v5.3.0/pixi.min.js"></script> -->
-  <!-- <script src="https://pixijs.download/v5.3.12/pixi.min.js"></script> -->
-  <!-- <script src="https://pixijs.download/v6.2.0/pixi.min.js"></script> -->
-  <script src="https://pixijs.download/v6.4.2/pixi.min.js"></script>
+  <div id="mocha"></div>
+
+  <script src="mocha.js"></script>
+
+  <script class="mocha-init">
+    mocha.setup("bdd")
+    mocha.checkLeaks()
+  </script>
+
+  <!-- <script src="https://pixijs.download/v5.3.0/pixi.js"></script> -->
+  <script src="https://pixijs.download/v6.4.2/pixi.js"></script>
+
   <script src="pixi3d.js"></script>
-  <script src="test-bundle.js"></script>
+  <script src="bundle.js"></script>
+  
+  <script class="mocha-exec">mocha.run()</script>
+
 </body>
 
 </html>

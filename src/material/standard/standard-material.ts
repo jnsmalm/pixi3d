@@ -18,7 +18,7 @@ import { StandardMaterialNormalTexture } from "./standard-material-normal-textur
 import { StandardMaterialTexture } from "./standard-material-texture"
 import { StandardMaterialFactory } from "./standard-material-factory"
 import { ImageBasedLighting } from "../../lighting/image-based-lighting"
-import { TextureTransform } from "../.."
+import { TextureTransform } from "../../texture/texture-transform"
 
 const shaders: { [features: string]: StandardShader } = {}
 

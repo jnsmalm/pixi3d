@@ -6,17 +6,16 @@ import { Mesh3D } from "../../mesh/mesh"
 import { MeshShader } from "../../mesh/mesh-shader"
 import { StandardShaderInstancing } from "./standard-shader-instancing"
 import { StandardShaderSource } from "./standard-shader-source"
+import { Shader as MetallicRoughness } from "./shader/metallic-roughness.frag"
+import { Shader as Primitive } from "./shader/primitive.vert"
 
 export class StandardShader extends MeshShader {
   private _instancing = new StandardShaderInstancing()
 
   static build(renderer: Renderer, features: string[]) {
-    let vert = require(`./shader/primitive.vert`)
-    let frag = require(`./shader/metallic-roughness.frag`)
-
     let program = Program.from(
-      StandardShaderSource.build(vert, features, renderer),
-      StandardShaderSource.build(frag, features, renderer))
+      StandardShaderSource.build(Primitive.source, features, renderer),
+      StandardShaderSource.build(MetallicRoughness.source, features, renderer))
 
     return new StandardShader(program)
   }

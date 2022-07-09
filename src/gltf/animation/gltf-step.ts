@@ -1,10 +1,9 @@
 import { glTFInterpolation } from "./gltf-interpolation"
 
-export class glTFStep extends glTFInterpolation {
+export class glTFStep implements glTFInterpolation {
   private _data: Float32Array
 
   constructor(private _output: ArrayLike<number>, private _stride: number) {
-    super()
     this._data = new Float32Array(_stride)
   }
 

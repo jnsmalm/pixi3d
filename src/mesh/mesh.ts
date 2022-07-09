@@ -9,7 +9,7 @@ import { InstancedMesh3D } from "./instanced-mesh"
 import { Material } from "../material/material"
 import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshDestroyOptions } from "./mesh-destroy-options"
-import { Vec3 } from ".."
+import { Vec3 } from "../math/vec3"
 import { AABB } from "../math/aabb"
 import { SphereGeometry } from "./geometry/sphere-geometry"
 
@@ -179,7 +179,7 @@ export class Mesh3D extends Container3D {
    * Creates a new uv sphere mesh with the specified material.
    * @param material The material to use.
    */
-   static createSphere(material: Material = new StandardMaterial()) {
+  static createSphere(material: Material = new StandardMaterial()) {
     return new Mesh3D(SphereGeometry.create(), material)
   }
 }

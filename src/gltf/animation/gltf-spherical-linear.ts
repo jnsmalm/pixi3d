@@ -1,11 +1,10 @@
 import { Quat } from "../../math/quat"
 import { glTFInterpolation } from "./gltf-interpolation"
 
-export class glTFSphericalLinear extends glTFInterpolation {
+export class glTFSphericalLinear implements glTFInterpolation {
   private _data: Float32Array
 
   constructor(private _output: ArrayLike<number>) {
-    super()
     this._data = new Float32Array(4)
   }
 

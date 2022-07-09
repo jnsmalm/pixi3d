@@ -10,12 +10,13 @@ import { Mesh3D } from "../mesh/mesh"
 import { Container3D } from "../container"
 import { Material } from "../material/material"
 import { MaterialFactory } from "../material/material-factory"
-import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { Model } from "../model"
 import { Matrix4 } from "../transform/matrix4"
 import { Skin } from "../skinning/skin"
 import { Joint } from "../skinning/joint"
+import { StandardMaterialFactory } from "../material/standard/standard-material-factory"
+import { glTFChannelFactory } from "./animation/gltf-channel-factory"
 
 /**
  * Parses glTF assets and creates models and meshes.
@@ -33,7 +34,7 @@ export class glTFParser {
    */
   constructor(asset: glTFAsset, materialFactory?: MaterialFactory) {
     this._asset = asset
-    this._materialFactory = materialFactory || StandardMaterial
+    this._materialFactory = materialFactory || new StandardMaterialFactory()
     this._descriptor = this._asset.descriptor
     for (let i = 0; i < this._descriptor.textures?.length; i++) {
       this._textures.push(this.parseTexture(i))
@@ -103,7 +104,7 @@ export class glTFParser {
       if (output === undefined) {
         continue
       }
-      let animationChannel = glTFChannel.from(
+      let animationChannel = glTFChannelFactory.create(
         input.buffer, output.buffer, sampler.interpolation || "LINEAR", channel.target.path, nodes[channel.target.node])
       if (animationChannel) {
         channels.push(animationChannel)

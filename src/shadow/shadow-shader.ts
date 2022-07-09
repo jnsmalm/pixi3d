@@ -4,15 +4,14 @@ import { MeshShader } from "../mesh/mesh-shader"
 import { StandardShaderSource } from "../material/standard/standard-shader-source"
 import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"
+import { Shader as Vertex } from "./shader/shadow.vert"
+import { Shader as Fragment } from "./shader/shadow.frag"
 
 export class ShadowShader extends MeshShader {
   constructor(renderer: Renderer, features: string[] = []) {
-    let vert = require("./shader/shadow.vert")
-    let frag = require("./shader/shadow.frag")
-
     super(Program.from(
-      StandardShaderSource.build(vert, features, renderer),
-      StandardShaderSource.build(frag, features, renderer)))
+      StandardShaderSource.build(Vertex.source, features, renderer),
+      StandardShaderSource.build(Fragment.source, features, renderer)))
   }
 
   get maxSupportedJoints() {

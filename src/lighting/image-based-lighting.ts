@@ -2,6 +2,8 @@ import { Texture } from "@pixi/core"
 import { MIPMAP_MODES } from "@pixi/constants"
 import { Cubemap } from "../cubemap/cubemap"
 
+import png from "./assets/lut-ggx.png"
+
 /**
  * Collection of components used for image-based lighting (IBL), a
  * rendering technique which involves capturing an omnidirectional representation
@@ -12,7 +14,7 @@ export class ImageBasedLighting {
   private _specular: Cubemap
 
   /** The default BRDF integration map lookup texture. */
-  static defaultLookupBrdf = Texture.from(require("./assets/lut-ggx.png").default, {
+  static defaultLookupBrdf = Texture.from(png, {
     mipmap: MIPMAP_MODES.OFF
   })
 

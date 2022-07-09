@@ -4,6 +4,8 @@ import { MeshShader } from "../mesh/mesh-shader"
 import { Camera } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
 import { Material } from "../material/material"
+import { Shader as Vertex } from "./shader/skybox.vert"
+import { Shader as Frgament } from "./shader/skybox.frag"
 
 export class SkyboxMaterial extends Material {
   private _cubemap: Cubemap
@@ -52,11 +54,8 @@ export class SkyboxMaterial extends Material {
   }
 
   createShader() {
-    let vert = require("./shader/skybox.vert")
-    let frag = require("./shader/skybox.frag")
-
     if (this.cubemap.valid) {
-      return new MeshShader(Program.from(vert, frag))
+      return new MeshShader(Program.from(Vertex.source, Frgament.source))
     }
   }
 }

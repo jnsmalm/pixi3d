@@ -1,3 +1,5 @@
+import { glTFInterpolation } from "./gltf-interpolation"
+
 /**
  * Represents an glTF animation channel which targets a specific node.
  */
@@ -90,42 +92,4 @@ export abstract class glTFChannel {
     }
     return this._input.length - 1
   }
-
-  static from(input: ArrayLike<number>, output: ArrayLike<number>, interpolation: string, path: string, target: Container3D) {
-    if (path === "translation") {
-      return new glTFTranslation(target.transform, input,
-        glTFInterpolation.from(interpolation, input, output, 3))
-    }
-    if (path === "scale") {
-      return new glTFScale(target.transform, input,
-        glTFInterpolation.from(interpolation, input, output, 3))
-    }
-    if (path === "rotation") {
-      if (interpolation === "LINEAR") {
-        return new glTFRotation(target.transform, input,
-          new glTFSphericalLinear(output))
-      }
-      return new glTFRotation(target.transform, input,
-        glTFInterpolation.from(interpolation, input, output, 4))
-    }
-    if (path === "weights") {
-      let weights = (<Mesh3D>target.children[0]).targetWeights
-      if (!weights) {
-        return undefined
-      }
-      return new glTFWeights(weights, input,
-        glTFInterpolation.from(interpolation, input, output, weights.length))
-    }
-    throw new Error(`PIXI3D: Unknown channel path "${path}"`)
-  }
 }
-
-// Fixes circular dependency in webpack
-import { Container3D } from "../../container"
-import { Mesh3D } from "../../mesh/mesh"
-import { glTFInterpolation } from "./gltf-interpolation"
-import { glTFSphericalLinear } from "./gltf-spherical-linear"
-import { glTFScale } from "./gltf-scale"
-import { glTFWeights } from "./gltf-weights"
-import { glTFRotation } from "./gltf-rotation"
-import { glTFTranslation } from "./gltf-translation"

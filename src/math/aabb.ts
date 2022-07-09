@@ -1,4 +1,4 @@
-import { ObservablePoint3D } from ".."
+import { ObservablePoint3D } from "../transform/observable-point"
 
 /**
  * Axis-aligned bounding box.

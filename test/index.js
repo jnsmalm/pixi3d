@@ -1,5 +1,5 @@
 import { use } from "chai"
-import * as pixelmatch from "pixelmatch"
+import pixelmatch from "pixelmatch"
 
 class HTMLMessageError extends Error {
   constructor(actualImageUrl, expectedImageUrl) {

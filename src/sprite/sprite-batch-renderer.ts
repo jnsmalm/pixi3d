@@ -1,13 +1,14 @@
 import { Renderer, AbstractBatchRenderer, BatchShaderGenerator, IBatchableElement, ViewableBuffer } from "@pixi/core"
 import { premultiplyTint } from "@pixi/utils"
 import { SpriteBatchGeometry } from "./sprite-batch-geometry"
+import { Shader as Vertex } from "./shader/sprite.vert"
+import { Shader as Fragment } from "./shader/sprite.frag"
 
 export class SpriteBatchRenderer extends AbstractBatchRenderer {
   constructor(renderer: Renderer) {
     super(renderer)
 
-    this.shaderGenerator = new BatchShaderGenerator(
-      require("./shader/sprite.vert"), require("./shader/sprite.frag"))
+    this.shaderGenerator = new BatchShaderGenerator(Vertex.source, Fragment.source)
     this.geometryClass = SpriteBatchGeometry
 
     // The vertex size when rendering 2D sprites is 6. Here, 16 is being added 
