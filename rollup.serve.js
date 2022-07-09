@@ -16,7 +16,7 @@ config.push({
       port: 8080,
       open: true,
       contentBase: [
-        "dist",
+        "dist/umd",
         "serve"
       ]
     })

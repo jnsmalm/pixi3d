@@ -27,7 +27,7 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: dist/*.js
+        files: dist/umd/*.js
         token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
         draft: false
 

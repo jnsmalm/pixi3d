@@ -45,7 +45,7 @@ export default [{
   input: "src/index.ts",
   output: [
     {
-      file: "dist/pixi3d.js",
+      file: "dist/umd/pixi3d.js",
       format: "umd",
       sourcemap: true,
       name: "PIXI3D",
@@ -53,7 +53,7 @@ export default [{
       banner
     },
     {
-      file: "dist/pixi3d.min.js",
+      file: "dist/umd/pixi3d.min.js",
       format: "umd",
       sourcemap: true,
       name: "PIXI3D",
@@ -70,13 +70,13 @@ export default [{
   input: "src/index.ts",
   output: [
     {
-      file: "dist/pixi3d.mjs",
+      file: "dist/esm/pixi3d.js",
       format: "esm",
       sourcemap: true,
       banner
     },
     {
-      file: "dist/pixi3d.min.mjs",
+      file: "dist/esm/pixi3d.min.js",
       format: "esm",
       sourcemap: true,
       banner,

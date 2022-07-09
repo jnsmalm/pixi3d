@@ -2,8 +2,20 @@
   "name": "pixi3d",
   "version": "1.4.1",
   "description": "The 3D renderer for PixiJS. Seamless integration with 2D applications.",
-  "main": "dist/pixi3d.js",
-  "exports": "./dist/pixi.mjs",
+  "main": "dist/umd/pixi3d.js",
+  "module": "dist/esm/pixi3d.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/esm/pixi3d.js"
+      },
+      "require": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/umd/pixi3d.js"
+      }
+    }
+  },
   "files": [
     "dist/**/*",
     "types/**/*"
@@ -15,7 +27,7 @@
     "serve": "rollup --watch --config rollup.serve.js",
     "docs": "typedoc",
     "preversion": "npm run build",
-    "version": "npm run types && npm run docs && git add . && git reset -- docs/CNAME",
+    "version": "npm run docs && git add . && git reset -- docs/CNAME",
     "test": "rollup --watch --config rollup.test.js",
     "types": "rimraf types && tsc --emitDeclarationOnly"
   },
