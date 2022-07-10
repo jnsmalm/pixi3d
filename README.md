@@ -48,6 +48,31 @@ Then create *index.html* and include the required scripts.
 ### Install with npm
 Pixi3D is also available as a npm package. Install the latest release with `npm install pixi3d --save-dev`. This requires that an up-to-date version of Node.js is already installed.
 
+### Using webpack
+To ensure that Pixi3D can be installed correctly to PixiJS as a plugin when using webpack, add the following to the webpack configuration:
+
+*webpack.config.js*
+```javascript
+const path = require("path")
+
+module.exports = {
+  // ...
+  resolve: {
+    alias: {
+      "@pixi/core": path.resolve(__dirname, "node_modules/@pixi/core"),
+      "@pixi/loaders": path.resolve(__dirname, "node_modules/@pixi/loaders"),
+      "@pixi/settings": path.resolve(__dirname, "node_modules/@pixi/settings"),
+      "@pixi/math": path.resolve(__dirname, "node_modules/@pixi/math"),
+      "@pixi/display": path.resolve(__dirname, "node_modules/@pixi/display"),
+      "@pixi/constants": path.resolve(__dirname, "node_modules/@pixi/constants"),
+      "@pixi/utils": path.resolve(__dirname, "node_modules/@pixi/utils"),
+      "@pixi/ticker": path.resolve(__dirname, "node_modules/@pixi/ticker"),
+      "@pixi/sprite": path.resolve(__dirname, "node_modules/@pixi/sprite")
+    } 
+  }
+}
+```
+
 ## Examples
 Examples are available as sandboxes at https://codesandbox.io to quickly get started. Download repo at https://github.com/jnsmalm/pixi3d-sandbox to instead run them locally.
 
