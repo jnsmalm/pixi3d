@@ -1,4 +1,7 @@
-import { BufferResource as PixiBufferResource, resources } from "@pixi/core"
+import * as PixiCore from "@pixi/core"
+
+// A hack to not get bundlers like webpack and rollup to report
+// warnings/errors about missing exports from PixiJS.
 
 // @ts-ignore
-export const BufferResource: typeof PixiBufferResource = PixiBufferResource || resources.BufferResource
+export const BufferResource: typeof PixiCore.BufferResource = PixiCore["BufferResource" + ""] || PixiCore["resources" + ""]["BufferResource"]
