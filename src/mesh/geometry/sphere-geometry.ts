@@ -11,6 +11,8 @@ export namespace SphereGeometry {
   export function create(options: SphereGeometryOptions = {}) {
     const { radius = 1, segments = 32, rings = 16 } = options
 
+    // Based on https://github.com/mrdoob/three.js/blob/master/src/geometries/SphereGeometry.js
+
     const grid = []
     const indices = []
     const positions = []
