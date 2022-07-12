@@ -11,7 +11,7 @@ import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshDestroyOptions } from "./mesh-destroy-options"
 import { Vec3 } from "../math/vec3"
 import { AABB } from "../math/aabb"
-import { SphereGeometry } from "./geometry/sphere-geometry"
+import { SphereGeometry, SphereGeometryOptions } from "./geometry/sphere-geometry"
 
 /**
  * Represents a mesh which contains geometry and has a material.
@@ -178,8 +178,9 @@ export class Mesh3D extends Container3D {
   /**
    * Creates a new uv sphere mesh with the specified material.
    * @param material The material to use.
+   * @param options The options used when creating the geometry.
    */
-  static createSphere(material: Material = new StandardMaterial()) {
-    return new Mesh3D(SphereGeometry.create(), material)
+  static createSphere(material: Material = new StandardMaterial(), options?: SphereGeometryOptions) {
+    return new Mesh3D(SphereGeometry.create(options), material)
   }
 }
