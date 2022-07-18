@@ -16,7 +16,7 @@ export class PickingMap {
 
   constructor(private _renderer: Renderer, size: number) {
     this._pixels = new Uint8Array(size * size * 4)
-    this._output = RenderTexture.create({ width: size, height: size })
+    this._output = RenderTexture.create({ width: size, height: size, resolution: 1 })
     this._shader = new MeshShader(Program.from(Vertex.source, Fragment.source))
     this._output.framebuffer.addDepthTexture()
   }
@@ -49,8 +49,6 @@ export class PickingMap {
   }
 
   update(hitAreas: PickingHitArea[]) {
-    const oldRes = settings.RESOLUTION;
-    settings.RESOLUTION = 1;
     this._renderer.renderTexture.bind(this._output)
     if (this._update++ % 2 === 0) {
       // For performance reasons, the update method alternates between rendering 
@@ -63,7 +61,6 @@ export class PickingMap {
       const gl = this._renderer.gl
       gl.readPixels(0, 0, this._output.width, this._output.height, gl.RGBA, gl.UNSIGNED_BYTE, this._pixels)
     }
-    settings.RESOLUTION = oldRes;
     this._renderer.renderTexture.bind(undefined)
   }
 
