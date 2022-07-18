@@ -6,7 +6,6 @@ import { Mat4 } from "../math/mat4"
 import { MeshShader } from "../mesh/mesh-shader"
 import { Shader as Vertex } from "./shader/picking.vert"
 import { Shader as Fragment } from "./shader/picking.frag"
-import { settings } from "@pixi/settings"
 
 export class PickingMap {
   private _pixels: Uint8Array
