@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed an issue which caused skybox to not render correctly when using PixiJS v6+.
 - Fixed sorting of meshes when using values less than 0.
 
+### Changed
+- Skybox will now be rendered before other meshes by default.
+
 ## [1.4.1] - 2022-06-14
 ### Fixed
 - Fixed an issue which caused camera orbit control not to function correctly in Firefox.
