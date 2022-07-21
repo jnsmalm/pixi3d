@@ -6,8 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Added functionality to create a sphere mesh.
-- Added support for vertex colors in standard material.
+- Added `Mesh3D.createSphere` function for creating a sphere mesh.
+- Added support for vertex colors.
+- Added `Material.from` function to be able to create a custom material without the need of extending from `Material`.
 
 ### Fixed
 - Fixed an issue which caused picking interaction to not function correctly when resolution was any other value than 1.
