@@ -15,7 +15,7 @@ export class PickingMap {
 
   constructor(private _renderer: Renderer, size: number) {
     this._pixels = new Uint8Array(size * size * 4)
-    this._output = RenderTexture.create({ width: size, height: size })
+    this._output = RenderTexture.create({ width: size, height: size, resolution: 1 })
     this._shader = new MeshShader(Program.from(Vertex.source, Fragment.source))
     this._output.framebuffer.addDepthTexture()
   }
