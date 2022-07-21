@@ -86,5 +86,5 @@ export default [{
     }
   ],
   external,
-  plugins: plugins("es2017")
+  plugins: plugins("es5")
 }]

@@ -28,10 +28,28 @@ class CustomMaterial extends PIXI3D.Material {
 }
 
 describe("Custom material", () => {
-  it("should render correctly with simple material", async () => {
+  it("should render correctly when extending material", async () => {
     let render = await getImageDataFromRender((renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf, {
         create: () => new CustomMaterial()
+      })
+      model.y = -0.8
+      renderer.render(model)
+    }, [
+      "assets/teapot/teapot.gltf"
+    ])
+    expect(render).to.match(
+      await getImageDataFromUrl("snapshots/cfqth.png"))
+  })
+  it("should render correctly without extending material", async () => {
+    let render = await getImageDataFromRender((renderer, resources) => {
+      let material = PIXI3D.Material.from(vert, frag, (mesh, shader) => {
+        shader.uniforms.u_Model = mesh.worldTransform.toArray()
+        shader.uniforms.u_ViewProjection = PIXI3D.Camera.main.viewProjection
+        shader.uniforms.u_Color = [255, 0, 255]
+      })
+      let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf, {
+        create: () => material
       })
       model.y = -0.8
       renderer.render(model)

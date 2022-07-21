@@ -1,5 +1,5 @@
 import { DRAW_MODES, BLEND_MODES } from "@pixi/constants"
-import { State, Renderer } from "@pixi/core"
+import { State, Renderer, Program } from "@pixi/core"
 import { Mesh3D } from "../mesh/mesh"
 import { MaterialRenderSortType } from "./material-render-sort-type"
 import { MeshShader } from "../mesh/mesh-shader"
@@ -7,7 +7,7 @@ import { MeshShader } from "../mesh/mesh-shader"
 /**
  * Materials are used to render a mesh with a specific visual appearance.
  */
-export abstract class Material {
+export class Material {
   protected _renderSortType = MaterialRenderSortType.opaque
   protected _shader?: MeshShader
 
@@ -64,14 +64,16 @@ export abstract class Material {
    * @param mesh The mesh to create the shader for.
    * @param renderer The renderer to use.
    */
-  abstract createShader(mesh: Mesh3D, renderer: Renderer): MeshShader | undefined
+  createShader(mesh: Mesh3D, renderer: Renderer): MeshShader | undefined {
+    return undefined
+  }
 
   /**
    * Updates the uniforms for the specified shader.
    * @param mesh The mesh used for updating the uniforms.
    * @param shader The shader to update.
    */
-  abstract updateUniforms?(mesh: Mesh3D, shader: MeshShader): void
+  updateUniforms?(mesh: Mesh3D, shader: MeshShader): void { }
 
   /**
    * Destroys the material and it's used resources.
@@ -111,5 +113,19 @@ export abstract class Material {
       this.updateUniforms(mesh, this._shader)
     }
     this._shader.render(mesh, renderer, this.state, this.drawMode)
+  }
+
+  /**
+   * Creates a new material from the specified vertex/fragment source.
+   * @param vertexSrc The vertex shader source.
+   * @param fragmentSrc The fragment shader source.
+   * @param updateUniforms The function which will be called for updating the
+   * shader uniforms.
+   */
+  static from(vertexSrc: string, fragmentSrc: string, updateUniforms?: (mesh: Mesh3D, shader: MeshShader) => void): Material {
+    return Object.assign(new Material(), {
+      updateUniforms: updateUniforms || (() => { }),
+      _shader: new MeshShader(Program.from(vertexSrc, fragmentSrc)),
+    })
   }
 }

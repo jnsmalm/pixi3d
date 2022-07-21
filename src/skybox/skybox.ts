@@ -20,6 +20,7 @@ export class Skybox extends Container3D {
   constructor(cubemap: Cubemap) {
     super()
     this._mesh = this.addChild(Mesh3D.createCube(new SkyboxMaterial(cubemap)))
+    this._mesh.renderSortOrder = -1
   }
 
   /**
