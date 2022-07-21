@@ -2,8 +2,11 @@ import { Vec3 } from "../../math/vec3"
 import { MeshGeometry3D } from "./mesh-geometry"
 
 export interface SphereGeometryOptions {
+  /** The radius of the sphere. */
   radius?: number
+  /** The number of segments of the sphere. */
   segments?: number
+  /** The number of rings of the sphere. */
   rings?: number
 }
 
