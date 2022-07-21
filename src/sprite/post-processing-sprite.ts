@@ -2,6 +2,7 @@ import { RenderTexture, Renderer } from "@pixi/core"
 import { DisplayObject, IDestroyOptions } from "@pixi/display"
 import { Sprite } from "@pixi/sprite"
 import { Ticker } from "@pixi/ticker"
+import { PixiVersion } from "../pixi/pixi-version"
 
 export interface PostProcessingSpriteOptions {
   /**
@@ -101,6 +102,10 @@ export class PostProcessingSprite extends Sprite {
    * @param object The object to render.
    */
   renderObject(object: DisplayObject) {
-    this.renderer.render(object, this._renderTexture)
+    if (PixiVersion.isLaterThan6()) {
+      this.renderer.render(object, { renderTexture: this._renderTexture })
+    } else {
+      this.renderer.render(object, this._renderTexture)
+    }
   }
 }

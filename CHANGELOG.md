@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fixed an issue which caused picking interaction to not function correctly when resolution was any other value than 1.
-- Fixed an issue which caused skybox to not render correctly when using PixiJS v6+.
+- Fixed an issue which caused `Skybox` to not render correctly when using PixiJS v6+.
 - Fixed sorting of meshes when using values less than 0.
+- Fixed warning when using `PostProcessingSprite` with PixiJS v6+.
 
 ### Changed
 - Skybox will now be rendered before other meshes by default.
