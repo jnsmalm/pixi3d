@@ -83,7 +83,10 @@ export class StandardPipeline extends ObjectRenderer {
       if (a.material.renderSortType !== b.material.renderSortType) {
         return a.material.renderSortType === MaterialRenderSortType.transparent ? 1 : -1
       }
-      return a.renderSortOrder - b.renderSortOrder
+      if (a.renderSortOrder === b.renderSortOrder) {
+        return 0
+      }
+      return a.renderSortOrder < b.renderSortOrder ? -1 : 1
     })
   }
 
