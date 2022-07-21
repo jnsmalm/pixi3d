@@ -5,7 +5,7 @@ import { Camera } from "../camera/camera"
 import { Mesh3D } from "../mesh/mesh"
 import { Material } from "../material/material"
 import { Shader as Vertex } from "./shader/skybox.vert"
-import { Shader as Frgament } from "./shader/skybox.frag"
+import { Shader as Fragment } from "./shader/skybox.frag"
 
 export class SkyboxMaterial extends Material {
   private _cubemap: Cubemap
@@ -32,7 +32,7 @@ export class SkyboxMaterial extends Material {
     super()
     this._cubemap = cubemap
     this.state = Object.assign(new State(), {
-      culling: true, clockwiseFrontFace: true, depthTest: true
+      culling: true, clockwiseFrontFace: true, depthTest: true, depthMask: false
     })
   }
 
@@ -55,7 +55,7 @@ export class SkyboxMaterial extends Material {
 
   createShader() {
     if (this.cubemap.valid) {
-      return new MeshShader(Program.from(Vertex.source, Frgament.source))
+      return new MeshShader(Program.from(Vertex.source, Fragment.source))
     }
   }
 }

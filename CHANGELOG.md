@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added functionality to create a sphere mesh.
 - Added support for vertex colors in standard material.
 
+### Fixed
+- Fixed an issue which caused picking interaction to not function correctly when resolution was any other value than 1.
+- Fixed an issue which caused skybox to not render correctly when using PixiJS v6+.
+
 ## [1.4.1] - 2022-06-14
 ### Fixed
 - Fixed an issue which caused camera orbit control not to function correctly in Firefox.
