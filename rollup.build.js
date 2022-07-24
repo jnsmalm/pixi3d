@@ -6,24 +6,24 @@ import resolve from '@rollup/plugin-node-resolve'
 import glsl from "./rollup-plugin-glsl"
 import { terser } from "rollup-plugin-terser"
 
+const packages = [
+  "@pixi/constants",
+  "@pixi/core",
+  "@pixi/display",
+  "@pixi/interaction",
+  "@pixi/loaders",
+  "@pixi/math",
+  "@pixi/settings",
+  "@pixi/sprite",
+  "@pixi/ticker",
+  "@pixi/utils"
+]
+
 const globals = {}
-Object.keys(pkg.peerDependencies).forEach(function (key) {
+packages.forEach(function (key) {
   const { namespace = "PIXI" } = require(`${key}/package.json`)
   globals[key] = namespace
 })
-
-const external = [
-  "@pixi/loaders",
-  "@pixi/core",
-  "@pixi/math",
-  "@pixi/display",
-  "@pixi/constants",
-  "@pixi/ticker",
-  "@pixi/utils",
-  "@pixi/sprite",
-  "@pixi/interaction",
-  "@pixi/settings"
-]
 
 const banner = `/* Pixi3D v${pkg.version} */`
 const minify = terser({
@@ -64,7 +64,7 @@ export default [{
       ]
     }
   ],
-  external,
+  external: packages,
   plugins: plugins("es5")
 }, {
   input: "src/index.ts",
@@ -85,6 +85,6 @@ export default [{
       ]
     }
   ],
-  external,
+  external: packages,
   plugins: plugins("es5")
 }]
