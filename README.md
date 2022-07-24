@@ -62,15 +62,15 @@ module.exports = {
   // ...
   resolve: {
     alias: {
-      "@pixi/core": path.resolve(__dirname, "node_modules/@pixi/core"),
-      "@pixi/loaders": path.resolve(__dirname, "node_modules/@pixi/loaders"),
-      "@pixi/settings": path.resolve(__dirname, "node_modules/@pixi/settings"),
-      "@pixi/math": path.resolve(__dirname, "node_modules/@pixi/math"),
-      "@pixi/display": path.resolve(__dirname, "node_modules/@pixi/display"),
-      "@pixi/constants": path.resolve(__dirname, "node_modules/@pixi/constants"),
-      "@pixi/utils": path.resolve(__dirname, "node_modules/@pixi/utils"),
-      "@pixi/ticker": path.resolve(__dirname, "node_modules/@pixi/ticker"),
-      "@pixi/sprite": path.resolve(__dirname, "node_modules/@pixi/sprite")
+      "@pixi/core": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/core"),
+      "@pixi/loaders": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/loaders"),
+      "@pixi/settings": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/settings"),
+      "@pixi/math": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/math"),
+      "@pixi/display": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/display"),
+      "@pixi/constants": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/constants"),
+      "@pixi/utils": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/utils"),
+      "@pixi/ticker": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/ticker"),
+      "@pixi/sprite": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/sprite")
     } 
   }
 }
