@@ -51,8 +51,8 @@ Then create *index.html* and include the required scripts.
 ### Install with npm
 Pixi3D is also available as a npm package. Install the latest release with `npm install pixi3d --save-dev`. This requires that an up-to-date version of Node.js is already installed.
 
-### Using webpack
-To ensure that Pixi3D can be installed correctly to PixiJS as a plugin when using webpack, add the following to the webpack configuration:
+### Using bundlers
+For Pixi3D to be installed correctly to PixiJS as a plugin when using a bundler (like webpack or rollup), it's important that the app code and Pixi3D is using the same version of PixiJS (if there is more than one PixiJS version installed). To ensure that only a single version of PixiJS is used across the app, set alias in the bundler config file. For example, the webpack configuration may look like this:
 
 *webpack.config.js*
 ```javascript
