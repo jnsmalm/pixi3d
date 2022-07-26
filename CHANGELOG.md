@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2022-07-26
+### Fixed
+- Removed peer dependencies from `package.json` which caused issues with multiple PixiJS versions when using bundlers.
+
 ## [1.5.0] - 2022-07-23
 ### Added
 - Added `Mesh3D.createSphere` function for creating a sphere mesh.
