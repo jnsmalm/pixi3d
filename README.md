@@ -232,6 +232,9 @@ let control = new PIXI3D.CameraOrbitControl(app.view)
 ## API
 The API documentation is available at https://api.pixi3d.org
 
+## Changelog
+All notable changes to this project will be documented in the [changelog](CHANGELOG.md)
+
 ## Development
 For developing new features or fixing bugs, use *serve/src/index.js* with `npm run serve`.
 
