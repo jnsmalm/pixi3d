@@ -35,10 +35,10 @@ export class StandardMaterial extends Material {
   private _lightingEnvironment?: LightingEnvironment
   private _lightingEnvironmentConfigId = 0
   private _unlit = false
-  private _alphaMode = StandardMaterialAlphaMode.opaque
+  private _alphaMode = StandardMaterialAlphaMode.blend
   private _debugMode?: StandardMaterialDebugMode
   private _baseColorTexture?: StandardMaterialTexture
-  private _baseColor = new Float32Array(4)
+  private _baseColorFactor = new Float32Array(4)
   private _normalTexture?: StandardMaterialNormalTexture
   private _occlusionTexture?: StandardMaterialOcclusionTexture
   private _emissiveTexture?: StandardMaterialTexture
@@ -289,8 +289,10 @@ export class StandardMaterial extends Material {
   }
 
   updateUniforms(mesh: Mesh3D, shader: Shader) {
-    this._baseColor.set(this.baseColor.rgb)
-    this._baseColor[3] = this.baseColor.a * mesh.worldAlpha
+    for (let i = 0; i < 3; i++) {
+      this._baseColorFactor[i] = this.baseColor.rgba[i]
+    }
+    this._baseColorFactor[3] = this.baseColor.a * mesh.worldAlpha
     let camera = this.camera || Camera.main
     if (mesh.skin) {
       this._skinUniforms.update(mesh, shader)
@@ -300,7 +302,7 @@ export class StandardMaterial extends Material {
     shader.uniforms.u_Exposure = this.exposure
     shader.uniforms.u_MetallicFactor = this.metallic
     shader.uniforms.u_RoughnessFactor = this.roughness
-    shader.uniforms.u_BaseColorFactor = this._baseColor
+    shader.uniforms.u_BaseColorFactor = this._baseColorFactor
     shader.uniforms.u_ModelMatrix = mesh.worldTransform.array
     shader.uniforms.u_NormalMatrix = mesh.transform.normalTransform.array
     if (this._alphaMode === StandardMaterialAlphaMode.mask) {
