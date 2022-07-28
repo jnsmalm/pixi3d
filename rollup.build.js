@@ -32,14 +32,12 @@ const minify = terser({
   }
 })
 
-const plugins = (target) => {
-  return [
-    typescript({ target, noEmitOnError: true }),
-    image(),
-    glsl(),
-    resolve()
-  ]
-}
+const plugins = [
+  typescript({ noEmitOnError: true }),
+  image(),
+  glsl(),
+  resolve()
+]
 
 export default [{
   input: "src/index.ts",
@@ -62,13 +60,7 @@ export default [{
       plugins: [
         minify
       ]
-    }
-  ],
-  external: packages,
-  plugins: plugins("es5")
-}, {
-  input: "src/index.ts",
-  output: [
+    },
     {
       file: "dist/esm/pixi3d.js",
       format: "esm",
@@ -86,5 +78,5 @@ export default [{
     }
   ],
   external: packages,
-  plugins: plugins("es5")
+  plugins
 }]
