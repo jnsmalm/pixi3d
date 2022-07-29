@@ -40,7 +40,7 @@ export class SpriteShader extends MeshShader {
         //early exit - this avoids us drawing the last known instance in the instance buffer
         return;
       }
-      this._instancing.updateBuffers(mesh.instances, true)
+      this._instancing.updateBuffers(filteredInstances, true)
     }
     super.render(mesh, renderer, state, drawMode)
   }
