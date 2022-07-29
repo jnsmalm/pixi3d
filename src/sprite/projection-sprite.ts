@@ -9,7 +9,7 @@ export class ProjectionSprite extends Sprite {
   
   constructor(texture?: Texture<Resource>) {
     super(texture)
-    this.pluginName = "sprite3d"
+    this.pluginName = "pipeline"
   }
 
   get pixelsPerUnit() {

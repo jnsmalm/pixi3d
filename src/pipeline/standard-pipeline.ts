@@ -8,13 +8,17 @@ import { ShadowCastingLight } from "../shadow/shadow-casting-light"
 import { RenderPass } from "./render-pass"
 import { StandardMaterial } from "../material/standard/standard-material"
 import { MaterialRenderSortType } from "../material/material-render-sort-type"
+import { SpriteBatchRenderer } from "../sprite/sprite-batch-renderer"
+import { ProjectionSprite } from "../sprite/projection-sprite"
 
 /**
  * The standard pipeline renders meshes using the set render passes. It's
  * created and used by default.
  */
 export class StandardPipeline extends ObjectRenderer {
-  private _meshes: Mesh3D[] = []
+  protected _spriteRenderer: SpriteBatchRenderer
+  protected _meshes: Mesh3D[] = []
+  protected _sprites: ProjectionSprite[] = []
 
   /** The pass used for rendering materials. */
   materialPass = new MaterialRenderPass(this.renderer, "material")
@@ -39,6 +43,8 @@ export class StandardPipeline extends ObjectRenderer {
         if (pass.clear) { pass.clear() }
       }
     })
+
+    this._spriteRenderer = new SpriteBatchRenderer(renderer)
   }
 
   /**
@@ -54,11 +60,15 @@ export class StandardPipeline extends ObjectRenderer {
   }
 
   /**
-   * Adds a mesh to be rendered.
-   * @param mesh The mesh to render.
+   * Adds an object to be rendered.
+   * @param object The object to render.
    */
-  render(mesh: Mesh3D) {
-    this._meshes.push(mesh)
+  render(object: Mesh3D | ProjectionSprite) {
+    if (object.isSprite) {
+      this._sprites.push(<ProjectionSprite>object)
+    } else {
+      this._meshes.push(<Mesh3D>object)
+    }
   }
 
   /**
@@ -70,6 +80,16 @@ export class StandardPipeline extends ObjectRenderer {
       pass.render(this._meshes.filter(mesh => mesh.isRenderPassEnabled(pass.name)))
     }
     this._meshes = []
+
+    if (this._sprites.length > 0) {
+      this._spriteRenderer.start()
+      for (let sprite of this._sprites) {
+        // @ts-ignore
+        this._spriteRenderer.render(sprite)
+      }
+      this._spriteRenderer.stop()
+      this._sprites = []
+    }
   }
 
   /**
