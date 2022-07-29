@@ -45,7 +45,7 @@ export class Mesh3D extends Container3D {
     }
   }
 
-  private _instances: InstancedMesh3D[] = []
+  protected _instances: InstancedMesh3D[] = []
 
   /** An array of instances created from this mesh. */
   get instances() {

@@ -35,6 +35,12 @@ export { CubemapLoader } from "./loader/cubemap-loader"
 export { Cubemap } from "./cubemap/cubemap"
 export { ShaderSourceLoader } from "./loader/shader-source-loader"
 export { Skybox } from "./skybox/skybox"
+export { SpriteMaterial } from "./material/sprite/sprite-material"
+export { SpriteMeshBillboardType } from "./material/sprite/sprite-mesh-billboard-type";
+export { SpriteMaterialFactory } from "./material/sprite/sprite-material-factory"
+export { InstancedSpriteMaterial } from "./material/sprite/instanced-sprite-material"
+export { SpriteMesh } from "./mesh/sprite/sprite-mesh";
+export { InstancedSpriteMesh } from "./mesh/sprite/instanced-sprite";
 export { StandardMaterial } from "./material/standard/standard-material"
 export { StandardMaterialAlphaMode } from "./material/standard/standard-material-alpha-mode"
 export { StandardMaterialDebugMode } from "./material/standard/standard-material-debug-mode"
