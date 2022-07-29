@@ -10,7 +10,6 @@ const packages = [
   "@pixi/constants",
   "@pixi/core",
   "@pixi/display",
-  "@pixi/interaction",
   "@pixi/loaders",
   "@pixi/math",
   "@pixi/settings",
@@ -21,10 +20,8 @@ const packages = [
 
 const globals = {}
 packages.forEach(function (key) {
-  const { namespace = "PIXI" } = require(`${key}/package.json`)
-  globals[key] = namespace
+  globals[key] = key === "@pixi/utils" ? "PIXI.utils" : "PIXI"
 })
-
 const banner = `/* Pixi3D v${pkg.version} */`
 const minify = terser({
   output: {

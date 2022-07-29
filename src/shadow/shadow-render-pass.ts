@@ -65,6 +65,6 @@ export class ShadowRenderPass implements RenderPass {
         this._filter.applyGaussianBlur(shadowCastingLight)
       }
     }
-    this.renderer.renderTexture.bind(current)
+    this.renderer.renderTexture.bind(current || undefined)
   }
 }

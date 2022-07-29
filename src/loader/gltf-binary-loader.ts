@@ -1,5 +1,6 @@
-import { ILoaderResource, LoaderResource, Loader } from "@pixi/loaders"
+import { ILoaderResource, LoaderResource } from "@pixi/loaders"
 import { glTFAsset } from "../gltf/gltf-asset"
+import { Compatibility } from "../compatibility/compatibility"
 
 export const glTFBinaryLoader = {
   use: function (resource: ILoaderResource, next: () => void) {
@@ -21,4 +22,4 @@ export const glTFBinaryLoader = {
   }
 }
 
-Loader.registerPlugin(glTFBinaryLoader)
+Compatibility.installLoaderPlugin("cubemap", glTFBinaryLoader)

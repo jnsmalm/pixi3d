@@ -1,4 +1,5 @@
 import { Renderer, IRendererPlugin } from "@pixi/core"
+import { Compatibility } from "../compatibility/compatibility"
 import { ImageBasedLighting } from "./image-based-lighting"
 import { Light } from "./light"
 
@@ -45,4 +46,4 @@ export class LightingEnvironment implements IRendererPlugin {
   }
 }
 
-Renderer.registerPlugin("lighting", LightingEnvironment)
+Compatibility.installRendererPlugin("lighting", LightingEnvironment)

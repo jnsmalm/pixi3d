@@ -3,6 +3,7 @@ import { IRendererPlugin, Renderer } from "@pixi/core"
 import { Point } from "@pixi/math"
 import { PickingMap } from "./picking-map"
 import { PickingHitArea } from "./picking-hitarea"
+import { Compatibility } from "../compatibility/compatibility"
 
 /**
  * Manages the picking hit areas by keeping track on which hit areas needs to 
@@ -66,4 +67,4 @@ export class PickingInteraction implements IRendererPlugin {
   }
 }
 
-Renderer.registerPlugin("picking", PickingInteraction)
+Compatibility.installRendererPlugin("picking", PickingInteraction)

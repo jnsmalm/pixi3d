@@ -8,6 +8,7 @@ import { ShadowCastingLight } from "../shadow/shadow-casting-light"
 import { RenderPass } from "./render-pass"
 import { StandardMaterial } from "../material/standard/standard-material"
 import { MaterialRenderSortType } from "../material/material-render-sort-type"
+import { Compatibility } from "../compatibility/compatibility"
 
 /**
  * The standard pipeline renders meshes using the set render passes. It's
@@ -126,4 +127,4 @@ export class StandardPipeline extends ObjectRenderer {
   }
 }
 
-Renderer.registerPlugin("pipeline", StandardPipeline)
+Compatibility.installRendererPlugin("pipeline", StandardPipeline)

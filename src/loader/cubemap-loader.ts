@@ -2,6 +2,7 @@ import { Loader, LoaderResource } from "@pixi/loaders"
 import { Texture } from "@pixi/core"
 import { Cubemap } from "../cubemap/cubemap"
 import { CubemapFaces } from "../cubemap/cubemap-faces"
+import { Compatibility } from "../compatibility/compatibility"
 
 export const CubemapLoader = {
   use: function (resource: any, next: () => void) {
@@ -53,4 +54,4 @@ export const CubemapLoader = {
   }
 }
 
-Loader.registerPlugin(CubemapLoader)
+Compatibility.installLoaderPlugin("cubemap", CubemapLoader)

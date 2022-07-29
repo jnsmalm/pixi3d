@@ -1,4 +1,5 @@
-import { Loader, LoaderResource } from "@pixi/loaders"
+import { LoaderResource } from "@pixi/loaders"
+import { Compatibility } from "../compatibility/compatibility"
 
 const EXTENSIONS = ["glsl", "vert", "frag"]
 
@@ -17,4 +18,4 @@ export const ShaderSourceLoader = {
   }
 }
 
-Loader.registerPlugin(ShaderSourceLoader)
+Compatibility.installLoaderPlugin("shader", ShaderSourceLoader)

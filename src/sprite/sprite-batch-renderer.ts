@@ -3,6 +3,7 @@ import { premultiplyTint } from "@pixi/utils"
 import { SpriteBatchGeometry } from "./sprite-batch-geometry"
 import { Shader as Vertex } from "./shader/sprite.vert"
 import { Shader as Fragment } from "./shader/sprite.frag"
+import { Compatibility } from "../compatibility/compatibility"
 
 export class SpriteBatchRenderer extends AbstractBatchRenderer {
   constructor(renderer: Renderer) {
@@ -52,4 +53,4 @@ export class SpriteBatchRenderer extends AbstractBatchRenderer {
   }
 }
 
-Renderer.registerPlugin("sprite3d", SpriteBatchRenderer)
+Compatibility.installRendererPlugin("sprite3d", SpriteBatchRenderer)

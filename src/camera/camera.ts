@@ -1,7 +1,6 @@
 import { IPointData, Point, ObservablePoint, DEG_TO_RAD } from "@pixi/math"
 import { Renderer } from "@pixi/core"
 import { IDestroyOptions } from "@pixi/display"
-
 import { Container3D } from "../container"
 import { Mat4 } from "../math/mat4"
 import { Ray } from "../math/ray"
@@ -10,6 +9,7 @@ import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "../transform/matrix-component"
 import { ObservablePoint3D } from "../transform/observable-point"
 import { TransformId } from "../transform/transform-id"
+import { Compatibility } from "../compatibility/compatibility"
 
 const vec3 = new Float32Array(3)
 const mat4 = new Float32Array(16)
@@ -295,4 +295,4 @@ export class Camera extends Container3D implements TransformId {
   }
 }
 
-Renderer.registerPlugin("camera", Camera)
+Compatibility.installRendererPlugin("camera", Camera)

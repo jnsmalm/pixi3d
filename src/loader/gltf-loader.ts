@@ -1,4 +1,5 @@
 import { ILoaderResource, LoaderResource, Loader } from "@pixi/loaders"
+import { Compatibility } from "../compatibility/compatibility"
 import { glTFAsset } from "../gltf/gltf-asset"
 import { glTFResourceLoader } from "../gltf/gltf-resource-loader"
 
@@ -21,7 +22,7 @@ export const glTFLoader = {
   }
 }
 
-Loader.registerPlugin(glTFLoader)
+Compatibility.installLoaderPlugin("gltf", glTFLoader)
 
 class glTFExternalResourceLoader implements glTFResourceLoader {
   constructor(private _loader: Loader, private _resource: ILoaderResource) {
