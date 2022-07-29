@@ -1,6 +1,6 @@
 {
   "name": "pixi3d",
-  "version": "1.4.1",
+  "version": "1.5.1",
   "description": "The 3D renderer for PixiJS. Seamless integration with 2D applications.",
   "main": "dist/umd/pixi3d.js",
   "module": "dist/esm/pixi3d.js",
@@ -41,19 +41,6 @@
     "url": "https://github.com/jnsmalm/pixi3d/issues"
   },
   "homepage": "https://github.com/jnsmalm/pixi3d#readme",
-  "peerDependencies": {
-    "@pixi/constants": "^6.0.2",
-    "@pixi/core": "^6.0.2",
-    "@pixi/display": "^6.0.2",
-    "@pixi/interaction": "^6.0.2",
-    "@pixi/loaders": "^6.0.2",
-    "@pixi/math": "^6.0.2",
-    "@pixi/mixin-get-child-by-name": "^6.0.2",
-    "@pixi/settings": "^6.0.2",
-    "@pixi/sprite": "^6.0.2",
-    "@pixi/ticker": "^6.0.2",
-    "@pixi/utils": "^6.0.2"
-  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-image": "^2.1.1",

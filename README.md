@@ -11,6 +11,9 @@ Pixi3D is a 3D rendering library for the web. It's built on top of PixiJS (which
 
 *"SPY-HYPERSPORT" (https://skfb.ly/o8z7t) by Amvall is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/). Rendered using Pixi3D.*
 
+## Production ready?
+Yes, it's currently being used in multiple projects in production running on hundreds of thousands of different devices (both desktop and mobile).
+
 ## Getting started
 Let's create a simple application which renders a rotating cube. Start by [getting the latest version of Pixi3D](https://github.com/jnsmalm/pixi3d/releases). Also [download PixiJS](https://github.com/pixijs/pixi.js/releases) (Pixi3D is compatible with all versions from 5.3 and later) which is needed to use Pixi3D.
 
@@ -48,8 +51,8 @@ Then create *index.html* and include the required scripts.
 ### Install with npm
 Pixi3D is also available as a npm package. Install the latest release with `npm install pixi3d --save-dev`. This requires that an up-to-date version of Node.js is already installed.
 
-### Using webpack
-To ensure that Pixi3D can be installed correctly to PixiJS as a plugin when using webpack, add the following to the webpack configuration:
+### Using bundlers
+For Pixi3D to be installed correctly to PixiJS as a plugin when using a bundler (like webpack or rollup), it's important that the app code and Pixi3D is using the same version of PixiJS (if there is more than one PixiJS version installed). To ensure that only a single version of PixiJS is used across the app, set alias in the bundler config file. For example, the webpack configuration may look like this:
 
 *webpack.config.js*
 ```javascript
@@ -59,15 +62,15 @@ module.exports = {
   // ...
   resolve: {
     alias: {
-      "@pixi/core": path.resolve(__dirname, "node_modules/@pixi/core"),
-      "@pixi/loaders": path.resolve(__dirname, "node_modules/@pixi/loaders"),
-      "@pixi/settings": path.resolve(__dirname, "node_modules/@pixi/settings"),
-      "@pixi/math": path.resolve(__dirname, "node_modules/@pixi/math"),
-      "@pixi/display": path.resolve(__dirname, "node_modules/@pixi/display"),
-      "@pixi/constants": path.resolve(__dirname, "node_modules/@pixi/constants"),
-      "@pixi/utils": path.resolve(__dirname, "node_modules/@pixi/utils"),
-      "@pixi/ticker": path.resolve(__dirname, "node_modules/@pixi/ticker"),
-      "@pixi/sprite": path.resolve(__dirname, "node_modules/@pixi/sprite")
+      "@pixi/core": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/core"),
+      "@pixi/loaders": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/loaders"),
+      "@pixi/settings": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/settings"),
+      "@pixi/math": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/math"),
+      "@pixi/display": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/display"),
+      "@pixi/constants": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/constants"),
+      "@pixi/utils": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/utils"),
+      "@pixi/ticker": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/ticker"),
+      "@pixi/sprite": path.resolve(__dirname, "node_modules/pixi.js/node_modules/@pixi/sprite")
     } 
   }
 }
@@ -228,6 +231,9 @@ let control = new PIXI3D.CameraOrbitControl(app.view)
 
 ## API
 The API documentation is available at https://api.pixi3d.org
+
+## Changelog
+All notable changes to this project will be documented in the [changelog](CHANGELOG.md)
 
 ## Development
 For developing new features or fixing bugs, use *serve/src/index.js* with `npm run serve`.

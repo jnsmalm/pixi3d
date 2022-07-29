@@ -12,7 +12,7 @@ config.push({
     resolve(),
     commonjs(),
     serve({
-      host: "localhost",
+      host: "0.0.0.0",
       port: 8080,
       open: true,
       contentBase: [

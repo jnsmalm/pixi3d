@@ -48,7 +48,10 @@ export class StandardMaterialFactory {
         break
       }
       case "OPAQUE": {
-        material.alphaMode = StandardMaterialAlphaMode.opaque
+        // Even when the material is "opaque", the default value is set to
+        // "blend". This is to make it easier to render transparent objects
+        // without having to change the alpha mode.
+        material.alphaMode = StandardMaterialAlphaMode.blend
         break
       }
     }

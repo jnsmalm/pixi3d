@@ -7,7 +7,8 @@
     "moduleResolution": "node",
     "target": "es5",
     "downlevelIteration": true,
-    "sourceMap": true,
+    // This source map setting needs to be disabled for rollup.
+    // "sourceMap": true,
     "declaration": true,
     "declarationDir": "types",
     // Required for docs
