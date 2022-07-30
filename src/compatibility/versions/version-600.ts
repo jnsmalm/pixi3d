@@ -1,15 +1,8 @@
-import { Renderer, RenderTexture } from "@pixi/core"
-import { Loader } from "@pixi/loaders"
 import { DisplayObject } from "@pixi/display"
-import { CompatibilityVersion } from "../compatibility-version"
+import { Renderer, RenderTexture } from "@pixi/core"
+import { Version530 } from "./version-530"
 
-export class Version600 implements CompatibilityVersion {
-  installRendererPlugin(name: string, plugin: any): void {
-    Renderer.registerPlugin(name, plugin)
-  }
-  installLoaderPlugin(name: string, plugin: any): void {
-    Loader.registerPlugin(plugin)
-  }
+export class Version600 extends Version530 {
   render(renderer: Renderer, object: DisplayObject, renderTexture: RenderTexture): void {
     renderer.render(object, { renderTexture: renderTexture })
   }

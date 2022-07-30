@@ -1,8 +1,8 @@
-import { ArrayResource } from "../resource/array-resource"
+import { ArrayResource } from "../compatibility/array-resource"
 import { FORMATS, TYPES, ALPHA_MODES } from "@pixi/constants"
 import { Texture, BaseTexture, Renderer } from "@pixi/core"
-import { BaseImageResource } from "../resource/base-image-resource"
-import { BufferResource } from "../resource/buffer-resource"
+import { BaseImageResource } from "../compatibility/base-image-resource"
+import { BufferResource } from "../compatibility/buffer-resource"
 
 export class MipmapResource extends ArrayResource {
   constructor(source: (string | Texture)[], public target: number) {

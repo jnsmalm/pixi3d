@@ -4,7 +4,7 @@ import { MipmapResource } from "./mipmap-resource"
 import { CubemapResource, MipmapResourceArray } from "./cubemap-resource"
 import { Color } from "../color"
 import { CubemapFaces } from "./cubemap-faces"
-import { BufferResource } from "../resource/buffer-resource"
+import { BufferResource } from "../compatibility/buffer-resource"
 
 /**
  * Cubemap which supports multiple user specified mipmaps.

@@ -1,4 +1,4 @@
-import { CubeResource } from "../resource/cube-resource"
+import { CubeResource } from "../compatibility/cube-resource"
 import { Renderer } from "@pixi/core"
 import { MipmapResource } from "./mipmap-resource"
 

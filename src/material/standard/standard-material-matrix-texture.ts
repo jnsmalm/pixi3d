@@ -1,4 +1,4 @@
-import { BufferResource } from "../../resource/buffer-resource"
+import { BufferResource } from "../../compatibility/buffer-resource"
 import { MIPMAP_MODES, WRAP_MODES, SCALE_MODES, FORMATS, TYPES, ALPHA_MODES } from "@pixi/constants"
 import { Texture, Renderer, BaseTexture } from "@pixi/core"
 import { Capabilities } from "../../capabilities"
