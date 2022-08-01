@@ -40,6 +40,9 @@ export class Vec3 {
   static magnitude(a: Float32Array) {
     return vec3.length(a)
   }
+  static squareMagnitude(a: Float32Array) {
+    return vec3.squaredLength(a)
+  }
   static inverse(a: Float32Array, out = new Float32Array(3)) {
     return <Float32Array>vec3.inverse(out, a)
   }
