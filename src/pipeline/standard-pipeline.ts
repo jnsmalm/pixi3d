@@ -114,7 +114,7 @@ export class StandardPipeline extends ObjectRenderer {
       if (a.zIndex !== b.zIndex) {
         return a.zIndex - b.zIndex;
       }
-      return b.squareDistanceFromCamera - a.squareDistanceFromCamera;
+      return b.distanceFromCamera - a.distanceFromCamera;
     })
   }
 
