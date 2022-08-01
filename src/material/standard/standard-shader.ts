@@ -65,7 +65,12 @@ export class StandardShader extends MeshShader {
 
   render(mesh: Mesh3D, renderer: Renderer, state: State, drawMode: DRAW_MODES) {
     if (mesh.instances.length > 0) {
-      this._instancing.updateBuffers(mesh.instances)
+      const filteredInstances = mesh.instances.filter((instance) => instance.worldVisible && instance.renderable);
+      if (filteredInstances.length === 0) {
+        //early exit - this avoids us drawing the last known instance in the instance buffer
+        return;
+      }
+      this._instancing.updateBuffers(filteredInstances)
     }
     super.render(mesh, renderer, state, drawMode)
   }
