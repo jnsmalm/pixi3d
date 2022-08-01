@@ -8,12 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added support for PixiJS extensions API.
 
+### Fixed
+- Fixed an issue which could cause instanced meshes to not render correctly after changing visibility for those objects.
+
 ### Changed
 - The default value for `alphaMode` on `StandardMaterial` was changed to `blend` to make it easier to render transparent objects without having to change `alphaMode`. To get the previous behavior, set `alphaMode` to `opaque`.
+- Render `Sprite3D` objects after all meshes to fix draw order issues.
+- Render `Sprite3D` objects from back to front by default.
 
 ## [1.5.1] - 2022-07-26
 ### Fixed
-- Removed peer dependencies from `package.json` which caused issues with multiple PixiJS versions when using bundlers.
+- Removed peer dependencies from `package.json` which could cause issues with multiple PixiJS versions when using bundlers.
 
 ## [1.5.0] - 2022-07-23
 ### Added
