@@ -108,6 +108,13 @@ export class StandardPipeline extends ObjectRenderer {
       }
       return a.renderSortOrder < b.renderSortOrder ? -1 : 1
     })
+
+    this._sprites.sort((a, b) => {
+      if (a.zIndex !== b.zIndex) {
+        return a.zIndex - b.zIndex;
+      }
+      return b.squareDistanceFromCamera - a.squareDistanceFromCamera;
+    })
   }
 
   /**

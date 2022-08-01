@@ -4,9 +4,10 @@ import { settings } from "@pixi/settings"
 
 export class ProjectionSprite extends Sprite {
   private _pixelsPerUnit = 100
+  public squareDistanceFromCamera: number = 0;
 
   modelViewProjection = new Float32Array(16)
-  
+
   constructor(texture?: Texture<Resource>) {
     super(texture)
     this.pluginName = "pipeline"
