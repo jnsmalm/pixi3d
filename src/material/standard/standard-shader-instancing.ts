@@ -35,9 +35,6 @@ export class StandardShaderInstancing {
     }
     let bufferIndex = 0
     for (let i = 0; i < instances.length; i++) {
-      if (!instances[i].worldVisible || !instances[i].renderable) {
-        continue
-      }
       const normal = instances[i].transform.normalTransform.array
       for (let j = 0; j < 4; j++) {
         (<Float32Array>this._normalMatrix[j].data)
