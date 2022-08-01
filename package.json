@@ -18,6 +18,7 @@
   },
   "files": [
     "dist/**/*",
+    "pixi-types/**/*",
     "types/**/*"
   ],
   "types": "types/index.d.ts",
