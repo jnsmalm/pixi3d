@@ -2,12 +2,14 @@ import { Renderer, Texture, Resource } from "@pixi/core"
 import { IDestroyOptions } from "@pixi/display"
 import { BLEND_MODES } from "@pixi/constants"
 import { ObservablePoint } from "@pixi/math"
-
 import { Camera } from "../camera/camera"
+import { Mat4 } from "../math/mat4"
+import { Vec3 } from "../math/vec3"
 import { SpriteBillboardType } from "./sprite-billboard-type"
 import { Container3D } from "../container"
-import { Mat4 } from "../math/mat4"
 import { ProjectionSprite } from "./projection-sprite"
+
+const vec3 = new Float32Array(3)
 
 /**
  * Represents a sprite in 3D space.
@@ -118,6 +120,10 @@ export class Sprite3D extends Container3D {
         this._modelView, this._sprite.modelViewProjection)
       this._parentID = this.transform._worldID
       this._cameraTransformId = camera.transformId
+      const dir = Vec3.subtract(camera.position.array, this.transform.position.array, vec3)
+      const projection = Vec3.scale(camera.worldTransform.forward, 
+        Vec3.dot(dir, camera.worldTransform.forward), vec3)
+      this._sprite.distanceFromCamera = Vec3.squaredMagnitude(projection)
     }
     this._sprite.worldAlpha = this.worldAlpha
     this._sprite.render(renderer)

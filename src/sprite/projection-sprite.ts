@@ -5,11 +5,12 @@ import { settings } from "@pixi/settings"
 export class ProjectionSprite extends Sprite {
   private _pixelsPerUnit = 100
 
+  distanceFromCamera = 0
   modelViewProjection = new Float32Array(16)
-  
+
   constructor(texture?: Texture<Resource>) {
     super(texture)
-    this.pluginName = "sprite3d"
+    this.pluginName = "pipeline"
   }
 
   get pixelsPerUnit() {
