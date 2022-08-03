@@ -120,7 +120,7 @@ export class Sprite3D extends Container3D {
         this._modelView, this._sprite.modelViewProjection)
       this._parentID = this.transform._worldID
       this._cameraTransformId = camera.transformId
-      const dir = Vec3.subtract(camera.position.array, this.transform.worldTransform.position, vec3)
+      const dir = Vec3.subtract(camera.worldTransform.position, this.worldTransform.position, vec3)
       const projection = Vec3.scale(camera.worldTransform.forward,
         Vec3.dot(dir, camera.worldTransform.forward), vec3)
       this._sprite.distanceFromCamera = Vec3.squaredMagnitude(projection)
