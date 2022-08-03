@@ -15,7 +15,18 @@ Pixi3D is a 3D rendering library for the web. It's built on top of PixiJS (which
 Yes, it's currently being used in multiple projects in production running on hundreds of thousands of different devices (both desktop and mobile).
 
 ## Getting started
-Let's create a simple application which renders a rotating cube. Start by [getting the latest version of Pixi3D](https://github.com/jnsmalm/pixi3d/releases). Also [download PixiJS](https://github.com/pixijs/pixi.js/releases) (Pixi3D is compatible with all versions from 5.3 and later) which is needed to use Pixi3D.
+The easiest way to get started is to use `create-pixi3d-app` which creates a simple project with everything needed to start immediatly. Node.js must be installed, go to https://nodejs.org to download.
+
+```
+npx create-pixi3d-app my-pixi3d-app
+cd my-pixi3d-app
+npm start
+```
+
+Another more old fashioned method to get started:
+
+- [Download the latest version of Pixi3D](https://github.com/jnsmalm/pixi3d/releases)
+- [Download PixiJS](https://github.com/pixijs/pixi.js/releases) (Pixi3D is compatible with all versions from 5.3 and later)
 
 Next, create a file *app.js* with the following contents.
 
