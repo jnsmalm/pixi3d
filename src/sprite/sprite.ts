@@ -10,6 +10,7 @@ import { Container3D } from "../container"
 import { ProjectionSprite } from "./projection-sprite"
 
 const vec3 = new Float32Array(3)
+export const NO_DEPTH_ZINDEX = 100
 
 /**
  * Represents a sprite in 3D space.
@@ -34,6 +35,32 @@ export class Sprite3D extends Container3D {
     super()
     this._sprite = new ProjectionSprite(texture)
     this._sprite.anchor.set(0.5)
+  }
+
+  /**
+   * the zIndex used by the internal projection sprite to determine its draw order
+   * 
+   * - negative values are drawn without depth test before anything else
+   * 
+   * - positive values under 100 are drawn in the world in order of zindex
+   * 
+   * - positive values above 100 are drawn on top of everything else without depth test
+   */
+  public get zIndex() {
+    return this._sprite.zIndex;
+  }
+
+  /**
+   * the zIndex used by the internal projection sprite to determine its draw order
+   * 
+   * - negative values are drawn without depth test before anything else
+   * 
+   * - positive values under 100 are drawn in the world in order of zindex
+   * 
+   * - positive values above 100 are drawn on top of everything else without depth test
+ */
+  public set zIndex(value: number) {
+    this._sprite.zIndex = value;
   }
 
   /**

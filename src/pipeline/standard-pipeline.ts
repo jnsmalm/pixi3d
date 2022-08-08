@@ -11,6 +11,7 @@ import { MaterialRenderSortType } from "../material/material-render-sort-type"
 import { Compatibility } from "../compatibility/compatibility"
 import { SpriteBatchRenderer } from "../sprite/sprite-batch-renderer"
 import { ProjectionSprite } from "../sprite/projection-sprite"
+import { NO_DEPTH_ZINDEX } from "../sprite/sprite"
 
 /**
  * The standard pipeline renders meshes using the set render passes. It's
@@ -19,7 +20,9 @@ import { ProjectionSprite } from "../sprite/projection-sprite"
 export class StandardPipeline extends ObjectRenderer {
   protected _spriteRenderer: SpriteBatchRenderer
   protected _meshes: Mesh3D[] = []
+  protected _preSprites: ProjectionSprite[] = []
   protected _sprites: ProjectionSprite[] = []
+  protected _postSprites: ProjectionSprite[] = []
 
   /** The pass used for rendering materials. */
   materialPass = new MaterialRenderPass(this.renderer, "material")
@@ -66,7 +69,14 @@ export class StandardPipeline extends ObjectRenderer {
    */
   render(object: Mesh3D | ProjectionSprite) {
     if (object.isSprite) {
-      this._sprites.push(<ProjectionSprite>object)
+      if (object.zIndex > NO_DEPTH_ZINDEX) {
+        this._postSprites.push(<ProjectionSprite>object)
+      } else if (object.zIndex < 0) {
+        this._preSprites.push(<ProjectionSprite>object)
+      }
+      else {
+        this._sprites.push(<ProjectionSprite>object)
+      }
     } else {
       this._meshes.push(<Mesh3D>object)
     }
@@ -77,12 +87,27 @@ export class StandardPipeline extends ObjectRenderer {
    */
   flush() {
     this.sort()
+
+    if (this._preSprites.length > 0) {
+      this._spriteRenderer.setDepthTest(false);
+      this._spriteRenderer.start()
+      for (let sprite of this._preSprites) {
+        // @ts-ignore
+        this._spriteRenderer.render(sprite)
+      }
+      this._spriteRenderer.stop()
+      this._preSprites = []
+    }
+
+
+
     for (let pass of this.renderPasses) {
       pass.render(this._meshes.filter(mesh => mesh.isRenderPassEnabled(pass.name)))
     }
     this._meshes = []
 
     if (this._sprites.length > 0) {
+      this._spriteRenderer.setDepthTest(true);
       this._spriteRenderer.start()
       for (let sprite of this._sprites) {
         // @ts-ignore
@@ -91,6 +116,18 @@ export class StandardPipeline extends ObjectRenderer {
       this._spriteRenderer.stop()
       this._sprites = []
     }
+
+    if (this._postSprites.length > 0) {
+      this._spriteRenderer.setDepthTest(false);
+      this._spriteRenderer.start()
+      for (let sprite of this._postSprites) {
+        // @ts-ignore
+        this._spriteRenderer.render(sprite)
+      }
+      this._spriteRenderer.stop()
+      this._postSprites = []
+    }
+
   }
 
   /**
@@ -110,12 +147,15 @@ export class StandardPipeline extends ObjectRenderer {
       return a.renderSortOrder < b.renderSortOrder ? -1 : 1
     })
 
-    this._sprites.sort((a, b) => {
+    const spriteSortMethod = (a: ProjectionSprite, b: ProjectionSprite) => {
       if (a.zIndex !== b.zIndex) {
         return a.zIndex - b.zIndex;
       }
       return b.distanceFromCamera - a.distanceFromCamera;
-    })
+    };
+    this._preSprites.sort(spriteSortMethod)
+    this._sprites.sort(spriteSortMethod)
+    this._postSprites.sort(spriteSortMethod)
   }
 
   /**

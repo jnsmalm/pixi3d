@@ -21,6 +21,10 @@ export class SpriteBatchRenderer extends AbstractBatchRenderer {
     })
   }
 
+  public setDepthTest(value: boolean) {
+    this.state.depthTest = value;
+  }
+
   packInterleavedGeometry(element: IBatchableElement, attributeBuffer: ViewableBuffer, indexBuffer: Uint16Array, aIndex: number, iIndex: number) {
     const { uint32View, float32View } = attributeBuffer
     const packedVertices = aIndex / this.vertexSize
