@@ -7,6 +7,7 @@ export class ProjectionSprite extends Sprite {
 
   distanceFromCamera = 0
   modelViewProjection = new Float32Array(16)
+  depthTest = true
 
   constructor(texture?: Texture<Resource>) {
     super(texture)
