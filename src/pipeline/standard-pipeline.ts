@@ -71,15 +71,15 @@ export class StandardPipeline extends ObjectRenderer {
     if (object instanceof ProjectionSprite) {
       if(object.depthTest) {
         if(object.zIndex < 0) {
-          this._beforeMeshDepthSprites.push(object);
+          this._beforeMeshDepthSprites.push(object)
         } else {
-          this._afterMeshDepthSprites.push(object);
+          this._afterMeshDepthSprites.push(object)
         }
       } else {
         if(object.zIndex < 0) {
-          this._beforeMeshSprites.push(object);
+          this._beforeMeshSprites.push(object)
         } else {
-          this._afterMeshSprites.push(object);
+          this._afterMeshSprites.push(object)
         }
       }
     } else {
@@ -93,29 +93,33 @@ export class StandardPipeline extends ObjectRenderer {
 
   private flushSprites(sprites: ProjectionSprite[], depthTest: boolean) {
     if (sprites.length > 0) {
-      this._spriteRenderer.setDepthTest(depthTest);
+      this._spriteRenderer.setDepthTest(depthTest)
       this._spriteRenderer.start()
       for (let sprite of sprites) {
         // @ts-ignore
         this._spriteRenderer.render(sprite)
       }
       this._spriteRenderer.stop()
-      sprites = []
     }
   }
 
   flush() {
     this.sort()
-    this.flushSprites(this._beforeMeshSprites, false);
-    this.flushSprites(this._beforeMeshDepthSprites, true);
+    this.flushSprites(this._beforeMeshSprites, false)
+    this.flushSprites(this._beforeMeshDepthSprites, true)
 
     for (let pass of this.renderPasses) {
       pass.render(this._meshes.filter(mesh => mesh.isRenderPassEnabled(pass.name)))
     }
     this._meshes = []
 
-    this.flushSprites(this._afterMeshDepthSprites, false);
-    this.flushSprites(this._afterMeshSprites, true);
+    this.flushSprites(this._afterMeshDepthSprites, false)
+    this.flushSprites(this._afterMeshSprites, true)
+    
+    this._beforeMeshDepthSprites = []
+    this._beforeMeshSprites = []
+    this._afterMeshDepthSprites = []
+    this._afterMeshSprites = []
 
   }
 
@@ -138,10 +142,10 @@ export class StandardPipeline extends ObjectRenderer {
 
     const spriteSortMethod = (a: ProjectionSprite, b: ProjectionSprite) => {
       if (a.zIndex !== b.zIndex) {
-        return a.zIndex - b.zIndex;
+        return a.zIndex - b.zIndex
       }
-      return b.distanceFromCamera - a.distanceFromCamera;
-    };
+      return b.distanceFromCamera - a.distanceFromCamera
+    }
 
     this._beforeMeshDepthSprites.sort(spriteSortMethod)
     this._beforeMeshSprites.sort(spriteSortMethod)
