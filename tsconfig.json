@@ -12,6 +12,7 @@
     "declaration": true,
     "declarationDir": "types",
     // Required for docs
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "paths": {
       "mini-signals": [
