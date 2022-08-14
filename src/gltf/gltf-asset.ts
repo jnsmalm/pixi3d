@@ -40,7 +40,11 @@ export class glTFAsset {
       return asset
     }
     for (let i = 0; i < descriptor.images.length; i++) {
-      let image: { uri: string } = descriptor.images[i]
+      let image: { bufferView: number, uri: string } = descriptor.images[i]
+      if (typeof image.bufferView === "number") {
+        loadImageFromBuffer(asset, i)
+        continue
+      }
       if (glTFAsset.isEmbeddedResource(image.uri)) {
         asset.images[i] = Texture.from(image.uri)
       } else {
@@ -102,30 +106,34 @@ export class glTFAsset {
     if (!descriptor.images || descriptor.images.length === 0) {
       cb(new glTFAsset(descriptor, buffers))
     }
-    const images: Texture[] = []
     let loaded = 0
-    const loadImageFromBuffer = (index: number) => {
-      const image = descriptor.images[index]
-      if (image.bufferView === undefined) {
-        return
-      }
-      const view = descriptor.bufferViews[image.bufferView]
-      const buffer = buffers[view.buffer]
-      const array = new Uint8Array(buffer, view.byteOffset, view.byteLength)
-      const blob = new Blob([array], { "type": image.mimeType })
-      const reader = new FileReader()
-      reader.onload = () => {
-        images[index] = Texture.from(<string>reader.result)
-        if (++loaded === descriptor.images.length) {
-          cb(new glTFAsset(descriptor, buffers, images))
-        }
-      }
-      reader.readAsDataURL(blob)
-    }
+    const asset = new glTFAsset(descriptor, buffers)
     for (let i = 0; descriptor.images && i < descriptor.images.length; i++) {
-      loadImageFromBuffer(i)
+      loadImageFromBuffer(asset, i)
+      if (++loaded === descriptor.images.length) {
+        cb(asset)
+      }
     }
   }
+}
+
+function loadImageFromBuffer(asset: glTFAsset, index: number, cb?: () => void) {
+  const image = asset.descriptor.images[index]
+  if (image.bufferView === undefined) {
+    return
+  }
+  const view = asset.descriptor.bufferViews[image.bufferView]
+  const buffer = asset.buffers[view.buffer]
+  const array = new Uint8Array(buffer, view.byteOffset, view.byteLength)
+  const blob = new Blob([array], { "type": image.mimeType })
+  const reader = new FileReader()
+  reader.onload = () => {
+    asset.images[index] = Texture.from(<string>reader.result)
+    if (cb) {
+      cb()
+    }
+  }
+  reader.readAsDataURL(blob)
 }
 
 function createBufferFromBase64(value: string) {

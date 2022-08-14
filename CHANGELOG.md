@@ -10,11 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fixed an issue which could cause instanced meshes to not render correctly after changing visibility for those objects.
+- Fixed an issue which caused glTF embedded images to not load correctly.
 
 ### Changed
 - The default value for `alphaMode` on `StandardMaterial` was changed to `blend` to make it easier to render transparent objects without having to change `alphaMode`. To get the previous behavior, set `alphaMode` to `opaque`.
-- Render `Sprite3D` objects after all meshes to fix draw order issues.
-- Render `Sprite3D` objects from back to front by default.
+- `Sprite3D` objects are now rendered after all meshes to fix draw order issues.
+- `Sprite3D` objects are now rendered from back to front by default.
 
 ## [1.5.1] - 2022-07-26
 ### Fixed
