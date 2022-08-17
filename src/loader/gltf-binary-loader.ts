@@ -9,8 +9,7 @@ export const glTFBinaryLoader = {
     }
     if (glTFAsset.isValidBuffer(resource.data)) {
       glTFAsset.fromBuffer(resource.data, (gltf) => {
-        Object.assign(resource, { gltf })
-        next()
+        Object.assign(resource, { gltf }); next()
       })
     } else {
       return next()

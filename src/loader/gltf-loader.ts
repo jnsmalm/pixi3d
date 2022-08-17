@@ -9,10 +9,9 @@ export const glTFLoader = {
       return next()
     }
     let loader = <Loader><unknown>this
-    Object.assign(resource, {
-      gltf: glTFAsset.load(resource.data, new glTFExternalResourceLoader(loader, resource))
+    glTFAsset.load(resource.data, new glTFExternalResourceLoader(loader, resource), gltf => {
+      Object.assign(resource, { gltf }); next()
     })
-    next()
   },
   add: function () {
     LoaderResource.setExtensionXhrType(

@@ -19,45 +19,17 @@ export class glTFAsset {
    * @param descriptor The JSON descriptor to create the asset from.
    * @param loader The resource loader to use for external resources. The 
    * loader can be empty when all resources in the descriptor is embedded.
+   * @param cb Callback when all resources have been loaded.
    */
-  static load(descriptor: any, loader?: glTFResourceLoader) {
+  static load(descriptor: any, loader?: glTFResourceLoader, cb?: (asset: glTFAsset) => void) {
     let asset = new glTFAsset(descriptor)
-
-    for (let i = 0; i < descriptor.buffers.length; i++) {
-      let buffer: { uri: string } = descriptor.buffers[i]
-      if (glTFAsset.isEmbeddedResource(buffer.uri)) {
-        asset.buffers[i] = createBufferFromBase64(buffer.uri)
-      } else {
-        if (!loader) {
-          throw new Error("PIXI3D: A resource loader is required when buffer is not embedded.")
-        }
-        loader.load(buffer.uri, (resource) => {
-          asset.buffers[i] = resource.data
-        })
-      }
-    }
-    if (!descriptor.images) {
-      return asset
-    }
-    for (let i = 0; i < descriptor.images.length; i++) {
-      let image: { bufferView: number, uri: string } = descriptor.images[i]
-      if (typeof image.bufferView === "number") {
-        loadImageFromBuffer(asset, i)
-        continue
-      }
-      if (glTFAsset.isEmbeddedResource(image.uri)) {
-        asset.images[i] = Texture.from(image.uri)
-      } else {
-        if (!loader) {
-          throw new Error("PIXI3D: A resource loader is required when image is not embedded.")
-        }
-        loader.load(image.uri, (resource) => {
-          if (resource.texture) {
-            asset.images[i] = resource.texture
-          }
-        })
-      }
-    }
+    loadBuffers(descriptor, buffers => {
+      buffers.forEach(buffer => asset.buffers.push(buffer))
+      loadImages(descriptor, buffers, images => {
+        images.forEach(image => asset.images.push(image))
+        cb && cb(asset)
+      }, loader)
+    }, loader)
     return asset
   }
 
@@ -78,7 +50,7 @@ export class glTFAsset {
    * @param uri The uri to check.
    */
   static isEmbeddedResource(uri: string) {
-    return uri.startsWith("data:")
+    return uri && uri.startsWith("data:")
   }
 
   /**
@@ -106,32 +78,129 @@ export class glTFAsset {
     if (!descriptor.images || descriptor.images.length === 0) {
       cb(new glTFAsset(descriptor, buffers))
     }
-    let loaded = 0
-    const asset = new glTFAsset(descriptor, buffers)
-    for (let i = 0; descriptor.images && i < descriptor.images.length; i++) {
-      loadImageFromBuffer(asset, i)
-      if (++loaded === descriptor.images.length) {
-        cb(asset)
-      }
-    }
+    loadImages(descriptor, buffers, images => {
+      cb(new glTFAsset(descriptor, buffers, images))
+    })
   }
 }
 
-function loadImageFromBuffer(asset: glTFAsset, index: number, cb?: () => void) {
-  const image = asset.descriptor.images[index]
-  if (image.bufferView === undefined) {
-    return
+function loadImages(descriptor: any, buffers: ArrayBuffer[], cb: (images: Texture[]) => void, loader?: glTFResourceLoader) {
+  const images: Texture[] = []
+
+  if (!descriptor.images) {
+    return cb(images)
   }
-  const view = asset.descriptor.bufferViews[image.bufferView]
-  const buffer = asset.buffers[view.buffer]
-  const array = new Uint8Array(buffer, view.byteOffset, view.byteLength)
+
+  let embeddedImages = descriptor.images
+    .filter((img: any) => typeof img.bufferView !== "number" && glTFAsset.isEmbeddedResource(img.uri))
+    .map((img: any, index: number) => index)
+
+  let externalImages = descriptor.images
+    .filter((img: any) => typeof img.bufferView !== "number" && !glTFAsset.isEmbeddedResource(img.uri))
+    .map((img: any, index: number) => index)
+
+  let bufferImages = descriptor.images
+    .filter((img: any) => typeof img.bufferView === "number")
+    .map((img: any, index: number) => index)
+
+  for (let i = 0; i < embeddedImages.length; i++) {
+    let index = embeddedImages[i]
+    let image: { uri: string } = descriptor.images[index]
+    images[index] = Texture.from(image.uri)
+  }
+
+  if (bufferImages.length === 0 && externalImages.length === 0) {
+    return cb(images)
+  }
+  if (externalImages.length > 0 && !loader) {
+    throw new Error("PIXI3D: A resource loader is required when image is external.")
+  }
+
+  const loadExternalImage = (image: any, index: number, cb: () => void) => {
+    loader?.load(image.uri, (resource) => {
+      if (resource.texture) {
+        images[index] = resource.texture; cb()
+      }
+    })
+  }
+  const loadBufferImage = (image: any, index: number, cb: () => void) => {
+    loadImageFromBuffer(image, descriptor, buffers, image => {
+      images[index] = image; cb()
+    })
+  }
+  let externalImagesCount = externalImages.length
+  let bufferImagesCount = bufferImages.length
+
+  for (let i = 0; i < externalImages.length; i++) {
+    let index = externalImages[i]
+    let image: { bufferView: number, uri: string } = descriptor.images[index]
+    loadExternalImage(image, index, () => {
+      if (--externalImagesCount === 0 && bufferImagesCount === 0) {
+        cb(images)
+      }
+    })
+  }
+  for (let i = 0; i < bufferImages.length; i++) {
+    let index = bufferImages[i]
+    let image: { bufferView: number, uri: string } = descriptor.images[index]
+    loadBufferImage(image, index, () => {
+      if (--bufferImagesCount === 0 && externalImagesCount === 0) {
+        cb(images)
+      }
+    })
+  }
+}
+
+function loadBuffers(descriptor: any, cb: (buffers: ArrayBuffer[]) => void, loader?: glTFResourceLoader) {
+  const buffers: ArrayBuffer[] = []
+
+  const embeddedBuffers = descriptor.buffers
+    .filter((buffer: any) => glTFAsset.isEmbeddedResource(buffer.uri))
+    .map((buffer: any, index: number) => index)
+
+  for (let i = 0; i < embeddedBuffers.length; i++) {
+    let index = embeddedBuffers[i]
+    let buffer = descriptor.buffers[index]
+    buffers[index] = createBufferFromBase64(buffer.uri)
+  }
+
+  const externalBuffers = descriptor.buffers
+    .filter((buffer: any) => !glTFAsset.isEmbeddedResource(buffer.uri))
+    .map((buffer: any, index: number) => index)
+
+  if (externalBuffers.length === 0) {
+    return cb(buffers)
+  }
+  if (!loader) {
+    throw new Error("PIXI3D: A resource loader is required when buffer is not embedded.")
+  }
+
+  const loadExternalBuffer = (uri: string, index: number, cb: () => void) => {
+    loader.load(uri, (resource) => {
+      buffers[index] = resource.data
+      cb()
+    })
+  }
+
+  let externalBuffersCount = externalBuffers.length
+  for (let i = 0; i < externalBuffers.length; i++) {
+    let index = externalBuffers[i]
+    let buffer = descriptor.buffers[index]
+    loadExternalBuffer(buffer.uri, index, () => {
+      if (--externalBuffersCount === 0) {
+        cb(buffers)
+      }
+    })
+  }
+}
+
+function loadImageFromBuffer(image: any, descriptor: any, buffers: ArrayBuffer[], cb: (image: Texture) => void) {
+  const view = descriptor.bufferViews[image.bufferView]
+  const array = new Uint8Array(buffers[view.buffer], view.byteOffset, view.byteLength)
   const blob = new Blob([array], { "type": image.mimeType })
   const reader = new FileReader()
   reader.onload = () => {
-    asset.images[index] = Texture.from(<string>reader.result)
-    if (cb) {
-      cb()
-    }
+    cb(Texture.from(<string>reader.result))
   }
   reader.readAsDataURL(blob)
 }
