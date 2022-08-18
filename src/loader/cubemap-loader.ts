@@ -42,13 +42,12 @@ export const CubemapLoader = {
             }
           })
           resource.cubemap = Cubemap.fromFaces(textures)
-          binding.detach()
+          binding.detach(); next()
         }
       }
     })
-    next()
   },
-  add: () => {
+  add: function () {
     LoaderResource.setExtensionXhrType(
       "cubemap", LoaderResource.XHR_RESPONSE_TYPE.JSON)
   }

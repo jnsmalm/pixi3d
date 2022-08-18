@@ -75,9 +75,6 @@ export class glTFAsset {
     for (let i = 1; i < chunks.length; i++) {
       buffers.push(data.slice(chunks[i].offset, chunks[i].offset + chunks[i].length))
     }
-    if (!descriptor.images || descriptor.images.length === 0) {
-      cb(new glTFAsset(descriptor, buffers))
-    }
     loadImages(descriptor, buffers, images => {
       cb(new glTFAsset(descriptor, buffers, images))
     })
@@ -87,7 +84,7 @@ export class glTFAsset {
 function loadImages(descriptor: any, buffers: ArrayBuffer[], cb: (images: Texture[]) => void, loader?: glTFResourceLoader) {
   const images: Texture[] = []
 
-  if (!descriptor.images) {
+  if (!descriptor.images || descriptor.images.length === 0) {
     return cb(images)
   }
 
