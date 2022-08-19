@@ -1,6 +1,6 @@
 {
   "name": "pixi3d",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "The 3D renderer for PixiJS. Seamless integration with 2D applications.",
   "main": "dist/umd/pixi3d.js",
   "module": "dist/esm/pixi3d.js",
