@@ -242,7 +242,12 @@ export class StandardMaterial extends Material {
     if (!this._instancingEnabled && mesh.instances.length > 0) {
       // Invalidate shader when instancing was enabled.
       this.invalidateShader()
-      this._instancingEnabled = mesh.instances.length > 0
+      this._instancingEnabled = true
+    }
+    if (this._instancingEnabled && mesh.instances.length === 0) {
+      // Invalidate shader when instancing was disabled.
+      this.invalidateShader()
+      this._instancingEnabled = false
     }
     let lighting = this.lightingEnvironment || LightingEnvironment.main
     let configId = getLightingEnvironmentConfigId(lighting)

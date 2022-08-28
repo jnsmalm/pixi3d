@@ -31,4 +31,26 @@ describe("Instancing", () => {
     expect(render).to.match(
       await getImageDataFromUrl("snapshots/ddwrr.png"))
   })
+
+  it("should render correctly when all invisible instances was destroyed", async () => {
+    let render = await getImageDataFromRender((renderer, resources) => {
+      let container = new PIXI3D.Container3D()
+      let model = container.addChild(PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf))
+      model.meshes.forEach(mesh => {
+        mesh.material.unlit = true
+      })
+      let instance = container.addChild(model.createInstance())
+      instance.meshes.forEach(mesh => {
+        mesh.material.baseColor = new PIXI3D.Color(1, 0, 0)
+      })
+      instance.visible = false
+      renderer.render(container)
+      instance.destroy(true)
+      renderer.render(container)
+    }, [
+      "assets/teapot/teapot.gltf",
+    ])
+    expect(render).to.match(
+      await getImageDataFromUrl("snapshots/fxsnc.png"))
+  })
 })
