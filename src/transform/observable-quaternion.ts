@@ -79,7 +79,7 @@ export class ObservableQuaternion extends ObservablePoint {
   }
 
   /** The euler representation of the quaternion. */
-  get euler() {
+  getEulerAngles() {
     return Quat.toEuler(this.array);
   }
 
