@@ -30,7 +30,7 @@ export class Sprite3D extends Container3D {
    * Creates a new sprite using the specified texture.
    * @param texture The texture to use.
    */
-  constructor(texture: Texture<Resource>) {
+  constructor(texture?: Texture<Resource>) {
     super()
     this._sprite = new ProjectionSprite(texture)
     this._sprite.anchor.set(0.5)
