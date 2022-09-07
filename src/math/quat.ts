@@ -1,5 +1,5 @@
-import { quat } from "gl-matrix"
-import { RAD_TO_DEG } from 'pixi.js'
+import { quat, } from "gl-matrix"
+import { RAD_TO_DEG } from "@pixi/math"
 
 export class Quat {
   static set(x: number, y: number, z: number, w: number, out = new Float32Array(4)) {
