@@ -1,5 +1,6 @@
 import { quat, } from "gl-matrix"
 import { RAD_TO_DEG } from "@pixi/math"
+const HALF_PI = Math.PI * 0.5;
 
 export class Quat {
   static set(x: number, y: number, z: number, w: number, out = new Float32Array(4)) {
@@ -22,20 +23,31 @@ export class Quat {
   }
   static toEuler(q: Float32Array, out = new Float32Array(3)) {
     const x = q[0], y = q[1], z = q[2], w = q[3];
-    const t0 = 2 * (w * x + y * z)
-    const t1 = 1 - 2 * (x * x + y * y)
-    const rollX = Math.atan2(t0, t1) * RAD_TO_DEG;
+    const sqx = Math.pow(x, 2);
+    const sqy = Math.pow(y, 2);
+    const sqz = Math.pow(z, 2);
+    const sqw = Math.pow(w, 2);
+    const magnitude = sqx + sqy + sqz + sqw;
+    const test = x * y + z * w;
+    if (test > 0.499 * magnitude) { // singularity at north pole
+      out[0] = 0;
+      out[1] = 2 * Math.atan2(x, w) * RAD_TO_DEG;
+      out[2] = HALF_PI * RAD_TO_DEG;
+      return out;
+    }
+    if (test < -0.499 * magnitude) { // singularity at south pole
+      out[0] = 0;
+      out[1] = -2 * Math.atan2(x, w) * RAD_TO_DEG;
+      out[2] = -HALF_PI * RAD_TO_DEG;
+      return out;
+    }
+    const bank = Math.atan2(2 * x * w - 2 * y * z, -sqx + sqy - sqz + sqw);
+    const heading = Math.atan2(2 * y * w - 2 * x * z, sqx - sqy - sqz + sqw);
+    const attitude = Math.asin(2 * test / magnitude);
+    out[0] = bank * RAD_TO_DEG;
+    out[1] = heading * RAD_TO_DEG;
+    out[2] = attitude * RAD_TO_DEG;
 
-    let t2 = Math.min(1, Math.max(-1, 2 * (w * y - z * x)))
-    const pitchY = Math.asin(t2) * RAD_TO_DEG;
-
-    const t3 = 2 * (w * z + x * y)
-    const t4 = 1 - 2 * (y * y + z * z)
-    const yawZ = Math.atan2(t3, t4) * RAD_TO_DEG;
-
-    out[0] = rollX;
-    out[1] = pitchY;
-    out[2] = yawZ;
     return out;
   }
   static conjugate(a: Float32Array, out = new Float32Array(4)) {
@@ -49,5 +61,8 @@ export class Quat {
   }
   static rotateZ(a: Float32Array, rad: number, out = new Float32Array(4)) {
     return <Float32Array>quat.rotateZ(out, a, rad)
+  }
+  static rotationTo(from: Float32Array, to: Float32Array, out = new Float32Array(4)) {
+    return <Float32Array>quat.rotationTo(out, from, to);
   }
 }
