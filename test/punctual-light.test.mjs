@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Punctual light", () => {
 
-  it("should render correctly with directional light", async () => {
+  it("should render correctly with directional light using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {
@@ -26,7 +26,7 @@ describe("Punctual light", () => {
     })
   })
 
-  it("should render correctly with point light", async () => {
+  it("should render correctly with point light using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {
@@ -52,7 +52,7 @@ describe("Punctual light", () => {
     })
   })
 
-  it("should render correctly with spot light", async () => {
+  it("should render correctly with spot light using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {

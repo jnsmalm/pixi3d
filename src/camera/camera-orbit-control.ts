@@ -1,9 +1,9 @@
 import { ObservablePoint } from "@pixi/math"
-import { InteractionEvent } from "@pixi/interaction"
-
+import type { InteractionEvent } from "@pixi/interaction"
 import { Camera } from "./camera"
 import { Quat } from "../math/quat"
 import { Vec3 } from "../math/vec3"
+import { Compatibility } from "../compatibility/compatibility"
 
 /**
  * Allows the user to control the camera by orbiting the target.
@@ -40,10 +40,16 @@ export class CameraOrbitControl {
     this.camera.renderer.on("prerender", () => {
       this.updateCamera()
     })
-    this.camera.renderer.plugins.interaction.on("mousedown", (e: InteractionEvent) => {
-      if (!e.stopped) {
-        this._grabbed = true
-      }
+    let interaction = Compatibility.getInteractionPlugin(this.camera.renderer)
+    if (interaction) {
+      interaction.on("mousedown", (e: InteractionEvent) => {
+        if (!e.stopped) {
+          this._grabbed = true
+        }
+      })
+    }
+    element.addEventListener("mousedown", () => {
+      this._grabbed = true
     })
     element.addEventListener("mouseup", () => {
       this._grabbed = false

@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Skybox", () => {
 
-  it("should render correctly", async () => {
+  it("should render correctly using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let skybox = new PIXI3D.Skybox(PIXI3D.Cubemap.fromColors(
         new PIXI3D.Color(1, 0, 1),

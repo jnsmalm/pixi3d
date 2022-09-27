@@ -1,4 +1,4 @@
-import { ILoaderResource } from "@pixi/loaders"
+import type { ILoaderResource } from "@pixi/loaders"
 
 /**
  * Represents a loader for glTF asset resources (buffers and images).

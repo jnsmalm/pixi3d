@@ -1,4 +1,27 @@
-async function getObjectURLFromRender(render, resources, { width = 1280, height = 720, webGL = 1 } = {}) {
+async function loadResources(urls) {
+  let resources = {}
+  if (PIXI.Assets) {
+    for (let url of urls || []) {
+      let asset = await PIXI.Assets.load(url)
+      resources[url] = {
+        gltf: asset, texture: asset, cubemap: asset
+      }
+    }
+  } else {
+    let loader = new PIXI.Loader()
+    if (urls) {
+      urls.forEach(res => { loader.add(res) })
+    }
+    return new Promise((resolve, reject) => {
+      loader.load((_, resources) => {
+        resolve(resources)
+      })
+    })
+  }
+  return resources
+}
+
+async function getObjectURLFromRender(render, urls, { width = 1280, height = 720, webGL = 1 } = {}) {
   // switch (webGL) {
   //   case 1: {
   //     PIXI.settings.PREFER_ENV = PIXI.ENV.WEBGL1
@@ -12,23 +35,18 @@ async function getObjectURLFromRender(render, resources, { width = 1280, height 
   let renderer = new PIXI.Renderer({
     width, height, backgroundColor: 0xcccccc
   })
-  let loader = new PIXI.Loader()
-  if (resources) {
-    resources.forEach(res => { loader.add(res) })
-  }
-  return new Promise((resolve, reject) => {
-    loader.load((_, resources) => {
-      render(renderer, resources)
-      let canvas = document.createElement("canvas")
-      canvas.width = width
-      canvas.height = height
-      let ctx = canvas.getContext("2d")
-      ctx.drawImage(renderer.view, 0, 0)
-      canvas.toBlob(blob => {
-        resolve(URL.createObjectURL(blob))
-        renderer.destroy()
-        PIXI.utils.clearTextureCache()
-      })
+  let resources = await loadResources(urls)
+  return new Promise(async (resolve, reject) => {
+    await render(renderer, resources)
+    let canvas = document.createElement("canvas")
+    canvas.width = width
+    canvas.height = height
+    let ctx = canvas.getContext("2d")
+    ctx.drawImage(renderer.view, 0, 0)
+    canvas.toBlob(blob => {
+      resolve(URL.createObjectURL(blob))
+      renderer.destroy()
+      PIXI.utils.clearTextureCache()
     })
   })
 }
@@ -57,4 +75,13 @@ async function getImageDataFromUrl(url) {
 async function getImageDataFromRender(render, resources, options = {}) {
   return await getImageDataFromUrl(
     await getObjectURLFromRender(render, resources, { ...options }), false)
+}
+
+export async function delayedRender(renderer, object, delay = 200) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      renderer.render(object)
+      resolve()
+    }, delay)
+  })
 }

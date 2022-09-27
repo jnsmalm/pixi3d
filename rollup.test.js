@@ -16,7 +16,7 @@ config.push({
       port: 8080,
       open: true,
       contentBase: [
-        "dist/umd",
+        "dist/browser",
         "test",
         "node_modules/mocha"
       ]

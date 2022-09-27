@@ -71,8 +71,7 @@ export class PostProcessingSprite extends Sprite {
     }
     if (objectToRender) {
       this._tickerRender = () => {
-        if (!renderer.gl) {
-          // The renderer was probably destroyed.
+        if (Compatibility.isRendererDestroyed(renderer)) {
           Ticker.shared.remove(this._tickerRender); return
         }
         if (this.worldVisible && this.worldAlpha > 0 && this.renderable) {

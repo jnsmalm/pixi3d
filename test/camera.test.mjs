@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Camera", () => {
 
-  it("should render correctly with obliqueness", async () => {
+  it("should render correctly with obliqueness using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let camera = new PIXI3D.Camera(renderer)
       camera.obliqueness.y = 1

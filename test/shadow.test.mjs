@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Shadow", () => {
 
-  it("should render correctly with directional light", async () => {
+  it("should render correctly with directional light using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let container = new PIXI3D.Container3D()
       container.y = -0.8
@@ -42,7 +42,7 @@ describe("Shadow", () => {
     })
   })
 
-  it("should render correctly with spot light", async () => {
+  it("should render correctly with spot light using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let container = new PIXI3D.Container3D()
       container.y = -0.8

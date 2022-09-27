@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Camera orbit control", () => {
 
-  it("should render correctly with angles and distance", async () => {
+  it("should render correctly with angles and distance using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {
@@ -31,7 +31,7 @@ describe("Camera orbit control", () => {
     })
   })
 
-  it("should render correctly with target", async () => {
+  it("should render correctly with target using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {

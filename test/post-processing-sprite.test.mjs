@@ -1,7 +1,8 @@
 import { expect } from "chai"
 
 describe("Post processing sprite", () => {
-  it("should render correctly with blur filter", async () => {
+
+  it("should render correctly with blur filter using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
       model.y = -0.8
@@ -19,7 +20,7 @@ describe("Post processing sprite", () => {
     })
   })
 
-  it("should render correctly after changing resolution", async () => {
+  it("should render correctly after changing resolution using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
       model.y = -0.8
@@ -38,7 +39,7 @@ describe("Post processing sprite", () => {
     })
   })
 
-  // it("should not try to render when renderer was destroyed", async () => {
+  // it("should not try to render when renderer was destroyed using pixi *.*.*", async () => {
   //   let render = (renderer, resources) => {
   //     let sprite = new PIXI3D.PostProcessingSprite(renderer, {
   //       objectToRender: PIXI3D.Mesh3D.createCube()

@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Standard material", () => {
 
-  it("should render correctly with ibl and no textures", async () => {
+  it("should render correctly with ibl and no textures using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       lightingEnvironment.imageBasedLighting = new PIXI3D.ImageBasedLighting(
@@ -25,7 +25,7 @@ describe("Standard material", () => {
     })
   })
 
-  it("should render transparency correctly", async () => {
+  it("should render transparency correctly using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       lightingEnvironment.imageBasedLighting = new PIXI3D.ImageBasedLighting(

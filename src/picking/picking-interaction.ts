@@ -38,7 +38,10 @@ export class PickingInteraction implements IRendererPlugin {
     // the "hitTest" function needs to be called. Otherwise, in some 
     // circumstances; the picking is affected by in which order the interaction 
     // object was added to the heirarchy.
-    this.renderer.plugins.interaction.hitTest(new Point(0, 0))
+    let interaction = Compatibility.getInteractionPlugin(this.renderer)
+    if (interaction) {
+      interaction.hitTest(new Point(0, 0))
+    }
     if (this._hitAreas.length > 0) {
       this._map.resizeToAspect()
       this._map.update(this._hitAreas); this._hitAreas = []

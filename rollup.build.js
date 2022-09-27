@@ -1,12 +1,13 @@
-const pkg = require('./package.json')
+const pkg = require("./package.json")
 
-import typescript from "@rollup/plugin-typescript"
+import esbuild from "rollup-plugin-esbuild";
 import image from "@rollup/plugin-image"
 import resolve from '@rollup/plugin-node-resolve'
 import glsl from "./rollup-plugin-glsl"
-import { terser } from "rollup-plugin-terser"
+import jscc from "rollup-plugin-jscc"
 
 const packages = [
+  "@pixi/assets",
   "@pixi/constants",
   "@pixi/core",
   "@pixi/display",
@@ -23,57 +24,75 @@ packages.forEach(function (key) {
   globals[key] = key === "@pixi/utils" ? "PIXI.utils" : "PIXI"
 })
 const banner = `/* Pixi3D v${pkg.version} */`
-const minify = terser({
-  output: {
-    comments: (_, comment) => comment.line === 1
-  }
-})
 
-const plugins = [
-  typescript({ noEmitOnError: true }),
+const plugins = ({ compatibility = {}, minify = false } = {}) => [
+  jscc({
+    values: {
+      _PIXI_COMPATIBILITY_LOADERS: compatibility.loaders,
+      _PIXI_COMPATIBILITY_ASSETS: compatibility.assets,
+    }
+  }),
+  esbuild({
+    target: "es2017",
+    minify
+  }),
   image(),
   glsl(),
   resolve()
 ]
 
-export default [{
-  input: "src/index.ts",
-  output: [
-    {
-      file: "dist/umd/pixi3d.js",
-      format: "umd",
-      sourcemap: true,
-      name: "PIXI3D",
-      globals,
-      banner
-    },
-    {
-      file: "dist/umd/pixi3d.min.js",
-      format: "umd",
+const config = (file, format, options) => {
+  return {
+    input: "src/index.ts",
+    external: packages,
+    plugins: plugins(options),
+    output: [{
+      file: file,
+      format: format,
       sourcemap: true,
       name: "PIXI3D",
       globals,
       banner,
-      plugins: [
-        minify
-      ]
-    },
-    {
-      file: "dist/esm/pixi3d.js",
-      format: "esm",
-      sourcemap: true,
-      banner
-    },
-    {
-      file: "dist/esm/pixi3d.min.js",
-      format: "esm",
-      sourcemap: true,
-      banner,
-      plugins: [
-        minify
-      ]
+    }]
+  }
+}
+
+const format = (path, format, options = {}) => {
+  return [
+    config(path + "pixi3d.js", format, { minify: false, ...options }),
+    config(path + "pixi3d.min.js", format, { minify: true, ...options }),
+  ]
+}
+
+export default [
+  ...format("dist/browser/", "iife", {
+    compatibility: {
+      loaders: true,
+      assets: true
     }
-  ],
-  external: packages,
-  plugins
-}]
+  }),
+  ...format("dist/cjs/pixi5/", "cjs", {
+    compatibility: {
+      loaders: true,
+      assets: false
+    }
+  }),
+  ...format("dist/cjs/pixi7/", "cjs", {
+    compatibility: {
+      loaders: false,
+      assets: true
+    }
+  }),
+  ...format("dist/esm/pixi5/", "esm", {
+    compatibility: {
+      loaders: true,
+      assets: false
+    }
+  }),
+  ...format("dist/esm/pixi7/", "esm", {
+    compatibility: {
+      loaders: false,
+      assets: true
+    }
+  })
+]

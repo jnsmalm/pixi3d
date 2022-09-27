@@ -12,17 +12,23 @@
 <body>
   <div id="mocha"></div>
 
+  <!-- <script src="https://pixijs.download/v5.3.0/pixi.js"></script> -->
+  <!-- <script src="https://pixijs.download/v6.5.1/pixi.js"></script> -->
+  <!-- <script src="https://pixijs.download/v6.5.5/pixi.js"></script> -->
+  <script src="https://pixijs.download/v7.0.0-alpha.3/pixi.js"></script>
+
   <script src="mocha.js"></script>
 
   <script class="mocha-init">
-    mocha.setup("bdd")
+    let [major, minor, patch] = window.PIXI.VERSION.split(".")
+    mocha.setup({
+      ui: "bdd", grep:
+        new RegExp(`pixi [${major}|*].[${minor}|*].[${patch}|*]`)
+    })
     mocha.slow(5000)
     mocha.timeout(10000)
     mocha.checkLeaks()
   </script>
-
-  <script src="https://pixijs.download/v5.3.0/pixi.js"></script>
-  <!-- <script src="https://pixijs.download/v6.4.2/pixi.js"></script> -->
 
   <script src="pixi3d.js"></script>
   <script src="test-utils.js"></script>

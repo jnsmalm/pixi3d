@@ -5,7 +5,7 @@
     "strict": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es2017",
     "downlevelIteration": true,
     // This source map setting needs to be disabled for rollup.
     // "sourceMap": true,

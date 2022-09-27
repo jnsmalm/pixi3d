@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Instancing", () => {
 
-  it("should render correctly with different colors and transforms", async () => {
+  it("should render correctly with different colors and transforms using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let container = new PIXI3D.Container3D()
       let model = container.addChild(PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf))
@@ -33,7 +33,7 @@ describe("Instancing", () => {
     })
   })
 
-  it("should render correctly when all invisible instances was destroyed", async () => {
+  it("should render correctly when all invisible instances was destroyed using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let container = new PIXI3D.Container3D()
       let model = container.addChild(PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf))

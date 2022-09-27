@@ -1,11 +1,12 @@
-import { Renderer, AbstractBatchRenderer, BatchShaderGenerator, IBatchableElement, ViewableBuffer } from "@pixi/core"
+import { Renderer, BatchShaderGenerator, IBatchableElement, ViewableBuffer } from "@pixi/core"
 import { premultiplyTint } from "@pixi/utils"
 import { SpriteBatchGeometry } from "./sprite-batch-geometry"
 import { Shader as Vertex } from "./shader/sprite.vert"
 import { Shader as Fragment } from "./shader/sprite.frag"
 import { Compatibility } from "../compatibility/compatibility"
+import { BatchRenderer } from "../compatibility/batch-renderer"
 
-export class SpriteBatchRenderer extends AbstractBatchRenderer {
+export class SpriteBatchRenderer extends BatchRenderer {
   constructor(renderer: Renderer) {
     super(renderer)
 

@@ -1,6 +1,7 @@
-import { ILoaderResource, LoaderResource } from "@pixi/loaders"
+import type { ILoaderResource } from "@pixi/loaders"
 import { glTFAsset } from "../gltf/gltf-asset"
 import { Compatibility } from "../compatibility/compatibility"
+import { LoaderResourceResponseType } from "../compatibility/compatibility-version"
 
 export const glTFBinaryLoader = {
   use: function (resource: ILoaderResource, next: () => void) {
@@ -16,8 +17,8 @@ export const glTFBinaryLoader = {
     }
   },
   add: function () {
-    LoaderResource.setExtensionXhrType(
-      "glb", LoaderResource.XHR_RESPONSE_TYPE.BUFFER)
+    Compatibility.setLoaderResourceExtensionType("glb",
+      LoaderResourceResponseType.buffer)
   }
 }
 

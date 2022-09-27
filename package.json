@@ -2,18 +2,38 @@
   "name": "pixi3d",
   "version": "1.6.2",
   "description": "The 3D renderer for PixiJS. Seamless integration with 2D applications.",
-  "main": "dist/umd/pixi3d.js",
-  "module": "dist/esm/pixi3d.js",
+  "main": "dist/cjs/pixi5/pixi3d.js",
+  "module": "dist/esm/pixi5/pixi3d.js",
   "exports": {
     ".": {
       "import": {
         "types": "./types/index.d.ts",
-        "default": "./dist/esm/pixi3d.js"
+        "default": "./dist/esm/pixi5/pixi3d.js"
       },
       "require": {
         "types": "./types/index.d.ts",
-        "default": "./dist/umd/pixi3d.js"
+        "default": "./dist/cjs/pixi5/pixi3d.js"
       }
+    },
+    "./pixi7": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/esm/pixi7/pixi3d.js"
+      },
+      "require": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/cjs/pixi7/pixi3d.js"
+      }
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./types/index.d.ts"
+      ],
+      "pixi7": [
+        "./types/index.d.ts"
+      ]
     }
   },
   "files": [
@@ -44,13 +64,14 @@
   },
   "homepage": "https://github.com/jnsmalm/pixi3d#readme",
   "devDependencies": {
+    "@pixi/assets": "^6.5.1",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-image": "^2.1.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-typescript": "^8.3.3",
     "chai": "^4.3.6",
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "esbuild": "^0.15.10",
     "gl-matrix": "^3.3.0",
     "mocha": "^10.0.0",
     "pixelmatch": "^5.2.1",
@@ -59,8 +80,9 @@
     "puppeteer": "^18.0.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.75.7",
+    "rollup-plugin-esbuild": "^4.10.1",
+    "rollup-plugin-jscc": "^2.0.0",
     "rollup-plugin-serve": "^2.0.0",
-    "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.3.0",
     "typedoc": "^0.22.9",
     "typescript": "^4.2.4"

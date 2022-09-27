@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Sprite", () => {
 
-  it("should render correctly without billboard", async () => {
+  it("should render correctly without billboard using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let sprite = new PIXI3D.Sprite3D(resources["assets/bunnies/rabbitv3.png"].texture)
       sprite.scale.set(10)
@@ -17,7 +17,7 @@ describe("Sprite", () => {
     })
   })
 
-  it("should render correctly with spherical billboard", async () => {
+  it("should render correctly with spherical billboard using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let sprite = new PIXI3D.Sprite3D(resources["assets/bunnies/rabbitv3.png"].texture)
       sprite.scale.set(10)
@@ -33,7 +33,7 @@ describe("Sprite", () => {
     })
   })
 
-  it("should render correctly with cylindrical billboard", async () => {
+  it("should render correctly with cylindrical billboard using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let sprite = new PIXI3D.Sprite3D(resources["assets/bunnies/rabbitv3.png"].texture)
       sprite.scale.set(10)
@@ -49,7 +49,7 @@ describe("Sprite", () => {
     })
   })
 
-  it("should render correctly back to front", async () => {
+  it("should render correctly back to front using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let container = new PIXI3D.Container3D()
       let sprites = []

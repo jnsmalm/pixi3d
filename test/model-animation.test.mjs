@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Model animation", () => {
 
-  it("should render correctly with transform animation", async () => {
+  it("should render correctly with transform animation using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
       model.y = -0.8
