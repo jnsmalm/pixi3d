@@ -37,7 +37,12 @@ uniform mat4 u_ModelMatrix;
 mat4 getJointMatrix(float boneNdx) {
   #ifdef USE_SKINNING_TEXTURE
     float v = (boneNdx + 0.5) / float(MAX_JOINT_COUNT);
-    return mat4(texture2D(u_jointMatrixSampler, vec2(ROW0_U, v)), texture2D(u_jointMatrixSampler, vec2(ROW1_U, v)), texture2D(u_jointMatrixSampler, vec2(ROW2_U, v)), texture2D(u_jointMatrixSampler, vec2(ROW3_U, v)));
+    return mat4(
+      texture2D(u_jointMatrixSampler, vec2(ROW0_U, v)), 
+      texture2D(u_jointMatrixSampler, vec2(ROW1_U, v)), 
+      texture2D(u_jointMatrixSampler, vec2(ROW2_U, v)), 
+      texture2D(u_jointMatrixSampler, vec2(ROW3_U, v))
+    );
   #else
     return u_jointMatrix[int(boneNdx)];
   #endif
@@ -45,7 +50,8 @@ mat4 getJointMatrix(float boneNdx) {
 
 mat4 getSkinningMatrix() {
   mat4 skin = mat4(0);
-  skin += a_Weight1.x * getJointMatrix(a_Joint1.x) +
+  skin += 
+    a_Weight1.x * getJointMatrix(a_Joint1.x) +
     a_Weight1.y * getJointMatrix(a_Joint1.y) +
     a_Weight1.z * getJointMatrix(a_Joint1.z) +
     a_Weight1.w * getJointMatrix(a_Joint1.w);
@@ -58,7 +64,6 @@ void main() {
   #ifdef USE_INSTANCING
     modelMatrix = mat4(a_ModelMatrix0, a_ModelMatrix1, a_ModelMatrix2, a_ModelMatrix3);
   #endif
-
   vec4 pos = vec4(a_Position, 1.0);
   #ifdef USE_SKINNING
     pos = getSkinningMatrix() * pos;

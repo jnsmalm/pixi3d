@@ -3,9 +3,9 @@
 #extension GL_OES_standard_derivatives : enable
 
 #ifdef GL_FRAGMENT_PRECISION_HIGH
-    precision highp float;
+  precision highp float;
 #else
-    precision mediump float;
+  precision mediump float;
 #endif
 
 void main() {
