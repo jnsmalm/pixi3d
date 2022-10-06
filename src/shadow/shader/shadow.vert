@@ -2,11 +2,11 @@
 
 #define FEATURES
 
-attribute vec3 a_Position;
+VERT_IN vec3 a_Position;
 
 #ifdef USE_SKINNING
-  attribute vec4 a_Joint1;
-  attribute vec4 a_Weight1;
+  VERT_IN vec4 a_Joint1;
+  VERT_IN vec4 a_Weight1;
 #endif
 
 uniform mat4 u_ViewProjectionMatrix;
