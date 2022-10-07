@@ -45,6 +45,8 @@ export class StandardMaterial extends Material {
   private _metallicRoughnessTexture?: StandardMaterialTexture
   private _shadowCastingLight?: ShadowCastingLight
   private _instancingEnabled = false
+  private _flipX = false
+  private _flipY = false
 
   private _skinUniforms = new StandardMaterialSkinUniforms()
 
@@ -65,6 +67,7 @@ export class StandardMaterial extends Material {
 
   /** The exposure (brightness) of the material. */
   exposure = 1
+
 
   /** The base color texture. */
   get baseColorTexture() {
@@ -162,6 +165,30 @@ export class StandardMaterial extends Material {
     if (value !== this._shadowCastingLight) {
       this.invalidateShader()
       this._shadowCastingLight = value
+    }
+  }
+
+  /** Toggle flipping the UV's on the X axis */
+  get flipX() {
+    return this._flipX
+  }
+
+  set flipX(value: boolean) {
+    if (this._flipX !== value) {
+      this.invalidateShader()
+      this._flipX = value
+    }
+  }
+
+  /** Toggle flipping the UV's on the Y axis */
+  get flipY() {
+    return this._flipY
+  }
+
+  set flipY(value: boolean) {
+    if (this._flipY !== value) {
+      this.invalidateShader()
+      this._flipY = value
     }
   }
 

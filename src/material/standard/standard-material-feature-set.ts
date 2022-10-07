@@ -145,6 +145,12 @@ export namespace StandardMaterialFeatureSet {
         break
       }
     }
+    if (material.flipX) {
+      features.push("FLIP_UV_X 1");
+    }
+    if (material.flipY) {
+      features.push("FLIP_UV_Y 1");
+    }
     if (material.debugMode) {
       features.push("DEBUG_OUTPUT 1")
     }

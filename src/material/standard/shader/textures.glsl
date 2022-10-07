@@ -28,6 +28,9 @@ uniform mat3 u_OcclusionUVTransform;
 uniform sampler2D u_BaseColorSampler;
 uniform int u_BaseColorUVSet;
 uniform mat3 u_BaseColorUVTransform;
+#ifdef USE_INSTANCING
+    FRAG_IN mat3 v_BaseColorUVTransform;
+#endif
 #endif
 
 #ifdef HAS_METALLIC_ROUGHNESS_MAP
@@ -102,8 +105,20 @@ vec2 getBaseColorUV()
     vec3 uv = vec3(v_UVCoord1, 1.0);
 #ifdef HAS_BASE_COLOR_MAP
     uv.xy = u_BaseColorUVSet < 1 ? v_UVCoord1 : v_UVCoord2;
+#endif
+#ifdef FLIP_UV_X
+    uv.x = 1.0 - uv.x;
+#endif
+#ifdef FLIP_UV_Y
+    uv.y = 1.0 - uv.y;
+#endif
+#ifdef HAS_BASE_COLOR_MAP
     #ifdef HAS_BASECOLOR_UV_TRANSFORM
-    uv = u_BaseColorUVTransform * uv;
+        #ifdef USE_INSTANCING
+        uv = v_BaseColorUVTransform * uv;
+        #else
+        uv = u_BaseColorUVTransform * uv;
+        #endif
     #endif
 #endif
     return uv.xy;

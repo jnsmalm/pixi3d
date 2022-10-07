@@ -18,6 +18,12 @@ VERT_IN vec4 a_ModelMatrix3;
 #ifdef USE_INSTANCING
 VERT_IN vec4 a_BaseColorFactor;
 VERT_OUT vec4 v_BaseColorFactor;
+    #ifdef HAS_BASE_COLOR_MAP
+    VERT_IN vec3 a_BaseColorUVTransform0;
+    VERT_IN vec3 a_BaseColorUVTransform1;
+    VERT_IN vec3 a_BaseColorUVTransform2;
+    VERT_OUT mat3 v_BaseColorUVTransform;
+    #endif
 #endif
 
 #ifdef USE_INSTANCING
@@ -169,6 +175,9 @@ void main()
 
     #ifdef USE_INSTANCING
     v_BaseColorFactor = a_BaseColorFactor;
+        #ifdef HAS_BASE_COLOR_MAP
+        v_BaseColorUVTransform = mat3(a_BaseColorUVTransform0, a_BaseColorUVTransform1, a_BaseColorUVTransform2);
+        #endif
     #endif
 
     gl_Position = u_ViewProjectionMatrix * pos;
