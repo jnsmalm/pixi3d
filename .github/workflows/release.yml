@@ -24,6 +24,10 @@ jobs:
         npm install
         npm run build
 
+    - name: Test
+      run: |
+        npm test
+
     - name: Release
       uses: softprops/action-gh-release@v1
       with:

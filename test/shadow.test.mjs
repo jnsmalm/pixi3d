@@ -1,9 +1,9 @@
 import { expect } from "chai"
-import { getImageDataFromRender, getImageDataFromUrl } from "./test-utils"
 
 describe("Shadow", () => {
+
   it("should render correctly with directional light", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let container = new PIXI3D.Container3D()
       container.y = -0.8
 
@@ -33,15 +33,17 @@ describe("Shadow", () => {
       pipeline.enableShadows(ground, shadowCastingLight)
 
       renderer.render(container)
-    }, [
-      "assets/teapot/teapot.gltf"
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/zjehs.png"), { maxDiff: 200 })
+    }
+    await expect(render).to.match("snapshots/zjehs.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ],
+      maxDiff: 200
+    })
   })
 
   it("should render correctly with spot light", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let container = new PIXI3D.Container3D()
       container.y = -0.8
 
@@ -74,10 +76,11 @@ describe("Shadow", () => {
       pipeline.enableShadows(ground, shadowCastingLight)
 
       renderer.render(container)
-    }, [
-      "assets/teapot/teapot.gltf"
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/hdstj.png"))
+    }
+    await expect(render).to.match("snapshots/hdstj.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ]
+    })
   })
 })

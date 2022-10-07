@@ -4,7 +4,7 @@ import serve from "rollup-plugin-serve"
 import commonjs from '@rollup/plugin-commonjs'
 
 config.push({
-  input: "test/index.js",
+  input: "test/browser-test-context.js",
   output: {
     file: "test/bundle.js",
   },

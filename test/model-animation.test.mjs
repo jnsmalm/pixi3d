@@ -1,9 +1,9 @@
 import { expect } from "chai"
-import { getImageDataFromRender, getImageDataFromUrl } from "./test-utils"
 
 describe("Model animation", () => {
+
   it("should render correctly with transform animation", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
       model.y = -0.8
       model.animations.forEach(anim => {
@@ -11,10 +11,11 @@ describe("Model animation", () => {
       })
       model.meshes.forEach(mesh => mesh.skin = undefined)
       renderer.render(model)
-    }, [
-      "assets/teapot/teapot.gltf"
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/uzvrd.png"))
+    }
+    await expect(render).to.match("snapshots/uzvrd.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ]
+    })
   })
 })

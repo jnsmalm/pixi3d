@@ -1,9 +1,9 @@
 import { expect } from "chai"
-import { getImageDataFromRender, getImageDataFromUrl } from "./test-utils"
 
 describe("Standard material", () => {
+
   it("should render correctly with ibl and no textures", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       lightingEnvironment.imageBasedLighting = new PIXI3D.ImageBasedLighting(
         resources["assets/chromatic/diffuse.cubemap"].cubemap,
@@ -15,16 +15,18 @@ describe("Standard material", () => {
         mesh.material.lightingEnvironment = lightingEnvironment
       })
       renderer.render(model)
-    }, [
-      "assets/teapot/teapot.gltf",
-      "assets/chromatic/specular.cubemap",
-      "assets/chromatic/diffuse.cubemap"
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/acfkf.png"))
+    }
+    await expect(render).to.match("snapshots/acfkf.png", {
+      resources: [
+        "assets/teapot/teapot.gltf",
+        "assets/chromatic/specular.cubemap",
+        "assets/chromatic/diffuse.cubemap"
+      ]
+    })
   })
+
   it("should render transparency correctly", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       lightingEnvironment.imageBasedLighting = new PIXI3D.ImageBasedLighting(
         resources["assets/chromatic/diffuse.cubemap"].cubemap,
@@ -42,12 +44,13 @@ describe("Standard material", () => {
       transparent.material.unlit = true
       transparent.alpha = 0.5
       renderer.render(container)
-    }, [
-      "assets/teapot/teapot.gltf",
-      "assets/chromatic/specular.cubemap",
-      "assets/chromatic/diffuse.cubemap"
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/odqxx.png"))
+    }
+    await expect(render).to.match("snapshots/odqxx.png", {
+      resources: [
+        "assets/teapot/teapot.gltf",
+        "assets/chromatic/specular.cubemap",
+        "assets/chromatic/diffuse.cubemap"
+      ]
+    })
   })
 })

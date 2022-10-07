@@ -16,7 +16,7 @@ async function getObjectURLFromRender(render, resources, { width = 1280, height 
   if (resources) {
     resources.forEach(res => { loader.add(res) })
   }
-  let result = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     loader.load((_, resources) => {
       render(renderer, resources)
       let canvas = document.createElement("canvas")
@@ -31,10 +31,9 @@ async function getObjectURLFromRender(render, resources, { width = 1280, height 
       })
     })
   })
-  return result
 }
 
-export async function getImageDataFromUrl(url) {
+async function getImageDataFromUrl(url) {
   return new Promise((resolve, reject) => {
     let image = new Image()
     image.src = url
@@ -55,7 +54,7 @@ export async function getImageDataFromUrl(url) {
   })
 }
 
-export async function getImageDataFromRender(render, resources, options = {}) {
+async function getImageDataFromRender(render, resources, options = {}) {
   return await getImageDataFromUrl(
     await getObjectURLFromRender(render, resources, { ...options }), false)
 }

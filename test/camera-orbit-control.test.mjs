@@ -1,9 +1,9 @@
 import { expect } from "chai"
-import { getImageDataFromRender, getImageDataFromUrl } from "./test-utils"
 
 describe("Camera orbit control", () => {
+
   it("should render correctly with angles and distance", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {
         intensity: 1.7,
@@ -23,14 +23,16 @@ describe("Camera orbit control", () => {
         mesh.material.lightingEnvironment = lightingEnvironment
       })
       renderer.render(model)
-    }, [
-      "assets/teapot/teapot.gltf",
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/dopot.png"))
+    }
+    await expect(render).to.match("snapshots/dopot.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ]
+    })
   })
+
   it("should render correctly with target", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {
         intensity: 1.7,
@@ -48,10 +50,11 @@ describe("Camera orbit control", () => {
         mesh.material.lightingEnvironment = lightingEnvironment
       })
       renderer.render(model)
-    }, [
-      "assets/teapot/teapot.gltf",
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/eqgul.png"))
+    }
+    await expect(render).to.match("snapshots/eqgul.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ]
+    })
   })
 })

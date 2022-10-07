@@ -1,9 +1,9 @@
 import { expect } from "chai"
-import { getImageDataFromRender, getImageDataFromUrl } from "./test-utils"
 
 describe("Instancing", () => {
+
   it("should render correctly with different colors and transforms", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let container = new PIXI3D.Container3D()
       let model = container.addChild(PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf))
       model.meshes.forEach(mesh => {
@@ -25,15 +25,16 @@ describe("Instancing", () => {
         })
       }
       renderer.render(container)
-    }, [
-      "assets/teapot/teapot.gltf",
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/ddwrr.png"))
+    }
+    await expect(render).to.match("snapshots/ddwrr.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ]
+    })
   })
 
   it("should render correctly when all invisible instances was destroyed", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let container = new PIXI3D.Container3D()
       let model = container.addChild(PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf))
       model.meshes.forEach(mesh => {
@@ -47,10 +48,11 @@ describe("Instancing", () => {
       renderer.render(container)
       instance.destroy(true)
       renderer.render(container)
-    }, [
-      "assets/teapot/teapot.gltf",
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/fxsnc.png"))
+    }
+    await expect(render).to.match("snapshots/fxsnc.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ]
+    })
   })
 })

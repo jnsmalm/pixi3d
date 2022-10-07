@@ -1,9 +1,9 @@
 import { expect } from "chai"
-import { getImageDataFromRender, getImageDataFromUrl } from "./test-utils"
 
 describe("Punctual light", () => {
+
   it("should render correctly with directional light", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {
         intensity: 0.7,
@@ -18,15 +18,16 @@ describe("Punctual light", () => {
       })
       model.y = -0.8
       renderer.render(model)
-    }, [
-      "assets/teapot/teapot.gltf"
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/htklv.png"))
+    }
+    await expect(render).to.match("snapshots/htklv.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ]
+    })
   })
 
   it("should render correctly with point light", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {
         intensity: 0.7,
@@ -43,15 +44,16 @@ describe("Punctual light", () => {
       })
       model.y = -0.8
       renderer.render(model)
-    }, [
-      "assets/teapot/teapot.gltf"
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/mqhbn.png"))
+    }
+    await expect(render).to.match("snapshots/mqhbn.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ]
+    })
   })
 
   it("should render correctly with spot light", async () => {
-    let render = await getImageDataFromRender((renderer, resources) => {
+    let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       let light = Object.assign(new PIXI3D.Light(), {
         intensity: 0.7,
@@ -69,10 +71,11 @@ describe("Punctual light", () => {
       })
       model.y = -0.8
       renderer.render(model)
-    }, [
-      "assets/teapot/teapot.gltf"
-    ])
-    expect(render).to.match(
-      await getImageDataFromUrl("snapshots/snbvz.png"))
+    }
+    await expect(render).to.match("snapshots/snbvz.png", {
+      resources: [
+        "assets/teapot/teapot.gltf"
+      ]
+    })
   })
 })
