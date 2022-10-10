@@ -7,14 +7,17 @@ import { ShadowCastingLight } from "./shadow-casting-light"
 import { Shader as Vertex } from "./shader/shadow.vert"
 import { Shader as Fragment } from "./shader/shadow.frag"
 import { ShadowShaderInstancing } from "./shadow-shader-instancing"
+import { ShadowMaterialFeatureSet } from "./shadow-material-feature-set"
 
 export class ShadowShader extends MeshShader {
-  private _instancing = new ShadowShaderInstancing();
+  private _instancing: ShadowShaderInstancing;
 
   constructor(renderer: Renderer, features: string[] = []) {
+    features = ShadowMaterialFeatureSet.build(renderer, features);
     super(Program.from(
       StandardShaderSource.build(Vertex.source, features, renderer),
       StandardShaderSource.build(Fragment.source, features, renderer)))
+    this._instancing = new ShadowShaderInstancing();
   }
 
   get maxSupportedJoints() {
