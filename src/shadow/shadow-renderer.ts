@@ -13,11 +13,13 @@ export class ShadowRenderer {
     depthTest: true, clockwiseFrontFace: false, culling: true, blendMode: BLEND_MODES.NONE
   })
   private _shadowShader: ShadowShader
+  private _instancedShadowShader: ShadowShader
   private _skinningShader?: SkinningShader
   private _textureShader?: TextureShader
 
   constructor(public renderer: Renderer) {
     this._shadowShader = new ShadowShader(this.renderer)
+    this._instancedShadowShader = new ShadowShader(this.renderer, ["USE_INSTANCING 1"])
   }
 
   getSkinningShader() {
@@ -34,7 +36,8 @@ export class ShadowRenderer {
   }
 
   render(mesh: Mesh3D, shadowCastingLight: ShadowCastingLight) {
-    let shader: ShadowShader | undefined = this._shadowShader
+    const useInstances = mesh.instances.length > 0;
+    let shader: ShadowShader | undefined = useInstances ? this._instancedShadowShader : this._shadowShader;
     if (mesh.skin) {
       let skinningShader = this.getSkinningShader()
       if (skinningShader && mesh.skin.joints.length > skinningShader.maxSupportedJoints) {

@@ -4,6 +4,7 @@ import { Mesh3D } from "../mesh/mesh"
 import { ShadowCastingLight } from "./shadow-casting-light"
 import { Shader as Vertex } from "./shader/gaussian-blur.vert"
 import { Shader as Fragment } from "./shader/gaussian-blur.frag"
+import { StandardShaderSource } from "../material/standard/standard-shader-source"
 
 export class ShadowFilter {
   private _gaussianBlurShader: MeshShader
@@ -11,7 +12,10 @@ export class ShadowFilter {
 
   constructor(public renderer: Renderer) {
     this._mesh = Mesh3D.createQuad()
-    this._gaussianBlurShader = new MeshShader(Program.from(Vertex.source, Fragment.source))
+    this._gaussianBlurShader = new MeshShader(Program.from(
+      StandardShaderSource.build(Vertex.source, [], renderer),
+      StandardShaderSource.build(Fragment.source, [], renderer)
+    ))
   }
 
   applyGaussianBlur(light: ShadowCastingLight) {

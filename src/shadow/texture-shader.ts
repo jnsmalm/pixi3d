@@ -26,8 +26,8 @@ export class TextureShader extends ShadowShader {
       new StandardMaterialMatrixTexture(MAX_SUPPORTED_JOINTS)
   }
 
-  createShaderGeometry(geometry: MeshGeometry3D) {
-    let result = super.createShaderGeometry(geometry)
+  createShaderGeometry(geometry: MeshGeometry3D, instanced: boolean) {
+    let result = super.createShaderGeometry(geometry, instanced)
     if (geometry.joints) {
       result.addAttribute("a_Joint1", new Buffer(geometry.joints.buffer),
         4, false, geometry.joints.componentType, geometry.joints.stride)
