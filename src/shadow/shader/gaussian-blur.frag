@@ -1,9 +1,15 @@
 #version VERSION
 
+#define FEATURES
+
 #ifdef GL_FRAGMENT_PRECISION_HIGH
   precision highp float;
 #else
   precision mediump float;
+#endif
+
+#ifdef WEBGL2
+  out vec4 FRAG_COLOR;
 #endif
 
 FRAG_IN vec2 v_UV1;
