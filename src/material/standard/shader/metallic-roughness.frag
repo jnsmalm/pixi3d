@@ -363,7 +363,7 @@ void main()
 #endif
 
 #ifdef MATERIAL_UNLIT
-    FRAG_COLOR = vec4(LINEARtoSRGB(baseColor.rgb) * baseColor.a, baseColor.a);
+    FRAG_COLOR = vec4(LINEARtoSRGB(baseColor.rgb), baseColor.a);
     return;
 #endif
 
