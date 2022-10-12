@@ -1,4 +1,5 @@
-import { Renderer, Shader } from "@pixi/core"
+import { Renderer, Shader, Texture } from "@pixi/core"
+import { Spritesheet } from "@pixi/spritesheet"
 import { DEG_TO_RAD } from "@pixi/math"
 import { LightType } from "../../lighting/light-type"
 import { StandardMaterialFeatureSet } from "./standard-material-feature-set"
@@ -26,6 +27,16 @@ const getLightingEnvironmentConfigId = (env?: LightingEnvironment) => {
   return env ? (env.lights.length + (env.imageBasedLighting ? 0.5 : 0)) : 0
 }
 
+const updateTextureTransform = (value: StandardMaterialTexture) => {
+  if (!value?.transform) {
+    if (value?.frame && !value?.noFrame) {
+      value.transform = TextureTransform.fromTexture(value)
+    } else {
+      value.transform = new TextureTransform();
+    }
+  }
+}
+
 /**
  * The standard material is using Physically-Based Rendering (PBR) which makes 
  * it suitable to represent a wide range of different surfaces. It's the default 
@@ -38,6 +49,7 @@ export class StandardMaterial extends Material {
   private _alphaMode = StandardMaterialAlphaMode.blend
   private _debugMode?: StandardMaterialDebugMode
   private _baseColorTexture?: StandardMaterialTexture
+  private _baseColorSpriteSheet?: Spritesheet;
   private _baseColorFactor = new Float32Array(4)
   private _normalTexture?: StandardMaterialNormalTexture
   private _occlusionTexture?: StandardMaterialOcclusionTexture
@@ -47,8 +59,52 @@ export class StandardMaterial extends Material {
   private _instancingEnabled = false
   private _flipX = false
   private _flipY = false
+  private _textureIndex = -1;
 
   private _skinUniforms = new StandardMaterialSkinUniforms()
+
+  private _textureIndicesMap = new Map<Texture, number>();
+  private _spritesheetTextures: Texture[] = [];
+
+  public get textureIndicesMap() {
+    return this._textureIndicesMap;
+  }
+
+  public get textureIndex() {
+    return this._textureIndex;
+  }
+
+  public get spritesheetTextures() {
+    return this._spritesheetTextures;
+  }
+
+  /** The base color texture. */
+  get baseColorSpriteSheet() {
+    return this._baseColorSpriteSheet
+  }
+
+  set baseColorSpriteSheet(spritesheet: Spritesheet | undefined) {
+    if (spritesheet !== this._baseColorSpriteSheet) {
+      this.invalidateShader()
+      this._textureIndicesMap.clear()
+      this._spritesheetTextures = [];
+      this._baseColorSpriteSheet = spritesheet
+      if (spritesheet) {
+        const keys = Object.keys(spritesheet.textures);
+        keys.forEach((key, index) => {
+          this._textureIndicesMap.set(spritesheet.textures[key], index);
+          this._spritesheetTextures.push(spritesheet.textures[key]);
+          updateTextureTransform(this._spritesheetTextures[index]);
+        })
+        if (this.baseColorTexture) {
+          const textureIndex = this._textureIndicesMap.get(this.baseColorTexture as Texture);
+          this._textureIndex = textureIndex || -1;
+        }
+      }
+      this._baseColorSpriteSheet = spritesheet
+    }
+  }
+
 
   /** The roughness of the material. */
   roughness = 1
@@ -248,6 +304,7 @@ export class StandardMaterial extends Material {
     this._occlusionTexture?.destroy()
     this._metallicRoughnessTexture?.destroy()
     this._skinUniforms.destroy()
+    this._baseColorSpriteSheet?.destroy()
   }
 
   /**
@@ -342,6 +399,14 @@ export class StandardMaterial extends Material {
     }
     if (mesh.targetWeights) {
       shader.uniforms.u_morphWeights = mesh.targetWeights
+    }
+
+    if (this.spritesheetTextures) {
+      shader.uniforms.u_BaseColorUVTransforms = this.spritesheetTextures.reduce((prev, texture, index) => {
+        prev.set(((texture as any).transform as TextureTransform).array, 9 * index);
+        return prev;
+      }, new Float32Array(this.spritesheetTextures.length * 9));
+      shader.uniforms.u_BaseColorUVIndex = this.textureIndex;
     }
     if (this.baseColorTexture?.valid) {
       shader.uniforms.u_BaseColorSampler = this.baseColorTexture

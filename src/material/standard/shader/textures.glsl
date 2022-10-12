@@ -23,14 +23,16 @@ uniform float u_OcclusionStrength;
 uniform mat3 u_OcclusionUVTransform;
 #endif
 
+#ifdef HAS_SPRITESHEET
+  uniform mat3 u_BaseColorUVTransforms[UV_COUNT];
+  FRAG_IN float v_BaseColorUVIndex;  
+#endif
+
 // Metallic Roughness Material
 #ifdef HAS_BASE_COLOR_MAP
 uniform sampler2D u_BaseColorSampler;
 uniform int u_BaseColorUVSet;
 uniform mat3 u_BaseColorUVTransform;
-#ifdef USE_INSTANCING
-    FRAG_IN mat3 v_BaseColorUVTransform;
-#endif
 #endif
 
 #ifdef HAS_METALLIC_ROUGHNESS_MAP
@@ -100,6 +102,8 @@ vec2 getOcclusionUV()
     return uv.xy;
 }
 
+
+
 vec2 getBaseColorUV()
 {
     vec3 uv = vec3(v_UVCoord1, 1.0);
@@ -113,12 +117,13 @@ vec2 getBaseColorUV()
     uv.y = 1.0 - uv.y;
 #endif
 #ifdef HAS_BASE_COLOR_MAP
-    #ifdef HAS_BASECOLOR_UV_TRANSFORM
-        #ifdef USE_INSTANCING
-        uv = v_BaseColorUVTransform * uv;
-        #else
+    #ifdef HAS_SPRITESHEET
+      highp int index = int(v_BaseColorUVIndex);
+      if(index > -1) {
+        uv = u_BaseColorUVTransforms[index] * uv;
+      }
+    #elif defined(HAS_BASECOLOR_UV_TRANSFORM)
         uv = u_BaseColorUVTransform * uv;
-        #endif
     #endif
 #endif
     return uv.xy;

@@ -90,6 +90,12 @@ export namespace StandardMaterialFeatureSet {
     if (material.shadowCastingLight) {
       features.push("USE_SHADOW_MAPPING 1")
     }
+    if (material.baseColorSpriteSheet &&
+      material.baseColorSpriteSheet.baseTexture.valid &&
+      material.spritesheetTextures.length > 0) {
+      features.push(`HAS_SPRITESHEET 1`);
+      features.push(`UV_COUNT ${material.spritesheetTextures.length}`);
+    }
     if (material.baseColorTexture) {
       if (!material.baseColorTexture.valid) {
         return undefined

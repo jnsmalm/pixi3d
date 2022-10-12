@@ -65,6 +65,9 @@ export class MeshShader extends Shader {
     const instanceCount = mesh.instances.filter(i =>
       i.worldVisible && i.renderable).length
     const instancing = mesh.instances.length > 0
+    if (mesh.instanceOnly && instanceCount < 1) {
+      return;
+    }
     if (!mesh.geometry.hasShaderGeometry(this, instancing)) {
       mesh.geometry.addShaderGeometry(this, instancing)
     }

@@ -20,6 +20,11 @@ export class Model extends Container3D {
    */
   meshes: Mesh3D[] = []
 
+
+  setMeshInstancesOnly(value: boolean) {
+    this.meshes.forEach((mesh) => mesh.instanceOnly = value);
+  }
+
   /**
    * Creates a new model from a source.
    * @param source The source to create the model from.

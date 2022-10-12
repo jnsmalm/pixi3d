@@ -34,6 +34,11 @@ export class Mesh3D extends Container3D {
   renderSortOrder = 0
 
   /**
+   * Specify that this mesh is to only draw the instances
+   */
+  instanceOnly = false
+
+  /**
    * Creates a new mesh with the specified geometry and material.
    * @param geometry The geometry for the mesh.
    * @param material The material for the mesh. If the material is empty the mesh won't be rendered.
