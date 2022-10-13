@@ -2,11 +2,14 @@ async function loadResources(urls) {
   let resources = {}
   if (PIXI.Assets) {
     for (let url of urls || []) {
-      let asset = await PIXI.Assets.load(url)
-      resources[url] = {
+      let asset = await PIXI.Assets.load(url.url)
+      resources[url.name] = {
         gltf: asset, texture: asset, cubemap: asset
       }
     }
+    // Need some delay for embedded/binary glTF files, not sure why - needs
+    // some investigation.
+    await new Promise(resolve => setTimeout(resolve, 100))
   } else {
     let loader = new PIXI.Loader()
     if (urls) {
@@ -75,13 +78,4 @@ async function getImageDataFromUrl(url) {
 async function getImageDataFromRender(render, resources, options = {}) {
   return await getImageDataFromUrl(
     await getObjectURLFromRender(render, resources, { ...options }), false)
-}
-
-export async function delayedRender(renderer, object, delay = 200) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      renderer.render(object)
-      resolve()
-    }, delay)
-  })
 }

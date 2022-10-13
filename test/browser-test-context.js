@@ -19,6 +19,7 @@ class HTMLMessageError extends Error {
 
 use(function (chai) {
   chai.Assertion.addMethod("match", async function (expectedURL, { resources = [], threshold = 0.1, maxDiff = 50 } = {}) {
+    resources = resources.map(res => ({ name: res, url: res }))
     let actual = await getImageDataFromRender(this._obj, resources)
     let expected = await getImageDataFromUrl(expectedURL)
     const diff = pixelmatch(actual.data, expected.data,
@@ -40,6 +41,6 @@ import "./sprite.test.mjs"
 import "./model-animation.test.mjs"
 import "./camera.test.mjs"
 import "./camera-orbit-control.test.mjs"
-// import "./interaction.test"
+import "./interaction.test.mjs"
 import "./skybox.test.mjs"
 import "./gltf.test.mjs"

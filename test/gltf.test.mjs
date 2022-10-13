@@ -19,7 +19,7 @@ describe("glTF", () => {
   })
 
   it("should display binary correctly using pixi *.*.*", async () => {
-    let render = (renderer, resources) => {
+    let render = async (renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot-binary.glb"].gltf)
       model.y = -0.8
       model.meshes.forEach(mesh => {

@@ -40,9 +40,12 @@ before(async function () {
 
 beforeEach(async function () {
   page = await browser.newPage()
+  
+  // await page.addScriptTag({ url: "https://pixijs.download/v5.3.0/pixi.js" })
+  // await page.addScriptTag({ url: "https://pixijs.download/v6.5.6/pixi.js" })
+  await page.addScriptTag({ url: "https://pixijs.download/v7.0.0-beta.2/pixi.js" })
 
-  await page.addScriptTag({ url: "https://pixijs.download/v6.4.2/pixi.js" })
-  await page.addScriptTag({ path: "./dist/umd/pixi3d.js" })
+  await page.addScriptTag({ path: "./dist/browser/pixi3d.js" })
   await page.addScriptTag({ path: path.join(DIRNAME, "test-utils.js") })
 })
 
@@ -95,6 +98,6 @@ import "./sprite.test.mjs"
 import "./model-animation.test.mjs"
 import "./camera.test.mjs"
 import "./camera-orbit-control.test.mjs"
-// import "./interaction.test"
+// import "./interaction.test.mjs"
 import "./skybox.test.mjs"
 import "./gltf.test.mjs"
