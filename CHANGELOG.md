@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Added support for PixiJS v7 and new method of loading assets. If you are using PixiJS v7+ and npm, import from *pixi3d/pixi7* i.e. `import { Model } from "pixi3d/pixi7"`.
+- Added several math functions to `Point3D`.
+- Added several math functions to `Quaternion`.
+
+### Changed
+- No longer transpiled to ES5, if you need these targets (e.g. IE 11) you'll need to transpile yourself with Babel or other tools capable of porting to ES5.
+- Renamed `ObservablePoint3D` to `Point3D` and changed order of constructor arguments.
+- Renamed `ObservableQuaternion` to `Quaternion` and changed order of constructor arguments.
+- Renamed `Matrix4` to `Matrix4x4`.
+- Constructor arguments was changed for `PickingHitArea`.
+- `Camera` properties `view`, `projection` and `viewProjection` was changed from `Float32Array` to `Matrix4x4`.
+- Many `Matrix4x4` properties was changed from `Float32Array` to either `Point3D` or `Quaternion`.
+- `Plane.normal` was changed from `Float32Array` to `Point3D`.
+- `Ray.direction` was changed from `Float32Array` to `Point3D`.
+- `Ray.origin` was changed from `Float32Array` to `Point3D`.
+- `ProjectionSprite.modelViewProjection` was changed from `Float32Array` to `Matrix4x4`.
+
+### Removed
+- `PickingHitArea.fromObject` was removed because it was no longer needed. Use regular constructor instead.
+
 ## [1.6.2] - 2022-08-28
 ### Fixed
 - Fixed an issue which caused a crash when all invisible instances was destroyed.

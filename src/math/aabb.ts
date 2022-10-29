@@ -1,4 +1,4 @@
-import { ObservablePoint3D } from "../transform/observable-point"
+import { Point3D } from "../transform/observable-point"
 
 /**
  * Axis-aligned bounding box.
@@ -22,18 +22,18 @@ export class AABB {
     )
   }
 
-  private _min = new ObservablePoint3D(this._onChanged, this)
-  private _max = new ObservablePoint3D(this._onChanged, this)
-  private _center = new ObservablePoint3D(() => { }, this)
-  private _size = new ObservablePoint3D(() => { }, this)
-  private _extents = new ObservablePoint3D(() => { }, this)
+  private _min = new Point3D(0, 0, 0, this._onChanged, this)
+  private _max = new Point3D(0, 0, 0, this._onChanged, this)
+  private _center = new Point3D(0, 0, 0, () => { }, this)
+  private _size = new Point3D(0, 0, 0, () => { }, this)
+  private _extents = new Point3D(0, 0, 0, () => { }, this)
 
   /** The minimal point of the bounding box. */
   get min() {
     return this._min
   }
 
-  set min(value: ObservablePoint3D) {
+  set min(value: Point3D) {
     this._min.copyFrom(value)
   }
 
@@ -42,7 +42,7 @@ export class AABB {
     return this._max
   }
 
-  set max(value: ObservablePoint3D) {
+  set max(value: Point3D) {
     this._max.copyFrom(value)
   }
 

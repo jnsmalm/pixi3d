@@ -72,7 +72,7 @@ export class PickingMap {
     for (let mesh of meshes) {
       uniforms.u_Id = hitArea.id
       uniforms.u_ModelViewProjection = Mat4.multiply(
-        camera.viewProjection, mesh.transform.worldTransform.array, this._matrix)
+        camera.viewProjection.array, mesh.transform.worldTransform.array, this._matrix)
       this._shader.render(mesh, this._renderer)
     }
   }

@@ -1,4 +1,5 @@
 import { quat } from "gl-matrix"
+
 export class Quat {
   static set(x: number, y: number, z: number, w: number, out = new Float32Array(4)) {
     return <Float32Array>quat.set(out, x, y, z, w)

@@ -40,8 +40,8 @@ export class SkyboxMaterial extends Material {
     let camera = this.camera || Camera.main
 
     shader.uniforms.u_ModelMatrix = mesh.worldTransform.array
-    shader.uniforms.u_View = camera.view
-    shader.uniforms.u_Projection = camera.projection
+    shader.uniforms.u_View = camera.view.array
+    shader.uniforms.u_Projection = camera.projection.array
     shader.uniforms.u_EnvironmentSampler = this.cubemap
   }
 

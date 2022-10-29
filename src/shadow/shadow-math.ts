@@ -28,25 +28,25 @@ export namespace ShadowMath {
     let camera = shadowCastingLight.camera || Camera.main
 
     if (camera && shadowCastingLight.followCamera) {
-      Vec3.scale(camera.worldTransform.forward, halfShadowArea, _cameraForward)
-      Vec3.add(camera.worldTransform.position, _cameraForward, _cameraTarget)
+      Vec3.scale(camera.worldTransform.forward.array, halfShadowArea, _cameraForward)
+      Vec3.add(camera.worldTransform.position.array, _cameraForward, _cameraTarget)
       Vec3.transformQuat(_cameraTarget, Quat.conjugate(
-        shadowCastingLight.light.worldTransform.rotation, _conjugateRotation), _lightSpacePosition)
+        shadowCastingLight.light.worldTransform.rotation.array, _conjugateRotation), _lightSpacePosition)
 
       _lightSpacePosition[0] = worldTexelSize *
         Math.floor(_lightSpacePosition[0] / worldTexelSize)
       _lightSpacePosition[1] = worldTexelSize *
         Math.floor(_lightSpacePosition[1] / worldTexelSize)
 
-      Vec3.transformQuat(_lightSpacePosition, light.worldTransform.rotation, _lightSpacePosition)
-      Vec3.add(_lightSpacePosition, light.worldTransform.forward, _lightSpaceForward)
-      Mat4.lookAt(_lightSpacePosition, _lightSpaceForward, light.worldTransform.up, _lightView)
+      Vec3.transformQuat(_lightSpacePosition, light.worldTransform.rotation.array, _lightSpacePosition)
+      Vec3.add(_lightSpacePosition, light.worldTransform.forward.array, _lightSpaceForward)
+      Mat4.lookAt(_lightSpacePosition, _lightSpaceForward, light.worldTransform.up.array, _lightView)
       Mat4.multiply(lightProjection, _lightView, shadowCastingLight.lightViewProjection)
     } else {
-      Vec3.add(light.worldTransform.position,
-        shadowCastingLight.light.worldTransform.forward, _cameraTarget)
-      Mat4.lookAt(light.worldTransform.position,
-        _cameraTarget, light.worldTransform.up, _lightView)
+      Vec3.add(light.worldTransform.position.array,
+        shadowCastingLight.light.worldTransform.forward.array, _cameraTarget)
+      Mat4.lookAt(light.worldTransform.position.array,
+        _cameraTarget, light.worldTransform.up.array, _lightView)
       Mat4.multiply(lightProjection, _lightView, shadowCastingLight.lightViewProjection)
     }
   }
@@ -58,8 +58,8 @@ export namespace ShadowMath {
     let light = shadowCastingLight.light
 
     Mat4.perspective(light.outerConeAngle * DEG_TO_RAD * 2, 1, 2, light.range, _lightProjection)
-    Vec3.add(light.worldTransform.position, light.worldTransform.forward, _cameraTarget)
-    Mat4.lookAt(light.worldTransform.position, _cameraTarget, light.worldTransform.up, _lightView)
+    Vec3.add(light.worldTransform.position.array, light.worldTransform.forward.array, _cameraTarget)
+    Mat4.lookAt(light.worldTransform.position.array, _cameraTarget, light.worldTransform.up.array, _lightView)
     Mat4.multiply(_lightProjection, _lightView, shadowCastingLight.lightViewProjection)
   }
 }

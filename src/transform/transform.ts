@@ -1,7 +1,7 @@
 import { Transform } from "@pixi/math"
-import { Matrix4 } from "./matrix4"
-import { ObservablePoint3D } from "./observable-point"
-import { ObservableQuaternion } from "./observable-quaternion"
+import { Matrix4x4 } from "./matrix"
+import { Point3D } from "./observable-point"
+import { Quaternion } from "./quaternion"
 import { Mat4 } from "../math/mat4"
 
 /**
@@ -10,25 +10,25 @@ import { Mat4 } from "../math/mat4"
 export class Transform3D extends Transform {
 
   /** The position in local space. */
-  position = new ObservablePoint3D(this.onChange, this, 0, 0, 0)
+  position = new Point3D(0, 0, 0, this.onChange, this)
 
   /** The scale in local space. */
-  scale = new ObservablePoint3D(this.onChange, this, 1, 1, 1)
+  scale = new Point3D(1, 1, 1, this.onChange, this)
 
   /** The rotation in local space. */
-  rotationQuaternion = new ObservableQuaternion(this.onChange, this, 0, 0, 0, 1)
+  rotationQuaternion = new Quaternion(0, 0, 0, 1, this.onChange, this)
 
   /** The transformation matrix in world space. */
-  worldTransform = new Matrix4()
+  worldTransform = new Matrix4x4()
 
   /** The transformation matrix in local space. */
-  localTransform = new Matrix4()
+  localTransform = new Matrix4x4()
 
   /** The inverse transformation matrix in world space. */
-  inverseWorldTransform = new Matrix4()
+  inverseWorldTransform = new Matrix4x4()
 
   /** The normal transformation matrix. */
-  normalTransform = new Matrix4()
+  normalTransform = new Matrix4x4()
 
   /**
    * Updates the local transformation matrix.
@@ -48,12 +48,11 @@ export class Transform3D extends Transform {
    * Sets position, rotation and scale from a matrix array.
    * @param matrix The matrix to set.
    */
-  setFromMatrix(matrix: Matrix4) {
+  setFromMatrix(matrix: Matrix4x4) {
     this.localTransform.copyFrom(matrix)
-
-    this.position.set(this.localTransform.position[0], this.localTransform.position[1], this.localTransform.position[2])
-    this.scale.set(this.localTransform.scaling[0], this.localTransform.scaling[1], this.localTransform.scaling[2])
-    this.rotationQuaternion.set(this.localTransform.rotation[0], this.localTransform.rotation[1], this.localTransform.rotation[2], this.localTransform.rotation[3])
+    this.position.copyFrom(this.localTransform.position)
+    this.scale.copyFrom(this.localTransform.scaling)
+    this.rotationQuaternion.copyFrom(this.localTransform.rotation)
   }
 
   /**
@@ -82,9 +81,9 @@ export class Transform3D extends Transform {
    * @param point The point to look at.
    * @param up The upward direction.
    */
-  lookAt(point: ObservablePoint3D, up = new Float32Array([0, 1, 0])) {
+  lookAt(point: Point3D, up = new Float32Array([0, 1, 0])) {
     let rot = Mat4.getRotation(
-      Mat4.targetTo(point.array, this.worldTransform.position, up))
+      Mat4.targetTo(point.array, this.worldTransform.position.array, up))
     this.rotationQuaternion.set(rot[0], rot[1], rot[2], rot[3])
   }
 }

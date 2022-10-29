@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Custom geometry", () => {
 
-  it("should render correctly", async () => {
+  it("should render correctly using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let vert = `
         attribute vec3 a_Position;
@@ -29,8 +29,8 @@ describe("Custom geometry", () => {
       }
       class CustomMaterial extends PIXI3D.Material {
         updateUniforms(mesh, shader) {
-          shader.uniforms.u_Model = mesh.worldTransform.toArray()
-          shader.uniforms.u_ViewProjection = PIXI3D.Camera.main.viewProjection
+          shader.uniforms.u_Model = mesh.worldTransform.array
+          shader.uniforms.u_ViewProjection = PIXI3D.Camera.main.viewProjection.array
         }
         createShader() {
           return new CustomShader(PIXI.Program.from(vert, frag))

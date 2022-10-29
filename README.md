@@ -6,6 +6,7 @@ Pixi3D is a 3D rendering library for the web. It's built on top of PixiJS (which
 * Customized materials and shaders
 * 3D sprites
 * Transformation, morphing and skeletal animations
+* Compatible with PixiJS v5, v6 and v7.
 
 ![SPY-HYPERSPORT](https://github.com/jnsmalm/pixi3d/blob/develop/spy-hypersport.jpg?raw=true)
 
@@ -15,15 +16,14 @@ Pixi3D is a 3D rendering library for the web. It's built on top of PixiJS (which
 Yes, it's currently being used in multiple projects in production running on hundreds of thousands of different devices (both desktop and mobile).
 
 ## Getting started
-The easiest way to get started is to use `create-pixi3d-app` which creates a simple project with everything needed to start immediatly. Node.js must be installed, go to https://nodejs.org to download.
+The easiest way to get started is to use the automatic setup which creates a simple project with everything needed to start immediatly. Node.js must be installed, go to https://nodejs.org to download.
 
 ```
 npx create-pixi3d-app my-pixi3d-app
-cd my-pixi3d-app
-npm start
 ```
+After installation is complete, type `cd my-pixi3d-app` and `npm start` to start local web server.
 
-Another more old fashioned method to get started:
+### Manual setup
 
 - [Download the latest version of Pixi3D](https://github.com/jnsmalm/pixi3d/releases)
 - [Download PixiJS](https://github.com/pixijs/pixi.js/releases) (Pixi3D is compatible with all versions from 5.3 and later)
@@ -38,8 +38,9 @@ document.body.appendChild(app.view)
 
 let mesh = app.stage.addChild(PIXI3D.Mesh3D.createCube())
 
-PIXI3D.LightingEnvironment.main.lights.push(
-  Object.assign(new PIXI3D.Light(), { x: -1, z: 3 }))
+let light = new PIXI3D.Light()
+light.position.set(-1, 0, 3)
+PIXI3D.LightingEnvironment.main.lights.push(light)
 
 let rotation = 0
 app.ticker.add(() => {
@@ -58,6 +59,11 @@ Then create *index.html* and include the required scripts.
 </body>
 </html>
 ```
+
+### Using npm
+Pixi3D is also available as a npm package. Install the latest release with `npm install pixi3d`. This requires that an up-to-date version of Node.js is already installed.
+
+If PixiJS v5 or v6 is used, import from *pixi3d* i.e. `import { Model } from "pixi3d"`. If PixiJS v7 is used, instead import from *pixi3d/pixi7* i.e. `import { Model } from "pixi3d/pixi7"`.
 
 ## Examples
 Examples are available as sandboxes at https://codesandbox.io to quickly get started. Download repo at https://github.com/jnsmalm/pixi3d-sandbox to instead run them locally.
@@ -220,6 +226,9 @@ All notable changes to this project will be documented in the [changelog](CHANGE
 
 ## Development
 For developing new features or fixing bugs, use *serve/src/index.js* with `npm run serve`.
+
+## Tests
+Automatic tests can run both using Puppeteer (Headless Chrome) or on a specific device/browser. Run command  `npm test` to execute tests using Puppeteer or start local web server with `npm run test:browser` and go to http://localhost:8080/.
 
 ## Building
 Build to *dist* folder with `npm run build`.

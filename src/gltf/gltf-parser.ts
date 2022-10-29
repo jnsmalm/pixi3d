@@ -12,7 +12,7 @@ import { Material } from "../material/material"
 import { MaterialFactory } from "../material/material-factory"
 import { MeshGeometry3D } from "../mesh/geometry/mesh-geometry"
 import { Model } from "../model"
-import { Matrix4 } from "../transform/matrix4"
+import { Matrix4x4 } from "../transform/matrix"
 import { Skin } from "../skinning/skin"
 import { Joint } from "../skinning/joint"
 import { StandardMaterialFactory } from "../material/standard/standard-material-factory"
@@ -346,7 +346,7 @@ export class glTFParser {
       container.scale.set(node.scale[0], node.scale[1], node.scale[2])
     }
     if (node.matrix) {
-      container.transform.setFromMatrix(new Matrix4(node.matrix))
+      container.transform.setFromMatrix(new Matrix4x4(node.matrix))
     }
     return <Container3D>container
   }

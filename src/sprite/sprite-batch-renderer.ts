@@ -5,6 +5,7 @@ import { Shader as Vertex } from "./shader/sprite.vert"
 import { Shader as Fragment } from "./shader/sprite.frag"
 import { Compatibility } from "../compatibility/compatibility"
 import { BatchRenderer } from "../compatibility/batch-renderer"
+import { Matrix4x4 } from "../transform/matrix"
 
 export class SpriteBatchRenderer extends BatchRenderer {
   constructor(renderer: Renderer) {
@@ -43,9 +44,11 @@ export class SpriteBatchRenderer extends BatchRenderer {
       float32View[aIndex++] = uvs[i + 1]
       uint32View[aIndex++] = argb
       float32View[aIndex++] = textureId
+
+      // @ts-ignore Element does have a modelViewProjection
+      let modelViewProjection: Float32Array = element.modelViewProjection.array
       for (let j = 0; j < 16; j++) {
-        // @ts-ignore
-        float32View[aIndex++] = element.modelViewProjection[j]
+        float32View[aIndex++] = modelViewProjection[j]
       }
     }
     for (let i = 0; i < indicies.length; i++) {

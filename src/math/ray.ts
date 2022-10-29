@@ -1,12 +1,12 @@
-import { Vec3 } from "./vec3"
+import { Point3D } from "../transform/observable-point"
 
 export class Ray {
-  private _direction = new Float32Array(3)
-  private _origin = new Float32Array(3)
+  private _direction = new Point3D()
+  private _origin = new Point3D()
 
-  constructor(origin: Float32Array, direction: Float32Array) {
-    Vec3.copy(origin, this._origin)
-    Vec3.normalize(direction, this._direction)
+  constructor(origin: Point3D, direction: Point3D) {
+    this._origin.copyFrom(origin)
+    this._direction.copyFrom(direction)
   }
 
   get origin() {
@@ -17,8 +17,8 @@ export class Ray {
     return this._direction
   }
 
-  getPoint(distance: number, point = new Float32Array(3)) {
-    return Vec3.add(this._origin, Vec3.scale(
-      this._direction, distance, point), point)
+  getPoint(distance: number, point = new Point3D()) {
+    return Point3D.add(this._origin,
+      Point3D.scale(this._direction, distance, point), point)
   }
 }

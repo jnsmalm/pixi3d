@@ -1,8 +1,8 @@
 import { Container } from '@pixi/display';
 
-import { ObservableQuaternion } from "./transform/observable-quaternion"
+import { Quaternion } from "./transform/quaternion"
 import { Transform3D } from "./transform/transform"
-import { ObservablePoint3D } from "./transform/observable-point"
+import { Point3D } from "./transform/observable-point"
 
 /**
  * A container represents a collection of 3D objects.
@@ -10,28 +10,28 @@ import { ObservablePoint3D } from "./transform/observable-point"
 export class Container3D extends Container {
   transform = new Transform3D()
 
-  set position(value: ObservablePoint3D) {
+  set position(value: Point3D) {
     this.transform.position.copyFrom(value)
   }
 
-  get position(): ObservablePoint3D {
+  get position(): Point3D {
     return this.transform.position
   }
 
-  set scale(value: ObservablePoint3D) {
+  set scale(value: Point3D) {
     this.transform.scale.copyFrom(value)
   }
 
-  get scale(): ObservablePoint3D {
+  get scale(): Point3D {
     return this.transform.scale
   }
 
-  set rotationQuaternion(value: ObservableQuaternion) {
+  set rotationQuaternion(value: Quaternion) {
     this.transform.rotationQuaternion.copyFrom(value)
   }
 
   /** The quaternion rotation of the object. */
-  get rotationQuaternion(): ObservableQuaternion {
+  get rotationQuaternion(): Quaternion {
     return this.transform.rotationQuaternion
   }
 

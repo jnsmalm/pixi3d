@@ -5,7 +5,7 @@ describe("Picking interaction", () => {
   it("should hit test for mesh using pixi 5.*.* and pixi 6.*.*", async () => {
     let renderer = new PIXI.Renderer()
     let mesh = PIXI3D.Mesh3D.createCube()
-    mesh.hitArea = PIXI3D.PickingHitArea.fromObject(mesh)
+    mesh.hitArea = new PIXI3D.PickingHitArea(mesh)
     mesh.interactive = true
     renderer.render(mesh)
     let point = new PIXI.Point(renderer.width / 2, renderer.height / 2)
@@ -27,7 +27,7 @@ describe("Picking interaction", () => {
   it("should not hit test for mesh using pixi 5.*.* and pixi 6.*.*", async () => {
     let renderer = new PIXI.Renderer()
     let mesh = PIXI3D.Mesh3D.createCube()
-    mesh.hitArea = PIXI3D.PickingHitArea.fromObject(mesh)
+    mesh.hitArea = new PIXI3D.PickingHitArea(mesh)
     mesh.interactive = true
     renderer.render(mesh)
     let point = new PIXI.Point(100, 100)
@@ -48,7 +48,7 @@ describe("Picking interaction", () => {
   it("should hit test for mesh using pixi 7.*.*", async () => {
     let renderer = new PIXI.Renderer()
     let mesh = PIXI3D.Mesh3D.createCube()
-    mesh.hitArea = PIXI3D.PickingHitArea.fromObject(mesh)
+    mesh.hitArea = new PIXI3D.PickingHitArea(mesh)
     mesh.interactive = true
     renderer.render(mesh)
     let point = new PIXI.Point(renderer.width / 2, renderer.height / 2)
@@ -70,7 +70,7 @@ describe("Picking interaction", () => {
   it("should not hit test for mesh using pixi 7.*.*", async () => {
     let renderer = new PIXI.Renderer()
     let mesh = PIXI3D.Mesh3D.createCube()
-    mesh.hitArea = PIXI3D.PickingHitArea.fromObject(mesh)
+    mesh.hitArea = new PIXI3D.PickingHitArea(mesh)
     mesh.interactive = true
     renderer.render(mesh)
     let point = new PIXI.Point(100, 100)

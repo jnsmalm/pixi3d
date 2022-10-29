@@ -7,9 +7,10 @@ import { Ray } from "../math/ray"
 import { Vec3 } from "../math/vec3"
 import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "../transform/matrix-component"
-import { ObservablePoint3D } from "../transform/observable-point"
+import { Point3D } from "../transform/observable-point"
 import { TransformId } from "../transform/transform-id"
 import { Compatibility } from "../compatibility/compatibility"
+import { Matrix4x4 } from "../transform/matrix"
 
 const vec3 = new Float32Array(3)
 const mat4 = new Float32Array(16)
@@ -25,9 +26,9 @@ export class Camera extends Container3D implements TransformId {
     return this.transform._worldID + this._transformId
   }
 
-  private _projection?: MatrixComponent
-  private _view?: MatrixComponent
-  private _viewProjection?: MatrixComponent
+  private _projection?: MatrixComponent<Matrix4x4>
+  private _view?: MatrixComponent<Matrix4x4>
+  private _viewProjection?: MatrixComponent<Matrix4x4>
   private _orthographic = false
   private _orthographicSize = 10
   private _obliqueness = new ObservablePoint(() => {
@@ -132,10 +133,10 @@ export class Camera extends Container3D implements TransformId {
     let screen = this.screenToWorld(x, y, 1, undefined, viewSize)
     if (screen) {
       if (this.orthographic) {
-        return new Ray(screen.array, this.worldTransform.forward)
+        return new Ray(screen, this.worldTransform.forward)
       }
       return new Ray(this.worldTransform.position,
-        Vec3.subtract(screen.array, this.worldTransform.position, vec3))
+        Point3D.subtract(screen, this.worldTransform.position))
     }
   }
 
@@ -147,7 +148,7 @@ export class Camera extends Container3D implements TransformId {
    * @param point Point to set.
    * @param viewSize The size of the view when not rendering to the entire screen.
    */
-  screenToWorld(x: number, y: number, distance: number, point = new ObservablePoint3D(() => { }, undefined), viewSize: { width: number, height: number } = this.renderer.screen) {
+  screenToWorld(x: number, y: number, distance: number, point = new Point3D(), viewSize: { width: number, height: number } = this.renderer.screen) {
     // Make sure the transform is updated in case something has been changed, 
     // otherwise it may be using wrong values.
     this.transform.updateTransform(this.parent?.transform)
@@ -159,7 +160,7 @@ export class Camera extends Container3D implements TransformId {
     // for the clip space to 1 and the desired z position will be correct.
     this.far = distance
 
-    let invertedViewProjection = Mat4.invert(this.viewProjection, mat4)
+    let invertedViewProjection = Mat4.invert(this.viewProjection.array, mat4)
     if (invertedViewProjection === null) {
       return
     }
@@ -191,7 +192,7 @@ export class Camera extends Container3D implements TransformId {
 
     let worldSpace = Vec4.set(x, y, z, 1, vec4)
     let clipSpace = Vec4.transformMat4(
-      Vec4.transformMat4(worldSpace, this.view, vec4), this.projection, vec4
+      Vec4.transformMat4(worldSpace, this.view.array, vec4), this.projection.array, vec4
     )
     if (clipSpace[3] !== 0) {
       for (let i = 0; i < 3; i++) {
@@ -257,41 +258,41 @@ export class Camera extends Container3D implements TransformId {
   /** Returns the projection matrix. */
   get projection() {
     if (!this._projection) {
-      this._projection = new MatrixComponent(this, 16, data => {
+      this._projection = new MatrixComponent<Matrix4x4>(this, new Matrix4x4(), data => {
         const aspect = this._aspect || this.renderer.width / this.renderer.height
         if (this._orthographic) {
-          Mat4.ortho(-this._orthographicSize * aspect, this._orthographicSize * aspect, -this._orthographicSize, this._orthographicSize, this._near, this._far, data)
+          Mat4.ortho(-this._orthographicSize * aspect, this._orthographicSize * aspect, -this._orthographicSize, this._orthographicSize, this._near, this._far, data.array)
         } else {
-          Mat4.perspective(this._fieldOfView * DEG_TO_RAD, aspect, this._near, this._far, data)
-          data[8] = this._obliqueness.x
-          data[9] = this._obliqueness.y
+          Mat4.perspective(this._fieldOfView * DEG_TO_RAD, aspect, this._near, this._far, data.array)
+          data.array[8] = this._obliqueness.x
+          data.array[9] = this._obliqueness.y
         }
       })
     }
-    return this._projection.array
+    return this._projection.data
   }
 
   /** Returns the view matrix. */
   get view() {
     if (!this._view) {
-      this._view = new MatrixComponent(this, 16, data => {
+      this._view = new MatrixComponent<Matrix4x4>(this, new Matrix4x4(), data => {
         const target = Vec3.add(
-          this.worldTransform.position, this.worldTransform.forward, vec3)
-        Mat4.lookAt(this.worldTransform.position,
-          target, this.worldTransform.up, data)
+          this.worldTransform.position.array, this.worldTransform.forward.array, vec3)
+        Mat4.lookAt(this.worldTransform.position.array,
+          target, this.worldTransform.up.array, data.array)
       })
     }
-    return this._view.array
+    return this._view.data
   }
 
   /** Returns the view projection matrix. */
   get viewProjection() {
     if (!this._viewProjection) {
-      this._viewProjection = new MatrixComponent(this, 16, data => {
-        Mat4.multiply(this.projection, this.view, data)
+      this._viewProjection = new MatrixComponent<Matrix4x4>(this, new Matrix4x4(), data => {
+        Mat4.multiply(this.projection.array, this.view.array, data.array)
       })
     }
-    return this._viewProjection.array
+    return this._viewProjection.data
   }
 }
 

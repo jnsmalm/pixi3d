@@ -302,8 +302,8 @@ export class StandardMaterial extends Material {
     if (mesh.skin) {
       this._skinUniforms.update(mesh, shader)
     }
-    shader.uniforms.u_Camera = camera.worldTransform.position
-    shader.uniforms.u_ViewProjectionMatrix = camera.viewProjection
+    shader.uniforms.u_Camera = camera.worldTransform.position.array
+    shader.uniforms.u_ViewProjectionMatrix = camera.viewProjection.array
     shader.uniforms.u_Exposure = this.exposure
     shader.uniforms.u_MetallicFactor = this.metallic
     shader.uniforms.u_RoughnessFactor = this.roughness
@@ -333,8 +333,8 @@ export class StandardMaterial extends Material {
         case LightType.spot: type = 2; break
       }
       shader.uniforms[`u_Lights[${i}].type`] = type
-      shader.uniforms[`u_Lights[${i}].position`] = light.worldTransform.position
-      shader.uniforms[`u_Lights[${i}].direction`] = light.worldTransform.forward
+      shader.uniforms[`u_Lights[${i}].position`] = light.worldTransform.position.array
+      shader.uniforms[`u_Lights[${i}].direction`] = light.worldTransform.forward.array
       shader.uniforms[`u_Lights[${i}].range`] = light.range
       shader.uniforms[`u_Lights[${i}].color`] = light.color.rgb
       shader.uniforms[`u_Lights[${i}].intensity`] = light.intensity

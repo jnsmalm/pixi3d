@@ -91,21 +91,21 @@ export class Sprite3D extends Container3D {
 
     if (update) {
       const scaling = this.worldTransform.scaling
-      Mat4.multiply(camera.view, this.worldTransform.array, this._modelView)
+      Mat4.multiply(camera.view.array, this.worldTransform.array, this._modelView)
       switch (this._billboardType) {
         case SpriteBillboardType.spherical: {
-          this._modelView[0] = scaling[0]
+          this._modelView[0] = scaling.x
           this._modelView[1] = 0
           this._modelView[2] = 0
           this._modelView[3] = 0
           this._modelView[4] = 0
-          this._modelView[5] = scaling[1]
+          this._modelView[5] = scaling.y
           this._modelView[6] = 0
           this._modelView[7] = 0
           break
         }
         case SpriteBillboardType.cylindrical: {
-          this._modelView[0] = scaling[0]
+          this._modelView[0] = scaling.x
           this._modelView[1] = 0
           this._modelView[2] = 0
           this._modelView[3] = 0
@@ -116,13 +116,14 @@ export class Sprite3D extends Container3D {
           break
         }
       }
-      Mat4.multiply(camera.projection,
-        this._modelView, this._sprite.modelViewProjection)
+      Mat4.multiply(camera.projection.array,
+        this._modelView, this._sprite.modelViewProjection.array)
       this._parentID = this.transform._worldID
       this._cameraTransformId = camera.transformId
-      const dir = Vec3.subtract(camera.worldTransform.position, this.worldTransform.position, vec3)
-      const projection = Vec3.scale(camera.worldTransform.forward,
-        Vec3.dot(dir, camera.worldTransform.forward), vec3)
+      const dir = Vec3.subtract(camera.worldTransform.position.array, 
+        this.worldTransform.position.array, vec3)
+      const projection = Vec3.scale(camera.worldTransform.forward.array,
+        Vec3.dot(dir, camera.worldTransform.forward.array), vec3)
       this._sprite.distanceFromCamera = Vec3.squaredMagnitude(projection)
     }
     this._sprite.worldAlpha = this.worldAlpha
