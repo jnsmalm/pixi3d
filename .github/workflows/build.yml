@@ -22,4 +22,6 @@ jobs:
 
     - name: Test
       run: |
-        npm test
+        npm run test:pixi5
+        npm run test:pixi6
+        npm run test:pixi7

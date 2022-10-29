@@ -8,6 +8,7 @@ import fs from "fs/promises"
 import path from "path"
 import { fileURLToPath } from "url"
 
+const PIXI_VERSION = process.env.PIXI_VERSION || "6.5.5";
 const PORT = 3000
 const DIRNAME = path.dirname(fileURLToPath(import.meta.url))
 
@@ -40,16 +41,13 @@ before(async function () {
 
 beforeEach(async function () {
   page = await browser.newPage()
-  
-  // await page.addScriptTag({ url: "https://pixijs.download/v5.3.0/pixi.js" })
-  // await page.addScriptTag({ url: "https://pixijs.download/v6.5.6/pixi.js" })
-  await page.addScriptTag({ url: "https://pixijs.download/v7.0.0-beta.2/pixi.js" })
 
+  await page.addScriptTag({ url: `https://pixijs.download/v${PIXI_VERSION}/pixi.js` })
   await page.addScriptTag({ path: "./dist/browser/pixi3d.js" })
   await page.addScriptTag({ path: path.join(DIRNAME, "test-utils.js") })
 })
 
-afterEach(async function() {
+afterEach(async function () {
   await page.close()
 })
 
