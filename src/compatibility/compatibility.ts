@@ -6,8 +6,13 @@ import { Version600 } from "./versions/version-600"
 import { Version650 } from "./versions/version-650"
 import { Version700 } from "./versions/version-700"
 
+const isPixi700 = "VERSION" in PixiCore &&
+  CompatibilityAccess.get(PixiCore, "VERSION").startsWith("7")
+const isPixi650 = "extensions" in PixiCore
+const isPixi600 = "ArrayResource" in PixiCore
+
 export const Compatibility: CompatibilityVersion =
-  CompatibilityAccess.get(PixiCore, "VERSION").startsWith("7") ? new Version700() :
-    "extensions" in PixiCore ? new Version650() :
-      "ArrayResource" in PixiCore ? new Version600() :
+  isPixi700 ? new Version700() :
+    isPixi650 ? new Version650() :
+      isPixi600 ? new Version600() :
         new Version530()
