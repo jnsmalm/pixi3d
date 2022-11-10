@@ -20,6 +20,7 @@ export class LightingEnvironment implements IRendererPlugin {
   /**
    * Creates a new lighting environment using the specified renderer.
    * @param renderer The renderer to use.
+   * @param imageBasedLighting The image based lighting to use.
    */
   constructor(public renderer: Renderer, imageBasedLighting?: ImageBasedLighting) {
     this.renderer.on("prerender", () => {
