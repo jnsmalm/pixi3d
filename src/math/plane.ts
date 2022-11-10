@@ -1,4 +1,4 @@
-import { Point3D } from "../transform/observable-point";
+import { Point3D } from "../transform/point";
 import { Ray } from "./ray"
 
 function approximately(a: number, b: number) {

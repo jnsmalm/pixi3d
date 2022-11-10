@@ -1,6 +1,6 @@
 import { Transform } from "@pixi/math"
 import { Matrix4x4 } from "./matrix"
-import { Point3D } from "./observable-point"
+import { Point3D } from "./point"
 import { Quaternion } from "./quaternion"
 import { Mat4 } from "../math/mat4"
 

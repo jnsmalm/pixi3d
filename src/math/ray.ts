@@ -1,4 +1,4 @@
-import { Point3D } from "../transform/observable-point"
+import { Point3D } from "../transform/point"
 
 export class Ray {
   private _direction = new Point3D()

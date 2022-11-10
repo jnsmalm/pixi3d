@@ -1,5 +1,5 @@
 import { Matrix } from "@pixi/math"
-import { Point3D } from "./observable-point"
+import { Point3D } from "./point"
 import { Quaternion } from "./quaternion"
 import { Mat4 } from "../math/mat4"
 import { Vec3 } from "../math/vec3"

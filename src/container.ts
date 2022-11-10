@@ -2,7 +2,7 @@ import { Container } from '@pixi/display';
 
 import { Quaternion } from "./transform/quaternion"
 import { Transform3D } from "./transform/transform"
-import { Point3D } from "./transform/observable-point"
+import { Point3D } from "./transform/point"
 
 /**
  * A container represents a collection of 3D objects.
