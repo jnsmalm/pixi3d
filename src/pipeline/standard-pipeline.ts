@@ -2,7 +2,8 @@ import { ObjectRenderer, Renderer } from "@pixi/core"
 import { MaterialRenderPass } from "./material-render-pass"
 import { Mesh3D } from "../mesh/mesh"
 import { ShadowRenderPass } from "../shadow/shadow-render-pass"
-import { PostProcessingSprite, PostProcessingSpriteOptions } from "../sprite/post-processing-sprite"
+import { CompositeSprite } from "../sprite/composite-sprite"
+import { CompositeSpriteOptions } from "../sprite/composite-sprite-options"
 import { Model } from "../model"
 import { ShadowCastingLight } from "../shadow/shadow-casting-light"
 import { RenderPass } from "./render-pass"
@@ -46,18 +47,6 @@ export class StandardPipeline extends ObjectRenderer {
     })
 
     this._spriteRenderer = new SpriteBatchRenderer(renderer)
-  }
-
-  /**
-   * Creates a new post processing sprite and sets the material pass to render
-   * to it's texture.
-   * @param options The options when creating the sprite.
-   */
-  createPostProcessingSprite(options?: PostProcessingSpriteOptions) {
-    const sprite =
-      new PostProcessingSprite(this.renderer, options)
-    this.materialPass.renderTexture = sprite.renderTexture
-    return sprite
   }
 
   /**

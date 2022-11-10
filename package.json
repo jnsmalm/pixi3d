@@ -45,7 +45,7 @@
   "scripts": {
     "build": "rimraf dist && rollup --config rollup.build.js",
     "prepublishOnly": "npm run build && npm run types",
-    "serve": "rollup --watch --config rollup.serve.js",
+    "start": "rollup --watch --config rollup.serve.js",
     "docs": "typedoc",
     "preversion": "npm run build",
     "version": "npm run docs && git add . && git reset -- docs/CNAME",

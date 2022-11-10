@@ -193,7 +193,7 @@ Compositing 2D (PixiJS) and 3D (Pixi3D) containers is simple and can be combined
 
 To be able to convert 3D coordinates to 2D coordinates (or the other way around) the camera methods `screenToWorld` and `worldToScreen` can be used. 
 
-Another way of combining 2D and 3D objects is to render a 3D object as a sprite using `PostProcessingSprite`. Thay way, the 3D object can easily be positioned in 2D space. This method also makes it possible to use regular PixiJS filters with 3D objects.
+Another way of combining 2D and 3D objects is to render a 3D object as a sprite using `CompositeSprite`. Thay way, the 3D object can easily be positioned in 2D space. This method also makes it possible to use regular PixiJS filters with 3D objects.
 
 ```javascript
 let vignette = app.stage.addChild(
@@ -225,7 +225,7 @@ The API documentation is available at https://api.pixi3d.org
 All notable changes to this project will be documented in the [changelog](CHANGELOG.md)
 
 ## Development
-For developing new features or fixing bugs, use *serve/src/index.js* with `npm run serve`.
+For developing new features or fixing bugs, use *serve/src/index.js* with `npm start`.
 
 ## Tests
 Automatic tests can run both using Puppeteer (Headless Chrome) or on a specific device/browser. Run command  `npm test` to execute tests using Puppeteer or start local web server with `npm run test:browser` and go to http://localhost:8080/.

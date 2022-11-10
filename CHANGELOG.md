@@ -9,9 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added support for PixiJS v7 and new method of loading assets. If you are using PixiJS v7+ and npm, import from *pixi3d/pixi7* i.e. `import { Model } from "pixi3d/pixi7"`.
 - Added several math functions to `Point3D`.
 - Added several math functions to `Quaternion`.
+- Added `glTFAsset.fromURL`, an async function to load a glTF file. Only works when using PixiJS v7+.
 
 ### Changed
 - No longer transpiled to ES5, if you need these targets (e.g. IE 11) you'll need to transpile yourself with Babel or other tools capable of porting to ES5.
+- Renamed `PostProcessingSprite` to `CompositeSprite`.
 - Renamed `ObservablePoint3D` to `Point3D` and changed order of constructor arguments.
 - Renamed `ObservableQuaternion` to `Quaternion` and changed order of constructor arguments.
 - Renamed `Matrix4` to `Matrix4x4`.
@@ -24,7 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ProjectionSprite.modelViewProjection` was changed from `Float32Array` to `Matrix4x4`.
 
 ### Removed
-- `PickingHitArea.fromObject` was removed because it was no longer needed. Use regular constructor instead.
+- `PickingHitArea.fromObject` was removed, use regular constructor instead.
+- `StandardPipeline.createPostProcessingSprite` was removed, use `CompositeSprite` instead.
 
 ## [1.6.2] - 2022-08-28
 ### Fixed

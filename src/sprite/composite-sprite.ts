@@ -3,32 +3,13 @@ import { DisplayObject, IDestroyOptions } from "@pixi/display"
 import { Sprite } from "@pixi/sprite"
 import { Ticker } from "@pixi/ticker"
 import { Compatibility } from "../compatibility/compatibility"
-
-export interface PostProcessingSpriteOptions {
-  /**
-   * The width of the texture for the sprite.
-   */
-  width?: number,
-  /**
-   * The height of the texture for the sprite.
-   */
-  height?: number,
-  /**
-   * The object to render. When set, it will automatically be rendered to the 
-   * sprite's texture each frame.
-   */
-  objectToRender?: DisplayObject,
-  /**
-   * The resolution of the texture for the sprite.
-   */
-  resolution?: number
-}
+import { CompositeSpriteOptions } from "./composite-sprite-options"
 
 /**
- * Represents a sprite which can have post processing effects. Can be used for 
- * rendering 3D objects as 2D sprites.
+ * Represents a sprite used for compositing a 3D object as a 2D sprite. Can be
+ * used for post processing effects and filters.
  */
-export class PostProcessingSprite extends Sprite {
+export class CompositeSprite extends Sprite {
   private _tickerRender = () => { }
   private _renderTexture: RenderTexture
 
@@ -37,20 +18,13 @@ export class PostProcessingSprite extends Sprite {
     return this._renderTexture
   }
 
-  /** The depth texture. */
-  get depthTexture() {
-    if (this._renderTexture) {
-      return this._renderTexture.baseTexture.framebuffer.depthTexture
-    }
-  }
-
   /**
-   * Creates a new post processing sprite using the specified options.
+   * Creates a new composite sprite using the specified options.
    * @param renderer The renderer to use.
    * @param options The options for the render texture. If both width and height
    * has not been set, it will automatically be resized to the renderer size.
    */
-  constructor(public renderer: Renderer, options?: PostProcessingSpriteOptions) {
+  constructor(public renderer: Renderer, options?: CompositeSpriteOptions) {
     super()
 
     let {
@@ -61,7 +35,7 @@ export class PostProcessingSprite extends Sprite {
     /* When rendering to a texture, it's flipped vertically for some reason.
     This will flip it back to it's expected orientation. */
     this._renderTexture.rotate = 8
-    this._renderTexture.baseTexture.framebuffer.addDepthTexture()
+    this._renderTexture.baseTexture.framebuffer.depth = true
     this._texture = this._renderTexture
 
     if (!options || !options.width || !options.height) {

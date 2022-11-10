@@ -1,13 +1,13 @@
 import { expect } from "chai"
 
-describe("Post processing sprite", () => {
+describe("Composite sprite", () => {
 
   it("should render correctly with blur filter using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
       model.y = -0.8
 
-      let sprite = new PIXI3D.PostProcessingSprite(renderer)
+      let sprite = new PIXI3D.CompositeSprite(renderer)
       sprite.renderObject(model)
       sprite.filters = [new PIXI.filters.BlurFilter()]
 
@@ -25,7 +25,7 @@ describe("Post processing sprite", () => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
       model.y = -0.8
 
-      let sprite = new PIXI3D.PostProcessingSprite(renderer)
+      let sprite = new PIXI3D.CompositeSprite(renderer)
       sprite.setResolution(0.1)
       sprite.renderObject(model)
 
