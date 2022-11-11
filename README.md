@@ -98,6 +98,8 @@ page with a grey background.*
 ### Loading a 3D model
 A model includes a hierarchy of 3D objects which are called meshes. A mesh contains the geometry and material used for rendering that object. Models are generally being loaded from a file which has been created in a 3D modeling tool like Maya or Blender. Pixi3D supports loading of models using the glTF 2.0 file format. Learn more about glTF at https://www.khronos.org/gltf/
 
+Loading a model is different depending on the PixiJS version used. This is how to do it when using PixiJS v5 or v6.
+
 ```javascript
 app.loader.add(
   "teapot.gltf",
@@ -105,9 +107,26 @@ app.loader.add(
 );
 
 app.loader.load((_, resources) => {
-  let teapot = app.stage.addChild(
-    PIXI3D.Model.from(resources["teapot.gltf"].gltf));
+  setup(resources["teapot.gltf"].gltf);
 })
+
+function setup(gltf) {
+  let teapot = app.stage.addChild(PIXI3D.Model.from(gltf));
+}
+```
+
+This is how to do it when using PixiJS v7.
+
+```javascript
+// Using a self executing function just to make the different methods more comparable.
+(async function load() {
+  let gltf = await PIXI.Assets.load("https://raw.githubusercontent.com/jnsmalm/pixi3d-sandbox/master/assets/teapot/teapot.gltf")
+  setup(gltf)
+})()
+
+function setup(gltf) {
+  let teapot = app.stage.addChild(PIXI3D.Model.from(gltf));
+}
 ```
 *Loads a glTF 2.0 file and creates a model. The silhouette of a teapot should appear. For now, it will be rendered black because there is no lighting.*
 
@@ -129,15 +148,17 @@ Lights are needed to illuminate the objects in the scene, otherwise they may be 
 There are a few different types of lights available. The "point" type is a light that is located at a point and emits light in all directions equally. The "directional" type is a light that is located infinitely far away, and emits light in one direction only. The "spot" type is a light that is located at a point and emits light in a cone shape. Lights have a transform and can be attached to other objects.
 
 ```javascript
-let dirLight = Object.assign(new PIXI3D.Light(), {
-  type: "directional", intensity: 0.5, x: -4, y: 7, z: -4
-});
+let dirLight = new PIXI3D.Light();
+dirLight.type = "directional";
+dirLight.intensity = 0.5;
 dirLight.rotationQuaternion.setEulerAngles(45, 45, 0);
+dirLight.position.set(-4, 7, -4);
 PIXI3D.LightingEnvironment.main.lights.push(dirLight);
 
-let pointLight = Object.assign(new PIXI3D.Light(), {
-  type: "point", intensity: 10, range: 5, x: 1, y: 0, z: 3
-});
+let pointLight = new PIXI3D.Light();
+pointLight.type = "point";
+pointLight.intensity = 10;
+pointLight.position.set(1, 0, 3);
 PIXI3D.LightingEnvironment.main.lights.push(pointLight);
 ```
 *Adds a directional light and a point light to the main lighting environment. The teapot should now be illuminated by the light.*
@@ -228,7 +249,7 @@ All notable changes to this project will be documented in the [changelog](CHANGE
 For developing new features or fixing bugs, use *serve/src/index.js* with `npm start`.
 
 ## Tests
-Automatic tests can run both using Puppeteer (Headless Chrome) or on a specific device/browser. Run command  `npm test` to execute tests using Puppeteer or start local web server with `npm run test:browser` and go to http://localhost:8080/.
+Automatic tests can run both using Puppeteer (Headless Chrome) and on a specific device/browser. Run command `npm test` to execute tests using Puppeteer or start local web server with `npm run test:browser` and go to http://localhost:8080/. Before running tests, build using `npm run build`.
 
 ## Building
 Build to *dist* folder with `npm run build`.
