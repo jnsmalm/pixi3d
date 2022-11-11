@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added several math functions to `Point3D`.
 - Added several math functions to `Quaternion`.
 - Added `glTFAsset.fromURL`, an async function to load a glTF file. Only works when using PixiJS v7+.
+- Added support to render shadows when using instancing.
 
 ### Changed
 - No longer transpiled to ES5, if you need these targets (e.g. IE 11) you'll need to transpile yourself with Babel or other tools capable of porting to ES5.
