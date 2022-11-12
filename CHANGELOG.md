@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Fixed
+- Fixed an issue which caused a crash when rendering shadows with skinned meshes.
+
 ## [2.0.0] - 2022-11-12
 ### Added
 - Added support for PixiJS v7 and new method of loading assets. If you are using PixiJS v7+ and npm, import from *pixi3d/pixi7* i.e. `import { Model } from "pixi3d/pixi7"`.

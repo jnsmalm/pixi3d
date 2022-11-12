@@ -2,6 +2,8 @@
 
 #define FEATURES
 
+@import ./extensions;
+
 VERT_IN vec3 a_Position;
 
 #ifdef USE_SKINNING
@@ -38,10 +40,10 @@ mat4 getJointMatrix(float boneNdx) {
   #ifdef USE_SKINNING_TEXTURE
     float v = (boneNdx + 0.5) / float(MAX_JOINT_COUNT);
     return mat4(
-      texture2D(u_jointMatrixSampler, vec2(ROW0_U, v)), 
-      texture2D(u_jointMatrixSampler, vec2(ROW1_U, v)), 
-      texture2D(u_jointMatrixSampler, vec2(ROW2_U, v)), 
-      texture2D(u_jointMatrixSampler, vec2(ROW3_U, v))
+      _texture(u_jointMatrixSampler, vec2(ROW0_U, v)), 
+      _texture(u_jointMatrixSampler, vec2(ROW1_U, v)), 
+      _texture(u_jointMatrixSampler, vec2(ROW2_U, v)), 
+      _texture(u_jointMatrixSampler, vec2(ROW3_U, v))
     );
   #else
     return u_jointMatrix[int(boneNdx)];

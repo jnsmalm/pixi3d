@@ -18,4 +18,17 @@ describe("Model animation", () => {
       ]
     })
   })
+
+  it("should render correctly with skinned animation using pixi *.*.*", async () => {
+    let render = (renderer, resources) => {
+      let model = PIXI3D.Model.from(resources["assets/skinned/skinned.gltf"].gltf)
+      model.animations[0].position = 0.5
+      renderer.render(model)
+    }
+    await expect(render).to.match("snapshots/dipap.png", {
+      resources: [
+        "assets/skinned/skinned.gltf"
+      ]
+    })
+  })
 })
