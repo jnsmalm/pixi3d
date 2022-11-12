@@ -18,6 +18,8 @@ Yes, it's currently being used in multiple projects in production running on hun
 ## Getting started
 The easiest way to get started is to use the automatic setup which creates a simple project with everything needed to start immediatly. Node.js must be installed, go to https://nodejs.org to download.
 
+Type in the following using the terminal/console:
+
 ```
 npx create-pixi3d-app my-pixi3d-app
 ```
