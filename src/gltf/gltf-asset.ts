@@ -88,11 +88,11 @@ export class glTFAsset {
    * when using PixiJS v7+.
    * @param url The url to load.
    */
-  static async fromURL(url: string): Promise<glTFAsset> {
+  static async fromURL(url: string, options?: RequestInit | undefined): Promise<glTFAsset> {
     if (!Compatibility.assets) {
       throw new Error("PIXI3D: This feature is only available when using PixiJS v7+")
     }
-    const response = await settings.ADAPTER.fetch(url)
+    const response = await settings.ADAPTER.fetch(url, options)
     return new Promise<glTFAsset>(async (resolve) => {
       if (url.includes(".glb")) {
         let buffer = await response.arrayBuffer()
