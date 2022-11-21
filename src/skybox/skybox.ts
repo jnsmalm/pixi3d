@@ -36,6 +36,17 @@ export class Skybox extends Container3D {
   }
 
   /**
+   * The cubemap exposure used when rendering.
+   */
+  get exposure() {
+    return (<SkyboxMaterial>this._mesh.material).exposure
+  }
+
+  set exposure(value: number) {
+    (<SkyboxMaterial>this._mesh.material).exposure = value
+  }
+
+  /**
    * The cubemap texture used when rendering.
    */
   get cubemap() {

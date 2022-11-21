@@ -10,6 +10,7 @@ import { Capabilities } from "../../capabilities"
 import { StandardMaterialMatrixTexture } from "./standard-material-matrix-texture"
 import { Debug } from "../../debug"
 import { Message } from "../../message"
+import { CubemapFormat } from "../../cubemap/cubemap-format"
 
 export namespace StandardMaterialFeatureSet {
   export function build(renderer: Renderer, mesh: Mesh3D, geometry: MeshGeometry3D, material: StandardMaterial, lightingEnvironment: LightingEnvironment) {
@@ -86,6 +87,9 @@ export namespace StandardMaterialFeatureSet {
         Debug.warn(Message.imageBasedLightingShaderTextureLodNotSupported)
       }
       features.push("USE_IBL 1")
+      if (lightingEnvironment.imageBasedLighting.diffuse.cubemapFormat === CubemapFormat.rgbe8) {
+        features.push("USE_RGBE 1")
+      }
     }
     if (material.shadowCastingLight) {
       features.push("USE_SHADOW_MAPPING 1")

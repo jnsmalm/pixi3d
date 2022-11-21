@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "mipmaps": ["diffuse_{{face}}.png"],
+  "format": "rgbe8"
+}

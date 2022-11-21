@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("glTF", () => {
 
-  it("should display separate correctly using pixi *.*.*", async () => {
+  it("should render separate correctly using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot-separate.gltf"].gltf)
       model.y = -0.8
@@ -18,7 +18,7 @@ describe("glTF", () => {
     })
   })
 
-  it("should display binary correctly using pixi *.*.*", async () => {
+  it("should render binary correctly using pixi *.*.*", async () => {
     let render = async (renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot-binary.glb"].gltf)
       model.y = -0.8
@@ -34,7 +34,7 @@ describe("glTF", () => {
     })
   })
 
-  it("should display embedded correctly using pixi *.*.*", async () => {
+  it("should render embedded correctly using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot-embedded.gltf"].gltf)
       model.y = -0.8

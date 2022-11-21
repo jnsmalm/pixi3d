@@ -42,6 +42,7 @@
 @import ./functions;
 @import ./shadow;
 @import ./tonemapping;
+@import ./rgbe;
 
 // KHR_lights_punctual extension.
 // see https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Khronos/KHR_lights_punctual
@@ -134,10 +135,13 @@ vec3 getIBLContribution(MaterialInfo materialInfo, vec3 n, vec3 v)
     vec4 specularSample = _texture(u_SpecularEnvSampler, reflection);
 #endif
 
-#ifdef USE_HDR
+#if defined(USE_HDR)
     // Already linear.
     vec3 diffuseLight = diffuseSample.rgb;
     vec3 specularLight = specularSample.rgb;
+#elif defined(USE_RGBE)
+    vec3 diffuseLight = decodeRGBE(diffuseSample);
+    vec3 specularLight = decodeRGBE(specularSample);
 #else
     vec3 diffuseLight = SRGBtoLINEAR(diffuseSample).rgb;
     vec3 specularLight = SRGBtoLINEAR(specularSample).rgb;
@@ -447,7 +451,7 @@ void main()
 
 #ifndef DEBUG_OUTPUT // no debug
 
-   // regular shading
+    // regular shading
     FRAG_COLOR = vec4(toneMap(color) * baseColor.a, baseColor.a);
 
 #else // debug output

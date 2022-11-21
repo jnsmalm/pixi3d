@@ -2,7 +2,7 @@ import { expect } from "chai"
 
 describe("Standard material", () => {
 
-  it("should render correctly with ibl and no textures using pixi *.*.*", async () => {
+  it("should render correctly with ibl (version 1, ldr) and no textures using pixi *.*.*", async () => {
     let render = (renderer, resources) => {
       let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
       lightingEnvironment.imageBasedLighting = new PIXI3D.ImageBasedLighting(
@@ -21,6 +21,29 @@ describe("Standard material", () => {
         "assets/teapot/teapot.gltf",
         "assets/chromatic/specular.cubemap",
         "assets/chromatic/diffuse.cubemap"
+      ]
+    })
+  })
+
+  it("should render correctly with ibl (version 2, rgbe8) and no textures using pixi *.*.*", async () => {
+    let render = (renderer, resources) => {
+      let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
+      lightingEnvironment.imageBasedLighting = new PIXI3D.ImageBasedLighting(
+        resources["assets/sunset/diffuse.cubemap"].cubemap,
+        resources["assets/sunset/specular.cubemap"].cubemap
+      )
+      let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
+      model.y = -0.8
+      model.meshes.forEach(mesh => {
+        mesh.material.lightingEnvironment = lightingEnvironment
+      })
+      renderer.render(model)
+    }
+    await expect(render).to.match("snapshots/msohy.png", {
+      resources: [
+        "assets/teapot/teapot.gltf",
+        "assets/sunset/specular.cubemap",
+        "assets/sunset/diffuse.cubemap"
       ]
     })
   })

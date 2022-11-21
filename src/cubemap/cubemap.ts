@@ -5,6 +5,7 @@ import { CubemapResource, MipmapResourceArray } from "./cubemap-resource"
 import { Color } from "../color"
 import { CubemapFaces } from "./cubemap-faces"
 import { BufferResource } from "../compatibility/buffer-resource"
+import { CubemapFormat } from "./cubemap-format"
 
 /**
  * Cubemap which supports multiple user specified mipmaps.
@@ -20,6 +21,9 @@ export class Cubemap extends BaseTexture<CubemapResource> {
   get levels() {
     return this.resource.levels
   }
+
+  /** The format for this cubemap. */
+  cubemapFormat = CubemapFormat.ldr
 
   /**
    * Creates a new cubemap from the specified faces.

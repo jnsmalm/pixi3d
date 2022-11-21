@@ -5,15 +5,54 @@ import { Cubemap } from "../cubemap/cubemap"
 import { CubemapFaces } from "../cubemap/cubemap-faces"
 import { LoaderResourceResponseType } from "../compatibility/compatibility-version"
 import { Compatibility } from "../compatibility/compatibility"
+import { CubemapFormat } from "../cubemap/cubemap-format"
+
+interface CubemapFileVersion {
+  format: CubemapFormat
+  mipmaps: string[]
+}
+
+class CubemapFileVersion1 implements CubemapFileVersion {
+  constructor(private json: any) { }
+
+  get format() {
+    return CubemapFormat.ldr
+  }
+
+  get mipmaps(): string[] {
+    return this.json
+  }
+}
+
+class CubemapFileVersion2 implements CubemapFileVersion {
+  constructor(private json: any) { }
+
+  get format() {
+    return <CubemapFormat>this.json.format
+  }
+
+  get mipmaps(): string[] {
+    return <string[]>this.json.mipmaps
+  }
+}
+
+namespace CubemapFileVersionSelector {
+  export function getFileVersion(json: any): CubemapFileVersion {
+    if (json.version === 2) {
+      return new CubemapFileVersion2(json)
+    }
+    return new CubemapFileVersion1(json)
+  }
+}
 
 export const CubemapLoader = {
   use: function (resource: any, next: () => void) {
     if (resource.extension !== "cubemap") {
       return next()
     }
-    let loader = <Loader><unknown>this
-
-    const mipmaps = (<string[]>resource.data).map(mipmap => {
+    const loader = <Loader><unknown>this
+    const version = CubemapFileVersionSelector.getFileVersion(resource.data)
+    const mipmaps = version.mipmaps.map(mipmap => {
       return Cubemap.faces.map(face => {
         return resource.url.substring(0, resource.url.lastIndexOf("/") + 1) + mipmap.replace("{{face}}", face)
       })
@@ -43,7 +82,9 @@ export const CubemapLoader = {
               negz: Texture.from(face[5]),
             }
           })
-          resource.cubemap = Cubemap.fromFaces(textures)
+          let cubemap = Cubemap.fromFaces(textures)
+          cubemap.cubemapFormat = version.format
+          resource.cubemap = cubemap
           binding.detach(); next()
         }
       }
@@ -62,7 +103,8 @@ export const CubemapLoader = {
     }
     const response = await settings.ADAPTER.fetch(url)
     const json = await response.json()
-    const mipmaps = (<string[]>json).map(mipmap => {
+    const version = CubemapFileVersionSelector.getFileVersion(json)
+    const mipmaps = version.mipmaps.map(mipmap => {
       return Cubemap.faces.map(face => {
         return url.substring(0, url.lastIndexOf("/") + 1) + mipmap.replace("{{face}}", face)
       })
@@ -79,7 +121,9 @@ export const CubemapLoader = {
       }
       textures.push(faceMipMaps)
     }
-    return Cubemap.fromFaces(textures)
+    let cubemap = Cubemap.fromFaces(textures)
+    cubemap.cubemapFormat = version.format
+    return cubemap
   },
 }
 

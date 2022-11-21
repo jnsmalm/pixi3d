@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "mipmaps": ["specular_{{face}}_0.png"],
+  "format": "rgbe8"
+}

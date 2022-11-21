@@ -6,6 +6,7 @@ import { Mesh3D } from "../mesh/mesh"
 import { Material } from "../material/material"
 import { Shader as Vertex } from "./shader/skybox.vert"
 import { Shader as Fragment } from "./shader/skybox.frag"
+import { CubemapFormat } from "../cubemap/cubemap-format"
 
 export class SkyboxMaterial extends Material {
   private _cubemap: Cubemap
@@ -28,6 +29,8 @@ export class SkyboxMaterial extends Material {
 
   camera?: Camera
 
+  exposure = 1
+
   constructor(cubemap: Cubemap) {
     super()
     this._cubemap = cubemap
@@ -43,6 +46,8 @@ export class SkyboxMaterial extends Material {
     shader.uniforms.u_View = camera.view.array
     shader.uniforms.u_Projection = camera.projection.array
     shader.uniforms.u_EnvironmentSampler = this.cubemap
+    shader.uniforms.u_RGBE = this.cubemap.cubemapFormat === CubemapFormat.rgbe8
+    shader.uniforms.u_Exposure = this.exposure
   }
 
   render(mesh: Mesh3D, renderer: Renderer) {
