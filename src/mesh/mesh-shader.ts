@@ -49,7 +49,7 @@ export class MeshShader extends Shader {
     }
     if (geometry.colors) {
       result.addAttribute("a_Color", new Buffer(geometry.colors.buffer),
-        4, true, geometry.colors.componentType, geometry.colors.stride)
+        geometry.colors.componentCount, true, geometry.colors.componentType, geometry.colors.stride)
     }
     return result
   }

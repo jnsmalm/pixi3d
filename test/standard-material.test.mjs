@@ -76,4 +76,41 @@ describe("Standard material", () => {
       ]
     })
   })
+
+  it("should render correctly with 3 vertex colors using pixi *.*.*", async () => {
+    let render = (renderer, resources) => {
+      let model = PIXI3D.Model.from(resources["assets/cherry/cherry-color3.gltf"].gltf)
+      model.scale.set(0.25)
+      model.position.set(-2, -2, 0)
+      model.meshes.forEach(mesh => {
+        mesh.material.unlit = true
+        mesh.material.baseColor = new PIXI3D.Color(1, 0.5, 0.5)
+      })
+      renderer.render(model)
+    }
+    await expect(render).to.match("snapshots/clhhg.png", {
+      resources: [
+        "assets/cherry/cherry-color3.gltf"
+      ]
+    })
+  })
+
+  it("should render correctly with 4 vertex colors using pixi *.*.*", async () => {
+    let render = (renderer, resources) => {
+      let model = PIXI3D.Model.from(resources["assets/cherry/cherry-color4.gltf"].gltf)
+      model.scale.set(0.25)
+      model.position.set(-2, -2, 0)
+      model.meshes.forEach(mesh => {
+        mesh.material.unlit = true
+        mesh.material.baseColor = new PIXI3D.Color(0.5, 0.5, 1)
+      })
+      renderer.render(model)
+    }
+    await expect(render).to.match("snapshots/nldsg.png", {
+      resources: [
+        "assets/cherry/cherry-color4.gltf"
+      ]
+    })
+  })
+
 })

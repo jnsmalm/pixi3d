@@ -26,10 +26,11 @@ export namespace StandardMaterialFeatureSet {
       features.push("WEBGL2 1")
     }
     if (geometry.colors) {
-      // Need to figure out how to detect if vec3 or vec4 should be
-      // used. For now disable vec4.
-      features.push("HAS_VERTEX_COLOR_VEC3 1")
-      // features.push("HAS_VERTEX_COLOR_VEC4 1") 
+      if (geometry.colors.componentCount === 3) {
+        features.push("HAS_VERTEX_COLOR_VEC3 1")
+      } else {
+        features.push("HAS_VERTEX_COLOR_VEC4 1")
+      }
     }
     if (geometry.normals) {
       features.push("HAS_NORMALS 1")

@@ -81,7 +81,7 @@ export class glTFParser {
     let buffer = this._asset.buffers[bufferView.buffer]
 
     return glTFAttribute.from(
-      accessor.componentType, buffer, offset, size, bufferView.byteStride, accessor.min, accessor.max)
+      accessor.componentType, componentCount[accessor.type], buffer, offset, size, bufferView.byteStride, accessor.min, accessor.max)
   }
 
   /**
