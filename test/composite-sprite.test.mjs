@@ -7,9 +7,12 @@ describe("Composite sprite", () => {
       let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
       model.y = -0.8
 
+      // Filters was moved in PixiJS 7.1.0
+      let BlurFilter = PIXI.BlurFilter || PIXI.filters.BlurFilter
+
       let sprite = new PIXI3D.CompositeSprite(renderer)
       sprite.renderObject(model)
-      sprite.filters = [new PIXI.filters.BlurFilter()]
+      sprite.filters = [new BlurFilter()]
 
       renderer.render(sprite)
     }
