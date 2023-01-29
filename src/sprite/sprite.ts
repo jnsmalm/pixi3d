@@ -64,11 +64,11 @@ export class Sprite3D extends Container3D {
    * The zIndex of the sprite.
    * A higher value will mean it will be rendered on top of other sprites within the same container.
    */
-  get zIndex() {
+  get renderSortOrder() {
     return this._sprite.zIndex;
   }
 
-  set zIndex(value: number) {
+  set renderSortOrder(value: number) {
     this._sprite.zIndex = value;
   }
 
