@@ -60,16 +60,13 @@ export class Sprite3D extends Container3D {
     this._sprite.pixelsPerUnit = value
   }
 
-  /**
-   * The zIndex of the sprite.
-   * A higher value will mean it will be rendered on top of other sprites within the same container.
-   */
+  /** Used for sorting the sprite before render. */
   get renderSortOrder() {
-    return this._sprite.zIndex;
+    return this._sprite.zIndex
   }
 
   set renderSortOrder(value: number) {
-    this._sprite.zIndex = value;
+    this._sprite.zIndex = value
   }
 
   /**
