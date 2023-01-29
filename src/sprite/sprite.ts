@@ -61,6 +61,18 @@ export class Sprite3D extends Container3D {
   }
 
   /**
+   * The zIndex of the sprite.
+   * A higher value will mean it will be rendered on top of other sprites within the same container.
+   */
+  get renderSortOrder() {
+    return this._sprite.zIndex;
+  }
+
+  set renderSortOrder(value: number) {
+    this._sprite.zIndex = value;
+  }
+
+  /**
    * The tint applied to the sprite. This is a hex value. A value of 0xFFFFFF 
    * will remove any tint effect.
    */
