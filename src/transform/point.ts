@@ -236,6 +236,17 @@ export class Point3D extends ObservablePoint {
   }
 
   /**
+   * Performs a linear interpolation between two points.
+   * @param a The first point.
+   * @param b The second point.
+   * @param t The interpolation amount, in the range [0-1], between the two inputs.
+   * @param out The receiving point. If not supplied, a new point will be created.
+   */
+  static lerp(a: Point3D, b: Point3D, t: number, out = new Point3D()) {
+    return out.setFrom(Vec3.lerp(a._array, b._array, t, temp))
+  }
+
+  /**
    * Scales a point by a scalar number.
    * @param a The point to scale.
    * @param b The amount to scale the point by.
