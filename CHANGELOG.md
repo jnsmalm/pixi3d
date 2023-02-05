@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added `renderSortOrder` to `Sprite3D`.
 - Added `lerp` to `Point3D`.
+- Added damping (inertia) support for `CameraOrbitControl`.
 
 ## [2.1.1] - 2022-12-23
 ### Fixed
