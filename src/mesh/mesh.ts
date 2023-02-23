@@ -11,6 +11,7 @@ import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshDestroyOptions } from "./mesh-destroy-options"
 import { Vec3 } from "../math/vec3"
 import { AABB } from "../math/aabb"
+import { CylinderGeometry, CylinderGeometryOptions } from "./geometry/cylinder-geometry"
 import { SphereGeometry, SphereGeometryOptions } from "./geometry/sphere-geometry"
 
 /**
@@ -182,5 +183,18 @@ export class Mesh3D extends Container3D {
    */
   static createSphere(material: Material = new StandardMaterial(), options?: SphereGeometryOptions) {
     return new Mesh3D(SphereGeometry.create(options), material)
+  }
+
+  
+  /**
+   * Creates a new uv cylinder mesh with the specified material.
+   * @param material The material to use.
+   * @param options The options used when creating the geometry.
+   */
+  static createCylinder(
+    material: Material = new StandardMaterial(),
+    options: CylinderGeometryOptions = {}
+  ) {
+    return new Mesh3D(CylinderGeometry.create(options), material)
   }
 }
