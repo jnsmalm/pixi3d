@@ -8,7 +8,7 @@ export interface CircleGeometryOptions {
   segments?: number
   /** Start angle for first segment, default = 0 (three o'clock position). */
   thetaStart?: number
-  /** The central angle, often called theta, of the circular sector. The default is 2*Pi, which makes for a complete cylinder. */
+  /** The central angle, often called theta, of the circular sector. The default is 2*Pi, which makes for a complete circle. */
   thetaLength?: number
 }
 
