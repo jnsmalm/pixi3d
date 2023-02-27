@@ -11,6 +11,7 @@ import { StandardMaterial } from "../material/standard/standard-material"
 import { MeshDestroyOptions } from "./mesh-destroy-options"
 import { Vec3 } from "../math/vec3"
 import { AABB } from "../math/aabb"
+import { CircleGeometry, CircleGeometryOptions  } from "./geometry/circle-geometry"
 import { CylinderGeometry, CylinderGeometryOptions } from "./geometry/cylinder-geometry"
 import { SphereGeometry, SphereGeometryOptions } from "./geometry/sphere-geometry"
 
@@ -185,7 +186,18 @@ export class Mesh3D extends Container3D {
     return new Mesh3D(SphereGeometry.create(options), material)
   }
 
-  
+  /**
+   * Creates a new uv circle mesh with the specified material.
+   * @param material The material to use.
+   * @param options The options used when creating the geometry.
+   */
+  static createCircle(
+    material: Material = new StandardMaterial(),
+    options: CircleGeometryOptions = {}
+  ) {
+    return new Mesh3D(CircleGeometry.create(options), material)
+  }
+
   /**
    * Creates a new uv cylinder mesh with the specified material.
    * @param material The material to use.
