@@ -13,7 +13,7 @@ export interface CircleGeometryOptions {
 }
 
 export class CircleGeometry {
-  static create(options: CircleGeometryOptions = {}): MeshGeometry3D {
+  static create(options: CircleGeometryOptions = {}) {
     // Based on https://github.com/mrdoob/three.js/blob/master/src/geometries/CircleGeometry.js
 
     const radius = options?.radius ?? 1
