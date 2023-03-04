@@ -167,8 +167,8 @@ export class CameraOrbitControl {
     if (this._grabbed) {
       const movementX = e.clientX - this._previousClientX
       const movementY = e.clientY - this._previousClientY
-      this._orbit.x += movementY * 0.5
-      this._orbit.y -= movementX * 0.5
+      this.angles.x += movementY * 0.5
+      this.angles.y -= movementX * 0.5
       if (this.enableDamping) {
         this.damp()
       }
@@ -303,19 +303,19 @@ export class CameraOrbitControl {
 
   damp(): void {
     this._dampingAngles.x +=
-      (this._orbit.x - this._dampingAngles.x) * this.dampingFactor
+      (this.angles.x - this._dampingAngles.x) * this.dampingFactor
     this._dampingAngles.y +=
-      (this._orbit.y - this._dampingAngles.y) * this.dampingFactor
+      (this.angles.y - this._dampingAngles.y) * this.dampingFactor
     this._dampingDistance +=
-      (this._distance - this._dampingDistance) * this.dampingFactor
+      (this.distance - this._dampingDistance) * this.dampingFactor
   }
 
   /**
    * Updates the position and rotation of the camera.
    */
   updateCamera(): void {
-    let angles = this.enableDamping ? this._dampingAngles : this._angles
-    let distance = this.enableDamping ? this._dampingDistance : this._distance
+    let angles = this.enableDamping ? this._dampingAngles : this.angles
+    let distance = this.enableDamping ? this._dampingDistance : this.distance
 
     let rot = Quat.fromEuler(angles.x, angles.y, 0, new Float32Array(4))
     let dir = Vec3.transformQuat(
