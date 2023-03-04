@@ -310,27 +310,14 @@ export class CameraOrbitControl {
    * Updates the position and rotation of the camera.
    */
   updateCamera(): void {
-    const angles = this.enableDamping ? this._dampingAngles : this._orbit
-    const distance = this.enableDamping
-      ? this._dampingDistance
-      : this._distance
+    let angles = this.enableDamping ? this._dampingAngles : this._angles
+    let distance = this.enableDamping ? this._dampingDistance : this._distance
 
-    const rot = Quat.fromEuler(angles.x, angles.y, 0, new Float32Array(4))
-    const dir = Vec3.transformQuat(
-      Vec3.set(0, 0, 1, new Float32Array(3)),
-      rot,
-      new Float32Array(3)
-    )
-    const pos = Vec3.subtract(
-      Vec3.set(
-        this.target.x,
-        this.target.y,
-        this.target.z,
-        new Float32Array(3)
-      ),
-      Vec3.scale(dir, distance, new Float32Array(3)),
-      new Float32Array(3)
-    )
+    let rot = Quat.fromEuler(angles.x, angles.y, 0, new Float32Array(4))
+    let dir = Vec3.transformQuat(
+      Vec3.set(0, 0, 1, new Float32Array(3)), rot, new Float32Array(3))
+    let pos = Vec3.subtract(
+      Vec3.set(this.target.x, this.target.y, this.target.z, new Float32Array(3)), Vec3.scale(dir, distance, new Float32Array(3)), new Float32Array(3))
 
     this.camera.position.set(pos[0], pos[1], pos[2])
     this.camera.rotationQuaternion.set(rot[0], rot[1], rot[2], rot[3])
