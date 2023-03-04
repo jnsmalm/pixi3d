@@ -23,17 +23,17 @@ export class CameraOrbitControl {
     this._autoUpdate = value
   }
 
-  protected _controllable = true
+  protected _allowControl = true
 
   /** 
    * Allows the camera to be controlled by user.
    */
-  get controllable(): boolean {
-    return this._controllable
+  get allowControl(): boolean {
+    return this._allowControl
   }
 
-  set controllable(value: boolean) {
-    this._controllable = value
+  set allowControl(value: boolean) {
+    this._allowControl = value
   }
 
   protected _camera = Camera.main
@@ -201,13 +201,13 @@ export class CameraOrbitControl {
   }
 
   onMouseDown = (e: MouseEvent): void => {
-    if (this.controllable) {
+    if (this.allowControl) {
       this.onPointerDown(e as PointerEvent)
     }
   }
 
   onMouseMove = (e: MouseEvent): void => {
-    if (this.controllable) {
+    if (this.allowControl) {
       if (e.buttons === 1) {
         this.onPointerMove(e as PointerEvent)
       }
@@ -215,13 +215,13 @@ export class CameraOrbitControl {
   }
 
   onMouseUp = (_e: MouseEvent): void => {
-    if (this.controllable) {
+    if (this.allowControl) {
       this.onPointerUp()
     }
   }
 
   onWheel = (e: WheelEvent): void => {
-    if (this.controllable) {
+    if (this.allowControl) {
       this.distance += e.deltaY * 0.01
       e.preventDefault()
       if (this.enableDamping) {
@@ -232,7 +232,7 @@ export class CameraOrbitControl {
   }
 
   onTouchStart = (e: TouchEvent): void => {
-    if (this.controllable) {
+    if (this.allowControl) {
       const touch = e?.targetTouches?.[0]
       if (touch) {
         const pointerEvent = e as unknown as {
@@ -254,7 +254,7 @@ export class CameraOrbitControl {
   }
 
   onPinch = (e: TouchEvent): void => {
-    if (this.controllable) {
+    if (this.allowControl) {
       e.preventDefault() // Prevent page scroll
       const currentPinchDistance = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
@@ -272,7 +272,7 @@ export class CameraOrbitControl {
   }
 
   onTouchMove = (e: TouchEvent): void => {
-    if (this.controllable) {
+    if (this.allowControl) {
       const touch = e?.targetTouches?.[0]
       if (e.touches.length === 1 && touch) {
         const pointerEvent = e as unknown as {
@@ -290,7 +290,7 @@ export class CameraOrbitControl {
   }
 
   onTouchEnd = (e: TouchEvent): void => {
-    if (this.controllable) {
+    if (this.allowControl) {
       if (e.touches.length === 0) {
         this.onPointerUp()
       }
