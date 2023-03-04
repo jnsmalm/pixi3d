@@ -58,6 +58,10 @@ export class CameraOrbitControl {
     return this._target
   }
 
+  set target(value: { x: number; y: number; z: number }) {
+    this._target = value
+  }
+
   protected _orbit = { x: 0, y: 180 }
 
   private _angles = new ObservablePoint(
