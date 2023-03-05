@@ -172,19 +172,21 @@ export class CameraOrbitControl {
   }
 
   onMouseDownInteraction = (e: InteractionEvent): void => {
-    if (!e.stopped) {
-      this._grabbed = true
-      const originalEvent = e.data.originalEvent
-      const touchEvent = originalEvent as TouchEvent
-      const mouseEvent = originalEvent as MouseEvent
-      const touch = touchEvent?.targetTouches?.[0]
-      const pointerEvent = originalEvent as unknown as {
-        clientX: number
-        clientY: number
+    if (this.allowControl) {
+      if (!e.stopped) {
+        this._grabbed = true
+        const originalEvent = e.data.originalEvent
+        const touchEvent = originalEvent as TouchEvent
+        const mouseEvent = originalEvent as MouseEvent
+        const touch = touchEvent?.targetTouches?.[0]
+        const pointerEvent = originalEvent as unknown as {
+          clientX: number
+          clientY: number
+        }
+        pointerEvent.clientX = touch?.clientX ?? mouseEvent?.clientX
+        pointerEvent.clientY = touch?.clientY ?? mouseEvent?.clientY
+        this.onPointerDown(pointerEvent as PointerEvent)
       }
-      pointerEvent.clientX = touch?.clientX ?? mouseEvent?.clientX
-      pointerEvent.clientY = touch?.clientY ?? mouseEvent?.clientY
-      this.onPointerDown(pointerEvent as PointerEvent)
     }
   }
 
