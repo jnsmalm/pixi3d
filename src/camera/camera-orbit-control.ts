@@ -143,17 +143,17 @@ export class CameraOrbitControl {
     this.unbind()
   }
 
-  onPointerDown = (e: PointerEvent): void => {
+  protected onPointerDown = (e: PointerEvent): void => {
     this._grabbed = true
     this._previousClientX = e.clientX
     this._previousClientY = e.clientY
   }
 
-  onPointerUp = (): void => {
+  protected onPointerUp = (): void => {
     this._grabbed = false
   }
 
-  onPointerMove = (e: PointerEvent): void => {
+  protected onPointerMove = (e: PointerEvent): void => {
     if (this._grabbed) {
       const movementX = e.clientX - this._previousClientX
       const movementY = e.clientY - this._previousClientY
@@ -165,13 +165,13 @@ export class CameraOrbitControl {
     }
   }
 
-  onPreRender = (): void => {
+  protected onPreRender = (): void => {
     if (this.autoUpdate) {
       this.updateCamera()
     }
   }
 
-  onMouseDownInteraction = (e: InteractionEvent): void => {
+  protected onMouseDownInteraction = (e: InteractionEvent): void => {
     if (this.allowControl) {
       if (!e.stopped) {
         this._grabbed = true
@@ -190,13 +190,13 @@ export class CameraOrbitControl {
     }
   }
 
-  onMouseDown = (e: MouseEvent): void => {
+  protected onMouseDown = (e: MouseEvent): void => {
     if (this.allowControl) {
       this.onPointerDown(e as PointerEvent)
     }
   }
 
-  onMouseMove = (e: MouseEvent): void => {
+  protected onMouseMove = (e: MouseEvent): void => {
     if (this.allowControl) {
       if (e.buttons === 1) {
         this.onPointerMove(e as PointerEvent)
@@ -204,13 +204,13 @@ export class CameraOrbitControl {
     }
   }
 
-  onMouseUp = (_e: MouseEvent): void => {
+  protected onMouseUp = (_e: MouseEvent): void => {
     if (this.allowControl) {
       this.onPointerUp()
     }
   }
 
-  onWheel = (e: WheelEvent): void => {
+  protected onWheel = (e: WheelEvent): void => {
     if (this.allowControl) {
       this.distance += e.deltaY * 0.01
       e.preventDefault()
@@ -218,7 +218,7 @@ export class CameraOrbitControl {
     }
   }
 
-  onTouchStart = (e: TouchEvent): void => {
+  protected onTouchStart = (e: TouchEvent): void => {
     if (this.allowControl) {
       const touch = e?.targetTouches?.[0]
       if (touch) {
@@ -240,7 +240,7 @@ export class CameraOrbitControl {
     }
   }
 
-  onPinch = (e: TouchEvent): void => {
+  protected onPinch = (e: TouchEvent): void => {
     if (this.allowControl) {
       e.preventDefault() // Prevent page scroll
       const currentPinchDistance = Math.hypot(
@@ -255,7 +255,7 @@ export class CameraOrbitControl {
     }
   }
 
-  onTouchMove = (e: TouchEvent): void => {
+  protected onTouchMove = (e: TouchEvent): void => {
     if (this.allowControl) {
       const touch = e?.targetTouches?.[0]
       if (e.touches.length === 1 && touch) {
@@ -273,7 +273,7 @@ export class CameraOrbitControl {
     }
   }
 
-  onTouchEnd = (e: TouchEvent): void => {
+  protected onTouchEnd = (e: TouchEvent): void => {
     if (this.allowControl) {
       if (e.touches.length === 0) {
         this.onPointerUp()
