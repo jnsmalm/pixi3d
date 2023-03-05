@@ -81,7 +81,10 @@ export class Transform3D extends Transform {
    * @param point The point to look at.
    * @param up The upward direction.
    */
-  lookAt(point: Point3D, up = new Float32Array([0, 1, 0])) {
+  lookAt(point: Point3D, up: Point3D | Float32Array = new Point3D(0, 1, 0)) {
+    if (up instanceof Point3D) {
+      up = up.array
+    }
     let rot = Mat4.getRotation(
       Mat4.targetTo(point.array, this.worldTransform.position.array, up))
     this.rotationQuaternion.set(rot[0], rot[1], rot[2], rot[3])
