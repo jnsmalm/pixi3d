@@ -61,14 +61,14 @@ export class CameraOrbitControl {
     this._target = value
   }
 
-  protected _orbit = { x: 0, y: 180 }
+  protected _angles = { x: 0, y: 180 }
 
   /**
    * Orientation euler angles (x-axis and y-axis).
    * The angle for the x-axis will be clamped between -85 and 85 degrees.
    */
   get angles(): { x: number; y: number; } {
-    return this._orbit
+    return this._angles
   }
 
   protected _distance = 5
@@ -285,7 +285,7 @@ export class CameraOrbitControl {
    * Updates the position and rotation of the camera.
    */
   updateCamera(): void {
-    this._orbit.x = Math.min(Math.max(-85, this._orbit.x), 85)
+    this._angles.x = Math.min(Math.max(-85, this._angles.x), 85)
     
     if (this.enableDamping) {
       this._dampingAngles.x +=
