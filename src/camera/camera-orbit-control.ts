@@ -309,7 +309,7 @@ export class CameraOrbitControl {
     this.camera.rotationQuaternion.set(rot[0], rot[1], rot[2], rot[3])
   }
 
-  bind(): void {
+  protected bind(): void {
     this.camera.renderer.on("prerender", this.onPreRender)
     let interaction = Compatibility.getInteractionPlugin(this.camera.renderer)
     if (interaction) {
@@ -326,7 +326,7 @@ export class CameraOrbitControl {
     window.addEventListener("touchend", this.onTouchEnd)
   }
 
-  unbind(): void {
+  protected unbind(): void {
     this._element.removeEventListener("mousedown", this.onMouseDown)
     this._element.removeEventListener("touchstart", this.onTouchStart)
     this._element.removeEventListener("wheel", this.onWheel)
