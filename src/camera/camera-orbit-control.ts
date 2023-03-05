@@ -281,6 +281,33 @@ export class CameraOrbitControl {
     }
   }
 
+  protected bind(): void {
+    this.camera.renderer.on("prerender", this.onPreRender)
+    let interaction = Compatibility.getInteractionPlugin(this.camera.renderer)
+    if (interaction) {
+      interaction.on("mousedown", this.onMouseDownInteraction)
+    }
+    this._element.addEventListener("mousedown", this.onMouseDown)
+    this._element.addEventListener("touchstart", this.onTouchStart)
+    this._element.addEventListener("wheel", this.onWheel)
+    // Bind mouse and touch equivalent pointermove and pointerup events to window
+    // to support the case where the pointer leaves the element while dragging
+    window.addEventListener("mousemove", this.onMouseMove)
+    window.addEventListener("touchmove", this.onTouchMove)
+    window.addEventListener("mouseup", this.onMouseUp)
+    window.addEventListener("touchend", this.onTouchEnd)
+  }
+
+  protected unbind(): void {
+    this._element.removeEventListener("mousedown", this.onMouseDown)
+    this._element.removeEventListener("touchstart", this.onTouchStart)
+    this._element.removeEventListener("wheel", this.onWheel)
+    window.removeEventListener("mousemove", this.onMouseMove)
+    window.removeEventListener("touchmove", this.onTouchMove)
+    window.removeEventListener("mouseup", this.onMouseUp)
+    window.removeEventListener("touchend", this.onTouchEnd)
+  }
+  
   /**
    * Updates the position and rotation of the camera.
    */
@@ -307,32 +334,5 @@ export class CameraOrbitControl {
 
     this.camera.position.set(pos[0], pos[1], pos[2])
     this.camera.rotationQuaternion.set(rot[0], rot[1], rot[2], rot[3])
-  }
-
-  protected bind(): void {
-    this.camera.renderer.on("prerender", this.onPreRender)
-    let interaction = Compatibility.getInteractionPlugin(this.camera.renderer)
-    if (interaction) {
-      interaction.on("mousedown", this.onMouseDownInteraction)
-    }
-    this._element.addEventListener("mousedown", this.onMouseDown)
-    this._element.addEventListener("touchstart", this.onTouchStart)
-    this._element.addEventListener("wheel", this.onWheel)
-    // Bind mouse and touch equivalent pointermove and pointerup events to window
-    // to support the case where the pointer leaves the element while dragging
-    window.addEventListener("mousemove", this.onMouseMove)
-    window.addEventListener("touchmove", this.onTouchMove)
-    window.addEventListener("mouseup", this.onMouseUp)
-    window.addEventListener("touchend", this.onTouchEnd)
-  }
-
-  protected unbind(): void {
-    this._element.removeEventListener("mousedown", this.onMouseDown)
-    this._element.removeEventListener("touchstart", this.onTouchStart)
-    this._element.removeEventListener("wheel", this.onWheel)
-    window.removeEventListener("mousemove", this.onMouseMove)
-    window.removeEventListener("touchmove", this.onTouchMove)
-    window.removeEventListener("mouseup", this.onMouseUp)
-    window.removeEventListener("touchend", this.onTouchEnd)
   }
 }
