@@ -1,5 +1,4 @@
 import type { InteractionEvent } from "@pixi/interaction"
-import { ObservablePoint } from "@pixi/math"
 import { Compatibility } from "../compatibility/compatibility"
 import { Quat } from "../math/quat"
 import { Vec3 } from "../math/vec3"
@@ -124,7 +123,7 @@ export class CameraOrbitControl {
 
   protected _previousClientY = 0
 
-  protected _dampingAngles = new ObservablePoint(() => null, undefined, 0, 180)
+  protected _dampingAngles = { x: 0, y: 180 }
 
   protected _dampingDistance = 5
 
