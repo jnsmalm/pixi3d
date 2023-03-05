@@ -14,6 +14,10 @@ export class Plane {
     this._normal = normal.normalize(this._normal)
   }
 
+  static from(position: Point3D, normal: Point3D) {
+    return new Plane(normal, Point3D.dot(position, normal))
+  }
+
   get normal() {
     return this._normal
   }
