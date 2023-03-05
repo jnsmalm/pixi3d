@@ -71,6 +71,10 @@ export class CameraOrbitControl {
     return this._angles
   }
 
+  set angles(value: { x: number; y: number; }) {
+    this._angles = value
+  }
+
   protected _distance = 5
 
   /**
