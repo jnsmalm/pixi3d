@@ -64,21 +64,12 @@ export class CameraOrbitControl {
 
   protected _orbit = { x: 0, y: 180 }
 
-  private _angles = new ObservablePoint(
-    () => {
-      this._orbit.x = Math.min(Math.max(-85, this._orbit.x), 85)
-    },
-    undefined,
-    0,
-    180
-  )
-
   /**
    * Orientation euler angles (x-axis and y-axis).
    * The angle for the x-axis will be clamped between -85 and 85 degrees.
    */
-  get angles(): ObservablePoint {
-    return this._angles
+  get angles(): { x: number; y: number; } {
+    return this._orbit
   }
 
   protected _distance = 5
@@ -169,9 +160,6 @@ export class CameraOrbitControl {
       const movementY = e.clientY - this._previousClientY
       this.angles.x += movementY * 0.5
       this.angles.y -= movementX * 0.5
-      if (this.enableDamping) {
-        this.damp()
-      }
       this.updateCamera()
       this._previousClientX = e.clientX
       this._previousClientY = e.clientY
@@ -180,9 +168,6 @@ export class CameraOrbitControl {
 
   onPreRender = (): void => {
     if (this.autoUpdate) {
-      if (this.enableDamping) {
-        this.damp()
-      }
       this.updateCamera()
     }
   }
@@ -228,9 +213,6 @@ export class CameraOrbitControl {
     if (this.allowControl) {
       this.distance += e.deltaY * 0.01
       e.preventDefault()
-      if (this.enableDamping) {
-        this.damp()
-      }
       this.updateCamera()
     }
   }
@@ -267,9 +249,6 @@ export class CameraOrbitControl {
       const deltaPinchDistance =
         currentPinchDistance - this._previousPinchDistance
       this.distance -= deltaPinchDistance * 0.1
-      if (this.enableDamping) {
-        this.damp()
-      }
       this.updateCamera()
       this._previousPinchDistance = currentPinchDistance
     }
@@ -301,26 +280,28 @@ export class CameraOrbitControl {
     }
   }
 
-  damp(): void {
-    this._dampingAngles.x +=
+  /**
+   * Updates the position and rotation of the camera.
+   */
+  updateCamera(): void {
+    this._orbit.x = Math.min(Math.max(-85, this._orbit.x), 85)
+    
+    if (this.enableDamping) {
+      this._dampingAngles.x +=
       (this.angles.x - this._dampingAngles.x) * this.dampingFactor
     this._dampingAngles.y +=
       (this.angles.y - this._dampingAngles.y) * this.dampingFactor
     this._dampingDistance +=
       (this.distance - this._dampingDistance) * this.dampingFactor
-  }
+    }
 
-  /**
-   * Updates the position and rotation of the camera.
-   */
-  updateCamera(): void {
-    let angles = this.enableDamping ? this._dampingAngles : this.angles
-    let distance = this.enableDamping ? this._dampingDistance : this.distance
+    const angles = this.enableDamping ? this._dampingAngles : this.angles
+    const distance = this.enableDamping ? this._dampingDistance : this.distance
 
-    let rot = Quat.fromEuler(angles.x, angles.y, 0, new Float32Array(4))
-    let dir = Vec3.transformQuat(
+    const rot = Quat.fromEuler(angles.x, angles.y, 0, new Float32Array(4))
+    const dir = Vec3.transformQuat(
       Vec3.set(0, 0, 1, new Float32Array(3)), rot, new Float32Array(3))
-    let pos = Vec3.subtract(
+      const pos = Vec3.subtract(
       Vec3.set(this.target.x, this.target.y, this.target.z, new Float32Array(3)), Vec3.scale(dir, distance, new Float32Array(3)), new Float32Array(3))
 
     this.camera.position.set(pos[0], pos[1], pos[2])
