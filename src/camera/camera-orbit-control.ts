@@ -147,25 +147,25 @@ export class CameraOrbitControl {
     this.unbind()
   }
 
-  protected onPointerDown = (e: PointerEvent): void => {
+  protected onPointerDown = (clientX: number, clientY: number): void => {
     this._grabbed = true
-    this._previousClientX = e.clientX
-    this._previousClientY = e.clientY
+    this._previousClientX = clientX
+    this._previousClientY = clientY
   }
 
   protected onPointerUp = (): void => {
     this._grabbed = false
   }
 
-  protected onPointerMove = (e: PointerEvent): void => {
+  protected onPointerMove = (clientX: number, clientY: number): void => {
     if (this._grabbed) {
-      const movementX = e.clientX - this._previousClientX
-      const movementY = e.clientY - this._previousClientY
+      const movementX = clientX - this._previousClientX
+      const movementY = clientY - this._previousClientY
       this.angles.x += movementY * 0.5
       this.angles.y -= movementX * 0.5
       this.updateCamera()
-      this._previousClientX = e.clientX
-      this._previousClientY = e.clientY
+      this._previousClientX = clientX
+      this._previousClientY = clientY
     }
   }
 
@@ -183,27 +183,23 @@ export class CameraOrbitControl {
         const touchEvent = originalEvent as TouchEvent
         const mouseEvent = originalEvent as MouseEvent
         const touch = touchEvent?.targetTouches?.[0]
-        const pointerEvent = originalEvent as unknown as {
-          clientX: number
-          clientY: number
-        }
-        pointerEvent.clientX = touch?.clientX ?? mouseEvent?.clientX
-        pointerEvent.clientY = touch?.clientY ?? mouseEvent?.clientY
-        this.onPointerDown(pointerEvent as PointerEvent)
+        const clientX = touch?.clientX ?? mouseEvent?.clientX
+        const clientY = touch?.clientY ?? mouseEvent?.clientY
+        this.onPointerDown(clientX, clientY)
       }
     }
   }
 
   protected onMouseDown = (e: MouseEvent): void => {
     if (this.allowControl) {
-      this.onPointerDown(e as PointerEvent)
+      this.onPointerDown(e.clientX, e.clientY)
     }
   }
 
   protected onMouseMove = (e: MouseEvent): void => {
     if (this.allowControl) {
       if (e.buttons === 1) {
-        this.onPointerMove(e as PointerEvent)
+        this.onPointerMove(e.clientX, e.clientY)
       }
     }
   }
@@ -226,13 +222,9 @@ export class CameraOrbitControl {
     if (this.allowControl) {
       const touch = e?.targetTouches?.[0]
       if (touch) {
-        const pointerEvent = e as unknown as {
-          clientX: number
-          clientY: number
-        }
-        pointerEvent.clientX = touch.clientX
-        pointerEvent.clientY = touch.clientY
-        this.onPointerDown(pointerEvent as PointerEvent)
+        const clientX = touch.clientX
+        const clientY = touch.clientY
+        this.onPointerDown(clientX, clientY)
       }
       if (e.touches.length === 2) {
         e.preventDefault() // Prevent page scroll
@@ -263,13 +255,9 @@ export class CameraOrbitControl {
     if (this.allowControl) {
       const touch = e?.targetTouches?.[0]
       if (e.touches.length === 1 && touch) {
-        const pointerEvent = e as unknown as {
-          clientX: number
-          clientY: number
-        }
-        pointerEvent.clientX = touch.clientX
-        pointerEvent.clientY = touch.clientY
-        this.onPointerMove(pointerEvent as PointerEvent)
+        const clientX = touch.clientX
+        const clientY = touch.clientY
+        this.onPointerMove(clientX, clientY)
       }
       if (e.touches.length === 2) {
         this.onPinch(e)
