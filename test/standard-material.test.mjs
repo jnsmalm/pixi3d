@@ -84,7 +84,7 @@ describe("Standard material", () => {
       model.position.set(-2, -2, 0)
       model.meshes.forEach(mesh => {
         mesh.material.unlit = true
-        mesh.material.baseColor = new PIXI3D.Color(1, 0.5, 0.5)
+        mesh.material.baseColor = new PIXI3D.Color(1, 0.8, 0.8)
       })
       renderer.render(model)
     }
@@ -102,7 +102,7 @@ describe("Standard material", () => {
       model.position.set(-2, -2, 0)
       model.meshes.forEach(mesh => {
         mesh.material.unlit = true
-        mesh.material.baseColor = new PIXI3D.Color(0.5, 0.5, 1)
+        mesh.material.baseColor = new PIXI3D.Color(0.8, 0.8, 1)
       })
       renderer.render(model)
     }

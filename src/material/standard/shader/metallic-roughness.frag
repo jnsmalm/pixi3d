@@ -340,7 +340,9 @@ void main()
 #endif
 
     // The albedo may be defined from a base texture or a flat color
-#ifdef HAS_BASE_COLOR_MAP
+#if defined(HAS_BASE_COLOR_MAP) && defined(MATERIAL_UNLIT)
+    baseColor = _texture(u_BaseColorSampler, getBaseColorUV()) * baseColorFactor;
+#elif defined(HAS_BASE_COLOR_MAP)
     baseColor = SRGBtoLINEAR(_texture(u_BaseColorSampler, getBaseColorUV())) * baseColorFactor;
 #else
     baseColor = baseColorFactor;
@@ -367,7 +369,7 @@ void main()
 #endif
 
 #ifdef MATERIAL_UNLIT
-    FRAG_COLOR = vec4(LINEARtoSRGB(baseColor.rgb) * baseColor.a, baseColor.a);
+    FRAG_COLOR = vec4(baseColor.rgb * baseColor.a, baseColor.a);
     return;
 #endif
 
