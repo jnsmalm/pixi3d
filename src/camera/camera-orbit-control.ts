@@ -1,3 +1,4 @@
+import { ObservablePoint } from "@pixi/math"
 import type { InteractionEvent } from "@pixi/interaction"
 import { Compatibility } from "../compatibility/compatibility"
 import { Quat } from "../math/quat"
@@ -61,18 +62,16 @@ export class CameraOrbitControl {
     this._target = value
   }
 
-  protected _angles = { x: 0, y: 180 }
+  protected _angles = new ObservablePoint(() => {
+    this._angles.x = Math.min(Math.max(-85, this._angles.x), 85)
+  }, undefined, 0, 180)
 
   /**
    * Orientation euler angles (x-axis and y-axis).
    * The angle for the x-axis will be clamped between -85 and 85 degrees.
    */
-  get angles(): { x: number; y: number; } {
+  get angles() {
     return this._angles
-  }
-
-  set angles(value: { x: number; y: number; }) {
-    this._angles = value
   }
 
   protected _distance = 5
@@ -90,7 +89,7 @@ export class CameraOrbitControl {
   }
 
   protected _enableDamping = false
-  
+
   /** 
    * Value indicating if damping (inertia) is enabled, which can be used to give a sense of weight to the controls.
    * Default is false.
@@ -104,7 +103,7 @@ export class CameraOrbitControl {
   }
 
   protected _dampingFactor = 0.1
-  
+
   /** 
    * The damping inertia used if enableDamping is true.
    * Default is 0.1.
@@ -299,20 +298,18 @@ export class CameraOrbitControl {
     window.removeEventListener("mouseup", this.onMouseUp)
     window.removeEventListener("touchend", this.onTouchEnd)
   }
-  
+
   /**
    * Updates the position and rotation of the camera.
    */
   updateCamera(): void {
-    this._angles.x = Math.min(Math.max(-85, this._angles.x), 85)
-    
     if (this.enableDamping) {
       this._dampingAngles.x +=
-      (this.angles.x - this._dampingAngles.x) * this.dampingFactor
-    this._dampingAngles.y +=
-      (this.angles.y - this._dampingAngles.y) * this.dampingFactor
-    this._dampingDistance +=
-      (this.distance - this._dampingDistance) * this.dampingFactor
+        (this.angles.x - this._dampingAngles.x) * this.dampingFactor
+      this._dampingAngles.y +=
+        (this.angles.y - this._dampingAngles.y) * this.dampingFactor
+      this._dampingDistance +=
+        (this.distance - this._dampingDistance) * this.dampingFactor
     }
 
     const angles = this.enableDamping ? this._dampingAngles : this.angles
@@ -321,7 +318,7 @@ export class CameraOrbitControl {
     const rot = Quat.fromEuler(angles.x, angles.y, 0, new Float32Array(4))
     const dir = Vec3.transformQuat(
       Vec3.set(0, 0, 1, new Float32Array(3)), rot, new Float32Array(3))
-      const pos = Vec3.subtract(
+    const pos = Vec3.subtract(
       Vec3.set(this.target.x, this.target.y, this.target.z, new Float32Array(3)), Vec3.scale(dir, distance, new Float32Array(3)), new Float32Array(3))
 
     this.camera.position.set(pos[0], pos[1], pos[2])
