@@ -9,6 +9,11 @@ import { Compatibility } from "../compatibility/compatibility"
  */
 export class glTFAsset {
   /**
+   * The textures used by this asset.
+   */
+  readonly textures: Texture[] = []
+
+  /**
    * Creates a new glTF asset using the specified JSON descriptor.
    * @param descriptor The JSON descriptor to create the asset from.
    * @param buffers The buffers used by this asset.

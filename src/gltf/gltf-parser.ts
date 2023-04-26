@@ -25,7 +25,6 @@ export class glTFParser {
   private _asset: glTFAsset
   private _materialFactory: MaterialFactory
   private _descriptor: any
-  private _textures: Texture[] = []
 
   /**
    * Creates a new parser using the specified asset.
@@ -36,8 +35,10 @@ export class glTFParser {
     this._asset = asset
     this._materialFactory = materialFactory || new StandardMaterialFactory()
     this._descriptor = this._asset.descriptor
-    for (let i = 0; i < this._descriptor.textures?.length; i++) {
-      this._textures.push(this.parseTexture(i))
+    if (asset.textures.length === 0) {
+      for (let i = 0; i < this._descriptor.textures?.length; i++) {
+        asset.textures.push(this.parseTexture(i))
+      }
     }
   }
 
@@ -126,7 +127,7 @@ export class glTFParser {
       return this._materialFactory.create(result)
     }
     if (material.occlusionTexture !== undefined) {
-      result.occlusionTexture = this._textures[material.occlusionTexture.index].clone()
+      result.occlusionTexture = this._asset.textures[material.occlusionTexture.index].clone()
       result.occlusionTexture.strength = material.occlusionTexture.strength
       result.occlusionTexture.texCoord = material.occlusionTexture.texCoord
       if (material.occlusionTexture.extensions && material.occlusionTexture.extensions.KHR_texture_transform) {
@@ -137,7 +138,7 @@ export class glTFParser {
       }
     }
     if (material.normalTexture !== undefined) {
-      result.normalTexture = this._textures[material.normalTexture.index].clone()
+      result.normalTexture = this._asset.textures[material.normalTexture.index].clone()
       result.normalTexture.scale = material.normalTexture.scale || 1
       result.normalTexture.texCoord = material.normalTexture.texCoord
       if (material.normalTexture.extensions && material.normalTexture.extensions.KHR_texture_transform) {
@@ -148,7 +149,7 @@ export class glTFParser {
       }
     }
     if (material.emissiveTexture !== undefined) {
-      result.emissiveTexture = this._textures[material.emissiveTexture.index].clone()
+      result.emissiveTexture = this._asset.textures[material.emissiveTexture.index].clone()
       result.emissiveTexture.texCoord = material.emissiveTexture.texCoord
       if (material.emissiveTexture.extensions && material.emissiveTexture.extensions.KHR_texture_transform) {
         result.emissiveTexture.transform = material.emissiveTexture.extensions.KHR_texture_transform
@@ -171,7 +172,7 @@ export class glTFParser {
     }
     let pbr = material.pbrMetallicRoughness
     if (pbr?.metallicRoughnessTexture !== undefined) {
-      result.metallicRoughnessTexture = this._textures[pbr.metallicRoughnessTexture.index].clone()
+      result.metallicRoughnessTexture = this._asset.textures[pbr.metallicRoughnessTexture.index].clone()
       result.metallicRoughnessTexture.texCoord = pbr.metallicRoughnessTexture.texCoord
       if (pbr.metallicRoughnessTexture.extensions && pbr.metallicRoughnessTexture.extensions.KHR_texture_transform) {
         result.metallicRoughnessTexture.transform = pbr.metallicRoughnessTexture.extensions.KHR_texture_transform
@@ -184,7 +185,7 @@ export class glTFParser {
       result.baseColor = pbr.baseColorFactor
     }
     if (pbr?.baseColorTexture !== undefined) {
-      result.baseColorTexture = this._textures[pbr.baseColorTexture.index].clone()
+      result.baseColorTexture = this._asset.textures[pbr.baseColorTexture.index].clone()
       result.baseColorTexture.texCoord = pbr.baseColorTexture.texCoord
       if (pbr.baseColorTexture.extensions && pbr.baseColorTexture.extensions.KHR_texture_transform) {
         result.baseColorTexture.transform = pbr.baseColorTexture.extensions.KHR_texture_transform
