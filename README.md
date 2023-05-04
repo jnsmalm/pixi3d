@@ -21,7 +21,7 @@ The easiest way to get started is to use the automatic setup which creates a sim
 Type in the following using the terminal/console:
 
 ```
-npx create-pixi3d-app my-pixi3d-app
+npx create-pixi3d-app@latest my-pixi3d-app
 ```
 After installation is complete, type `cd my-pixi3d-app` and `npm start` to start local web server.
 
