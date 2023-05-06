@@ -9,15 +9,15 @@ const temp = new Float32Array(3)
  * Represents a point in 3D space.
  */
 export class Point3D extends ObservablePoint implements IPoint3DData {
-  private _array = new Float32Array(3);
+  private _array = new Float32Array(3)
 
   /** Array containing the x, y, z values. */
   get array() {
-    return this._array;
+    return this._array
   }
 
   set array(value: Float32Array) {
-    this.setFrom(value);
+    this.setFrom(value)
   }
 
   /**
@@ -28,22 +28,22 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param cb The callback when changed.
    * @param scope The owner of callback.
    */
-  constructor(x = 0, y = 0, z = 0, cb: () => void = () => {}, scope: any = undefined) {
-    super(cb, scope);
-    this._array.set([x, y, z]);
+  constructor(x = 0, y = 0, z = 0, cb: () => void = () => { }, scope: any = undefined) {
+    super(cb, scope)
+    this._array.set([x, y, z])
   }
 
   /**
    * Position on the x axis relative to the local coordinates of the parent.
    */
   get x() {
-    return this._array[0];
+    return this._array[0]
   }
 
   set x(value: number) {
     if (this._array[0] !== value) {
-      this._array[0] = value;
-      this.cb.call(this.scope);
+      this._array[0] = value
+      this.cb.call(this.scope)
     }
   }
 
@@ -51,13 +51,13 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * Position on the y axis relative to the local coordinates of the parent.
    */
   get y() {
-    return this._array[1];
+    return this._array[1]
   }
 
   set y(value: number) {
     if (this._array[1] !== value) {
-      this._array[1] = value;
-      this.cb.call(this.scope);
+      this._array[1] = value
+      this.cb.call(this.scope)
     }
   }
 
@@ -65,39 +65,39 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * Position on the z axis relative to the local coordinates of the parent.
    */
   get z() {
-    return this._array[2];
+    return this._array[2]
   }
 
   set z(value: number) {
     if (this._array[2] !== value) {
-      this._array[2] = value;
-      this.cb.call(this.scope);
+      this._array[2] = value
+      this.cb.call(this.scope)
     }
   }
 
   clone(cb = this.cb, scope = this.scope) {
-    return new Point3D(this.x, this.y, this.z, cb, scope);
+    return new Point3D(this.x, this.y, this.z, cb, scope)
   }
 
   copyFrom(p: IPoint3DData) {
     if (this._array[0] !== p.x || this._array[1] !== p.y || this._array[2] !== p.z) {
-      this._array[0] = p.x;
-      this._array[1] = p.y;
-      this._array[2] = p.z;
-      this.cb.call(this.scope);
+      this._array[0] = p.x
+      this._array[1] = p.y
+      this._array[2] = p.z
+      this.cb.call(this.scope)
     }
-    return this;
+    return this
   }
 
   copyTo<T extends IPoint>(p: T) {
     if (p instanceof Point3D) {
-      p.set(this.x, this.y, this.z);
+      p.set(this.x, this.y, this.z)
     }
-    return <T>p;
+    return <T>p
   }
 
   equals(p: Point3D): boolean {
-    return p.x === this.x && p.y === this.y && p.z === this.z;
+    return p.x === this.x && p.y === this.y && p.z === this.z
   }
 
   /**
@@ -108,12 +108,12 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    */
   set(x: number, y = x, z = x) {
     if (this._array[0] !== x || this._array[1] !== y || this._array[2] !== z) {
-      this._array[0] = x;
-      this._array[1] = y;
-      this._array[2] = z;
-      this.cb.call(this.scope);
+      this._array[0] = x
+      this._array[1] = y
+      this._array[2] = z
+      this.cb.call(this.scope)
     }
-    return this;
+    return this
   }
 
   /**
@@ -121,8 +121,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param array The array containing x, y and z, expected length is 3.
    */
   setFrom(array: ArrayLike<number>) {
-    this.set(array[0], array[1], array[2]);
-    return this;
+    this.set(array[0], array[1], array[2]); return this
   }
 
   /**
@@ -130,12 +129,12 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param out The receiving point. If not supplied, a new point will be created.
    */
   normalize(out = new Point3D()) {
-    return out.setFrom(Vec3.normalize(this._array, temp));
+    return out.setFrom(Vec3.normalize(this._array, temp))
   }
 
   /** Calculates the length of the point. */
   get magnitude() {
-    return Vec3.magnitude(this._array);
+    return Vec3.magnitude(this._array)
   }
 
   /**
@@ -144,7 +143,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param b The second point.
    */
   static dot(a: Point3D, b: Point3D) {
-    return Vec3.dot(a._array, b._array);
+    return Vec3.dot(a._array, b._array)
   }
 
   /**
@@ -154,7 +153,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param out The receiving point. If not supplied, a new point will be created.
    */
   static add(a: Point3D, b: Point3D, out = new Point3D()) {
-    return out.setFrom(Vec3.add(a._array, b._array, temp));
+    return out.setFrom(Vec3.add(a._array, b._array, temp))
   }
 
   /**
@@ -164,7 +163,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param out The receiving point. If not supplied, a new point will be created.
    */
   static subtract(a: Point3D, b: Point3D, out = new Point3D()) {
-    return out.setFrom(Vec3.subtract(a._array, b._array, temp));
+    return out.setFrom(Vec3.subtract(a._array, b._array, temp))
   }
 
   /**
@@ -174,7 +173,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param out The receiving point. If not supplied, a new point will be created.
    */
   static cross(a: Point3D, b: Point3D, out = new Point3D()) {
-    return out.setFrom(Vec3.cross(a._array, b._array, temp));
+    return out.setFrom(Vec3.cross(a._array, b._array, temp))
   }
 
   /**
@@ -183,7 +182,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param out The receiving point. If not supplied, a new point will be created.
    */
   static inverse(a: Point3D, out = new Point3D()) {
-    return out.setFrom(Vec3.inverse(a._array, temp));
+    return out.setFrom(Vec3.inverse(a._array, temp))
   }
 
   /**
@@ -192,7 +191,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param b The second point.
    */
   static distance(a: Point3D, b: Point3D) {
-    return Vec3.distance(a._array, b._array);
+    return Vec3.distance(a._array, b._array)
   }
 
   /**
@@ -201,7 +200,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param b The second point.
    */
   static squaredDistance(a: Point3D, b: Point3D) {
-    return Vec3.squaredDistance(a._array, b._array);
+    return Vec3.squaredDistance(a._array, b._array)
   }
 
   /**
@@ -211,7 +210,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param out The receiving point. If not supplied, a new point will be created.
    */
   static multiply(a: Point3D, b: Point3D, out = new Point3D()) {
-    return out.setFrom(Vec3.multiply(a._array, b._array, temp));
+    return out.setFrom(Vec3.multiply(a._array, b._array, temp))
   }
 
   /**
@@ -220,7 +219,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param out The receiving point. If not supplied, a new point will be created.
    */
   static negate(a: Point3D, out = new Point3D()) {
-    return out.setFrom(Vec3.negate(a._array, temp));
+    return out.setFrom(Vec3.negate(a._array, temp))
   }
 
   /**
@@ -231,9 +230,9 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    */
   static transform(a: Point3D, m: Matrix4x4 | Quaternion, out = new Point3D()) {
     if (m instanceof Matrix4x4) {
-      return out.setFrom(Vec3.transformMat4(a._array, m.array, temp));
+      return out.setFrom(Vec3.transformMat4(a._array, m.array, temp))
     }
-    return out.setFrom(Vec3.transformQuat(a._array, m.array, temp));
+    return out.setFrom(Vec3.transformQuat(a._array, m.array, temp))
   }
 
   /**
@@ -244,7 +243,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param out The receiving point. If not supplied, a new point will be created.
    */
   static lerp(a: Point3D, b: Point3D, t: number, out = new Point3D()) {
-    return out.setFrom(Vec3.lerp(a._array, b._array, t, temp));
+    return out.setFrom(Vec3.lerp(a._array, b._array, t, temp))
   }
 
   /**
@@ -254,7 +253,7 @@ export class Point3D extends ObservablePoint implements IPoint3DData {
    * @param out The receiving point. If not supplied, a new point will be created.
    */
   static scale(a: Point3D, b: number, out = new Point3D()) {
-    return out.setFrom(Vec3.scale(a._array, b, temp));
+    return out.setFrom(Vec3.scale(a._array, b, temp))
   }
 }
 
