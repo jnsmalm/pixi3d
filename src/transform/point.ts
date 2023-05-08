@@ -8,7 +8,7 @@ const temp = new Float32Array(3)
 /**
  * Represents a point in 3D space.
  */
-export class Point3D extends ObservablePoint {
+export class Point3D extends ObservablePoint implements IPoint3DData {
   private _array = new Float32Array(3)
 
   /** Array containing the x, y, z values. */
@@ -79,7 +79,7 @@ export class Point3D extends ObservablePoint {
     return new Point3D(this.x, this.y, this.z, cb, scope)
   }
 
-  copyFrom(p: Point3D) {
+  copyFrom(p: IPoint3DData) {
     if (this._array[0] !== p.x || this._array[1] !== p.y || this._array[2] !== p.z) {
       this._array[0] = p.x
       this._array[1] = p.y
@@ -255,4 +255,10 @@ export class Point3D extends ObservablePoint {
   static scale(a: Point3D, b: number, out = new Point3D()) {
     return out.setFrom(Vec3.scale(a._array, b, temp))
   }
+}
+
+export interface IPoint3DData {
+  x: number;
+  y: number;
+  z: number;
 }
