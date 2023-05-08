@@ -2,6 +2,7 @@ import { Renderer, IRendererPlugin } from "@pixi/core"
 import { Compatibility } from "../compatibility/compatibility"
 import { ImageBasedLighting } from "./image-based-lighting"
 import { Light } from "./light"
+import { Fog } from "./fog"
 
 /**
  * A lighting environment represents the different lighting conditions for a 
@@ -13,6 +14,8 @@ export class LightingEnvironment implements IRendererPlugin {
 
   /** The lights affecting this lighting environment. */
   lights: Light[] = []
+
+  fog?: Fog
 
   /** The main lighting environment which is used by default. */
   static main: LightingEnvironment

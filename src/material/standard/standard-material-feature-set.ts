@@ -74,6 +74,9 @@ export namespace StandardMaterialFeatureSet {
       features.push("MATERIAL_UNLIT 1")
     }
     features.push("MATERIAL_METALLICROUGHNESS 1")
+    if (lightingEnvironment.fog) {
+      features.push("USE_FOG 1")
+    }
     if (lightingEnvironment.lights.length > 0) {
       features.push(`LIGHT_COUNT ${lightingEnvironment.lights.length}`)
       features.push("USE_PUNCTUAL 1")

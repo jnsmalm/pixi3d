@@ -4,6 +4,7 @@ const float M_PI = 3.141592653589793;
 const float c_MinReflectance = 0.04;
 
 FRAG_IN vec3 v_Position;
+FRAG_IN vec3 v_ModelViewPosition;
 
 #ifdef HAS_NORMALS
 #ifdef HAS_TANGENTS

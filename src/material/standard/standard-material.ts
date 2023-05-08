@@ -304,6 +304,7 @@ export class StandardMaterial extends Material {
     }
     shader.uniforms.u_Camera = camera.worldTransform.position.array
     shader.uniforms.u_ViewProjectionMatrix = camera.viewProjection.array
+    shader.uniforms.u_ViewMatrix = camera.view.array
     shader.uniforms.u_Exposure = this.exposure
     shader.uniforms.u_MetallicFactor = this.metallic
     shader.uniforms.u_RoughnessFactor = this.roughness
@@ -340,6 +341,12 @@ export class StandardMaterial extends Material {
       shader.uniforms[`u_Lights[${i}].intensity`] = light.intensity
       shader.uniforms[`u_Lights[${i}].innerConeCos`] = Math.cos(light.innerConeAngle * DEG_TO_RAD)
       shader.uniforms[`u_Lights[${i}].outerConeCos`] = Math.cos(light.outerConeAngle * DEG_TO_RAD)
+    }
+
+    if (lightingEnvironment.fog) {
+      shader.uniforms.u_FogNear = lightingEnvironment.fog.near
+      shader.uniforms.u_FogFar = lightingEnvironment.fog.far
+      shader.uniforms.u_FogColor = lightingEnvironment.fog.color.rgb
     }
     if (this._shadowCastingLight) {
       shader.uniforms.u_ShadowSampler = this._shadowCastingLight.shadowTexture

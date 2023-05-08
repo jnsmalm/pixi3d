@@ -113,4 +113,30 @@ describe("Standard material", () => {
     })
   })
 
+  it("should render correctly with fog using pixi *.*.*", async () => {
+    let render = (renderer, resources) => {
+      let lightingEnvironment = new PIXI3D.LightingEnvironment(renderer)
+      lightingEnvironment.imageBasedLighting = new PIXI3D.ImageBasedLighting(
+        resources["assets/sunset/diffuse.cubemap"].cubemap,
+        resources["assets/sunset/specular.cubemap"].cubemap
+      )
+      lightingEnvironment.fog = new PIXI3D.Fog(1, 3.5, PIXI3D.Color.fromHex(0xcccccc))
+      let model = PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf)
+      model.y = -0.8
+      model.z = 2
+      model.rotationQuaternion.setEulerAngles(0, -55, 0)
+      model.meshes.forEach(mesh => {
+        mesh.material.lightingEnvironment = lightingEnvironment
+      })
+      renderer.render(model)
+    }
+    await expect(render).to.match("snapshots/yahtk.png", {
+      resources: [
+        "assets/teapot/teapot.gltf",
+        "assets/sunset/specular.cubemap",
+        "assets/sunset/diffuse.cubemap"
+      ]
+    })
+  })
+
 })

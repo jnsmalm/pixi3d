@@ -8,6 +8,8 @@
 VERT_IN vec4 a_Position;
 VERT_OUT vec3 v_Position;
 
+VERT_OUT vec3 v_ModelViewPosition;
+
 #ifdef USE_INSTANCING
 VERT_IN vec4 a_ModelMatrix0;
 VERT_IN vec4 a_ModelMatrix1;
@@ -66,6 +68,7 @@ VERT_OUT vec4 v_Color;
 
 uniform mat4 u_ViewProjectionMatrix;
 uniform mat4 u_ModelMatrix;
+uniform mat4 u_ViewMatrix;
 uniform mat4 u_NormalMatrix;
 
 #ifdef USE_SHADOW_MAPPING
@@ -130,6 +133,9 @@ void main()
     #endif
     vec4 pos = modelMatrix * getPosition();
     v_Position = vec3(pos.xyz) / pos.w;
+
+    vec4 modelViewPosition = u_ViewMatrix * pos;
+    v_ModelViewPosition = vec3(modelViewPosition.xyz) / modelViewPosition.w;
 
     mat4 normalMatrix = u_NormalMatrix;
     #ifdef USE_INSTANCING

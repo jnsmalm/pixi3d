@@ -72,6 +72,12 @@ const int LightType_Spot = 2;
 uniform Light u_Lights[LIGHT_COUNT];
 #endif
 
+#ifdef USE_FOG
+uniform float u_FogNear;
+uniform float u_FogFar;
+uniform vec3 u_FogColor;
+#endif
+
 #if defined(MATERIAL_SPECULARGLOSSINESS) || defined(MATERIAL_METALLICROUGHNESS)
 uniform float u_MetallicFactor;
 uniform float u_RoughnessFactor;
@@ -453,8 +459,16 @@ void main()
 
 #ifndef DEBUG_OUTPUT // no debug
 
+    vec3 toneMappedColor = toneMap(color);
+
+    #ifdef USE_FOG
+        float fogDepth = -v_ModelViewPosition.z;
+        float fogFactor = smoothstep(u_FogNear, u_FogFar, fogDepth);
+        toneMappedColor = mix(toneMappedColor, u_FogColor, fogFactor);
+    #endif
+
     // regular shading
-    FRAG_COLOR = vec4(toneMap(color) * baseColor.a, baseColor.a);
+    FRAG_COLOR = vec4(toneMappedColor * baseColor.a, baseColor.a);
 
 #else // debug output
 
