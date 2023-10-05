@@ -23,8 +23,9 @@ vec3 decodeRGBE(vec4 rgbe) {
 
 void main() {
   vec4 color = textureCube(u_EnvironmentSampler, v_Position);
+  gl_FragColor = vec4(color.rgb * u_Exposure, 1.0);
   if (u_RGBE) {
     color = vec4(decodeRGBE(color), 1.0);
+    gl_FragColor = vec4(linearToSRGB(color.rgb * u_Exposure), 1.0);
   }
-  gl_FragColor = vec4(linearToSRGB(color.rgb * u_Exposure), 1.0);
 }
