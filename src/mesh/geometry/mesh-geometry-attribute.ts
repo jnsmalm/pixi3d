@@ -28,4 +28,8 @@ export interface MeshGeometryAttribute {
      * The number of elements in this attribute.
      */
     componentCount?: number
+    /**
+     * Is buffer data normalized in this attribute.
+     */
+    normalized: boolean
 }
