@@ -80,9 +80,10 @@ export class glTFParser {
       size = bufferView.byteStride / componentSize[accessor.componentType] * (accessor.count - 1) + componentCount[accessor.type]
     }
     let buffer = this._asset.buffers[bufferView.buffer]
+    const normalized = accessor.normalized === true;
 
     return glTFAttribute.from(
-      accessor.componentType, componentCount[accessor.type], buffer, offset, size, bufferView.byteStride, accessor.min, accessor.max)
+      accessor.componentType, componentCount[accessor.type], buffer, offset, size, bufferView.byteStride, normalized, accessor.min, accessor.max)
   }
 
   /**

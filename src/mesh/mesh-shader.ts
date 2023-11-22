@@ -33,23 +33,23 @@ export class MeshShader extends Shader {
     }
     if (geometry.positions) {
       result.addAttribute("a_Position", new Buffer(geometry.positions.buffer),
-        3, false, geometry.positions.componentType, geometry.positions.stride)
+        3, geometry.positions.normalized, geometry.positions.componentType, geometry.positions.stride)
     }
     if (geometry.uvs && geometry.uvs[0]) {
       result.addAttribute("a_UV1", new Buffer(geometry.uvs[0].buffer),
-        2, false, geometry.uvs[0].componentType, geometry.uvs[0].stride)
+        2, geometry.uvs[0].normalized, geometry.uvs[0].componentType, geometry.uvs[0].stride)
     }
     if (geometry.normals) {
       result.addAttribute("a_Normal", new Buffer(geometry.normals.buffer),
-        3, false, geometry.normals.componentType, geometry.normals.stride)
+        3, geometry.normals.normalized, geometry.normals.componentType, geometry.normals.stride)
     }
     if (geometry.tangents) {
       result.addAttribute("a_Tangent", new Buffer(geometry.tangents.buffer),
-        4, false, geometry.tangents.componentType, geometry.tangents.stride)
+        4, geometry.tangents.normalized, geometry.tangents.componentType, geometry.tangents.stride)
     }
     if (geometry.colors) {
       result.addAttribute("a_Color", new Buffer(geometry.colors.buffer),
-        geometry.colors.componentCount, true, geometry.colors.componentType, geometry.colors.stride)
+        geometry.colors.componentCount, geometry.colors.normalized, geometry.colors.componentType, geometry.colors.stride)
     }
     return result
   }
