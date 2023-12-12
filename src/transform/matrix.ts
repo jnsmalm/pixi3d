@@ -78,7 +78,7 @@ export class Matrix4x4 extends Matrix implements TransformId {
       let matrix = new Float32Array(16)
       this._rotation = new MatrixComponent<Quaternion>(this, new Quaternion(), data => {
         // To extract a correct rotation, the scaling component must be eliminated.
-        for (let col of [0, 1, 2]) {
+        for (let col = 0; col < 3; col++) {
           matrix[col + 0] = this.array[col + 0] / this.scaling.x
           matrix[col + 4] = this.array[col + 4] / this.scaling.y
           matrix[col + 8] = this.array[col + 8] / this.scaling.z
